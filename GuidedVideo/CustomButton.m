@@ -125,6 +125,7 @@
 }
 
 -(void) addGestureRecognizer {
+    
     longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTopicButtonEditActionSheet:)];
     [self addGestureRecognizer:longPressGesture];
 }
@@ -139,14 +140,20 @@
                                                destructiveButtonTitle:@"Delete"
                                                     otherButtonTitles:@"Add Quiz", @"Take Photo", @"Choose Existing Photo", @"Enter Text", nil];
     }
-    else{
+    else if(self.buttonType==CustomButtonTypeQuiz){
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                   delegate:self
                                          cancelButtonTitle:@"Cancel"
                                     destructiveButtonTitle:@"Delete"
                                          otherButtonTitles:@"Take Photo", @"Choose Existing Photo", nil];
     }
-    
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                    destructiveButtonTitle:@"Take Video"
+                                         otherButtonTitles:@"Choose Existing Video", nil];
+    }
     self.normalActionSheet = actionSheet;
     [self.normalActionSheet showFromRect:self.bounds inView:self animated:YES];
 
@@ -154,6 +161,24 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 
+    if(buttonType==CustomButtonTypeSubject){
+        
+        [self clickedAtIndexForSubject:buttonIndex];
+    }
+    else if(buttonType==CustomButtonTypeQuiz){
+     
+        [self clickedAtIndexForQuiz:buttonIndex];
+    }
+    else {
+        
+        [self clickedAtIndexForVideo:buttonIndex];
+    }
+    
+    //[self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
+}
+
+-(void)clickedAtIndexForSubject:(NSInteger)buttonIndex {
+    
     switch (buttonIndex) {
         case 0:{
 
@@ -167,20 +192,12 @@
         }
         case 1: {
             
-            if(self.buttonType==CustomButtonTypeSubject)
-                [self.delegate createQuiz:self];
-            else
-                [self showImagePickerEasy:UIImagePickerControllerSourceTypeCamera];
-            
+            [self.delegate createQuiz:self];
             break;
         }
         case 2: {
             
-            if(self.buttonType==CustomButtonTypeSubject)
-                [self showImagePickerEasy:UIImagePickerControllerSourceTypeCamera];
-            else
-                [self showImagePickerEasy:UIImagePickerControllerSourceTypePhotoLibrary];
-            
+            [self showImagePickerEasy:UIImagePickerControllerSourceTypeCamera];
             break;
         }
         case 3: {
@@ -202,8 +219,56 @@
         default:
             break;
     }
+}
+
+-(void)clickedAtIndexForQuiz:(NSInteger)buttonIndex {
     
-    [self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
+    switch (buttonIndex) {
+        case 0:{
+            
+            [OHAlertView showAlertWithTitle:@"Delete Button" message:@"Are you sure you want to delete this button?" cancelButton:@"Cancel" okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [self.delegate removeButton:self];
+                }
+            }];
+            
+            break;
+        }
+        case 1: {
+            
+            [self showImagePickerEasy:UIImagePickerControllerSourceTypeCamera];
+            break;
+        }
+        case 2: {
+            
+            [self showImagePickerEasy:UIImagePickerControllerSourceTypePhotoLibrary];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    //[self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
+}
+
+-(void)clickedAtIndexForVideo:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:{
+
+            [self showVideoPicker:UIImagePickerControllerSourceTypeCamera];
+            break;
+        }
+        case 1: {
+            
+            [self showVideoPicker:UIImagePickerControllerSourceTypePhotoLibrary];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    //[self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -276,6 +341,21 @@
     
     [picker dismissViewControllerAnimated:YES completion:^{
     }];
+
+}
+
+-(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType {
+
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    
+    
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
+    
+    popoverController=[[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+    popoverController.delegate=self;
+    [popoverController presentPopoverFromRect:CGRectNull inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
 }
 

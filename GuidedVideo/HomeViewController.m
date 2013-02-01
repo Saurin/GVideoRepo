@@ -29,22 +29,19 @@
 }
 
 -(void)loadButtons {
-    
-    NSInteger barHeight = self.navigationController.navigationBar.frame.size.height;
-    
-    NSInteger buttonCount = ButtonCount/4+1;
+       
     NSInteger tag=1;
-    double buttonHeight = (self.view.frame.size.height-barHeight-VPadding*6)/buttonCount;
-    double buttonWidth = (self.view.frame.size.width-HPadding*6)/buttonCount;
+    double buttonHeight = (self.view.frame.size.height-VPadding*6)/5;
+    double buttonWidth = (self.view.frame.size.width-HPadding*6)/5;
     
-    for (UIView* v in self.view.subviews) {
-        [v removeFromSuperview];
+    for (NSInteger i=1;i<ButtonCount;i++) {
+        [[self.view viewWithTag:i] removeFromSuperview];
     }
     
     //bottom row
     for(NSInteger i=0;i<5;i++){
         
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-barHeight-VPadding, buttonWidth, buttonHeight);
+        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
@@ -85,16 +82,35 @@
         [self.view addSubview:btn];
         [btn setHidden:YES];
     }
+    
+    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
+    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
+    
+    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
+    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
+    videoButton.tag=101;
+    [self.view addSubview:videoButton];
+    [videoButton setHidden:YES];
 }
 
 -(void)createButtons {
-    
+    //get existing subjects, if any
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
     
+    //set up video button
+    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
+    [videoButton createButtonAtIndex:101];
+    [videoButton setEditable:YES];
+    
+    videoButton.delegate=self;
+    videoButton.presentingController=self;
+    videoButton.buttonType=CustomButtonTypeVideo;
+    
+    //set up subject buttons
     for(NSInteger i=0;i<ButtonCount;i++){
     
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        [btn createButtonAtIndex:i];
+        [btn createButtonAtIndex:i+1];
         [btn setEditable:YES];
 
         btn.delegate=self;
@@ -189,10 +205,14 @@
 -(void)removeButton:(CustomButton *)btn {
     
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
-    Subject *sub=[buttons objectAtIndex:[btn getIndex]];
+    if(buttons.count>[btn getIndex])
+    {
+        Subject *sub=[buttons objectAtIndex:[btn getIndex]];
     
-    [[Data sharedData] deleteSubjectAtIndex:sub.subjectId];
-    [self performSelector:@selector(createButtons) withObject:nil afterDelay:0.1];
+        [[Data sharedData] deleteSubjectAtIndex:sub.subjectId];
+    }
+    [self loadButtons];
+    [self createButtons];
 }
 
 - (void)createQuiz:(CustomButton *)btn {

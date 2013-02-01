@@ -12,7 +12,8 @@
 
 typedef NS_ENUM(NSInteger, CustomButtonType) {
     CustomButtonTypeSubject = 0,
-    CustomButtonTypeQuiz
+    CustomButtonTypeQuiz=1,
+    CustomButtonTypeVideo
 };
 
 @protocol AddSubjectDelegate;

@@ -135,7 +135,9 @@
     sql = [sqltemp UTF8String];
     NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
     sqlite3_open([cruddatabase UTF8String], &cruddb);
-    sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
     sqlite3_step(stmt);
     
     sqlite3_finalize(stmt);
@@ -160,7 +162,9 @@
     
     NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
     sqlite3_open([cruddatabase UTF8String], &cruddb);
-    sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
@@ -185,8 +189,9 @@
     sql = [sqltemp UTF8String];
     NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
     sqlite3_open([cruddatabase UTF8String], &cruddb);
-    sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
-
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
     
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);

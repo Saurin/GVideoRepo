@@ -213,11 +213,6 @@
         text = [alertView textFieldAtIndex:0].text;
         [self addText:text];
 
-//        Subject *thisSubject = [[Subject alloc] init];
-//        thisSubject.subjectName=text;
-//        thisSubject.assetUrl=@"";
-//        
-//        [self.delegate customButton:self saveSubject:thisSubject];
         [self.delegate saveButton:self withText:text asset:@""];
     }
 }
@@ -266,11 +261,6 @@
             {
                 [self loadImage:pickedImage];
                 
-//                Subject *thisSubject = [[Subject alloc] init];
-//                thisSubject.subjectName=@"";
-//                thisSubject.assetUrl=assetURL.absoluteString;
-//                
-//                [self.delegate customButton:self saveSubject:thisSubject];
                 [self.delegate saveButton:self withText:@"" asset:assetURL.absoluteString];
             }
         }];
@@ -279,11 +269,6 @@
     {
         [self loadImage:pickedImage];
 
-//        Subject *thisSubject = [[Subject alloc] init];
-//        thisSubject.subjectName=@"";
-//        thisSubject.assetUrl=assetURL;
-//        
-//        [self.delegate customButton:self saveSubject:thisSubject];
         [self.delegate saveButton:self withText:@"" asset:assetURL];
     }
 

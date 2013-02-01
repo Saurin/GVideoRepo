@@ -18,6 +18,7 @@
 -(Subject *)getSubjectAtIndex:(NSInteger)index;
 - (void)saveSubjectAtIndex:(NSInteger)index subject:(Subject *)sub;
 - (void)deleteSubjectAtIndex:(NSInteger)index;
+
 -(void)addQuizAtIndex:(NSInteger)index forSubjectAtIndex:(NSInteger)subIndex quiz:(Quiz *)quiz;
 
 @end

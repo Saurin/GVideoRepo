@@ -38,13 +38,12 @@ typedef NS_ENUM(NSInteger, TableName) {
 + (CrudOp *)sharedDB;
 -(NSMutableArray*)GetRecords:(TableName)table;
 -(void)InsertRecordInTable:(TableName)table withObject:(id)obj;
-
-
+-(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index;
+-(void)UpdateRecordForTable:(TableName)table withObject:(id)obj;
 
 -(void)CopyDbToDocumentsFolder;
 -(NSString *) GetDocumentDirectory;
 
--(void)InsertRecords:(NSString *)txt;
 -(void)DeleteRecords;
 
 

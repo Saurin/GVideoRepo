@@ -13,7 +13,7 @@
 #import "CustomButton.h"
 #import "Data.h"
 
-@interface VideoViewController : UIViewController
+@interface VideoViewController : UIViewController 
 
-
+-(IBAction)didEditClick:(id)sender;
 @end

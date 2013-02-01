@@ -16,16 +16,34 @@
 -(void)viewDidLoad {
     
     [self.navigationController setNavigationBarHidden:NO];
-    NSInteger barHeight = self.navigationController.navigationBar.frame.size.height;
+}
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [self loadButtons];
+    [self createButtons];
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+-(void)loadButtons {
+    
+    NSInteger barHeight = self.navigationController.navigationBar.frame.size.height;
+    
     NSInteger buttonCount = ButtonCount/4+1;
     NSInteger tag=1;
     double buttonHeight = (self.view.frame.size.height-barHeight-VPadding*6)/buttonCount;
     double buttonWidth = (self.view.frame.size.width-HPadding*6)/buttonCount;
     
+    for (UIView* v in self.view.subviews) {
+        [v removeFromSuperview];
+    }
+    
     //bottom row
     for(NSInteger i=0;i<5;i++){
-
+        
         CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-barHeight-VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
@@ -44,7 +62,7 @@
         [self.view addSubview:btn];
         [btn setHidden:YES];
     }
-
+    
     
     //top row
     for(NSInteger i=4;i>=0;i--){
@@ -56,7 +74,7 @@
         [self.view addSubview:btn];
         [btn setHidden:YES];
     }
-
+    
     //left column
     for(NSInteger i=1;i<=3;i++){
         
@@ -67,20 +85,14 @@
         [self.view addSubview:btn];
         [btn setHidden:YES];
     }
-    
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [self createButtons];
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
 }
 
 -(void)createButtons {
-
+    
+    NSMutableArray *buttons = [[Data sharedData] getSubjects];
+    
     for(NSInteger i=0;i<ButtonCount;i++){
+    
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
         [btn createButtonAtIndex:i];
         [btn setEditable:YES];
@@ -89,8 +101,9 @@
         btn.presentingController=self;
         btn.buttonType=CustomButtonTypeSubject;
         
-        Subject *sub = [[Data sharedData] getSubjectAtIndex:i];
-        if(sub!=nil && (![sub.subjectName isEqualToString:@""] || ![sub.assetUrl isEqualToString:@""] )){
+        if(buttons.count>i){
+            
+            Subject *sub = [buttons objectAtIndex:i];
             if([sub.subjectName isEqualToString:@""]){
                 [btn addImageUsingAssetURL:sub.assetUrl];
             }
@@ -106,21 +119,9 @@
         }
     }
 
-    for(NSInteger i=0;i<ButtonCount;i++){
-        Subject *sub = [[Data sharedData] getSubjectAtIndex:i];
-        if(sub==nil){
-            CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-            [btn addNewButton];
-            [btn setHidden:NO];
-            break;
-        }
-    }
-}
-
--(void)deleteButtons {
-    for(NSInteger i=0;i<ButtonCount;i++){
-        [[self.view viewWithTag:i+1] removeFromSuperview];
-    }
+    CustomButton *btn = (CustomButton *)[self.view viewWithTag:buttons.count+1];
+    [btn addNewButton];
+    [btn setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -174,14 +175,11 @@
 }
 
 -(IBAction)didSaveAndCloseClick:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
--(void)customButton:(CustomButton *)btn saveSubject:(Subject *)subject {
-    [[Data sharedData] saveSubjectAtIndex:[btn getIndex] subject:subject];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)saveButton:(CustomButton *)btn withText:(NSString *)text asset:(NSString *)assetUrl {
+    
     Subject *sub = [[Subject alloc] init];
     sub.subjectName=text;
     sub.assetUrl=assetUrl;
@@ -189,7 +187,11 @@
 }
 
 -(void)removeButton:(CustomButton *)btn {
-    [[Data sharedData] deleteSubjectAtIndex:[btn getIndex]];
+    
+    NSMutableArray *buttons = [[Data sharedData] getSubjects];
+    Subject *sub=[buttons objectAtIndex:[btn getIndex]];
+    
+    [[Data sharedData] deleteSubjectAtIndex:sub.subjectId];
     [self performSelector:@selector(createButtons) withObject:nil afterDelay:0.1];
 }
 

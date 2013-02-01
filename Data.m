@@ -44,52 +44,26 @@
     }
     
     return nil;
-
-    
-
-//    if(subjects!=nil)
-//    {
-//    if(subjects!=nil && [subjects count]>index) {
-//        NSDictionary *item = [subjects objectAtIndex:index];
-//        Subject *subject = [[Subject alloc] init];
-//        subject.subjectName = [item objectForKey:@"subjectName"];
-//        subject.assetUrl = [item objectForKey:@"assetUrl"];
-//        subject.quizzes = [[NSMutableArray alloc] init];
-//        
-//        NSString *quizzes = [item objectForKey:@"quizzes"];
-//        if(![quizzes isEqualToString:@""]){
-//            NSError *error;
-//            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData: [quizzes dataUsingEncoding:NSUTF8StringEncoding]
-//                                                                 options: NSJSONReadingMutableContainers
-//                                                                   error: &error];
-//            for (id obj in dict) {
-//                
-//                Quiz *quiz = [[Quiz alloc] init];
-//                quiz.videoUrl=[obj objectForKey:@"videoUrl"];
-//                
-//                NSString *assests = [item objectForKey:@"assetUrls"];
-//                if(![assests isEqualToString:@""]){
-//                    NSError *error;
-//                    NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData: [assests dataUsingEncoding:NSUTF8StringEncoding]
-//                                                                          options: NSJSONReadingMutableContainers
-//                                                                            error: &error];
-//                    quiz.assetUrls = [[NSMutableArray alloc] init];
-//                    for(id obj in dict1){
-//                        [quiz.assetUrls addObject:[item objectForKey:@"assetUrl"]];
-//                    }
-//                }
-//                [subject.quizzes addObject:quiz];
-//            }
-//        }
-//        return subject;
-//    }
-//    else {
-//        //throw error
-//        
-//        return nil;
-//    }
 }
 
+
+-(void)saveSubjectAtIndex:(NSInteger)index subject:(Subject *)sub {
+    
+    if([self getSubjectAtIndex:index]){
+        sub.subjectId=index;
+        [[CrudOp sharedDB] UpdateRecordForTable:DBTableSubject withObject:sub];
+    }
+    else{
+        [[CrudOp sharedDB] InsertRecordInTable:DBTableSubject withObject:sub];
+    }
+}
+
+
+-(void)deleteSubjectAtIndex:(NSInteger)index {
+    
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableSubject withId:index];
+
+}
 
 
 - (void) getContent{
@@ -113,27 +87,7 @@
 
 
 
-- (void)saveSubjectAtIndex:(NSInteger)index subject:(Subject *)sub {
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          sub.subjectName,@"subjectName"
-                          ,sub.assetUrl, @"assetUrl"
-                          ,[self getQuizzesJSONFromSubect:sub],@"quizzes"
-                          ,nil];
-    NSMutableArray *myMutableArray = [NSMutableArray arrayWithArray:subjects];
-    
-    //add a new subject into existing array
-    if(index>=[subjects count]){
-        
-        [myMutableArray addObject:dict];
-    }
-    else{
-    
-        [myMutableArray replaceObjectAtIndex:index withObject:dict];
-    }
-    
-    [self updateJSON:myMutableArray];
-}
+
 
 -(NSString *)getQuizzesJSONFromSubect:(Subject *)sub {
 
@@ -209,21 +163,7 @@
 
 }
 
--(void)deleteSubjectAtIndex:(NSInteger)index {
-    
-    if (subjects==nil) {
-        [self getContent];
-    }
-    
-    if(subjects!=nil && [subjects count]>index) {
-        
-        NSMutableArray *newMutableArray = [NSMutableArray arrayWithArray:subjects];
-        [newMutableArray removeObjectAtIndex:index];
-        subjects = [NSArray arrayWithArray:newMutableArray];
-        
-        [self updateJSON:newMutableArray];
-    }
-}
+
 
 -(void)updateJSON:(NSMutableArray *)myMutableArray {
     

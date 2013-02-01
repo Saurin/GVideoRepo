@@ -39,7 +39,6 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 
 @protocol AddSubjectDelegate <NSObject>
 - (void)buttonClicked:(CustomButton *)btn;
-//- (void)customButton:(CustomButton *)btn saveSubject:(Subject *)subject;
 - (void)saveButton:(CustomButton *)btn withText:(NSString *)text asset:(NSString *)assetUrl;
 - (void)removeButton:(CustomButton *)btn;
 - (void)createQuiz:(CustomButton *)btn;

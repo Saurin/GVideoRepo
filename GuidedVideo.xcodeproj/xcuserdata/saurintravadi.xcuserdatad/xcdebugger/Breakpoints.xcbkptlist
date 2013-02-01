@@ -4,16 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "GuidedVideo/ViewController.m"
-         timestampString = "381352727.889635"
+         filePath = "GuidedVideo/CustomButton.m"
+         timestampString = "381382971.431505"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "55"
-         endingLineNumber = "55"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "50"
+         endingLineNumber = "50"
+         landmarkName = "-createButtonAtIndex:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

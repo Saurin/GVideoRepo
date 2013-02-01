@@ -18,23 +18,6 @@
 @synthesize title;
 
 
-//-(id)init {
-//
-//    self = [super init];
-//    if (self) {
-//        
-//        if ([[NSUserDefaults standardUserDefaults] integerForKey:@"isDBLoaded"] != 1)
-//        {
-//            [self CopyDbToDocumentsFolder];
-//            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"isDBLoaded"];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-//        }
-//        
-//        return self;
-//    }
-//    return nil;
-//}
-
 + (CrudOp *)sharedDB
 {
     static CrudOp *sharedDB = nil;
@@ -137,34 +120,45 @@
     sqlite3 *cruddb;
     NSString *sqltemp;
     
-    //insert
-    sqltemp = @"Insert into Subject(SubjectName, AssetUrl) Values(";
-    sqltemp = [sqltemp stringByAppendingFormat:@"'%@','%@')",@"Something",@"assetUrl.png"];
-    const char *sql = [sqltemp UTF8String];
+    const char *sql;
+    if(table==DBTableSubject){
+        
+        Subject *sub = obj;
+        
+        sqltemp = @"Insert into Subject(SubjectName, AssetUrl) Values(";
+        sqltemp = [sqltemp stringByAppendingFormat:@"'%@','%@')",sub.subjectName,sub.assetUrl];
+    }
+    else if(table==DBTableQuiz){
+        
+    }
     
-    //Open db
+    sql = [sqltemp UTF8String];
     NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
     sqlite3_open([cruddatabase UTF8String], &cruddb);
-    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
     sqlite3_step(stmt);
+    
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
     
 }
 
--(void)InsertRecords:(NSString *) txt {
+-(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index {
+    
     fileMgr = [NSFileManager defaultManager];
     sqlite3_stmt *stmt=nil;
     sqlite3 *cruddb;
     NSString *sqltemp;
     
-    //insert
-    sqltemp = @"Insert into SearchTerms(SearchTerm) Values('";
-    sqltemp = [sqltemp stringByAppendingFormat:@"%@%@",txt, @"')"];
-    const char *sql = [sqltemp UTF8String];
+    const char *sql;
+    if(table==DBTableSubject)
+        sqltemp = [NSString stringWithFormat:@"Delete from Subject where SubjectId=%d",index];
+    else if(table==DBTableQuiz)
+        sqltemp = [NSString stringWithFormat:@"Delete from Subject where SubjectId=%d",index];
     
-    //Open db
-    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"YardLinesDB.sqlite"];
+    sql = [sqltemp UTF8String];
+    
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
     sqlite3_open([cruddatabase UTF8String], &cruddb);
     sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
     sqlite3_step(stmt);
@@ -173,45 +167,31 @@
 }
 
 
--(void)DeleteRecords{
+-(void)UpdateRecordForTable:(TableName)table withObject:(id)obj {
+    
     fileMgr = [NSFileManager defaultManager];
     sqlite3_stmt *stmt=nil;
     sqlite3 *cruddb;
+    const char *sql;
+    NSString *sqltemp;
 
-    const char *sql = "Delete from SearchTerms";
+    if(table==DBTableSubject){
+        Subject *sub = obj;
+        sqltemp = [NSString stringWithFormat:@"Update Subject set SubjectName='%@', AssetUrl='%@' where SubjectId=%d",sub.subjectName,sub.assetUrl, sub.subjectId];
+    }
+    else if(table==DBTableQuiz)
+        sqltemp = [NSString stringWithFormat:@"Update Subject set SubjectName='%@', AssetUrl='%@' where SubjectId=%d",@"",@"",0];
     
-    //Open db
-    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"YardLinesDB.sqlite"];
+    sql = [sqltemp UTF8String];
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
     sqlite3_open([cruddatabase UTF8String], &cruddb);
     sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+
+    
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
 }
-
-
-//-(void)UpdateRecords:(NSString *)txt :(NSMutableString *)utxt{
-//    
-//    fileMgr = [NSFileManager defaultManager];
-//    sqlite3_stmt *stmt=nil;
-//    sqlite3 *cruddb;
-//    
-//    
-//    //insert
-//    const char *sql = "Update SearchTerms set coltext=? where coltext=?";
-//    
-//    //Open db
-//    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"YardLinesDB.sqlite"];
-//    sqlite3_open([cruddatabase UTF8String], &cruddb);
-//    sqlite3_prepare_v2(cruddb, sql, 1, &stmt, NULL);
-//    sqlite3_bind_text(stmt, 1, [txt UTF8String], -1, SQLITE_TRANSIENT);
-//    sqlite3_bind_text(stmt, 2, [utxt UTF8String], -1, SQLITE_TRANSIENT);
-//    
-//    sqlite3_step(stmt);
-//    sqlite3_finalize(stmt);
-//    sqlite3_close(cruddb);
-//    
-//}
 
 
 @end

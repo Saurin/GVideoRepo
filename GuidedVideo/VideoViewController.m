@@ -17,9 +17,30 @@
 
 -(void)viewDidLoad {
     
+
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [self setTitle:@""];
+
+    [self loadButtons];
+    [self createButtons];
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+-(void)loadButtons {
+    
     NSInteger tag=1;
     double buttonHeight = (self.view.frame.size.height-VPadding*6)/5;
     double buttonWidth = (self.view.frame.size.width-HPadding*6)/5;
+    
+    for (NSInteger i=1;i<ButtonCount;i++) {
+        [[self.view viewWithTag:i] removeFromSuperview];
+    }
     
     //bottom row
     for(NSInteger i=0;i<5;i++){
@@ -65,37 +86,35 @@
         [self.view addSubview:btn];
         [btn setHidden:YES];
     }
-    
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [self performSelector:@selector(createButtons) withObject:nil afterDelay:0.1];
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
 }
 
 -(void)createButtons {
     
+    NSMutableArray *buttons = [[Data sharedData] getSubjects];
+    
     for(NSInteger i=0;i<ButtonCount;i++){
-
+        
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
         [btn createButtonAtIndex:i];
         [btn setEditable:NO];
-        btn.presentingController=self;
         
-        Subject *sub = [[Data sharedData] getSubjectAtIndex:i];
-        if(sub!=nil && (![sub.subjectName isEqualToString:@""] || ![sub.assetUrl isEqualToString:@""] )){
+        btn.presentingController=self;
+        btn.buttonType=CustomButtonTypeSubject;
+        
+        if(buttons.count>i){
+            
+            Subject *sub = [buttons objectAtIndex:i];
             if([sub.subjectName isEqualToString:@""]){
                 [btn addImageUsingAssetURL:sub.assetUrl];
             }
             else{
                 [btn addText:sub.subjectName];
             }
+            btn.bEmptyButton=NO;
             [btn setHidden:NO];
         }
         else{
+            btn.bEmptyButton=YES;
             [btn setHidden:YES];
         }
     }
@@ -150,7 +169,16 @@
 //    
 //}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+}
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
+
+-(IBAction)didEditClick:(id)sender {
+    [self setTitle:@"Done"];
+    [self performSegueWithIdentifier:@"Edit" sender:nil];
+}
+
 @end

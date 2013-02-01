@@ -23,7 +23,13 @@
     defaultValue=[NSNumber numberWithDouble:100000];
     btnClickedAt = [NSMutableArray arrayWithObjects:defaultValue, defaultValue, defaultValue, defaultValue, nil];
     
-    
+
+//    Subject *sub = [[Subject alloc] init];
+//    sub.subjectName=@"Test";
+//    sub.assetUrl=@"temp.jpg";
+//    
+//    //[[Data sharedData] saveSubjectAtIndex:0 subject:sub];
+//    
 //    NSMutableArray *subjects;
 //    subjects = [[Data sharedData] getSubjects];
 //    for(NSInteger i=0;i<subjects.count;i++){
@@ -31,6 +37,20 @@
 //        Subject *sub = [subjects objectAtIndex:i];
 //        NSLog(@"%d %@ %@",sub.subjectId,sub.subjectName, sub.assetUrl);
 //    }
+//    
+//    //[[Data sharedData] deleteSubjectAtIndex:1];
+//
+//    sub.subjectName=@"new name";
+//    sub.assetUrl=@"";
+//    [[Data sharedData] saveSubjectAtIndex:4 subject:sub];
+//    
+//    subjects = [[Data sharedData] getSubjects];
+//    for(NSInteger i=0;i<subjects.count;i++){
+//        
+//        Subject *sub = [subjects objectAtIndex:i];
+//        NSLog(@"%d %@ %@",sub.subjectId,sub.subjectName, sub.assetUrl);
+//    }
+    
     
 //    Subject *sub = [[Subject alloc] init];
 //    sub.subjectName=@"Test";
@@ -50,10 +70,7 @@
 //    
 //    
 //    subjects = [[Data sharedData] getSubjects];
-    
-    
-    Subject *sub=[[Data sharedData] getSubjectAtIndex:1];
-    sub=[[Data sharedData] getSubjectAtIndex:5];
+
     
 }
 

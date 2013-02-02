@@ -13,6 +13,6 @@
 
 @interface QuizViewController : UIViewController<AddSubjectDelegate>
 
-@property (nonatomic) NSInteger subjectAtIndex;
+@property (nonatomic) Subject *subject;
 
 @end

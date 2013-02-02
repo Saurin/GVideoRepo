@@ -22,6 +22,7 @@
     
     [self loadButtons];
     [self createButtons];
+    
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -37,6 +38,7 @@
     for (NSInteger i=1;i<ButtonCount;i++) {
         [[self.view viewWithTag:i] removeFromSuperview];
     }
+    [[self.view viewWithTag:101] removeFromSuperview];
     
     //bottom row
     for(NSInteger i=0;i<5;i++){
@@ -90,10 +92,10 @@
     CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
     videoButton.tag=101;
     [self.view addSubview:videoButton];
-    [videoButton setHidden:YES];
 }
 
 -(void)createButtons {
+    
     //get existing subjects, if any
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
     
@@ -120,11 +122,11 @@
         if(buttons.count>i){
             
             Subject *sub = [buttons objectAtIndex:i];
-            if([sub.subjectName isEqualToString:@""]){
-                [btn addImageUsingAssetURL:sub.assetUrl];
-            }
-            else{
+            if(![sub.subjectName isEqualToString:@""]){
                 [btn addText:sub.subjectName];
+            }
+            if(![sub.assetUrl isEqualToString:@""]){
+                [btn addImageUsingAssetURL:sub.assetUrl];
             }
             btn.bEmptyButton=NO;
             [btn setHidden:NO];
@@ -183,10 +185,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([[segue identifier] isEqualToString:@"Login"]) {
+    if ([[segue identifier] isEqualToString:@"Quiz"]) {
         
         QuizViewController *vc = [segue destinationViewController];
-        vc.subjectAtIndex = [((CustomButton *)sender) getIndex];
+        vc.subject = (Subject *)sender;
     }
 }
 
@@ -205,9 +207,9 @@
 -(void)removeButton:(CustomButton *)btn {
     
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
-    if(buttons.count>[btn getIndex])
+    if(buttons.count>=[btn getIndex])
     {
-        Subject *sub=[buttons objectAtIndex:[btn getIndex]];
+        Subject *sub=[buttons objectAtIndex:[btn getIndex]-1];
     
         [[Data sharedData] deleteSubjectAtIndex:sub.subjectId];
     }
@@ -216,7 +218,7 @@
 }
 
 - (void)createQuiz:(CustomButton *)btn {
-    [self performSegueWithIdentifier:@"Quiz" sender:btn];
+    [self performSegueWithIdentifier:@"Quiz" sender:[[[Data sharedData] getSubjects] objectAtIndex:[btn getIndex]]];
 }
 
 

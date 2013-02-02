@@ -51,6 +51,7 @@
     
     if([self getSubjectAtIndex:index]){
         sub.subjectId=index;
+
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableSubject withObject:sub];
     }
     else{

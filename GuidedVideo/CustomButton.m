@@ -9,7 +9,7 @@
 #import "CustomButton.h"
 #import "OHAlertView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import <MobileCoreServices/UTCoreTypes.h>
 
 @implementation CustomButton {
     NSInteger _index;
@@ -28,6 +28,7 @@
     if (self) {
         // Initialization code
         [self setBackgroundColor:[UIColor blackColor]];
+        [imageView setHidden:YES];
         
     }
     return self;
@@ -76,9 +77,11 @@
 
     lblText.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [lblText setFont:[UIFont boldSystemFontOfSize:15]];
-
-    
     lblText.text=text;
+    
+    if(self.imageView.hidden){
+        [self.lblText setHidden:NO];
+    }
 }
 
 -(void)addImageUsingAssetURL:(NSString*)url {
@@ -109,11 +112,17 @@
 
 }
 
+-(void)addImage:(UIImage*)image withSize:(CGSize)size {
+    [self loadImage:image];
+}
+
 -(void)loadImage:(UIImage*)img {
     
     imageView.frame = self.bounds;
-    [self addText:@""];
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
     imageView.image = img;
+    
+    [self.lblText setHidden:YES];
 }
 
 -(void)addNewButton {
@@ -174,7 +183,7 @@
         [self clickedAtIndexForVideo:buttonIndex];
     }
     
-    //[self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
+    [self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
 }
 
 -(void)clickedAtIndexForSubject:(NSInteger)buttonIndex {
@@ -247,8 +256,6 @@
         default:
             break;
     }
-    
-    //[self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
 }
 
 -(void)clickedAtIndexForVideo:(NSInteger)buttonIndex {
@@ -267,8 +274,6 @@
         default:
             break;
     }
-    
-    //[self.normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -311,32 +316,54 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    // This means that the image was picked from the Camera Roll
-    NSString *assetURL = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] description];
-    UIImage *pickedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSString *mediaType = [[info objectForKey:@"UIImagePickerControllerMediaType"] description];
     
-    // If there is no imageUrl, this was taken from the camera and needs to be saved.
-    if (assetURL == nil) {
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library writeImageToSavedPhotosAlbum:[pickedImage CGImage] orientation:(ALAssetOrientation)[pickedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError   *error) {
-            if (error) {
-                NSLog(@"error");
-            }
-            else
-            {
-                [self loadImage:pickedImage];
-                
-                [self.delegate saveButton:self withText:@"" asset:assetURL.absoluteString];
-            }
-        }];
-    }
-    else
+    if([mediaType isEqualToString:@"public.image"])
     {
-        [self loadImage:pickedImage];
+        
+        NSString *assetURL = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] description];
+        UIImage *pickedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        // If there is no imageUrl, this was taken from the camera and needs to be saved.
+        if (assetURL == nil)
+        {
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library writeImageToSavedPhotosAlbum:[pickedImage CGImage] orientation:(ALAssetOrientation)[pickedImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError   *error) {
+                if (error) {
+                    NSLog(@"error");
+                }
+                else
+                {
+                    [self loadImage:pickedImage];
+                    
+                    [self.delegate saveButton:self withText:@"" asset:assetURL.absoluteString];
+                }
+            }];
+        }
+        else
+        {
+            [self loadImage:pickedImage];
 
-        [self.delegate saveButton:self withText:@"" asset:assetURL];
+            [self.delegate saveButton:self withText:@"" asset:assetURL];
+        }
     }
+    
+    else if (CFStringCompare ((__bridge CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo)
+    {
+            
+        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+        
+        NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
+        NSLog(@"%@",moviePath);
+        NSLog(@"%@",videoUrl.absoluteString);
 
+        //Only when you take new one
+//        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
+//            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+//        }
+        
+    }
+    
     [photoLibraryPopover dismissPopoverAnimated:YES];
     
     [picker dismissViewControllerAnimated:YES completion:^{
@@ -344,19 +371,30 @@
 
 }
 
--(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType {
-
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.delegate = self;
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
+    [photoLibraryPopover dismissPopoverAnimated:YES];
     
-    imagePickerController.sourceType = sourceType;
-    imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
-    
-    popoverController=[[UIPopoverController alloc] initWithContentViewController:imagePickerController];
-    popoverController.delegate=self;
-    [popoverController presentPopoverFromRect:CGRectNull inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-
+    [picker dismissViewControllerAnimated:YES completion:^{
+    }];
 }
+
+-(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType {
+    
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = sourceType;
+    
+    imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
+    
+    if (photoLibraryPopover == nil) {
+        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+    }
+    photoLibraryPopover.delegate=self;
+    [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+
+
 
 @end

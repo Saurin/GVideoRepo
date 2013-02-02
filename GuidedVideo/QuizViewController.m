@@ -16,14 +16,14 @@
     NSInteger quizIndex;
 }
 
-@synthesize subjectAtIndex;
+@synthesize subject;
 
 -(void)viewDidLoad {
 
     quizIndex=0;
     [self loadButtons];
+
     [self addNavigationButtons];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -41,17 +41,16 @@
     }
     
     [self.navigationController setNavigationBarHidden:NO];
-    NSInteger barHeight = self.navigationController.navigationBar.frame.size.height;
     
     NSInteger tag=1;
     NSInteger buttonCount = ButtonCount/4+1;
-    double buttonHeight = (self.view.frame.size.height-barHeight-VPadding*(buttonCount+1))/buttonCount;
+    double buttonHeight = (self.view.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
     double buttonWidth = (self.view.frame.size.width-HPadding*(buttonCount+1))/buttonCount;
     
     //bottom row
     for(NSInteger i=0;i<4;i++){
         
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-barHeight-VPadding, buttonWidth, buttonHeight);
+        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
@@ -97,12 +96,10 @@
 
 -(void)createButtons {
     
-    Subject *sub = [[Data sharedData] getSubjectAtIndex:subjectAtIndex];
-    
     Quiz *quiz;
-    if(sub.quizzes!=nil && sub.quizzes.count>quizIndex)                     //get current quiz
+    if(self.subject.quizzes!=nil && self.subject.quizzes.count>quizIndex)                     //get current quiz
     {
-        quiz = [sub.quizzes objectAtIndex:quizIndex];
+        quiz = [self.subject.quizzes objectAtIndex:quizIndex];
     }
         
     for(NSInteger i=0;i<ButtonCount;i++){
@@ -145,22 +142,20 @@
         UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
                                                                    target:self action:@selector(addNewQuiz:)] ;
         
-        self.navigationItem.rightBarButtonItems =
-        [NSArray arrayWithObjects:Button2, nil];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, nil];
         
     }
     else{
         UIBarButtonItem *Button1 = [[UIBarButtonItem alloc]initWithTitle:@"Previous Quiz" style:UIBarButtonItemStylePlain
-                                                                  target:self action:@selector(Button1Clicked:)] ;
+                                                                  target:self action:@selector(previousQuiz:)] ;
         
         UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
                                                                    target:self action:@selector(addNewQuiz:)] ;
         
-        self.navigationItem.rightBarButtonItems =
-        [NSArray arrayWithObjects:Button2, Button1, nil];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, nil];
     }
     
-    self.title = [NSString stringWithFormat:@"Quiz %d",quizIndex];
+    self.title = [NSString stringWithFormat:@"%@ Quiz Name - %d of %d",self.subject.subjectName, quizIndex, self.subject.quizzes.count];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -200,10 +195,9 @@
 
 -(IBAction)addNewQuiz:(id)sender {
     
-    
     [UIView transitionWithView:self.view
                       duration:0.5
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                       options:UIViewAnimationOptionTransitionCurlUp
                     animations:^{
                         quizIndex++;
                         [self loadButtons];
@@ -213,6 +207,21 @@
                     completion:NULL];
 }
 
+-(IBAction)previousQuiz:(id)sender {
+
+    [UIView transitionWithView:self.view
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionCurlDown
+                    animations:^{
+                        quizIndex--;
+                        [self loadButtons];
+                        [self createButtons];
+                        [self addNavigationButtons];
+                    }
+                    completion:NULL];
+    
+}
+
 -(void)customButton:(CustomButton *)btn saveSubject:(Subject *)subject {
 //    NSInteger index = [btn getIndex];
 //    [[Data sharedData] saveSubjectAtIndex:subjectAtIndex subject:subject];
@@ -220,7 +229,7 @@
 
 -(void)saveButton:(CustomButton *)btn withText:(NSString *)text asset:(NSString *)assetUrl {
     
-    Subject *sub=[[Data sharedData] getSubjectAtIndex:subjectAtIndex];
+    Subject *sub=[[Data sharedData] getSubjectAtIndex:1];
     
     if(sub.quizzes==nil)
         sub.quizzes = [[NSMutableArray alloc] init];

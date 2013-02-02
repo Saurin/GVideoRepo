@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		70EE875D16A997CB00E4A9BE /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EE875C16A997CB00E4A9BE /* VideoViewController.m */; };
 		70EE876016A997F000E4A9BE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */; };
+		BF0F466C16BCA3A300852098 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0F466B16BCA3A300852098 /* MediaPlayer.framework */; };
 		BF4335DB16BA021300343588 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DA16BA021300343588 /* libsqlite3.0.dylib */; };
 		BF4335DE16BA023B00343588 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DD16BA023B00343588 /* libiconv.dylib */; };
 		BF4335E316BA029F00343588 /* CrudOp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4335E216BA029F00343588 /* CrudOp.m */; };
@@ -89,6 +90,7 @@
 		70EE875B16A997CB00E4A9BE /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		70EE875C16A997CB00E4A9BE /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		BF0F466B16BCA3A300852098 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BF4335DA16BA021300343588 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BF4335DD16BA023B00343588 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		BF4335E116BA029F00343588 /* CrudOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrudOp.h; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF0F466C16BCA3A300852098 /* MediaPlayer.framework in Frameworks */,
 				BF4335DE16BA023B00343588 /* libiconv.dylib in Frameworks */,
 				BF4335DB16BA021300343588 /* libsqlite3.0.dylib in Frameworks */,
 				CC2688FE167520E500AE9FB4 /* QuartzCore.framework in Frameworks */,
@@ -295,6 +298,7 @@
 		CC2688AA1674FA1D00AE9FB4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF0F466B16BCA3A300852098 /* MediaPlayer.framework */,
 				BF4335DD16BA023B00343588 /* libiconv.dylib */,
 				BF4335DA16BA021300343588 /* libsqlite3.0.dylib */,
 				BFA092D316B3234E0050B2A0 /* LTKPopoverActionSheet */,

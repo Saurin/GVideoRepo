@@ -7,17 +7,15 @@
 //
 
 #import "VideoViewController.h"
+#import <MediaPlayer/MediaPlayer.h>  
 #define ButtonCount 16
 #define VPadding 20
 #define HPadding 40
 
 
-@implementation VideoViewController
-
-
--(void)viewDidLoad {
-    
-
+@implementation VideoViewController {
+    MPMoviePlayerController *moviePlayer;
+    UIImageView *videoThumbnailImageView;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -26,6 +24,12 @@
 
     [self loadButtons];
     [self createButtons];
+
+    [self playVideo];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [moviePlayer stop];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -41,6 +45,7 @@
     for (NSInteger i=1;i<ButtonCount;i++) {
         [[self.view viewWithTag:i] removeFromSuperview];
     }
+    [[self.view viewWithTag:101] removeFromSuperview];
     
     //bottom row
     for(NSInteger i=0;i<5;i++){
@@ -86,6 +91,14 @@
         [self.view addSubview:btn];
         [btn setHidden:YES];
     }
+    
+    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
+    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
+    
+    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
+    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
+    videoButton.tag=101;
+    [self.view addSubview:videoButton];
 }
 
 -(void)createButtons {
@@ -120,58 +133,39 @@
     }
 }
 
+-(void)playVideo {
+
+    NSURL *url = [NSURL URLWithString:@"file://localhost/private/var/mobile/Applications/BF939F78-7435-4CC0-B26B-D24CA46C6944/tmp//trim.6vQI3c.MOV"];
+    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    [player prepareToPlay];
+    
+    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
+    [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
+    [videoButton addSubview:player.view];
+    
+    player.controlStyle=MPMovieControlStyleNone;
+    player.movieSourceType=MPMovieSourceTypeStreaming;
+    player.repeatMode=MPMovieRepeatModeOne;
+    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
+    moviePlayer=player;
+
+    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
+    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
+    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
+    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
+    [videoButton addSubview:videoThumbnailImageView];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-//
-//-(void)video
-//{
-//        // We are using an iPad
-//        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-//        imagePickerController.delegate = self;
-////        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        imagePickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-//        imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
-//        popoverController=[[UIPopoverController alloc] initWithContentViewController:imagePickerController];
-//        popoverController.delegate=self;
-//        [popoverController presentPopoverFromRect:CGRectNull inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//	
-//}
-//
-//
-//-(void) imagePickerController: (UIImagePickerController *) picker didFinishPickingMediaWithInfo: (NSDictionary *) info
-//{
-//    
-//    
-//    NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
-//    
-//    if (CFStringCompare ((__bridge CFStringRef) mediaType, kUTTypeMovie, 0)
-//        == kCFCompareEqualTo)
-//    {
-//        
-//        NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
-//        
-//        NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
-//        NSLog(@"%@",moviePath);
-//        
-//        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
-//            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
-//        }
-//    }
-//    
-//    
-//    [self dismissModalViewControllerAnimated:YES];
-//    
-//    
-//    
-//}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
 }
+
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
@@ -179,6 +173,40 @@
 -(IBAction)didEditClick:(id)sender {
     [self setTitle:@"Done"];
     [self performSegueWithIdentifier:@"Edit" sender:nil];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    
+    for(NSInteger i=0;i<ButtonCount;i++){
+        CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
+        if ([touch view] == btn && btn.bEmptyButton) {
+            [btn setAlpha:.6];
+            break;
+        }
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CFShow((__bridge CFTypeRef)([touch view]));
+    
+    for(NSInteger i=0;i<ButtonCount;i++){
+        
+        CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
+        if ([touch view] == btn ) {
+            //take action
+            return;
+        }
+    }
+
+    if ([touch view] == [self.view viewWithTag:1001] ) {
+
+        [videoThumbnailImageView setHidden:YES];
+        [moviePlayer play];
+        return;
+        
+    }
 }
 
 @end

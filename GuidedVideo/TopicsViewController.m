@@ -12,10 +12,7 @@
 #define VPadding 20
 #define HPadding 40
 
-@implementation TopicsViewController {
-
-}
-
+@implementation TopicsViewController
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -50,6 +47,8 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.presentingController=self;
     }
     
     //right column
@@ -61,6 +60,8 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.presentingController=self;
     }
     
     
@@ -73,6 +74,8 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.presentingController=self;
     }
     
     //left column
@@ -84,38 +87,33 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-    }    
+        [btn setEditable:YES];
+        btn.presentingController=self;
+    }
+  
 }
 
 -(void)createButtons {
     
+    //get existing subjects, if any
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
-    
-    for(NSInteger i=0;i<ButtonCount;i++){
+        
+    //set up subject buttons
+    for(NSInteger i=0;i<buttons.count;i++){
+        
+        Subject *sub = [buttons objectAtIndex:i];
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        [btn createButtonAtIndex:i];
-        [btn setEditable:NO];
+        [btn createSubjectButtonAtIndex:i+1 withSubject:sub];
         
-        btn.presentingController=self;
-        btn.buttonType=CustomButtonTypeSubject;
+        if(![sub.subjectName isEqualToString:@""]){
+            [btn addText:sub.subjectName];
+        }
+        if(![sub.assetUrl isEqualToString:@""]){
+            [btn addImageUsingAssetURL:sub.assetUrl];
+        }
         
-        if(buttons.count>i){
-            
-            Subject *sub = [buttons objectAtIndex:i];
-            if(![sub.subjectName isEqualToString:@""]){
-                [btn addText:sub.subjectName];
-            }
-            if(![sub.assetUrl isEqualToString:@""]){
-                [btn addImageUsingAssetURL:sub.assetUrl];
-            }
-            btn.bEmptyButton=NO;
-            [btn setHidden:NO];
-        }
-        else{
-            btn.bEmptyButton=YES;
-            [btn setHidden:YES];
-        }
+        [btn setHidden:NO];
     }
 }
 
@@ -126,7 +124,15 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+
+    if ([[segue identifier] isEqualToString:@"Play"]) {
+        
+        self.title = ((Subject *)sender).subjectName;
+        
+        QuizViewController *vc = [segue destinationViewController];
+        vc.subject = (Subject *)sender;
+    }
+
 }
 
 - (void)viewDidUnload {
@@ -157,7 +163,8 @@
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
         if ([touch view] == btn ) {
-            //take action
+            
+            [self performSegueWithIdentifier:@"Play" sender:[btn getSubject]];
             return;
         }
     }

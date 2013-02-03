@@ -50,7 +50,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Up1-eL-1WS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4654" y="-395"/>
+            <point key="canvasLocation" x="-4906" y="-567"/>
         </scene>
         <!--Topics View Controller-->
         <scene sceneID="2UW-fg-y4B">
@@ -73,11 +73,30 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <segue destination="m4m-53-wUc" kind="push" identifier="Edit" id="vpE-DN-niP"/>
+                        <segue destination="VFH-67-gsg" kind="push" identifier="Play" id="rTl-eo-MYU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWr-4C-7k6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6150" y="159"/>
+            <point key="canvasLocation" x="-6270" y="179"/>
+        </scene>
+        <!--Quiz View Controller-->
+        <scene sceneID="quM-9g-rXv">
+            <objects>
+                <viewController autoresizesArchivedViewToFullSize="NO" id="VFH-67-gsg" customClass="QuizViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XAK-jg-jWi">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YgI-Oj-42X"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K41-g7-rMN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5077" y="742"/>
         </scene>
         <!--Quiz Edit View Controller-->
         <scene sceneID="2J6-wG-DLW">
@@ -95,31 +114,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GHu-Sj-tmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4470" y="805"/>
+            <point key="canvasLocation" x="-3442" y="-507"/>
         </scene>
     </scenes>
     <classes>
-        <class className="QuizEditViewController" superclassName="VideoViewController">
+        <class className="QuizEditViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QuizEditViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addNewQuiz:"/>
                 <relationship kind="action" name="previousQuiz:"/>
             </relationships>
         </class>
-        <class className="TopicsEditViewController" superclassName="VideoViewController">
+        <class className="QuizViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuizViewController.h"/>
+        </class>
+        <class className="TopicsEditViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicsEditViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didSaveAndCloseClick:"/>
             </relationships>
         </class>
-        <class className="TopicsViewController" superclassName="VideoViewController">
+        <class className="TopicsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopicsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didEditClick:"/>
-            </relationships>
-        </class>
-        <class className="VideoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VideoViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didEditClick:"/>
             </relationships>

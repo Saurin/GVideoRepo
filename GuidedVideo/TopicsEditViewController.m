@@ -174,6 +174,8 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
+            
+            //[btn performAction];
             break;
         }
     }

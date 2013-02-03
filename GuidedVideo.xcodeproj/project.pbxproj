@@ -236,14 +236,14 @@
 				BF2185FB16BE215C00F7926B /* TopicsViewController.m */,
 				BF2185FD16BE223800F7926B /* TopicsEditViewController.h */,
 				BF2185FE16BE223800F7926B /* TopicsEditViewController.m */,
-				70EE875B16A997CB00E4A9BE /* VideoViewController.h */,
-				70EE875C16A997CB00E4A9BE /* VideoViewController.m */,
-				BFA7145D16AA93F600141710 /* HomeViewController.h */,
-				BFA7145E16AA93F600141710 /* HomeViewController.m */,
 				CC63681916A3399E00C3BDA1 /* QuizViewController.h */,
 				CC63681A16A3399E00C3BDA1 /* QuizViewController.m */,
 				BF21860016BE22F100F7926B /* QuizEditViewController.h */,
 				BF21860116BE22F100F7926B /* QuizEditViewController.m */,
+				70EE875B16A997CB00E4A9BE /* VideoViewController.h */,
+				70EE875C16A997CB00E4A9BE /* VideoViewController.m */,
+				BFA7145D16AA93F600141710 /* HomeViewController.h */,
+				BFA7145E16AA93F600141710 /* HomeViewController.m */,
 			);
 			path = GuidedVideo;
 			sourceTree = "<group>";

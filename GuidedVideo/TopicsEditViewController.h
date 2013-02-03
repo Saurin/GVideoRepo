@@ -12,7 +12,7 @@
 #import "CustomButton.h"
 #import "Data.h"
 
-@interface TopicsEditViewController : VideoViewController <AddSubjectDelegate>
+@interface TopicsEditViewController : UIViewController <AddSubjectDelegate>
 
 -(IBAction)didSaveAndCloseClick:(id)sender;
 

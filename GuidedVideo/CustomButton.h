@@ -37,9 +37,11 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 -(void)addText:(NSString*)text;
 -(void)addImageUsingAssetURL:(NSString*)url;
 -(void)addImage:(UIImage*)image withSize:(CGSize)size;
-
+-(void)performAction;
 -(void)addNewButton;
 -(NSInteger)getIndex;
+-(Subject*)getSubject;
+
 @end
 
 

@@ -12,7 +12,7 @@
 #import "Subject.h"
 #import "Data.h"
 
-@interface QuizEditViewController : VideoViewController<AddSubjectDelegate>
+@interface QuizEditViewController : UIViewController<AddSubjectDelegate>
 
 @property (nonatomic) Subject *subject;
 

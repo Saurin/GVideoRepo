@@ -14,6 +14,7 @@
 #define HPadding 40
 
 @implementation QuizViewController {
+    
     NSInteger quizPageIndex;
 
     NSMutableArray *quizzes;                        //all available quizzes for this topic
@@ -31,6 +32,13 @@
     
     quizPageIndex=0;
     [self loadButtons];
+
+}
+
+-(void)nextQuiz {
+    quizPageIndex++;
+    [self loadButtons];
+    [self createButtons];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -65,8 +73,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
+        [btn setEditable:NO];
         btn.presentingController=self;
 
     }
@@ -80,8 +87,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
     
@@ -95,8 +101,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
     
@@ -109,8 +114,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
     
@@ -129,9 +133,8 @@
     //set up video button
     CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
     [videoButton createButtonAtIndex:101];
-    [videoButton setEditable:YES];
+    [videoButton setEditable:NO];
     
-    videoButton.delegate=self;
     videoButton.presentingController=self;
     videoButton.buttonType=CustomButtonTypeVideo;
 
@@ -167,14 +170,6 @@
             [btn setHidden:NO];
         }
     }
-
-    if(![videoUrl isEqualToString:@""]){    //before adding any option, adding video is needed as that generates quiz id
-        
-        CustomButton *btn = (CustomButton *)[self.view viewWithTag:theQuizPage.quizOptions.count+1];
-        [btn createQuizButtonAtIndex:theQuizPage.quizOptions.count+1 withQuiz:nil];
-        [btn addNewButton];
-        [btn setHidden:NO];
-    }
 }
 
 -(void)addVideoPlayer:(NSString *)videoUrl {
@@ -187,37 +182,14 @@
     [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
     [videoButton addSubview:player.view];
     
-    player.controlStyle=MPMovieControlStyleEmbedded;
+    player.controlStyle=MPMovieControlStyleNone;
     player.movieSourceType=MPMovieSourceTypeStreaming;
-    player.shouldAutoplay=NO;
+    player.shouldAutoplay=YES;
     player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
     moviePlayer=player;
-    
-//    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-//    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
-//    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
-//    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-//    [videoButton addSubview:videoThumbnailImageView];
 }
 
 -(void)addNavigationButtons {
-
-    if(quizPageIndex==0){
-        UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(addNewQuiz:)] ;
-        
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, nil];
-        
-    }
-    else{
-        UIBarButtonItem *Button1 = [[UIBarButtonItem alloc]initWithTitle:@"Previous Quiz" style:UIBarButtonItemStylePlain
-                                                                  target:self action:@selector(previousQuiz:)] ;
-        
-        UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(addNewQuiz:)] ;
-        
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, nil];
-    }
     
     self.title = [NSString stringWithFormat:@"Add Video & Answers for Quiz - %d of %d", quizPageIndex+1, quizzes.count==0?1:quizzes.count];
 }
@@ -244,66 +216,14 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
+            
+            
+            //validate answer and play next video
+            [self nextQuiz];
             break;
         }
     }
 }
 
--(IBAction)addNewQuiz:(id)sender {
-    
-    [UIView transitionWithView:self.view
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionCurlUp
-                    animations:^{
-                        quizPageIndex++;
-                        [self loadButtons];
-                        [self createButtons];
-                        [self addNavigationButtons];
-                    }
-                    completion:NULL];
-}
-
--(IBAction)previousQuiz:(id)sender {
-
-    [UIView transitionWithView:self.view
-                      duration:0.5
-                       options:UIViewAnimationOptionTransitionCurlDown
-                    animations:^{
-                        quizPageIndex--;
-                        [self loadButtons];
-                        [self createButtons];
-                        [self addNavigationButtons];
-                    }
-                    completion:NULL];
-    
-}
-
--(void)saveVideoUrlForButton:(CustomButton *)btn videoUrl:(NSString *)urlString {
-    
-    if(theQuizPage==nil)                            //if current quiz page is a new one
-        theQuizPage = [[QuizPage alloc] init];
-    
-    theQuizPage.subjectId=subject.subjectId;
-    theQuizPage.videoUrl=urlString;
-    
-    [[Data sharedData] saveQuiz:theQuizPage];
-    
-    [self loadButtons];
-    [self createButtons];
-}
-
--(void)saveQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption {
-    NSLog(@"%d %@",quizOption.quizOptionId, quizOption.assetUrl);
-
-    quizOption.quizId = theQuizPage.quizId;
-    [[Data sharedData] saveQuizOption:quizOption];
-
-    [self loadButtons];
-    [self createButtons];
-}
-
--(void)removeQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption {
-    NSLog(@"%d %@",quizOption.quizOptionId, quizOption.assetUrl);
-}
 
 @end

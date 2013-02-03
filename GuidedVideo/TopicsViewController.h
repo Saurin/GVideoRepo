@@ -12,7 +12,7 @@
 #import "CustomButton.h"
 #import "Data.h"
 
-@interface TopicsViewController : VideoViewController
+@interface TopicsViewController : UIViewController
 
 -(IBAction)didEditClick:(id)sender;
 

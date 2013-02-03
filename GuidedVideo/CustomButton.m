@@ -94,6 +94,10 @@
     return _index;
 }
 
+-(Subject*)getSubject {
+    return thisSubject;
+}
+
 -(void)addText:(NSString*)text {
 
     lblText.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -153,6 +157,16 @@
     [lblText setFont:[UIFont boldSystemFontOfSize:95]];
     [lblText setHidden:NO];
     lblText.text=@"+";
+}
+
+-(void)performAction {
+    
+    if(_editable){
+        [self showTopicButtonEditActionSheet:nil];
+    }
+    else{
+        
+    }
 }
 
 -(void) addGestureRecognizer {

@@ -1,36 +1,30 @@
 //
-//  VideoViewController.m
+//  TopicsViewController.m
 //  GuidedVideo
 //
-//  Created by Sejal Pandya on 1/18/13.
+//  Created by Saurin Travadi on 2/2/13.
 //  Copyright (c) 2013 Mark Wade. All rights reserved.
 //
 
-#import "VideoViewController.h"
-#import <MediaPlayer/MediaPlayer.h>  
+#import "TopicsViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 #define ButtonCount 16
 #define VPadding 20
 #define HPadding 40
 
+@implementation TopicsViewController {
 
-@implementation VideoViewController {
-    MPMoviePlayerController *moviePlayer;
-    UIImageView *videoThumbnailImageView;
 }
+
 
 -(void)viewWillAppear:(BOOL)animated {
     
     [self setTitle:@""];
-
+    
     [self loadButtons];
     [self createButtons];
-
-    [self playVideo];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [moviePlayer stop];
-}
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskLandscape;
@@ -90,15 +84,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-    }
-    
-    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
-    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
-    
-    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
-    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
-    videoButton.tag=101;
-    [self.view addSubview:videoButton];
+    }    
 }
 
 -(void)createButtons {
@@ -131,29 +117,6 @@
             [btn setHidden:YES];
         }
     }
-}
-
--(void)playVideo {
-
-    NSURL *url = [NSURL URLWithString:@"file://localhost/private/var/mobile/Applications/BF939F78-7435-4CC0-B26B-D24CA46C6944/tmp//trim.6vQI3c.MOV"];
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [player prepareToPlay];
-    
-    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
-    [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-    [videoButton addSubview:player.view];
-    
-    player.controlStyle=MPMovieControlStyleNone;
-    player.movieSourceType=MPMovieSourceTypeStreaming;
-    player.repeatMode=MPMovieRepeatModeOne;
-    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
-    moviePlayer=player;
-
-    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
-    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
-    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-    [videoButton addSubview:videoThumbnailImageView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -189,8 +152,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
-    CFShow((__bridge CFTypeRef)([touch view]));
-    
+
     for(NSInteger i=0;i<ButtonCount;i++){
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
@@ -198,14 +160,6 @@
             //take action
             return;
         }
-    }
-
-    if ([touch view] == [self.view viewWithTag:1001] ) {
-
-        [videoThumbnailImageView setHidden:YES];
-        [moviePlayer play];
-        return;
-        
     }
 }
 

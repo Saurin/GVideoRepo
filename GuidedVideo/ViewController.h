@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
-#import "PasscodeViewController.h"
 
-@interface ViewController : UIViewController <PasscodeViewControllerDelegate>
+@interface ViewController : UIViewController
 
 -(IBAction)didEditClick:(id)sender;
 -(IBAction)didButtonClick:(id)sender;

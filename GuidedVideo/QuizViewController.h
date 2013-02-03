@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>  
 #import "CustomButton.h"
 #import "Subject.h"
 #import "Data.h"

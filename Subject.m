@@ -7,7 +7,7 @@
 //
 
 #import "Subject.h"
-
+#import "Data.h"
 
 @implementation Subject
 
@@ -15,12 +15,15 @@
 @synthesize subjectId;
 @synthesize subjectName;
 @synthesize assetUrl;
-@synthesize quizzes;
+@synthesize quizPages;
 
 - (id)init
 {
     self = [super init];
     if (self) {
+
+        
+        
         return self;
     }
     return nil;

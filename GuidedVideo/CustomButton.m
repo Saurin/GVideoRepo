@@ -12,7 +12,14 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @implementation CustomButton {
+    
     NSInteger _index;
+    NSString *buttonText;
+    NSString *buttonAssetUrl;
+    
+    Subject *thisSubject;
+    QuizOption *thisQuiz;
+    
     UILongPressGestureRecognizer *longPressGesture;
     
     UIImagePickerController *imagePicker;
@@ -34,10 +41,24 @@
     return self;
 }
 
+-(void)createSubjectButtonAtIndex:(NSInteger)index withSubject:(Subject *)subject {
+    thisSubject=subject;
+    buttonText=subject.subjectName;
+    buttonAssetUrl=subject.assetUrl;
+    buttonType=CustomButtonTypeSubject;
+    [self createButtonAtIndex:index];
+}
+
+-(void)createQuizButtonAtIndex:(NSInteger)index withQuiz:(QuizOption*) quiz {
+    thisQuiz=quiz;
+    buttonType=CustomButtonTypeQuiz;
+    [self createButtonAtIndex:index];
+}
+
 -(void)createButtonAtIndex:(NSInteger)index {
     _index=index;
     lblText=[[UILabel alloc] init];
-    bEmptyButton=YES;
+    bEmptyButton=NO;
     
     [self setBackgroundColor:[UIColor blackColor]];
 
@@ -126,10 +147,11 @@
 }
 
 -(void)addNewButton {
-
+    bEmptyButton=YES;
+    
     lblText.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [lblText setFont:[UIFont boldSystemFontOfSize:95]];
-    
+    [lblText setHidden:NO];
     lblText.text=@"+";
 }
 
@@ -148,6 +170,7 @@
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Delete"
                                                     otherButtonTitles:@"Add Quiz", @"Take Photo", @"Choose Existing Photo", @"Enter Text", nil];
+
     }
     else if(self.buttonType==CustomButtonTypeQuiz){
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -166,6 +189,26 @@
     self.normalActionSheet = actionSheet;
     [self.normalActionSheet showFromRect:self.bounds inView:self animated:YES];
 
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet  
+{
+    for (UIView* view in [actionSheet subviews])
+    {
+        if ([view isKindOfClass:NSClassFromString(@"UIAlertButton")])
+        {
+            if ([view respondsToSelector:@selector(title)])
+            {
+                NSString* title = [view performSelector:@selector(title)];
+                if (([title isEqualToString:@"Delete"] || [title isEqualToString:@"Add Quiz"]) && bEmptyButton)
+                {
+                    [view setBackgroundColor:[UIColor grayColor]];
+                    [view setAlpha:0.2];
+                    [view setUserInteractionEnabled:NO];
+                }
+            }
+        }
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -193,7 +236,7 @@
 
             [OHAlertView showAlertWithTitle:@"Delete Button" message:@"Are you sure you want to delete this button?" cancelButton:@"Cancel" okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    [self.delegate removeButton:self];
+                    [self performSelector:@selector(didSubjectDelete) withObject:nil afterDelay:0.2];
                 }
             }];
             
@@ -201,7 +244,7 @@
         }
         case 1: {
             
-            [self.delegate createQuiz:self];
+            [self performSelector:@selector(didSubjectNeedQuiz) withObject:nil afterDelay:0.2];
             break;
         }
         case 2: {
@@ -277,13 +320,12 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSString *text;
     
     if ([alertView alertViewStyle] == UIAlertViewStylePlainTextInput && buttonIndex==1) {
-        text = [alertView textFieldAtIndex:0].text;
-        [self addText:text];
+        buttonText = [alertView textFieldAtIndex:0].text;
 
-        [self.delegate saveButton:self withText:text asset:@""];
+        [self addText:buttonText];
+        [self performSelector:@selector(didSubjectUpdate) withObject:nil afterDelay:0.2];
     }
 }
 
@@ -314,6 +356,21 @@
     }
 }
 
+-(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType {
+    
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = sourceType;
+    
+    imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
+    
+    if (photoLibraryPopover == nil) {
+        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+    }
+    photoLibraryPopover.delegate=self;
+    [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     NSString *mediaType = [[info objectForKey:@"UIImagePickerControllerMediaType"] description];
@@ -335,16 +392,28 @@
                 else
                 {
                     [self loadImage:pickedImage];
+                    buttonAssetUrl=assetURL.absoluteString;
                     
-                    [self.delegate saveButton:self withText:@"" asset:assetURL.absoluteString];
+                    if(buttonType==CustomButtonTypeSubject){
+                        [self performSelector:@selector(didSubjectUpdate) withObject:nil afterDelay:0.2];
+                    }
+                   else if(buttonType==CustomButtonTypeQuiz){
+                       [self performSelector:@selector(didQuizUpdate) withObject:nil afterDelay:0.2];
+                   }
                 }
             }];
         }
         else
         {
             [self loadImage:pickedImage];
-
-            [self.delegate saveButton:self withText:@"" asset:assetURL];
+            buttonAssetUrl=assetURL;
+            
+            if(buttonType==CustomButtonTypeSubject){
+                [self performSelector:@selector(didSubjectUpdate) withObject:nil afterDelay:0.2];
+            }
+            else if(buttonType==CustomButtonTypeQuiz){
+               [self performSelector:@selector(didQuizUpdate) withObject:nil afterDelay:0.2];
+            }
         }
     }
     
@@ -357,6 +426,7 @@
         NSLog(@"%@",moviePath);
         NSLog(@"%@",videoUrl.absoluteString);
 
+        [self.delegate saveVideoUrlForButton:self videoUrl:videoUrl.absoluteString];
         //Only when you take new one
 //        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
 //            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
@@ -379,22 +449,53 @@
     }];
 }
 
--(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType {
+#pragma raise delegates for subject buttons
+
+-(void)didSubjectUpdate {
+
+    if(thisSubject==nil)
+        thisSubject = [[Subject alloc] init];
     
-    imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.sourceType = sourceType;
+    thisSubject.subjectName=buttonText;
+    thisSubject.assetUrl=buttonAssetUrl;
     
-    imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
-    
-    if (photoLibraryPopover == nil) {
-        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
-    }
-    photoLibraryPopover.delegate=self;
-    [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.delegate saveSubjectButton:self withSubject:thisSubject];
 }
 
+-(void)didSubjectDelete {
+    
+    if(thisSubject==nil)
+        thisSubject=[[Subject alloc] init];
+    
+    [self.delegate removeSubjectButton:self withSubject:thisSubject];
+}
 
+-(void)didSubjectNeedQuiz {
+    
+    if(thisSubject!=nil && thisSubject.subjectId!=0)            //to protect crash
+        [self.delegate createQuizAtButton:self forSubject:thisSubject];
+    
+}
+
+#pragma raise delegates for quiz buttons
+
+-(void)didQuizUpdate {
+    
+    if(thisQuiz==nil)
+        thisQuiz = [[QuizOption alloc] init];
+    
+    thisQuiz.assetUrl = buttonAssetUrl;
+
+    [self.delegate saveQuizButton:self withQuizOption:thisQuiz];
+}
+
+-(void)didQuizDelete {
+    
+    if(thisQuiz==nil)
+        thisQuiz=[[QuizOption alloc] init];
+    
+    [self.delegate removeQuizButton:self withQuizOption:thisQuiz];
+}
 
 
 @end

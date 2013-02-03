@@ -10,31 +10,18 @@
 		70EE875D16A997CB00E4A9BE /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EE875C16A997CB00E4A9BE /* VideoViewController.m */; };
 		70EE876016A997F000E4A9BE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */; };
 		BF0F466C16BCA3A300852098 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0F466B16BCA3A300852098 /* MediaPlayer.framework */; };
+		BF2185F616BD8D3400F7926B /* QuizPage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185F516BD8D3400F7926B /* QuizPage.m */; };
+		BF2185F916BD94F500F7926B /* QuizOption.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185F816BD94F400F7926B /* QuizOption.m */; };
+		BF2185FC16BE215C00F7926B /* TopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185FB16BE215C00F7926B /* TopicsViewController.m */; };
+		BF2185FF16BE223800F7926B /* TopicsEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185FE16BE223800F7926B /* TopicsEditViewController.m */; };
+		BF21860216BE22F100F7926B /* QuizEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF21860116BE22F100F7926B /* QuizEditViewController.m */; };
 		BF4335DB16BA021300343588 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DA16BA021300343588 /* libsqlite3.0.dylib */; };
 		BF4335DE16BA023B00343588 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DD16BA023B00343588 /* libiconv.dylib */; };
 		BF4335E316BA029F00343588 /* CrudOp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4335E216BA029F00343588 /* CrudOp.m */; };
 		BF6DCFCF16BAD55000E4D6AF /* DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = BF6DCFCE16BAD55000E4D6AF /* DB.sqlite */; };
-		BFA092E016B3234E0050B2A0 /* LTKPopoverActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA092D516B3234E0050B2A0 /* LTKPopoverActionSheet.m */; };
-		BFA092E116B3234E0050B2A0 /* PopoverDefaultButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092D816B3234E0050B2A0 /* PopoverDefaultButton.png */; };
-		BFA092E216B3234E0050B2A0 /* PopoverDefaultButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092D916B3234E0050B2A0 /* PopoverDefaultButton@2x.png */; };
-		BFA092E316B3234E0050B2A0 /* PopoverDefaultButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092DA16B3234E0050B2A0 /* PopoverDefaultButtonPressed.png */; };
-		BFA092E416B3234E0050B2A0 /* PopoverDefaultButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092DB16B3234E0050B2A0 /* PopoverDefaultButtonPressed@2x.png */; };
-		BFA092E516B3234E0050B2A0 /* PopoverDestroyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092DC16B3234E0050B2A0 /* PopoverDestroyButton.png */; };
-		BFA092E616B3234E0050B2A0 /* PopoverDestroyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092DD16B3234E0050B2A0 /* PopoverDestroyButton@2x.png */; };
-		BFA092E716B3234E0050B2A0 /* PopoverDestroyButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092DE16B3234E0050B2A0 /* PopoverDestroyButtonPressed.png */; };
-		BFA092E816B3234E0050B2A0 /* PopoverDestroyButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA092DF16B3234E0050B2A0 /* PopoverDestroyButtonPressed@2x.png */; };
 		BFA7145F16AA93F600141710 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7145E16AA93F600141710 /* HomeViewController.m */; };
 		BFA7146716AAA32500141710 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7146616AAA32500141710 /* CustomButton.m */; };
 		BFA7147F16ACAE0E00141710 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7147E16ACAE0E00141710 /* Data.m */; };
-		BFF35F9916B7567E0099C5E4 /* Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF35F9816B7567E0099C5E4 /* Quiz.m */; };
-		BFF8FB2A16B0C5D000EF9554 /* papasscode_background.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB2216B0C5D000EF9554 /* papasscode_background.png */; };
-		BFF8FB2B16B0C5D000EF9554 /* papasscode_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB2316B0C5D000EF9554 /* papasscode_background@2x.png */; };
-		BFF8FB2C16B0C5D000EF9554 /* papasscode_failed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB2416B0C5D000EF9554 /* papasscode_failed_bg.png */; };
-		BFF8FB2D16B0C5D000EF9554 /* papasscode_failed_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB2516B0C5D000EF9554 /* papasscode_failed_bg@2x.png */; };
-		BFF8FB2E16B0C5D000EF9554 /* papasscode_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB2616B0C5D000EF9554 /* papasscode_marker.png */; };
-		BFF8FB2F16B0C5D000EF9554 /* papasscode_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB2716B0C5D000EF9554 /* papasscode_marker@2x.png */; };
-		BFF8FB3016B0C5D000EF9554 /* PAPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF8FB2916B0C5D000EF9554 /* PAPasscodeViewController.m */; };
-		BFF8FB3316B0C87800EF9554 /* PasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF8FB3216B0C87800EF9554 /* PasscodeViewController.m */; };
 		BFF8FB3A16B2055F00EF9554 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB3816B2055F00EF9554 /* play.png */; };
 		BFF8FB3B16B2055F00EF9554 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB3916B2055F00EF9554 /* play@2x.png */; };
 		CC201F4516752D81005EDB6E /* OHActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = CC201F4216752D81005EDB6E /* OHActionSheet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -58,21 +45,13 @@
 		CC2688E91674FB0600AE9FB4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2688E71674FB0600AE9FB4 /* icon.png */; };
 		CC2688EA1674FB0600AE9FB4 /* icon@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2688E81674FB0600AE9FB4 /* icon@2X.png */; };
 		CC2688F21675074B00AE9FB4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2688F11675074B00AE9FB4 /* Constants.m */; };
-		CC2688F51675098900AE9FB4 /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2688F41675098900AE9FB4 /* PresentViewController.m */; };
-		CC2688F81675099C00AE9FB4 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2688F71675099C00AE9FB4 /* EditViewController.m */; };
 		CC2688FE167520E500AE9FB4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2688FD167520E500AE9FB4 /* QuartzCore.framework */; };
 		CC513BCD167534610079DDB9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC513BCC167534610079DDB9 /* AudioToolbox.framework */; };
-		CC63681816A3369B00C3BDA1 /* QuizEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63681716A3369B00C3BDA1 /* QuizEditViewController.m */; };
 		CC63681B16A3399E00C3BDA1 /* QuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC63681A16A3399E00C3BDA1 /* QuizViewController.m */; };
-		CC7110EB1684305A0094E76A /* SubjectMenuEditPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7110EA1684305A0094E76A /* SubjectMenuEditPopover.m */; };
-		CC7110EF1685595F0094E76A /* SubjectMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7110EE1685595F0094E76A /* SubjectMenuViewController.m */; };
 		CC867FEE168BAF35008102A2 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC867FED168BAF35008102A2 /* AssetsLibrary.framework */; };
 		CCA4FBC8167567D600098740 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCA4FBC7167567D600098740 /* AVFoundation.framework */; };
-		CCBBDD4F167D1A3E00739B2F /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBBDD4E167D1A3E00739B2F /* Topic.m */; };
 		CCBBDD57167E628900739B2F /* GuidedVideoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CCBBDD55167E628900739B2F /* GuidedVideoModel.xcdatamodeld */; };
 		CCBBDD5D167E640500739B2F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBBDD5C167E640500739B2F /* CoreData.framework */; };
-		CCBBDD9A167E68FF00739B2F /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBBDD99167E68FF00739B2F /* Application.m */; };
-		CCBBDDA4167E7BE500739B2F /* SubjectMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBBDDA3167E7BE500739B2F /* SubjectMenuCell.m */; };
 		CCBBDDA8167ECCD100739B2F /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBBDDA7167ECCD100739B2F /* Subject.m */; };
 /* End PBXBuildFile section */
 
@@ -91,40 +70,27 @@
 		70EE875C16A997CB00E4A9BE /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		BF0F466B16BCA3A300852098 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		BF2185F416BD8D3400F7926B /* QuizPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizPage.h; sourceTree = "<group>"; };
+		BF2185F516BD8D3400F7926B /* QuizPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizPage.m; sourceTree = "<group>"; };
+		BF2185F716BD94F400F7926B /* QuizOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizOption.h; sourceTree = "<group>"; };
+		BF2185F816BD94F400F7926B /* QuizOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizOption.m; sourceTree = "<group>"; };
+		BF2185FA16BE215C00F7926B /* TopicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicsViewController.h; sourceTree = "<group>"; };
+		BF2185FB16BE215C00F7926B /* TopicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicsViewController.m; sourceTree = "<group>"; };
+		BF2185FD16BE223800F7926B /* TopicsEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicsEditViewController.h; sourceTree = "<group>"; };
+		BF2185FE16BE223800F7926B /* TopicsEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicsEditViewController.m; sourceTree = "<group>"; };
+		BF21860016BE22F100F7926B /* QuizEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizEditViewController.h; sourceTree = "<group>"; };
+		BF21860116BE22F100F7926B /* QuizEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizEditViewController.m; sourceTree = "<group>"; };
 		BF4335DA16BA021300343588 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BF4335DD16BA023B00343588 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		BF4335E116BA029F00343588 /* CrudOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrudOp.h; sourceTree = "<group>"; };
 		BF4335E216BA029F00343588 /* CrudOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrudOp.m; sourceTree = "<group>"; };
 		BF6DCFCE16BAD55000E4D6AF /* DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DB.sqlite; sourceTree = "<group>"; };
-		BFA092D416B3234E0050B2A0 /* LTKPopoverActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTKPopoverActionSheet.h; sourceTree = "<group>"; };
-		BFA092D516B3234E0050B2A0 /* LTKPopoverActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTKPopoverActionSheet.m; sourceTree = "<group>"; };
-		BFA092D616B3234E0050B2A0 /* LTKPopoverActionSheetDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTKPopoverActionSheetDelegate.h; sourceTree = "<group>"; };
-		BFA092D816B3234E0050B2A0 /* PopoverDefaultButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverDefaultButton.png; sourceTree = "<group>"; };
-		BFA092D916B3234E0050B2A0 /* PopoverDefaultButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverDefaultButton@2x.png"; sourceTree = "<group>"; };
-		BFA092DA16B3234E0050B2A0 /* PopoverDefaultButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverDefaultButtonPressed.png; sourceTree = "<group>"; };
-		BFA092DB16B3234E0050B2A0 /* PopoverDefaultButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverDefaultButtonPressed@2x.png"; sourceTree = "<group>"; };
-		BFA092DC16B3234E0050B2A0 /* PopoverDestroyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverDestroyButton.png; sourceTree = "<group>"; };
-		BFA092DD16B3234E0050B2A0 /* PopoverDestroyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverDestroyButton@2x.png"; sourceTree = "<group>"; };
-		BFA092DE16B3234E0050B2A0 /* PopoverDestroyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopoverDestroyButtonPressed.png; sourceTree = "<group>"; };
-		BFA092DF16B3234E0050B2A0 /* PopoverDestroyButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PopoverDestroyButtonPressed@2x.png"; sourceTree = "<group>"; };
 		BFA7145D16AA93F600141710 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		BFA7145E16AA93F600141710 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		BFA7146516AAA32500141710 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		BFA7146616AAA32500141710 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		BFA7147D16ACAE0E00141710 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		BFA7147E16ACAE0E00141710 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
-		BFF35F9716B7567E0099C5E4 /* Quiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quiz.h; sourceTree = "<group>"; };
-		BFF35F9816B7567E0099C5E4 /* Quiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Quiz.m; sourceTree = "<group>"; };
-		BFF8FB2216B0C5D000EF9554 /* papasscode_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_background.png; sourceTree = "<group>"; };
-		BFF8FB2316B0C5D000EF9554 /* papasscode_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_background@2x.png"; sourceTree = "<group>"; };
-		BFF8FB2416B0C5D000EF9554 /* papasscode_failed_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_failed_bg.png; sourceTree = "<group>"; };
-		BFF8FB2516B0C5D000EF9554 /* papasscode_failed_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_failed_bg@2x.png"; sourceTree = "<group>"; };
-		BFF8FB2616B0C5D000EF9554 /* papasscode_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = papasscode_marker.png; sourceTree = "<group>"; };
-		BFF8FB2716B0C5D000EF9554 /* papasscode_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "papasscode_marker@2x.png"; sourceTree = "<group>"; };
-		BFF8FB2816B0C5D000EF9554 /* PAPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAPasscodeViewController.h; sourceTree = "<group>"; };
-		BFF8FB2916B0C5D000EF9554 /* PAPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAPasscodeViewController.m; sourceTree = "<group>"; };
-		BFF8FB3116B0C87800EF9554 /* PasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeViewController.h; sourceTree = "<group>"; };
-		BFF8FB3216B0C87800EF9554 /* PasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeViewController.m; sourceTree = "<group>"; };
 		BFF8FB3816B2055F00EF9554 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		BFF8FB3916B2055F00EF9554 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		CC201F4116752D81005EDB6E /* OHActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHActionSheet.h; sourceTree = "<group>"; };
@@ -157,30 +123,14 @@
 		CC2688E81674FB0600AE9FB4 /* icon@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2X.png"; sourceTree = "<group>"; };
 		CC2688F01675074B00AE9FB4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		CC2688F11675074B00AE9FB4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		CC2688F31675098900AE9FB4 /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
-		CC2688F41675098900AE9FB4 /* PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewController.m; sourceTree = "<group>"; };
-		CC2688F61675099C00AE9FB4 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
-		CC2688F71675099C00AE9FB4 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		CC2688FD167520E500AE9FB4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CC513BCC167534610079DDB9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		CC63681616A3369B00C3BDA1 /* QuizEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizEditViewController.h; sourceTree = "<group>"; };
-		CC63681716A3369B00C3BDA1 /* QuizEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizEditViewController.m; sourceTree = "<group>"; };
 		CC63681916A3399E00C3BDA1 /* QuizViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizViewController.h; sourceTree = "<group>"; };
 		CC63681A16A3399E00C3BDA1 /* QuizViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizViewController.m; sourceTree = "<group>"; };
-		CC7110E91684305A0094E76A /* SubjectMenuEditPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectMenuEditPopover.h; sourceTree = "<group>"; };
-		CC7110EA1684305A0094E76A /* SubjectMenuEditPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectMenuEditPopover.m; sourceTree = "<group>"; };
-		CC7110ED1685595F0094E76A /* SubjectMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectMenuViewController.h; sourceTree = "<group>"; };
-		CC7110EE1685595F0094E76A /* SubjectMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectMenuViewController.m; sourceTree = "<group>"; };
 		CC867FED168BAF35008102A2 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		CCA4FBC7167567D600098740 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		CCBBDD4D167D1A3E00739B2F /* Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Topic.h; sourceTree = "<group>"; };
-		CCBBDD4E167D1A3E00739B2F /* Topic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Topic.m; sourceTree = "<group>"; };
 		CCBBDD56167E628900739B2F /* GuidedVideoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GuidedVideoModel.xcdatamodel; sourceTree = "<group>"; };
 		CCBBDD5C167E640500739B2F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		CCBBDD98167E68FF00739B2F /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Application.h; path = ../Application.h; sourceTree = "<group>"; };
-		CCBBDD99167E68FF00739B2F /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Application.m; path = ../Application.m; sourceTree = "<group>"; };
-		CCBBDDA2167E7BE500739B2F /* SubjectMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectMenuCell.h; sourceTree = "<group>"; };
-		CCBBDDA3167E7BE500739B2F /* SubjectMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectMenuCell.m; sourceTree = "<group>"; };
 		CCBBDDA6167ECCD100739B2F /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
 		CCBBDDA7167ECCD100739B2F /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,49 +168,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BFA092D316B3234E0050B2A0 /* LTKPopoverActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				BFA092D416B3234E0050B2A0 /* LTKPopoverActionSheet.h */,
-				BFA092D516B3234E0050B2A0 /* LTKPopoverActionSheet.m */,
-				BFA092D616B3234E0050B2A0 /* LTKPopoverActionSheetDelegate.h */,
-				BFA092D716B3234E0050B2A0 /* Resources */,
-			);
-			name = LTKPopoverActionSheet;
-			path = GuidedVideo/LTKPopoverActionSheet;
-			sourceTree = "<group>";
-		};
-		BFA092D716B3234E0050B2A0 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				BFA092D816B3234E0050B2A0 /* PopoverDefaultButton.png */,
-				BFA092D916B3234E0050B2A0 /* PopoverDefaultButton@2x.png */,
-				BFA092DA16B3234E0050B2A0 /* PopoverDefaultButtonPressed.png */,
-				BFA092DB16B3234E0050B2A0 /* PopoverDefaultButtonPressed@2x.png */,
-				BFA092DC16B3234E0050B2A0 /* PopoverDestroyButton.png */,
-				BFA092DD16B3234E0050B2A0 /* PopoverDestroyButton@2x.png */,
-				BFA092DE16B3234E0050B2A0 /* PopoverDestroyButtonPressed.png */,
-				BFA092DF16B3234E0050B2A0 /* PopoverDestroyButtonPressed@2x.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		BFF8FB2116B0C5D000EF9554 /* PAPasscode */ = {
-			isa = PBXGroup;
-			children = (
-				BFF8FB2216B0C5D000EF9554 /* papasscode_background.png */,
-				BFF8FB2316B0C5D000EF9554 /* papasscode_background@2x.png */,
-				BFF8FB2416B0C5D000EF9554 /* papasscode_failed_bg.png */,
-				BFF8FB2516B0C5D000EF9554 /* papasscode_failed_bg@2x.png */,
-				BFF8FB2616B0C5D000EF9554 /* papasscode_marker.png */,
-				BFF8FB2716B0C5D000EF9554 /* papasscode_marker@2x.png */,
-				BFF8FB2816B0C5D000EF9554 /* PAPasscodeViewController.h */,
-				BFF8FB2916B0C5D000EF9554 /* PAPasscodeViewController.m */,
-			);
-			name = PAPasscode;
-			path = GuidedVideo/PAPasscode;
-			sourceTree = "<group>";
-		};
 		CC201F3F16752D4D005EDB6E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,8 +208,6 @@
 				BF0F466B16BCA3A300852098 /* MediaPlayer.framework */,
 				BF4335DD16BA023B00343588 /* libiconv.dylib */,
 				BF4335DA16BA021300343588 /* libsqlite3.0.dylib */,
-				BFA092D316B3234E0050B2A0 /* LTKPopoverActionSheet */,
-				BFF8FB2116B0C5D000EF9554 /* PAPasscode */,
 				70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */,
 				CC867FED168BAF35008102A2 /* AssetsLibrary.framework */,
 				CCBBDD5C167E640500739B2F /* CoreData.framework */,
@@ -320,34 +225,25 @@
 		CC2688B11674FA1D00AE9FB4 /* GuidedVideo */ = {
 			isa = PBXGroup;
 			children = (
-				CCBBDDA5167E7BEC00739B2F /* CustomCells */,
 				CCBBDD4B167D1A0C00739B2F /* Classes */,
 				CC2688BA1674FA1D00AE9FB4 /* AppDelegate.h */,
 				CC2688BB1674FA1D00AE9FB4 /* AppDelegate.m */,
-				CCBBDD98167E68FF00739B2F /* Application.h */,
-				CCBBDD99167E68FF00739B2F /* Application.m */,
 				CC2688C31674FA1D00AE9FB4 /* MainStoryboard.storyboard */,
-				CC2688F31675098900AE9FB4 /* PresentViewController.h */,
-				CC2688F41675098900AE9FB4 /* PresentViewController.m */,
-				CC2688F61675099C00AE9FB4 /* EditViewController.h */,
-				CC2688F71675099C00AE9FB4 /* EditViewController.m */,
-				CC7110E91684305A0094E76A /* SubjectMenuEditPopover.h */,
-				CC7110EA1684305A0094E76A /* SubjectMenuEditPopover.m */,
-				CC63681616A3369B00C3BDA1 /* QuizEditViewController.h */,
-				CC63681716A3369B00C3BDA1 /* QuizEditViewController.m */,
 				CC2688B21674FA1D00AE9FB4 /* Supporting Files */,
-				CC7110ED1685595F0094E76A /* SubjectMenuViewController.h */,
-				CC7110EE1685595F0094E76A /* SubjectMenuViewController.m */,
 				CC2688C61674FA1D00AE9FB4 /* ViewController.h */,
 				CC2688C71674FA1D00AE9FB4 /* ViewController.m */,
+				BF2185FA16BE215C00F7926B /* TopicsViewController.h */,
+				BF2185FB16BE215C00F7926B /* TopicsViewController.m */,
+				BF2185FD16BE223800F7926B /* TopicsEditViewController.h */,
+				BF2185FE16BE223800F7926B /* TopicsEditViewController.m */,
 				70EE875B16A997CB00E4A9BE /* VideoViewController.h */,
 				70EE875C16A997CB00E4A9BE /* VideoViewController.m */,
 				BFA7145D16AA93F600141710 /* HomeViewController.h */,
 				BFA7145E16AA93F600141710 /* HomeViewController.m */,
 				CC63681916A3399E00C3BDA1 /* QuizViewController.h */,
 				CC63681A16A3399E00C3BDA1 /* QuizViewController.m */,
-				BFF8FB3116B0C87800EF9554 /* PasscodeViewController.h */,
-				BFF8FB3216B0C87800EF9554 /* PasscodeViewController.m */,
+				BF21860016BE22F100F7926B /* QuizEditViewController.h */,
+				BF21860116BE22F100F7926B /* QuizEditViewController.m */,
 			);
 			path = GuidedVideo;
 			sourceTree = "<group>";
@@ -408,8 +304,6 @@
 		CCBBDD4B167D1A0C00739B2F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CCBBDD4D167D1A3E00739B2F /* Topic.h */,
-				CCBBDD4E167D1A3E00739B2F /* Topic.m */,
 				BFA7146516AAA32500141710 /* CustomButton.h */,
 				BFA7146616AAA32500141710 /* CustomButton.m */,
 			);
@@ -424,22 +318,15 @@
 				BF4335E216BA029F00343588 /* CrudOp.m */,
 				CCBBDDA6167ECCD100739B2F /* Subject.h */,
 				CCBBDDA7167ECCD100739B2F /* Subject.m */,
-				BFF35F9716B7567E0099C5E4 /* Quiz.h */,
-				BFF35F9816B7567E0099C5E4 /* Quiz.m */,
+				BF2185F416BD8D3400F7926B /* QuizPage.h */,
+				BF2185F516BD8D3400F7926B /* QuizPage.m */,
+				BF2185F716BD94F400F7926B /* QuizOption.h */,
+				BF2185F816BD94F400F7926B /* QuizOption.m */,
 				CCBBDD55167E628900739B2F /* GuidedVideoModel.xcdatamodeld */,
 				BFA7147D16ACAE0E00141710 /* Data.h */,
 				BFA7147E16ACAE0E00141710 /* Data.m */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		CCBBDDA5167E7BEC00739B2F /* CustomCells */ = {
-			isa = PBXGroup;
-			children = (
-				CCBBDDA2167E7BE500739B2F /* SubjectMenuCell.h */,
-				CCBBDDA3167E7BE500739B2F /* SubjectMenuCell.m */,
-			);
-			name = CustomCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,22 +407,8 @@
 				CC2688C51674FA1D00AE9FB4 /* MainStoryboard.storyboard in Resources */,
 				CC2688E91674FB0600AE9FB4 /* icon.png in Resources */,
 				CC2688EA1674FB0600AE9FB4 /* icon@2X.png in Resources */,
-				BFF8FB2A16B0C5D000EF9554 /* papasscode_background.png in Resources */,
-				BFF8FB2B16B0C5D000EF9554 /* papasscode_background@2x.png in Resources */,
-				BFF8FB2C16B0C5D000EF9554 /* papasscode_failed_bg.png in Resources */,
-				BFF8FB2D16B0C5D000EF9554 /* papasscode_failed_bg@2x.png in Resources */,
-				BFF8FB2E16B0C5D000EF9554 /* papasscode_marker.png in Resources */,
-				BFF8FB2F16B0C5D000EF9554 /* papasscode_marker@2x.png in Resources */,
 				BFF8FB3A16B2055F00EF9554 /* play.png in Resources */,
 				BFF8FB3B16B2055F00EF9554 /* play@2x.png in Resources */,
-				BFA092E116B3234E0050B2A0 /* PopoverDefaultButton.png in Resources */,
-				BFA092E216B3234E0050B2A0 /* PopoverDefaultButton@2x.png in Resources */,
-				BFA092E316B3234E0050B2A0 /* PopoverDefaultButtonPressed.png in Resources */,
-				BFA092E416B3234E0050B2A0 /* PopoverDefaultButtonPressed@2x.png in Resources */,
-				BFA092E516B3234E0050B2A0 /* PopoverDestroyButton.png in Resources */,
-				BFA092E616B3234E0050B2A0 /* PopoverDestroyButton@2x.png in Resources */,
-				BFA092E716B3234E0050B2A0 /* PopoverDestroyButtonPressed.png in Resources */,
-				BFA092E816B3234E0050B2A0 /* PopoverDestroyButtonPressed@2x.png in Resources */,
 				BF6DCFCF16BAD55000E4D6AF /* DB.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,28 +448,21 @@
 				CC2688BC1674FA1D00AE9FB4 /* AppDelegate.m in Sources */,
 				CC2688C81674FA1D00AE9FB4 /* ViewController.m in Sources */,
 				CC2688F21675074B00AE9FB4 /* Constants.m in Sources */,
-				CC2688F51675098900AE9FB4 /* PresentViewController.m in Sources */,
-				CC2688F81675099C00AE9FB4 /* EditViewController.m in Sources */,
 				CC201F4516752D81005EDB6E /* OHActionSheet.m in Sources */,
 				CC201F4616752D81005EDB6E /* OHAlertView.m in Sources */,
-				CCBBDD4F167D1A3E00739B2F /* Topic.m in Sources */,
 				CCBBDD57167E628900739B2F /* GuidedVideoModel.xcdatamodeld in Sources */,
-				CCBBDD9A167E68FF00739B2F /* Application.m in Sources */,
-				CCBBDDA4167E7BE500739B2F /* SubjectMenuCell.m in Sources */,
 				CCBBDDA8167ECCD100739B2F /* Subject.m in Sources */,
-				CC7110EB1684305A0094E76A /* SubjectMenuEditPopover.m in Sources */,
-				CC7110EF1685595F0094E76A /* SubjectMenuViewController.m in Sources */,
-				CC63681816A3369B00C3BDA1 /* QuizEditViewController.m in Sources */,
 				CC63681B16A3399E00C3BDA1 /* QuizViewController.m in Sources */,
 				70EE875D16A997CB00E4A9BE /* VideoViewController.m in Sources */,
 				BFA7145F16AA93F600141710 /* HomeViewController.m in Sources */,
 				BFA7146716AAA32500141710 /* CustomButton.m in Sources */,
 				BFA7147F16ACAE0E00141710 /* Data.m in Sources */,
-				BFF8FB3016B0C5D000EF9554 /* PAPasscodeViewController.m in Sources */,
-				BFF8FB3316B0C87800EF9554 /* PasscodeViewController.m in Sources */,
-				BFA092E016B3234E0050B2A0 /* LTKPopoverActionSheet.m in Sources */,
-				BFF35F9916B7567E0099C5E4 /* Quiz.m in Sources */,
 				BF4335E316BA029F00343588 /* CrudOp.m in Sources */,
+				BF2185F616BD8D3400F7926B /* QuizPage.m in Sources */,
+				BF2185F916BD94F500F7926B /* QuizOption.m in Sources */,
+				BF2185FC16BE215C00F7926B /* TopicsViewController.m in Sources */,
+				BF2185FF16BE223800F7926B /* TopicsEditViewController.m in Sources */,
+				BF21860216BE22F100F7926B /* QuizEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

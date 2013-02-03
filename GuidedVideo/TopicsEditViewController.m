@@ -1,35 +1,30 @@
 //
-//  VideoViewController.m
+//  TopicsEditViewController.m
 //  GuidedVideo
 //
-//  Created by Sejal Pandya on 1/18/13.
+//  Created by Saurin Travadi on 2/2/13.
 //  Copyright (c) 2013 Mark Wade. All rights reserved.
 //
 
-#import "VideoViewController.h"
-#import <MediaPlayer/MediaPlayer.h>  
+#import "TopicsEditViewController.h"
 #define ButtonCount 16
 #define VPadding 20
 #define HPadding 40
 
+@implementation TopicsEditViewController
 
-@implementation VideoViewController {
-    MPMoviePlayerController *moviePlayer;
-    UIImageView *videoThumbnailImageView;
+-(void)viewDidLoad {
+    
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    [self setTitle:@""];
-
+    self.title =@"Topics";
+    
     [self loadButtons];
     [self createButtons];
-
-    [self playVideo];
-}
-
--(void)viewWillDisappear:(BOOL)animated {
-    [moviePlayer stop];
+    
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -56,6 +51,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     //right column
@@ -67,6 +65,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     
@@ -79,6 +80,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     //left column
@@ -90,6 +94,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
@@ -103,57 +110,40 @@
 
 -(void)createButtons {
     
+    //get existing subjects, if any
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
     
-    for(NSInteger i=0;i<ButtonCount;i++){
+    //set up video button
+    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
+    [videoButton createButtonAtIndex:101];
+    [videoButton setEditable:YES];
+    
+    videoButton.delegate=self;
+    videoButton.presentingController=self;
+    videoButton.buttonType=CustomButtonTypeVideo;
+    
+    //set up subject buttons
+    for(NSInteger i=0;i<buttons.count;i++){
+        
+        Subject *sub = [buttons objectAtIndex:i];
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        [btn createButtonAtIndex:i];
-        [btn setEditable:NO];
+        [btn createSubjectButtonAtIndex:i+1 withSubject:sub];
         
-        btn.presentingController=self;
-        btn.buttonType=CustomButtonTypeSubject;
+        if(![sub.subjectName isEqualToString:@""]){
+            [btn addText:sub.subjectName];
+        }
+        if(![sub.assetUrl isEqualToString:@""]){
+            [btn addImageUsingAssetURL:sub.assetUrl];
+        }
         
-        if(buttons.count>i){
-            
-            Subject *sub = [buttons objectAtIndex:i];
-            if(![sub.subjectName isEqualToString:@""]){
-                [btn addText:sub.subjectName];
-            }
-            if(![sub.assetUrl isEqualToString:@""]){
-                [btn addImageUsingAssetURL:sub.assetUrl];
-            }
-            btn.bEmptyButton=NO;
-            [btn setHidden:NO];
-        }
-        else{
-            btn.bEmptyButton=YES;
-            [btn setHidden:YES];
-        }
+        [btn setHidden:NO];
     }
-}
-
--(void)playVideo {
-
-    NSURL *url = [NSURL URLWithString:@"file://localhost/private/var/mobile/Applications/BF939F78-7435-4CC0-B26B-D24CA46C6944/tmp//trim.6vQI3c.MOV"];
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [player prepareToPlay];
     
-    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
-    [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-    [videoButton addSubview:player.view];
-    
-    player.controlStyle=MPMovieControlStyleNone;
-    player.movieSourceType=MPMovieSourceTypeStreaming;
-    player.repeatMode=MPMovieRepeatModeOne;
-    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
-    moviePlayer=player;
-
-    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
-    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
-    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-    [videoButton addSubview:videoThumbnailImageView];
+    CustomButton *btn = (CustomButton *)[self.view viewWithTag:buttons.count+1];
+    [btn createSubjectButtonAtIndex:buttons.count+1 withSubject:nil];
+    [btn addNewButton];
+    [btn setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -162,25 +152,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
--(IBAction)didEditClick:(id)sender {
-    [self setTitle:@"Done"];
-    [self performSegueWithIdentifier:@"Edit" sender:nil];
-}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     
     for(NSInteger i=0;i<ButtonCount;i++){
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        if ([touch view] == btn && btn.bEmptyButton) {
+        if ([touch view] == btn) {
+            
             [btn setAlpha:.6];
             break;
         }
@@ -189,24 +167,60 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
-    CFShow((__bridge CFTypeRef)([touch view]));
     
     for(NSInteger i=0;i<ButtonCount;i++){
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        if ([touch view] == btn ) {
-            //take action
-            return;
+        if ([touch view] == btn) {
+            
+            [btn setAlpha:1];
+            break;
         }
     }
+}
 
-    if ([touch view] == [self.view viewWithTag:1001] ) {
-
-        [videoThumbnailImageView setHidden:YES];
-        [moviePlayer play];
-        return;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([[segue identifier] isEqualToString:@"Quiz"]) {
         
+        self.title = ((Subject *)sender).subjectName;
+        
+        QuizViewController *vc = [segue destinationViewController];
+        vc.subject = (Subject *)sender;
     }
 }
+
+-(IBAction)didSaveAndCloseClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)saveSubjectButton:(CustomButton *)btn withSubject:(Subject *)subject {
+    
+    NSLog(@"%d %@ %@",subject.subjectId,subject.subjectName,subject.assetUrl);
+    [[Data sharedData] saveSubject:subject];
+    
+    [self loadButtons];
+    [self createButtons];
+    
+}
+
+-(void)removeSubjectButton:(CustomButton *)btn withSubject:(Subject *)subject {
+    
+    NSLog(@"%d %@ %@",subject.subjectId,subject.subjectName,subject.assetUrl);
+    if(subject!=nil && subject.subjectId!=0)
+    {
+        [[Data sharedData] deleteSubject:subject];
+    }
+    
+    [self loadButtons];
+    [self createButtons];
+}
+
+-(void)createQuizAtButton:(CustomButton *)btn forSubject:(Subject *)subject {
+    
+    [self performSegueWithIdentifier:@"Quiz" sender:subject];
+}
+
+
 
 @end

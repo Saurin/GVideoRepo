@@ -131,17 +131,6 @@
     [btnClickedAt replaceObjectAtIndex:[tag integerValue] withObject:defaultValue];
 }
 
--(IBAction)didEditClick:(id)sender {
-    [self performSegueWithIdentifier:@"Login" sender:nil];
-}
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([[segue identifier] isEqualToString:@"Login"]) {
-        
-        PasscodeViewController *vc = [segue destinationViewController];
-        vc.presenter = self;
-    }
-}
 
 @end

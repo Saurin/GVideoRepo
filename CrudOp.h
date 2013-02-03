@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 #import "Subject.h"
+#import "QuizPage.h"
+#import "QuizOption.h"
 
 typedef NS_ENUM(NSInteger, TableName) {
     DBTableSubject = 0,
-    DBTableQuiz
+    DBTableQuiz=1,
+    DBTableQuizOption
 };
 
 @interface CrudOp : NSObject <UIAlertViewDelegate> {
@@ -36,15 +39,10 @@ typedef NS_ENUM(NSInteger, TableName) {
 @property (nonatomic,retain) NSFileManager *fileMgr;
 
 + (CrudOp *)sharedDB;
--(NSMutableArray*)GetRecords:(TableName)table;
+
+-(NSMutableArray*)GetRecords:(TableName)table where:(NSString*)filter;
 -(void)InsertRecordInTable:(TableName)table withObject:(id)obj;
 -(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index;
 -(void)UpdateRecordForTable:(TableName)table withObject:(id)obj;
-
--(void)CopyDbToDocumentsFolder;
--(NSString *) GetDocumentDirectory;
-
--(void)DeleteRecords;
-
 
 @end

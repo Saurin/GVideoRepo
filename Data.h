@@ -9,16 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "CrudOp.h"
 #import "Subject.h"
-#import "Quiz.h"
+#import "QuizPage.h"
+#import "QuizOption.h"
 
 @interface Data : NSObject
 
 + (Data *)sharedData;
 -(NSMutableArray *)getSubjects;
--(Subject *)getSubjectAtIndex:(NSInteger)index;
-- (void)saveSubjectAtIndex:(NSInteger)index subject:(Subject *)sub;
-- (void)deleteSubjectAtIndex:(NSInteger)index;
+    
+-(Subject *)getSubjectAtSubjectId:(NSInteger)index;
+-(NSMutableArray *)getQuizOptionsForQuizId:(NSInteger)index;
 
--(void)addQuizAtIndex:(NSInteger)index forSubjectAtIndex:(NSInteger)subIndex quiz:(Quiz *)quiz;
+- (void)saveSubject:(Subject *)sub;
+- (void)deleteSubject:(Subject *)sub;
+
+-(void)saveQuiz:(QuizPage *)quizPage;
+-(void)saveQuizOption:(QuizOption *)quizOption;
 
 @end

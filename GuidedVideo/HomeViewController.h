@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h> 
-#import "PAPasscodeViewController.h"
 #import "QuizViewController.h"
 #import "CustomButton.h"
 #import "Data.h"
 
 
-@interface HomeViewController : UIViewController <PAPasscodeViewControllerDelegate, AddSubjectDelegate>
+@interface HomeViewController : UIViewController  <AddSubjectDelegate>
 
 @property BOOL bLoginSuccess;
 

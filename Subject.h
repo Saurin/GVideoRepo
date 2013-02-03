@@ -15,7 +15,6 @@
 @property (nonatomic) NSInteger subjectId;
 @property (nonatomic, retain) NSString * subjectName;
 @property (nonatomic, retain) NSString * assetUrl;
-@property (nonatomic, retain) NSMutableArray* quizzes;
-
+@property (nonatomic, retain) NSMutableArray *quizPages;
 
 @end

@@ -9,6 +9,7 @@
 #import "CrudOp.h"
 
 @implementation CrudOp
+
 @synthesize  coldbl;
 @synthesize colint;
 @synthesize coltext;
@@ -67,27 +68,56 @@
     return homeDir;
 }
 
--(NSMutableArray*)GetRecords:(TableName)table {
+-(NSMutableArray*)GetRecords:(TableName)table where:(NSString*)filter {
     
     fileMgr = [NSFileManager defaultManager];
     sqlite3_stmt *stmt=nil;
     sqlite3 *cruddb;
     NSMutableArray *myMutuableArray = [[NSMutableArray alloc] init];
-    NSString *sqltemp;
+    
+    const char *sql;
+    if(table==DBTableSubject){
+        
+        NSString *sqltemp = @"Select SubjectId, SubjectName, AssetUrl From Subject ";
+        if(![filter isEqualToString:@""]){
+            sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
+        }
+        sqltemp = [sqltemp stringByAppendingFormat:@"%@",@" order by 1 asc"];
+        
+        sql = [sqltemp UTF8String];
+    }
+    else if(table==DBTableQuiz){
+
+        NSString *sqltemp = @"Select QuizId, SubjectId, VideoUrl From Quiz ";
+        if(![filter isEqualToString:@""]){
+            sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
+        }
+        sqltemp = [sqltemp stringByAppendingFormat:@"%@",@" order by 1 asc"];
+        
+        sql = [sqltemp UTF8String];
+    }
+    else if(table==DBTableQuizOption){
+
+        NSString *sqltemp = @"Select Id, QuizId, AssetUrl From QuizAsset ";
+        if(![filter isEqualToString:@""]){
+            sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
+        }
+        sqltemp = [sqltemp stringByAppendingFormat:@"%@",@" order by 1 asc"];
+        
+        sql = [sqltemp UTF8String];
+    }
+    
+    //Open db
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
+    if(sqlite3_open([cruddatabase UTF8String], &cruddb)!=SQLITE_OK)
+        NSLog(@"FAILED TO OPEN DB");
+    
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
     
     
     if(table==DBTableSubject){
-        sqltemp = @"Select SubjectId, SubjectName, AssetUrl From Subject order by 1 asc";
-        const char *sql = [sqltemp UTF8String];
-    
-        //Open db
-        NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
-        if(sqlite3_open([cruddatabase UTF8String], &cruddb)!=SQLITE_OK)
-            NSLog(@"FAILED TO OPEN DB");
-
-        int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
-        if(result!=SQLITE_OK)
-            NSLog(@"FAILED TO PREPARE STMT");
         
         while(sqlite3_step(stmt)== SQLITE_ROW)
         {
@@ -105,7 +135,33 @@
     }
     else if (table==DBTableQuiz){
         
+        while(sqlite3_step(stmt)== SQLITE_ROW)
+        {
+            QuizPage *quiz = [[QuizPage alloc] init];
+            quiz.quizId=sqlite3_column_int(stmt, 0);
+            quiz.subjectId=sqlite3_column_int(stmt, 1);
+            
+            if(sqlite3_column_text(stmt, 2)!=nil)
+                quiz.videoUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 2)];
+
+            [myMutuableArray addObject:quiz];
+        }
     }
+    else if (table==DBTableQuizOption){
+        
+        while(sqlite3_step(stmt)== SQLITE_ROW)
+        {
+            QuizOption *option = [[QuizOption alloc] init];
+            option.quizOptionId=sqlite3_column_int(stmt, 0);
+            option.quizId=sqlite3_column_int(stmt, 1);
+            
+            if(sqlite3_column_text(stmt, 2)!=nil)
+                option.assetUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 2)];
+            
+            [myMutuableArray addObject:option];
+        }
+    }
+    
     
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
@@ -130,6 +186,17 @@
     }
     else if(table==DBTableQuiz){
         
+        QuizPage *quiz = obj;
+        
+        sqltemp = @"Insert into Quiz(SubjectId, VideoUrl) Values(";
+        sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@')",quiz.subjectId, quiz.videoUrl];
+    }
+    else if(table==DBTableQuizOption){
+        
+        QuizOption *option = obj;
+
+        sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl) Values(";
+        sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@')",option.quizId, option.assetUrl];
     }
     
     sql = [sqltemp UTF8String];
@@ -170,7 +237,6 @@
     sqlite3_close(cruddb);
 }
 
-
 -(void)UpdateRecordForTable:(TableName)table withObject:(id)obj {
     
     fileMgr = [NSFileManager defaultManager];
@@ -183,8 +249,14 @@
         Subject *sub = obj;
         sqltemp = [NSString stringWithFormat:@"Update Subject set SubjectName='%@', AssetUrl='%@' where SubjectId=%d",sub.subjectName,sub.assetUrl, sub.subjectId];
     }
-    else if(table==DBTableQuiz)
-        sqltemp = [NSString stringWithFormat:@"Update Subject set SubjectName='%@', AssetUrl='%@' where SubjectId=%d",@"",@"",0];
+    else if(table==DBTableQuiz) {
+        QuizPage *quiz = obj;
+        sqltemp = [NSString stringWithFormat:@"Update Quiz set VideoUrl='%@' where QuizId=%d",quiz.videoUrl,quiz.quizId];
+    }
+    else if(table==DBTableQuizOption){
+        QuizOption *option = obj;
+        sqltemp = [NSString stringWithFormat:@"Update QuizAsset set AssetUrl='%@' where Id=%d", option.assetUrl, option.quizOptionId];
+    }
     
     sql = [sqltemp UTF8String];
     NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];

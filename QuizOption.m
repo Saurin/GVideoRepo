@@ -1,16 +1,14 @@
 //
-//  Quiz.m
+//  QuizOption.m
 //  GuidedVideo
 //
-//  Created by Saurin Travadi on 1/28/13.
+//  Created by Saurin Travadi on 2/2/13.
 //  Copyright (c) 2013 Mark Wade. All rights reserved.
 //
 
-#import "Quiz.h"
+#import "QuizOption.h"
 
-@implementation Quiz
-@synthesize assetUrls;
-@synthesize videoUrl;
+@implementation QuizOption
 
 - (id)init
 {

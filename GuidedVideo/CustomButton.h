@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "Subject.h"
+#import "QuizOption.h"
+
 
 typedef NS_ENUM(NSInteger, CustomButtonType) {
     CustomButtonTypeSubject = 0,
@@ -30,6 +32,8 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 @property CustomButtonType buttonType;
 
 -(void)createButtonAtIndex:(NSInteger)index;
+-(void)createSubjectButtonAtIndex:(NSInteger)index withSubject:(Subject *)subject;
+-(void)createQuizButtonAtIndex:(NSInteger)index withQuiz:(QuizOption*) quiz;
 -(void)addText:(NSString*)text;
 -(void)addImageUsingAssetURL:(NSString*)url;
 -(void)addImage:(UIImage*)image withSize:(CGSize)size;
@@ -41,7 +45,17 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 
 @protocol AddSubjectDelegate <NSObject>
 - (void)buttonClicked:(CustomButton *)btn;
-- (void)saveButton:(CustomButton *)btn withText:(NSString *)text asset:(NSString *)assetUrl;
+
+- (void)saveSubjectButton:(CustomButton *)btn withSubject:(Subject *)subject;
+- (void)removeSubjectButton:(CustomButton *)btn withSubject:(Subject *)subject;
+- (void)createQuizAtButton:(CustomButton *)btn forSubject:(Subject *)subject;
+
+- (void)saveQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption;
+- (void)removeQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption;
+
 - (void)removeButton:(CustomButton *)btn;
 - (void)createQuiz:(CustomButton *)btn;
+
+-(void)saveVideoUrlForButton:(CustomButton *)btn videoUrl:(NSString *)urlString;
+
 @end

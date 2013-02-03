@@ -21,37 +21,45 @@
         if (!shardData)
             shardData = [[Data alloc] init];
         
-        //[shardData getContent];
         return shardData;
     }
 }
 
-
 -(NSMutableArray *)getSubjects {
-    NSMutableArray *mArray = [[CrudOp sharedDB] GetRecords:DBTableSubject];
+    
+    NSMutableArray *mArray = [[CrudOp sharedDB] GetRecords:DBTableSubject where:@""];
+    
+//    //get quiz pages for each subject
+//    for (NSInteger i=0; i<mArray.count; i++) {
+//        Subject *sub = [mArray objectAtIndex:i];
+//        sub.quizPages = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[NSString stringWithFormat: @"SubjectId=%d",sub.subjectId]];
+//    }
+
     return mArray;
 }
 
-
--(Subject *)getSubjectAtIndex:(NSInteger)index {
+-(Subject *)getSubjectAtSubjectId:(NSInteger)index {
     
-    NSMutableArray *allSubjects = [self getSubjects];
-    for(NSInteger i=0;i<allSubjects.count;i++){
-        Subject *sub = (Subject *)[allSubjects objectAtIndex:i];
-        if(sub.subjectId==index){
-            return sub;
-        }
-    }
+    NSMutableArray *subejcts = [[CrudOp sharedDB] GetRecords:DBTableSubject where:[NSString stringWithFormat: @"SubjectId=%d",index]];
+    if(subejcts==nil || subejcts.count==0)
+        return nil;
     
-    return nil;
+    Subject *sub=[subejcts objectAtIndex:0];
+    
+    NSMutableArray *quizzes = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[NSString stringWithFormat:@"SubjectId=%d",index]];
+    sub.quizPages = quizzes;
+    
+    return sub;
 }
 
-
--(void)saveSubjectAtIndex:(NSInteger)index subject:(Subject *)sub {
+-(NSMutableArray *)getQuizOptionsForQuizId:(NSInteger)index {
     
-    if([self getSubjectAtIndex:index]){
-        sub.subjectId=index;
+    return [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[NSString stringWithFormat:@"QuizId=%d",index]];
+}
 
+-(void)saveSubject:(Subject *)sub {
+
+    if([self getSubjectAtSubjectId:sub.subjectId]){
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableSubject withObject:sub];
     }
     else{
@@ -59,130 +67,26 @@
     }
 }
 
+-(void)deleteSubject:(Subject *)sub {
 
--(void)deleteSubjectAtIndex:(NSInteger)index {
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableSubject withId:sub.subjectId];
+}
+
+-(void)saveQuiz:(QuizPage *)quizPage {
+    if(quizPage.quizId==0)
+        [[CrudOp sharedDB] InsertRecordInTable:DBTableQuiz withObject:quizPage];
+    else
+        [[CrudOp sharedDB] UpdateRecordForTable:DBTableQuiz withObject:quizPage];
+}
+
+-(void)saveQuizOption:(QuizOption *)quizOption {
     
-    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableSubject withId:index];
-
+    if(quizOption.quizOptionId==0)
+       [[CrudOp sharedDB] InsertRecordInTable:DBTableQuizOption withObject:quizOption];
+    else
+        [[CrudOp sharedDB] UpdateRecordForTable:DBTableQuizOption withObject:quizOption];
 }
 
 
-- (void) getContent{
-    //get the documents directory:
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //make a file name to write the data to using the documents directory:
-    NSString *fileName = [NSString stringWithFormat:@"%@/GuidedVideo.json",documentsDirectory];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
-    
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *e = nil;
-    
-    if (data != nil) {
-        subjects = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
-    }
-}
-
-
-
-
-
-
--(NSString *)getQuizzesJSONFromSubect:(Subject *)sub {
-
-    if(sub.quizzes==nil)
-        return @"";
-    
-
-    NSMutableArray *myMutableArray = [[NSMutableArray alloc] init];
-    for(NSInteger i=0;i<sub.quizzes.count;i++){
-        
-        Quiz *quiz = [sub.quizzes objectAtIndex:i];
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              quiz.videoUrl,@"videoUrl"
-                              ,[self getAssetsJSONFromQuiz:quiz],@"assetUrls"
-                              ,nil];
-        [myMutableArray addObject:dict];
-    }
-    
-    NSError *error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:myMutableArray options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *content = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    return content;
-}
-
--(NSString *)getAssetsJSONFromQuiz:(Quiz *)quiz {
-    
-    if(quiz.assetUrls==nil)
-        return @"";
-    
-    NSMutableArray *myMutableArray = [[NSMutableArray alloc] init];
-    for(NSInteger i=0;i<quiz.assetUrls.count;i++){
-        
-        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [quiz.assetUrls objectAtIndex:i],@"assetUrl"
-                              ,nil];
-        [myMutableArray addObject:dict];
-    }
-    
-    NSError *error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:myMutableArray options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *content = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    return content;
-}
-
--(void)addQuizAtIndex:(NSInteger)index forSubjectAtIndex:(NSInteger)subIndex quiz:(Quiz *)quiz {
-
-    Subject *sub = [self getSubjectAtIndex:subIndex];
-    if(sub.quizzes==nil)
-        sub.quizzes = [[NSMutableArray alloc] init];
-
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          quiz.videoUrl,@"videoUrl"
-                          ,nil];
-
-    [sub.quizzes addObject:dict];                                   //adding a new quiz in existing
-    
-    NSError *error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:sub.quizzes options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *content = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
-    //get subject node, and update quizzes
-    NSDictionary *subDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          sub.subjectName,@"subjectName"
-                          ,sub.assetUrl, @"assetUrl"
-                          ,content,@"quizzes"
-                          ,nil];
-    NSMutableArray *myMutableArray = [NSMutableArray arrayWithArray:subjects];
-    [myMutableArray replaceObjectAtIndex:subIndex withObject:subDict];
-    [self updateJSON:myMutableArray];
-    
-
-}
-
-
-
--(void)updateJSON:(NSMutableArray *)myMutableArray {
-    
-    NSError *error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:myMutableArray options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *content = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    NSLog(@"JSON String: %@", content);
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //make a file name to write the data to using the documents directory:
-    NSString *fileName = [NSString stringWithFormat:@"%@/GuidedVideo.json", documentsDirectory];
-    //save content to the documents directory
-    [content writeToFile:fileName atomically:NO encoding:NSStringEncodingConversionAllowLossy error:nil];
-    
-    //get a new array now
-    [self getContent];
-}
 
 @end

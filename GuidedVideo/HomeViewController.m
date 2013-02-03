@@ -20,6 +20,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
+    self.title =@"Topics";
+    
     [self loadButtons];
     [self createButtons];
     
@@ -49,6 +51,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     //right column
@@ -60,6 +65,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     
@@ -72,6 +80,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     //left column
@@ -83,6 +94,9 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
+        [btn setEditable:YES];
+        btn.delegate=self;
+        btn.presentingController=self;
     }
     
     NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
@@ -109,35 +123,25 @@
     videoButton.buttonType=CustomButtonTypeVideo;
     
     //set up subject buttons
-    for(NSInteger i=0;i<ButtonCount;i++){
+    for(NSInteger i=0;i<buttons.count;i++){
     
-        CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        [btn createButtonAtIndex:i+1];
-        [btn setEditable:YES];
-
-        btn.delegate=self;
-        btn.presentingController=self;
-        btn.buttonType=CustomButtonTypeSubject;
+        Subject *sub = [buttons objectAtIndex:i];
         
-        if(buttons.count>i){
-            
-            Subject *sub = [buttons objectAtIndex:i];
-            if(![sub.subjectName isEqualToString:@""]){
-                [btn addText:sub.subjectName];
-            }
-            if(![sub.assetUrl isEqualToString:@""]){
-                [btn addImageUsingAssetURL:sub.assetUrl];
-            }
-            btn.bEmptyButton=NO;
-            [btn setHidden:NO];
+        CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
+        [btn createSubjectButtonAtIndex:i+1 withSubject:sub];
+        
+        if(![sub.subjectName isEqualToString:@""]){
+            [btn addText:sub.subjectName];
         }
-        else{
-            btn.bEmptyButton=YES;
-            [btn setHidden:YES];
+        if(![sub.assetUrl isEqualToString:@""]){
+            [btn addImageUsingAssetURL:sub.assetUrl];
         }
+
+        [btn setHidden:NO];
     }
 
     CustomButton *btn = (CustomButton *)[self.view viewWithTag:buttons.count+1];
+    [btn createSubjectButtonAtIndex:buttons.count+1 withSubject:nil];
     [btn addNewButton];
     [btn setHidden:NO];
 }
@@ -153,7 +157,8 @@
     
     for(NSInteger i=0;i<ButtonCount;i++){
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        if ([touch view] == btn && btn.bEmptyButton) {
+        if ([touch view] == btn) {
+
             [btn setAlpha:.6];
             break;
         }
@@ -166,18 +171,9 @@
     for(NSInteger i=0;i<ButtonCount;i++){
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-        if ([touch view] == btn && btn.bEmptyButton) {
+        if ([touch view] == btn) {
             
             [btn setAlpha:1];
-            btn.bEmptyButton=NO;
-            [btn addText:@""];
-
-            
-            CustomButton *btn1 = (CustomButton *)[self.view viewWithTag:i+2];
-            [btn1 setHidden:NO];
-            if(i+2!=ButtonCount)
-                [btn1 addNewButton];
-            
             break;
         }
     }
@@ -186,6 +182,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([[segue identifier] isEqualToString:@"Quiz"]) {
+        
+        self.title = ((Subject *)sender).subjectName;
         
         QuizViewController *vc = [segue destinationViewController];
         vc.subject = (Subject *)sender;
@@ -196,29 +194,31 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)saveButton:(CustomButton *)btn withText:(NSString *)text asset:(NSString *)assetUrl {
+-(void)saveSubjectButton:(CustomButton *)btn withSubject:(Subject *)subject {
+
+    NSLog(@"%d %@ %@",subject.subjectId,subject.subjectName,subject.assetUrl);
+    [[Data sharedData] saveSubject:subject];
+
+    [self loadButtons];
+    [self createButtons];
     
-    Subject *sub = [[Subject alloc] init];
-    sub.subjectName=text;
-    sub.assetUrl=assetUrl;
-    [[Data sharedData] saveSubjectAtIndex:[btn getIndex] subject:sub];
 }
 
--(void)removeButton:(CustomButton *)btn {
+-(void)removeSubjectButton:(CustomButton *)btn withSubject:(Subject *)subject {
     
-    NSMutableArray *buttons = [[Data sharedData] getSubjects];
-    if(buttons.count>=[btn getIndex])
+    NSLog(@"%d %@ %@",subject.subjectId,subject.subjectName,subject.assetUrl);
+    if(subject!=nil && subject.subjectId!=0)
     {
-        Subject *sub=[buttons objectAtIndex:[btn getIndex]-1];
-    
-        [[Data sharedData] deleteSubjectAtIndex:sub.subjectId];
+        [[Data sharedData] deleteSubject:subject];
     }
+
     [self loadButtons];
     [self createButtons];
 }
 
-- (void)createQuiz:(CustomButton *)btn {
-    [self performSegueWithIdentifier:@"Quiz" sender:[[[Data sharedData] getSubjects] objectAtIndex:[btn getIndex]]];
+-(void)createQuizAtButton:(CustomButton *)btn forSubject:(Subject *)subject {
+    
+    [self performSegueWithIdentifier:@"Quiz" sender:subject];
 }
 
 

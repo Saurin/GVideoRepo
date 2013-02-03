@@ -2,20 +2,18 @@
 //  QuizEditViewController.h
 //  GuidedVideo
 //
-//  Created by Mark Wade on 1/13/13.
+//  Created by Saurin Travadi on 2/2/13.
 //  Copyright (c) 2013 Mark Wade. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "VideoViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "CustomButton.h"
+#import "Subject.h"
+#import "Data.h"
 
-@protocol AddQuizDelegate <NSObject>
-- (void)didCompleteAddQuiz;
-@end
+@interface QuizEditViewController : VideoViewController<AddSubjectDelegate>
 
-@interface QuizEditViewController : UIViewController
-
-@property (nonatomic, retain) id <AddQuizDelegate> delegate;
-
-- (IBAction)didClickBack:(id)sender;
+@property (nonatomic) Subject *subject;
 
 @end

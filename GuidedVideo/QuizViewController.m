@@ -47,6 +47,11 @@
     [self addNavigationButtons];
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    [moviePlayer stop];
+    moviePlayer=nil;
+}
+
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskLandscape;
 }

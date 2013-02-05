@@ -255,7 +255,7 @@
     }
     else if(table==DBTableQuizOption){
         QuizOption *option = obj;
-        sqltemp = [NSString stringWithFormat:@"Update QuizAsset set AssetUrl='%@' where Id=%d", option.assetUrl, option.quizOptionId];
+        sqltemp = [NSString stringWithFormat:@"Update QuizAsset set AssetUrl='%@', VideoUrl='%@', Response=%d where Id=%d", option.assetUrl, option.videoUrl, option.response ,option.quizOptionId];
     }
     
     sql = [sqltemp UTF8String];

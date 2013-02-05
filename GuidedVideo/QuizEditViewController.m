@@ -278,16 +278,28 @@
 
 -(void)saveVideoUrlForButton:(CustomButton *)btn videoUrl:(NSString *)urlString {
     
-    if(theQuizPage==nil)                            //if current quiz page is a new one
-        theQuizPage = [[QuizPage alloc] init];
-    
-    theQuizPage.subjectId=self.subject.subjectId;
-    theQuizPage.videoUrl=urlString;
-    
-    [[Data sharedData] saveQuiz:theQuizPage];
-    
-    [self loadButtons];
-    [self createButtons];
+    if(btn.buttonType==CustomButtonTypeQuiz){
+        QuizOption *quizOption = [btn getQuizOption];
+        NSLog(@"%d %@ %@, %d",quizOption.quizOptionId, quizOption.assetUrl, quizOption.videoUrl, quizOption.response);
+        
+        [[Data sharedData] saveQuizOption:quizOption];
+        
+        [self loadButtons];
+        [self createButtons];
+        
+    }
+    else{
+        if(theQuizPage==nil)                            //if current quiz page is a new one
+            theQuizPage = [[QuizPage alloc] init];
+        
+        theQuizPage.subjectId=self.subject.subjectId;
+        theQuizPage.videoUrl=urlString;
+        
+        [[Data sharedData] saveQuiz:theQuizPage];
+        
+        [self loadButtons];
+        [self createButtons];
+    }
 }
 
 -(void)saveQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption {

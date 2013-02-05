@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 -(void)addNewButton;
 -(NSInteger)getIndex;
 -(Subject*)getSubject;
+-(QuizOption*)getQuizOption;
 
 @end
 

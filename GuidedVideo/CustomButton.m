@@ -98,6 +98,10 @@
     return thisSubject;
 }
 
+-(QuizOption*)getQuizOption {
+    return thisQuiz;
+}
+
 -(void)addText:(NSString*)text {
 
     lblText.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -177,6 +181,8 @@
 
 - (void)showTopicButtonEditActionSheet:(UITapGestureRecognizer *)recognizer {
     
+    if(!self.editable) return;
+    
     UIActionSheet *actionSheet;
     if(self.buttonType==CustomButtonTypeSubject){
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -191,7 +197,7 @@
                                                   delegate:self
                                          cancelButtonTitle:@"Cancel"
                                     destructiveButtonTitle:@"Delete"
-                                         otherButtonTitles:@"Take Photo", @"Choose Existing Photo", nil];
+                                         otherButtonTitles:@"Take Photo", @"Choose Existing Photo", @"Choose Video, then Repeat Question", @"Choose Video, then Next Question", @"Choose Video, then End Quiz", nil];
     }
     else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -311,6 +317,7 @@
             break;
         }
         default:
+            [self showVideoPicker:UIImagePickerControllerSourceTypePhotoLibrary];
             break;
     }
 }
@@ -440,10 +447,17 @@
         NSLog(@"%@",moviePath);
         NSLog(@"%@",videoUrl.absoluteString);
 
-        [self.delegate saveVideoUrlForButton:self videoUrl:videoUrl.absoluteString];
         //Only when you take new one
 //        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
 //            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+//        }
+
+        
+//        if(buttonType==CustomButtonTypeQuiz){
+//            
+//        }
+//        else{
+            [self.delegate saveVideoUrlForButton:self videoUrl:videoUrl.absoluteString];
 //        }
         
     }

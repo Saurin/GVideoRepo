@@ -13,5 +13,7 @@
 @property (nonatomic) NSInteger quizOptionId;
 @property (nonatomic) NSInteger quizId;
 @property (nonatomic, retain) NSString* assetUrl;
+@property (nonatomic, retain) NSString* videoUrl;
+@property (nonatomic) NSInteger response;
 
 @end

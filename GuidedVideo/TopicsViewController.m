@@ -47,7 +47,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
     
@@ -60,7 +60,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
     
@@ -74,7 +74,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
     
@@ -87,7 +87,7 @@
         btn.tag=tag++;
         [self.view addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:YES];
+        [btn setEditable:NO];
         btn.presentingController=self;
     }
   

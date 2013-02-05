@@ -16,6 +16,7 @@
     NSInteger _index;
     NSString *buttonText;
     NSString *buttonAssetUrl;
+    NSInteger _buttonChoice;
     
     Subject *thisSubject;
     QuizOption *thisQuiz;
@@ -100,6 +101,10 @@
 
 -(QuizOption*)getQuizOption {
     return thisQuiz;
+}
+
+-(NSInteger)getButtonChoice {
+    return _buttonChoice;
 }
 
 -(void)addText:(NSString*)text {
@@ -233,6 +238,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 
+    _buttonChoice = buttonIndex;
     if(buttonType==CustomButtonTypeSubject){
         
         [self clickedAtIndexForSubject:buttonIndex];

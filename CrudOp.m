@@ -98,7 +98,7 @@
     }
     else if(table==DBTableQuizOption){
 
-        NSString *sqltemp = @"Select Id, QuizId, AssetUrl From QuizAsset ";
+        NSString *sqltemp = @"Select Id, QuizId, AssetUrl, VideoUrl, Response From QuizAsset ";
         if(![filter isEqualToString:@""]){
             sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
         }
@@ -157,6 +157,10 @@
             
             if(sqlite3_column_text(stmt, 2)!=nil)
                 option.assetUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 2)];
+            if(sqlite3_column_text(stmt, 3)!=nil)
+                option.videoUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 3)];
+
+            option.response=sqlite3_column_int(stmt, 4);
             
             [myMutuableArray addObject:option];
         }

@@ -154,7 +154,7 @@
         for(NSInteger i=0;i<theQuizPage.quizOptions.count;i++){
             
             QuizOption *quiz = [theQuizPage.quizOptions objectAtIndex:i];
-            
+            NSLog(@"%d %@ %@, %d",quiz.quizId, quiz.assetUrl, quiz.videoUrl, quiz.response);
             CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
             [btn createQuizButtonAtIndex:i+1 withQuiz:quiz];
             
@@ -279,7 +279,11 @@
 -(void)saveVideoUrlForButton:(CustomButton *)btn videoUrl:(NSString *)urlString {
     
     if(btn.buttonType==CustomButtonTypeQuiz){
+        
         QuizOption *quizOption = [btn getQuizOption];
+        quizOption.videoUrl = urlString;
+        quizOption.response = [btn getButtonChoice];
+        
         NSLog(@"%d %@ %@, %d",quizOption.quizOptionId, quizOption.assetUrl, quizOption.videoUrl, quizOption.response);
         
         [[Data sharedData] saveQuizOption:quizOption];

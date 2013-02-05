@@ -37,8 +37,17 @@
 
 -(void)nextQuiz {
     quizPageIndex++;
+    
+    [moviePlayer stop];
     [self loadButtons];
     [self createButtons];
+}
+
+-(void)changeVideo:(NSString *)videoUrl endQuiz:(BOOL)end {
+
+    [moviePlayer stop];
+    moviePlayer.contentURL = [NSURL URLWithString:videoUrl];
+    [moviePlayer play];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -222,9 +231,16 @@
             
             [btn setAlpha:1];
             
-            
-            //validate answer and play next video
-            [self nextQuiz];
+            //validate answer and take necessary action
+            QuizOption* option = [btn getQuizOption];
+            if(option.response==5)        //play video and end quiz
+            {
+                [self changeVideo:option.videoUrl endQuiz:YES];
+            }
+            else if(option.response==3){
+                [self changeVideo:option.videoUrl endQuiz:NO];
+            }
+            //[self nextQuiz];
             break;
         }
     }

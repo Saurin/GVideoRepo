@@ -73,7 +73,7 @@
     [self addSubview:imageView];
 
     [self makeRoundRectView];
-    if(_editable) [self addGestureRecognizer];
+//    if(_editable) [self addGestureRecognizer];
 }
 
 -(void)makeRoundRectView {
@@ -83,12 +83,13 @@
 
 -(void)setEditable:(BOOL)editable {
     _editable=editable;
-    if(!editable){
-        [self removeGestureRecognizer:longPressGesture];
-    }
-    else{
-        [self addGestureRecognizer];
-    }
+
+//    if(!editable){
+//        [self removeGestureRecognizer:longPressGesture];
+//    }
+//    else{
+//        [self addGestureRecognizer];
+//    }
 }
 
 -(NSInteger)getIndex {
@@ -171,20 +172,18 @@
 -(void)performAction {
     
     if(_editable){
-        [self showTopicButtonEditActionSheet:nil];
-    }
-    else{
-        
+        [self showTopicButtonEditActionSheet];
     }
 }
 
--(void) addGestureRecognizer {
-    
-    longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTopicButtonEditActionSheet:)];
-    [self addGestureRecognizer:longPressGesture];
-}
+//-(void) addGestureRecognizer {
+//    
+//    longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTopicButtonEditActionSheet:)];
+//    [self addGestureRecognizer:longPressGesture];
+//}
+//- (void)showTopicButtonEditActionSheet:(UITapGestureRecognizer *)recognizer {}
 
-- (void)showTopicButtonEditActionSheet:(UITapGestureRecognizer *)recognizer {
+- (void)showTopicButtonEditActionSheet {
     
     if(!self.editable) return;
     

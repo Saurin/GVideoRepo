@@ -21,14 +21,12 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     self.title =@"Topics";
+    self.navigationItem.rightBarButtonItems = nil;
+    
     
     [self loadButtons];
     [self createButtons];
     
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
 }
 
 -(void)loadButtons {
@@ -99,13 +97,14 @@
         btn.presentingController=self;
     }
     
-    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
-    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
+//Joe doesn't like playing instructional video here
+//    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
+//    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
     
-    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
-    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
-    videoButton.tag=101;
-    [self.view addSubview:videoButton];
+//    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
+//    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
+//    videoButton.tag=101;
+//    [self.view addSubview:videoButton];
 }
 
 -(void)createButtons {
@@ -174,8 +173,8 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
-            
-            //[btn performAction];
+            [btn performAction];
+
             break;
         }
     }

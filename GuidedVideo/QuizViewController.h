@@ -12,7 +12,7 @@
 #import "Subject.h"
 #import "Data.h"
 
-@interface QuizViewController : UIViewController
+@interface QuizViewController : UIViewController <MPMediaPlayback, MPMediaPickerControllerDelegate>
 
 @property (nonatomic) Subject *subject;
 

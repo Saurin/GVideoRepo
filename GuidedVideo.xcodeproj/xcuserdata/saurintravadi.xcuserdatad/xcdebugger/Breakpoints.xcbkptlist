@@ -8,42 +8,29 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "GuidedVideo/TopicsViewController.m"
-         timestampString = "381561252.508891"
+         timestampString = "382113638.267325"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "167"
-         endingLineNumber = "167"
+         startingLineNumber = "162"
+         endingLineNumber = "162"
          landmarkName = "-touchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "GuidedVideo/QuizEditViewController.m"
-         timestampString = "381729004.939519"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "279"
-         endingLineNumber = "279"
-         landmarkName = "-saveVideoUrlForButton:videoUrl:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "GuidedVideo/CustomButton.m"
-         timestampString = "381760017.538845"
+         timestampString = "382114921.889709"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "466"
-         endingLineNumber = "466"
+         startingLineNumber = "465"
+         endingLineNumber = "465"
          landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "GuidedVideo/QuizEditViewController.m"
@@ -53,32 +40,6 @@
          startingLineNumber = "157"
          endingLineNumber = "157"
          landmarkName = "-createButtons"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "GuidedVideo/QuizEditViewController.m"
-         timestampString = "381760834.670448"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "309"
-         endingLineNumber = "309"
-         landmarkName = "-saveQuizButton:withQuizOption:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "CrudOp.m"
-         timestampString = "381760918.717838"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "246"
-         endingLineNumber = "246"
-         landmarkName = "-UpdateRecordForTable:withObject:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

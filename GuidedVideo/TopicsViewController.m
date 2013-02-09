@@ -22,11 +22,6 @@
     [self createButtons];
 }
 
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
-}
-
 -(void)loadButtons {
     
     NSInteger tag=1;

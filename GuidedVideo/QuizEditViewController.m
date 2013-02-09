@@ -37,10 +37,6 @@
     [self addNavigationButtons];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
-}
-
 -(void)loadButtons {
     
     for (UIView* v in self.view.subviews) {
@@ -242,6 +238,8 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
+            [btn performAction];
+            
             break;
         }
     }

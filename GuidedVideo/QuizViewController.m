@@ -21,6 +21,8 @@
     QuizPage *theQuizPage;                          //current quiz page
     MPMoviePlayerController *moviePlayer;
     UIImageView *videoThumbnailImageView;
+    
+    NSInteger whatNext;
 }
 
 @synthesize subject;
@@ -43,11 +45,10 @@
     [self createButtons];
 }
 
--(void)changeVideo:(NSString *)videoUrl endQuiz:(BOOL)end {
+-(void)changeVideo:(NSString *)videoUrl {
 
     [moviePlayer stop];
     moviePlayer.contentURL = [NSURL URLWithString:videoUrl];
-    [moviePlayer play];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -59,10 +60,6 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [moviePlayer stop];
     moviePlayer=nil;
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
 }
 
 -(void)loadButtons {
@@ -196,11 +193,16 @@
     [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
     [videoButton addSubview:player.view];
     
-    player.controlStyle=MPMovieControlStyleNone;
+    player.controlStyle=MPMovieControlStyleEmbedded;
     player.movieSourceType=MPMovieSourceTypeStreaming;
     player.shouldAutoplay=YES;
     player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
     moviePlayer=player;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayBackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+}
+
+-(void)playVideo {
+    [moviePlayer play];
 }
 
 -(void)addNavigationButtons {
@@ -235,15 +237,50 @@
             QuizOption* option = [btn getQuizOption];
             if(option.response==5)        //play video and end quiz
             {
-                [self changeVideo:option.videoUrl endQuiz:YES];
+                whatNext=5;
+                [self changeVideo:option.videoUrl];
+                moviePlayer.controlStyle=MPMovieControlStyleNone;
+                [self playVideo];
             }
-            else if(option.response==3){
-                [self changeVideo:option.videoUrl endQuiz:NO];
+            else if(option.response==3){            //play video and repeat quiz
+                whatNext=3;
+                [self changeVideo:option.videoUrl];
+                moviePlayer.controlStyle=MPMovieControlStyleNone;
+                [self playVideo];
             }
-            //[self nextQuiz];
+            else if(option.response==4){                //play video and next quiz
+                whatNext=4;
+                [self changeVideo:option.videoUrl];
+                moviePlayer.controlStyle=MPMovieControlStyleNone;
+                [self playVideo];
+            }
+            else
+                whatNext=0;
             break;
         }
     }
+}
+
+-(void)videoPlayBackDidFinish:(NSNotification*)notification  {
+
+    if(whatNext==3){            //response video just played, pause it and play question video
+        whatNext=0;
+        [self changeVideo:theQuizPage.videoUrl];
+        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
+        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
+    }
+    else if(whatNext==4){       //response video just played and need to take to next quiz
+        whatNext=0;
+        [self nextQuiz];
+    }
+    else if(whatNext==5){       //need to end quiz on response of response video
+        whatNext=0;
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        whatNext=0;
+    }
+
 }
 
 

@@ -32,10 +32,6 @@
     [moviePlayer stop];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscape;
-}
-
 -(void)loadButtons {
     
     NSInteger tag=1;

@@ -29,6 +29,10 @@
     
 }
 
+-(BOOL)shouldAutorotate {
+    return NO;
+}
+
 -(void)loadButtons {
     
     NSInteger tag=1;
@@ -136,6 +140,9 @@
             [btn addImageUsingAssetURL:sub.assetUrl];
         }
         
+        if(![[Data sharedData] isSubjectProgrammed:sub.subjectId])
+            [btn showIncomplete];
+
         [btn setHidden:NO];
     }
     
@@ -173,7 +180,7 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
-            [btn performAction];
+            //[btn performAction];
 
             break;
         }
@@ -210,7 +217,7 @@
     NSLog(@"%d %@ %@",subject.subjectId,subject.subjectName,subject.assetUrl);
     if(subject!=nil && subject.subjectId!=0)
     {
-        [[Data sharedData] deleteSubject:subject];
+        [[Data sharedData] deleteSubjectWithSubjectId:subject.subjectId];
     }
     
     [self loadButtons];

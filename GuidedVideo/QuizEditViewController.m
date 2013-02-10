@@ -9,11 +9,16 @@
 #import "QuizEditViewController.h"
 #import "QuizPage.h"
 #import "QuizOption.h"
+#import "OHAlertView.h"
+#import "MBProgressHUD.h"
+
 #define ButtonCount 12
 #define VPadding 20
 #define HPadding 40
 
 @implementation QuizEditViewController {
+    MBProgressHUD *hud;
+    
     NSInteger quizPageIndex;
     
     NSMutableArray *quizzes;                        //all available quizzes for this topic
@@ -23,26 +28,32 @@
 }
 
 -(void)viewDidLoad {
-    
-    //get all quizzes for this subject
-    quizzes = [[Data sharedData] getSubjectAtSubjectId:self.subject.subjectId].quizPages;
-    
+
     quizPageIndex=0;
-    [self loadButtons];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud show:YES];
+    [self loadButtons];
     [self createButtons];
     [self addNavigationButtons];
+    [hud hide:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [moviePlayer stop];
+    moviePlayer=nil;
 }
 
 -(void)loadButtons {
     
-    for (UIView* v in self.view.subviews) {
-        [v removeFromSuperview];
-    }
     theQuizPage=nil;
+    for(NSInteger i=1;i<=ButtonCount;i++){
+        [[self.view viewWithTag:i] removeFromSuperview];
+    }
+    [[self.view viewWithTag:101] removeFromSuperview];
     
     
     NSInteger tag=1;
@@ -130,13 +141,16 @@
     videoButton.buttonType=CustomButtonTypeVideo;
     
     NSString *videoUrl;
+
+    //get all quizzes for this subject
+    quizzes = [[Data sharedData] getSubjectAtSubjectId:self.subject.subjectId].quizPages;
     if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
     {
         theQuizPage = [quizzes objectAtIndex:quizPageIndex];
         
         //we have video for current quiz, display it
         videoUrl = theQuizPage.videoUrl;
-        if(![videoUrl isEqualToString:@""]){
+        if(videoUrl!=NULL && ![videoUrl isEqualToString:@""]){
             [self addVideoPlayer:videoUrl];
         }
     }
@@ -162,7 +176,7 @@
         }
     }
     
-    if(![videoUrl isEqualToString:@""]){    //before adding any option, adding video is needed as that generates quiz id
+    if(videoUrl!=NULL && ![videoUrl isEqualToString:@""]){    //before adding any option, adding video is needed as that generates quiz id
         
         CustomButton *btn = (CustomButton *)[self.view viewWithTag:theQuizPage.quizOptions.count+1];
         [btn createQuizButtonAtIndex:theQuizPage.quizOptions.count+1 withQuiz:nil];
@@ -173,34 +187,40 @@
 
 -(void)addVideoPlayer:(NSString *)videoUrl {
     
-    NSURL *url = [NSURL URLWithString:videoUrl];
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [player prepareToPlay];
-    
+    if(moviePlayer==nil){
+        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] init];
+        player.controlStyle=MPMovieControlStyleEmbedded;
+        player.movieSourceType=MPMovieSourceTypeStreaming;
+        player.shouldAutoplay=NO;
+        player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
+        moviePlayer=player;
+    }
+
+    moviePlayer.contentURL = [NSURL URLWithString:videoUrl];
+    [moviePlayer prepareToPlay];
     CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
-    [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-    [videoButton addSubview:player.view];
+    [moviePlayer.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
+    [videoButton addSubview:moviePlayer.view];
     
-    player.controlStyle=MPMovieControlStyleEmbedded;
-    player.movieSourceType=MPMovieSourceTypeStreaming;
-    player.shouldAutoplay=NO;
-    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
-    moviePlayer=player;
     
-    //    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-    //    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
-    //    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
-    //    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-    //    [videoButton addSubview:videoThumbnailImageView];
+//    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
+//    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
+//    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
+//    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
+//    [videoButton addSubview:videoThumbnailImageView];
 }
 
 -(void)addNavigationButtons {
     
     if(quizPageIndex==0){
+
+        UIBarButtonItem *Button1 = [[UIBarButtonItem alloc] initWithTitle:@"Delete Quiz" style:UIBarButtonItemStylePlain
+                                                                   target:self action:@selector(deleteQuiz:)] ;
+
         UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
                                                                    target:self action:@selector(addNewQuiz:)] ;
         
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, nil];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, nil];
         
     }
     else{
@@ -209,8 +229,12 @@
         
         UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
                                                                    target:self action:@selector(addNewQuiz:)] ;
-        
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, nil];
+
+        UIBarButtonItem *Button3 = [[UIBarButtonItem alloc] initWithTitle:@"Delete Quiz" style:UIBarButtonItemStylePlain
+                                                                   target:self action:@selector(deleteQuiz:)] ;
+
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, Button3, nil];
+
     }
     
     self.title = [NSString stringWithFormat:@"Add Video & Answers for Quiz - %d of %d", quizPageIndex+1, quizzes.count==0?1:quizzes.count];
@@ -238,10 +262,15 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
-            [btn performAction];
+            //[btn performAction];
             
             break;
         }
+    }
+    
+    if([touch view]==[videoThumbnailImageView viewForBaselineLayout] || [touch view]==[moviePlayer view]){
+        [videoThumbnailImageView setHidden:YES];
+        [moviePlayer play];
     }
 }
 
@@ -251,12 +280,17 @@
                       duration:0.5
                        options:UIViewAnimationOptionTransitionCurlUp
                     animations:^{
+                        
+                    }
+                    completion:^(BOOL finished) {
+                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        [hud show:YES];
                         quizPageIndex++;
                         [self loadButtons];
                         [self createButtons];
                         [self addNavigationButtons];
-                    }
-                    completion:NULL];
+                        [hud hide:YES];
+                    }];
 }
 
 -(IBAction)previousQuiz:(id)sender {
@@ -265,16 +299,41 @@
                       duration:0.5
                        options:UIViewAnimationOptionTransitionCurlDown
                     animations:^{
+                        
+                    }
+                    completion:^(BOOL finished) {
+                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        [hud show:YES];
                         quizPageIndex--;
                         [self loadButtons];
                         [self createButtons];
                         [self addNavigationButtons];
-                    }
-                    completion:NULL];
+                        [hud hide:YES];
+                    }];
     
 }
 
+-(IBAction)deleteQuiz:(id)sender {
+    
+    [OHAlertView showAlertWithTitle:@"Delete Quiz" message:@"Are you sure you want to delete this quiz?" cancelButton:@"Cancel" okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [hud show:YES];
+            [[Data sharedData] deleteQuizWithQuizId:theQuizPage.quizId];
+            
+            quizPageIndex=0;
+            [self loadButtons];
+            [self createButtons];
+            [self addNavigationButtons];
+            [hud hide:YES];
+        }
+    }];
+}
+
 -(void)saveVideoUrlForButton:(CustomButton *)btn videoUrl:(NSString *)urlString {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud show:YES];
     
     if(btn.buttonType==CustomButtonTypeQuiz){
         
@@ -301,21 +360,38 @@
         
         [self loadButtons];
         [self createButtons];
+        
+        [self addNewQuiz:nil];
+        [self previousQuiz:nil];
     }
+    [hud hide:YES];
 }
 
 -(void)saveQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption {
-    NSLog(@"%d %@",quizOption.quizOptionId, quizOption.assetUrl);
+    
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud show:YES];
     
     quizOption.quizId = theQuizPage.quizId;
     [[Data sharedData] saveQuizOption:quizOption];
     
     [self loadButtons];
     [self createButtons];
+    
+    [hud hide:YES];
 }
 
 -(void)removeQuizButton:(CustomButton *)btn withQuizOption:(QuizOption *)quizOption {
-    NSLog(@"%d %@",quizOption.quizOptionId, quizOption.assetUrl);
+
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud show:YES];
+    
+    [[Data sharedData] deleteQuizOptionWithId:quizOption.quizOptionId];
+    
+    [self loadButtons];
+    [self createButtons];
+    
+    [hud hide:YES];
 }
 
 @end

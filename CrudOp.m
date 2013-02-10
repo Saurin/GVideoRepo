@@ -227,7 +227,9 @@
     if(table==DBTableSubject)
         sqltemp = [NSString stringWithFormat:@"Delete from Subject where SubjectId=%d",index];
     else if(table==DBTableQuiz)
-        sqltemp = [NSString stringWithFormat:@"Delete from Subject where SubjectId=%d",index];
+        sqltemp = [NSString stringWithFormat:@"Delete from Quiz where QuizId=%d",index];
+    else if(table==DBTableQuizOption)
+        sqltemp = [NSString stringWithFormat:@"Delete from QuizAsset where Id=%d",index];
     
     sql = [sqltemp UTF8String];
     
@@ -239,6 +241,34 @@
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
+}
+
+-(void)DeleteRecordFromTable:(TableName)table where:(NSString *)where {
+
+    fileMgr = [NSFileManager defaultManager];
+    sqlite3_stmt *stmt=nil;
+    sqlite3 *cruddb;
+    NSString *sqltemp;
+    
+    const char *sql;
+    if(table==DBTableSubject)
+        sqltemp = [NSString stringWithFormat:@"Delete from Subject where %@",where];
+    else if(table==DBTableQuiz)
+        sqltemp = [NSString stringWithFormat:@"Delete from Quiz where %@",where];
+    else if(table==DBTableQuizOption)
+        sqltemp = [NSString stringWithFormat:@"Delete from QuizAsset where %@", where];
+    
+    sql = [sqltemp UTF8String];
+    
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
+    sqlite3_open([cruddatabase UTF8String], &cruddb);
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(cruddb);
+    
 }
 
 -(void)UpdateRecordForTable:(TableName)table withObject:(id)obj {

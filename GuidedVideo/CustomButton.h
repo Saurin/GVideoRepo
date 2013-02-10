@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Subject.h"
 #import "QuizOption.h"
-
+#import "IncompleteButton.h"
 
 typedef NS_ENUM(NSInteger, CustomButtonType) {
     CustomButtonTypeSubject = 0,
@@ -39,6 +39,7 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 -(void)addImage:(UIImage*)image withSize:(CGSize)size;
 -(void)performAction;
 -(void)addNewButton;
+-(void)showIncomplete;
 -(NSInteger)getIndex;
 -(Subject*)getSubject;
 -(QuizOption*)getQuizOption;

@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, TableName) {
 -(NSMutableArray*)GetRecords:(TableName)table where:(NSString*)filter;
 -(void)InsertRecordInTable:(TableName)table withObject:(id)obj;
 -(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index;
+-(void)DeleteRecordFromTable:(TableName)table where:(NSString *)where;
 -(void)UpdateRecordForTable:(TableName)table withObject:(id)obj;
 
 @end

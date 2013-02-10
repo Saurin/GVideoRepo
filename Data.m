@@ -28,13 +28,6 @@
 -(NSMutableArray *)getSubjects {
     
     NSMutableArray *mArray = [[CrudOp sharedDB] GetRecords:DBTableSubject where:@""];
-    
-//    //get quiz pages for each subject
-//    for (NSInteger i=0; i<mArray.count; i++) {
-//        Subject *sub = [mArray objectAtIndex:i];
-//        sub.quizPages = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[NSString stringWithFormat: @"SubjectId=%d",sub.subjectId]];
-//    }
-
     return mArray;
 }
 
@@ -67,16 +60,60 @@
     }
 }
 
--(void)deleteSubject:(Subject *)sub {
+-(void)deleteSubjectWithSubjectId:(NSInteger)index {
 
-    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableSubject withId:sub.subjectId];
+    //get all quizzes for this subject
+    NSMutableArray *data = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[@"" stringByAppendingFormat:@"SubjectId=%d",index]];
+    for (NSInteger i=0; i<data.count; i++) {
+        
+        QuizPage *quiz = [data objectAtIndex:i];
+        [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuizOption where:[@"" stringByAppendingFormat:@"QuizId=%d",quiz.quizId]];
+    }
+    
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuiz where:[@"" stringByAppendingFormat:@"SubjectId=%d",index]];
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableSubject withId:index];
+}
+
+- (BOOL)isSubjectProgrammed:(NSInteger)index {
+    
+    NSMutableArray *quizzes = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[@"" stringByAppendingFormat:@"SubjectId=%d",index]];
+    
+    //atleast should have one quiz defined
+    if(quizzes==nil || quizzes.count==0)
+        return FALSE;
+
+    for (NSInteger i=0; i<quizzes.count; i++) {
+        //each quiz should have atleast one complete button
+        QuizPage *quiz = [quizzes objectAtIndex:i];
+        NSMutableArray *quizOptions = [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[@"" stringByAppendingFormat:@"QuizId=%d",quiz.quizId]];
+        
+        //every quiz option should have
+        if(quizOptions==nil || quizOptions.count==0)
+            return FALSE;
+
+        //each option added for quiz should have photo & video
+        for(NSInteger j=0;j<quizOptions.count;j++){
+            QuizOption *option = [quizOptions objectAtIndex:j];
+            if([option.videoUrl isEqualToString:@""] || [option.assetUrl isEqualToString:@""])
+                return FALSE;
+        }
+    }
+
+    return YES;
 }
 
 -(void)saveQuiz:(QuizPage *)quizPage {
+    
     if(quizPage.quizId==0)
         [[CrudOp sharedDB] InsertRecordInTable:DBTableQuiz withObject:quizPage];
     else
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableQuiz withObject:quizPage];
+}
+
+-(void)deleteQuizWithQuizId:(NSInteger)index {
+    
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuizOption where:[@"" stringByAppendingFormat:@"QuizId=%d",index]];
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuiz withId:index];
 }
 
 -(void)saveQuizOption:(QuizOption *)quizOption {
@@ -87,6 +124,10 @@
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableQuizOption withObject:quizOption];
 }
 
+-(void)deleteQuizOptionWithId:(NSInteger)index {
+    
+    [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuizOption withId:index];
+}
 
 
 @end

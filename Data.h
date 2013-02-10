@@ -21,9 +21,13 @@
 -(NSMutableArray *)getQuizOptionsForQuizId:(NSInteger)index;
 
 - (void)saveSubject:(Subject *)sub;
-- (void)deleteSubject:(Subject *)sub;
+- (void)deleteSubjectWithSubjectId:(NSInteger)index;
+- (BOOL)isSubjectProgrammed:(NSInteger)index;
 
 -(void)saveQuiz:(QuizPage *)quizPage;
+-(void)deleteQuizWithQuizId:(NSInteger)index;
+
 -(void)saveQuizOption:(QuizOption *)quizOption;
+-(void)deleteQuizOptionWithId:(NSInteger)index;
 
 @end

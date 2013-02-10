@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		70EE875D16A997CB00E4A9BE /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70EE875C16A997CB00E4A9BE /* VideoViewController.m */; };
 		70EE876016A997F000E4A9BE /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */; };
 		BF0F466C16BCA3A300852098 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0F466B16BCA3A300852098 /* MediaPlayer.framework */; };
 		BF2185F616BD8D3400F7926B /* QuizPage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185F516BD8D3400F7926B /* QuizPage.m */; };
@@ -19,9 +18,10 @@
 		BF4335DE16BA023B00343588 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DD16BA023B00343588 /* libiconv.dylib */; };
 		BF4335E316BA029F00343588 /* CrudOp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4335E216BA029F00343588 /* CrudOp.m */; };
 		BF6DCFCF16BAD55000E4D6AF /* DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = BF6DCFCE16BAD55000E4D6AF /* DB.sqlite */; };
-		BFA7145F16AA93F600141710 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7145E16AA93F600141710 /* HomeViewController.m */; };
 		BFA7146716AAA32500141710 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7146616AAA32500141710 /* CustomButton.m */; };
 		BFA7147F16ACAE0E00141710 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7147E16ACAE0E00141710 /* Data.m */; };
+		BFDB4DD016C6FDC400130D08 /* IncompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDB4DCF16C6FDC400130D08 /* IncompleteButton.m */; };
+		BFDB4DD416C74CAE00130D08 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDB4DD316C74CAE00130D08 /* MBProgressHUD.m */; };
 		BFF8FB3A16B2055F00EF9554 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB3816B2055F00EF9554 /* play.png */; };
 		BFF8FB3B16B2055F00EF9554 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB3916B2055F00EF9554 /* play@2x.png */; };
 		CC201F4516752D81005EDB6E /* OHActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = CC201F4216752D81005EDB6E /* OHActionSheet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -36,7 +36,6 @@
 		CC2688C01674FA1D00AE9FB4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2688BF1674FA1D00AE9FB4 /* Default@2x.png */; };
 		CC2688C21674FA1D00AE9FB4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2688C11674FA1D00AE9FB4 /* Default-568h@2x.png */; };
 		CC2688C51674FA1D00AE9FB4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC2688C31674FA1D00AE9FB4 /* MainStoryboard.storyboard */; };
-		CC2688C81674FA1D00AE9FB4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2688C71674FA1D00AE9FB4 /* ViewController.m */; };
 		CC2688D01674FA1D00AE9FB4 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2688CF1674FA1D00AE9FB4 /* SenTestingKit.framework */; };
 		CC2688D11674FA1D00AE9FB4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2688AB1674FA1D00AE9FB4 /* UIKit.framework */; };
 		CC2688D21674FA1D00AE9FB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2688AD1674FA1D00AE9FB4 /* Foundation.framework */; };
@@ -66,8 +65,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		70EE875B16A997CB00E4A9BE /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
-		70EE875C16A997CB00E4A9BE /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		70EE875F16A997F000E4A9BE /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		BF0F466B16BCA3A300852098 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BF2185F416BD8D3400F7926B /* QuizPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizPage.h; sourceTree = "<group>"; };
@@ -85,12 +82,14 @@
 		BF4335E116BA029F00343588 /* CrudOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrudOp.h; sourceTree = "<group>"; };
 		BF4335E216BA029F00343588 /* CrudOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrudOp.m; sourceTree = "<group>"; };
 		BF6DCFCE16BAD55000E4D6AF /* DB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DB.sqlite; sourceTree = "<group>"; };
-		BFA7145D16AA93F600141710 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		BFA7145E16AA93F600141710 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		BFA7146516AAA32500141710 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		BFA7146616AAA32500141710 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		BFA7147D16ACAE0E00141710 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		BFA7147E16ACAE0E00141710 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
+		BFDB4DCE16C6FDC400130D08 /* IncompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncompleteButton.h; sourceTree = "<group>"; };
+		BFDB4DCF16C6FDC400130D08 /* IncompleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncompleteButton.m; sourceTree = "<group>"; };
+		BFDB4DD216C74CAE00130D08 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = GuidedVideo/MBProgressHUD.h; sourceTree = "<group>"; };
+		BFDB4DD316C74CAE00130D08 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = GuidedVideo/MBProgressHUD.m; sourceTree = "<group>"; };
 		BFF8FB3816B2055F00EF9554 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		BFF8FB3916B2055F00EF9554 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		CC201F4116752D81005EDB6E /* OHActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHActionSheet.h; sourceTree = "<group>"; };
@@ -111,8 +110,6 @@
 		CC2688BF1674FA1D00AE9FB4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CC2688C11674FA1D00AE9FB4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		CC2688C41674FA1D00AE9FB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		CC2688C61674FA1D00AE9FB4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CC2688C71674FA1D00AE9FB4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CC2688CE1674FA1D00AE9FB4 /* GuidedVideoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuidedVideoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2688CF1674FA1D00AE9FB4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CC2688D71674FA1D00AE9FB4 /* GuidedVideoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GuidedVideoTests-Info.plist"; sourceTree = "<group>"; };
@@ -205,6 +202,8 @@
 		CC2688AA1674FA1D00AE9FB4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFDB4DD216C74CAE00130D08 /* MBProgressHUD.h */,
+				BFDB4DD316C74CAE00130D08 /* MBProgressHUD.m */,
 				BF0F466B16BCA3A300852098 /* MediaPlayer.framework */,
 				BF4335DD16BA023B00343588 /* libiconv.dylib */,
 				BF4335DA16BA021300343588 /* libsqlite3.0.dylib */,
@@ -230,8 +229,6 @@
 				CC2688BB1674FA1D00AE9FB4 /* AppDelegate.m */,
 				CC2688C31674FA1D00AE9FB4 /* MainStoryboard.storyboard */,
 				CC2688B21674FA1D00AE9FB4 /* Supporting Files */,
-				CC2688C61674FA1D00AE9FB4 /* ViewController.h */,
-				CC2688C71674FA1D00AE9FB4 /* ViewController.m */,
 				BF2185FA16BE215C00F7926B /* TopicsViewController.h */,
 				BF2185FB16BE215C00F7926B /* TopicsViewController.m */,
 				BF2185FD16BE223800F7926B /* TopicsEditViewController.h */,
@@ -240,10 +237,6 @@
 				CC63681A16A3399E00C3BDA1 /* QuizViewController.m */,
 				BF21860016BE22F100F7926B /* QuizEditViewController.h */,
 				BF21860116BE22F100F7926B /* QuizEditViewController.m */,
-				70EE875B16A997CB00E4A9BE /* VideoViewController.h */,
-				70EE875C16A997CB00E4A9BE /* VideoViewController.m */,
-				BFA7145D16AA93F600141710 /* HomeViewController.h */,
-				BFA7145E16AA93F600141710 /* HomeViewController.m */,
 			);
 			path = GuidedVideo;
 			sourceTree = "<group>";
@@ -306,6 +299,8 @@
 			children = (
 				BFA7146516AAA32500141710 /* CustomButton.h */,
 				BFA7146616AAA32500141710 /* CustomButton.m */,
+				BFDB4DCE16C6FDC400130D08 /* IncompleteButton.h */,
+				BFDB4DCF16C6FDC400130D08 /* IncompleteButton.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -446,15 +441,12 @@
 			files = (
 				CC2688B81674FA1D00AE9FB4 /* main.m in Sources */,
 				CC2688BC1674FA1D00AE9FB4 /* AppDelegate.m in Sources */,
-				CC2688C81674FA1D00AE9FB4 /* ViewController.m in Sources */,
 				CC2688F21675074B00AE9FB4 /* Constants.m in Sources */,
 				CC201F4516752D81005EDB6E /* OHActionSheet.m in Sources */,
 				CC201F4616752D81005EDB6E /* OHAlertView.m in Sources */,
 				CCBBDD57167E628900739B2F /* GuidedVideoModel.xcdatamodeld in Sources */,
 				CCBBDDA8167ECCD100739B2F /* Subject.m in Sources */,
 				CC63681B16A3399E00C3BDA1 /* QuizViewController.m in Sources */,
-				70EE875D16A997CB00E4A9BE /* VideoViewController.m in Sources */,
-				BFA7145F16AA93F600141710 /* HomeViewController.m in Sources */,
 				BFA7146716AAA32500141710 /* CustomButton.m in Sources */,
 				BFA7147F16ACAE0E00141710 /* Data.m in Sources */,
 				BF4335E316BA029F00343588 /* CrudOp.m in Sources */,
@@ -463,6 +455,8 @@
 				BF2185FC16BE215C00F7926B /* TopicsViewController.m in Sources */,
 				BF2185FF16BE223800F7926B /* TopicsEditViewController.m in Sources */,
 				BF21860216BE22F100F7926B /* QuizEditViewController.m in Sources */,
+				BFDB4DD016C6FDC400130D08 /* IncompleteButton.m in Sources */,
+				BFDB4DD416C74CAE00130D08 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,7 +23,6 @@
     
     UILongPressGestureRecognizer *longPressGesture;
     
-    UIImagePickerController *imagePicker;
     UIPopoverController *photoLibraryPopover;
 }
 
@@ -41,6 +40,7 @@
     }
     return self;
 }
+
 
 -(void)createSubjectButtonAtIndex:(NSInteger)index withSubject:(Subject *)subject {
     thisSubject=subject;
@@ -84,12 +84,22 @@
 -(void)setEditable:(BOOL)editable {
     _editable=editable;
 
-//    if(!editable){
-//        [self removeGestureRecognizer:longPressGesture];
-//    }
-//    else{
-//        [self addGestureRecognizer];
-//    }
+    if(!editable){
+        [self removeGestureRecognizer:longPressGesture];
+    }
+    else{
+        [self addGestureRecognizer];
+    }
+}
+
+-(void)showIncomplete {
+    [self.layer setBorderColor: [[UIColor redColor] CGColor]];
+    [self.layer setBorderWidth: 5.0];
+    
+    
+    //This doesnt fire touch event on CustomButton
+    //    IncompleteButton *vw = [[IncompleteButton alloc] initWithFrame:self.bounds];
+    //    [self addSubview:vw];
 }
 
 -(NSInteger)getIndex {
@@ -176,12 +186,14 @@
     }
 }
 
-//-(void) addGestureRecognizer {
-//    
-//    longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTopicButtonEditActionSheet:)];
-//    [self addGestureRecognizer:longPressGesture];
-//}
-//- (void)showTopicButtonEditActionSheet:(UITapGestureRecognizer *)recognizer {}
+-(void) addGestureRecognizer {
+    
+    longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showTopicButtonEditActionSheet:)];
+    [self addGestureRecognizer:longPressGesture];
+}
+- (void)showTopicButtonEditActionSheet:(UITapGestureRecognizer *)recognizer {
+    [self showTopicButtonEditActionSheet];
+}
 
 - (void)showTopicButtonEditActionSheet {
     
@@ -305,7 +317,7 @@
             
             [OHAlertView showAlertWithTitle:@"Delete Button" message:@"Are you sure you want to delete this button?" cancelButton:@"Cancel" okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    [self.delegate removeButton:self];
+                    [self performSelector:@selector(didQuizDelete) withObject:nil afterDelay:0.2];
                 }
             }];
             
@@ -357,12 +369,12 @@
 
 - (void)showImagePickerEasy:(UIImagePickerControllerSourceType)sourceType {
     
-    imagePicker = [[UIImagePickerController alloc] init];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
+    imagePicker.sourceType=sourceType;
     
     if (sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [presentingController presentViewController:imagePicker animated:YES completion:^{
             NSLog(@"Easy Picture Done");
         }];
@@ -370,12 +382,8 @@
     }
     else
     {
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
         if (photoLibraryPopover == nil) {
-            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
+            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
         }
         photoLibraryPopover.delegate=self;
         [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -384,7 +392,7 @@
 
 -(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType {
     
-    imagePicker = [[UIImagePickerController alloc] init];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
     imagePicker.sourceType = sourceType;
     
@@ -445,25 +453,22 @@
     
     else if (CFStringCompare ((__bridge CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo)
     {
-            
+
+        NSString *assetURL = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] description];
         NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
+        
+        if(assetURL==nil){
+            //you taking new one
+            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
+                UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+            }
+        }
         
         NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
         NSLog(@"%@",moviePath);
         NSLog(@"%@",videoUrl.absoluteString);
 
-        //Only when you take new one
-//        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
-//            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
-//        }
-
-        
-//        if(buttonType==CustomButtonTypeQuiz){
-//            
-//        }
-//        else{
-            [self.delegate saveVideoUrlForButton:self videoUrl:videoUrl.absoluteString];
-//        }
+        [self performSelector:@selector(didVideoPick:) withObject:videoUrl.absoluteString afterDelay:0.2];
         
     }
     
@@ -530,5 +535,8 @@
     [self.delegate removeQuizButton:self withQuizOption:thisQuiz];
 }
 
+-(void)didVideoPick:(NSString*)videoUrl {
+    [self.delegate saveVideoUrlForButton:self videoUrl:videoUrl];
+}
 
 @end

@@ -94,7 +94,7 @@
         //each option added for quiz should have photo & video
         for(NSInteger j=0;j<quizOptions.count;j++){
             QuizOption *option = [quizOptions objectAtIndex:j];
-            if([option.videoUrl isEqualToString:@""] || [option.assetUrl isEqualToString:@""])
+            if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""])
                 return FALSE;
         }
     }

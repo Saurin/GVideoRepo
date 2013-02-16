@@ -38,6 +38,7 @@
 }
 
 -(void)nextQuiz {
+    whatNext=-1;
     quizPageIndex++;
     
     [moviePlayer stop];
@@ -232,26 +233,32 @@
         if ([touch view] == btn) {
             
             [btn setAlpha:1];
+
+            if(whatNext==5) return;         //ignore touch as we are ending quiz
+            if(whatNext==4) return;         //ignore touch as we are going to next quiz
+            
+            whatNext=-1;
+            [moviePlayer stop];         //button touched so should end current video
             
             //validate answer and take necessary action
             QuizOption* option = [btn getQuizOption];
-            if(option.response==5)        //play video and end quiz
+            if(option.response==5)                      //play video and end quiz
             {
-                whatNext=5;
                 [self changeVideo:option.videoUrl];
                 moviePlayer.controlStyle=MPMovieControlStyleNone;
+                whatNext=5;
                 [self playVideo];
             }
-            else if(option.response==3){            //play video and repeat quiz
-                whatNext=3;
+            else if(option.response==3){                //play video and repeat quiz
                 [self changeVideo:option.videoUrl];
                 moviePlayer.controlStyle=MPMovieControlStyleNone;
+                whatNext=3;
                 [self playVideo];
             }
             else if(option.response==4){                //play video and next quiz
-                whatNext=4;
                 [self changeVideo:option.videoUrl];
                 moviePlayer.controlStyle=MPMovieControlStyleNone;
+                whatNext=4;
                 [self playVideo];
             }
             else
@@ -261,27 +268,52 @@
     }
 }
 
--(void)videoPlayBackDidFinish:(NSNotification*)notification  {
-
-    if(whatNext==3){            //response video just played, pause it and play question video
-        whatNext=0;
-        [self changeVideo:theQuizPage.videoUrl];
-        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
-        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
-    }
-    else if(whatNext==4){       //response video just played and need to take to next quiz
-        whatNext=0;
-        [self nextQuiz];
-    }
-    else if(whatNext==5){       //need to end quiz on response of response video
-        whatNext=0;
+-(void)videoPlayBackDidFinish:(NSNotification *)notification
+{
+    if(whatNext==5){       //need to end quiz on response of response video
+        whatNext=-1;
         [self.navigationController popViewControllerAnimated:YES];
+        
+        return;
     }
-    else {
-        whatNext=0;
+    
+    if(whatNext==3){            //response video just played, pause it and play question video
+        whatNext=-1;
+        [self changeVideo:theQuizPage.videoUrl];
+        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
+        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
+        
+        return;
     }
-
+    
+    if(whatNext==4){       //response video just played and need to take to next quiz
+        [self performSelector:@selector(nextQuiz) withObject:nil afterDelay:1];
+        
+        return;
+    }
 }
+
+//-(void)videoPlayBackDidFinish:(NSNotification*)notification  {
+//
+//    if(whatNext==3){            //response video just played, pause it and play question video
+//        whatNext=0;
+//        [self changeVideo:theQuizPage.videoUrl];
+//        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
+//        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
+//    }
+//    else if(whatNext==4){       //response video just played and need to take to next quiz
+//        whatNext=0;
+//        [self nextQuiz];
+//    }
+//    else if(whatNext==5){       //need to end quiz on response of response video
+//        whatNext=0;
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    else {
+//        whatNext=0;
+//    }
+//
+//}
 
 
 @end

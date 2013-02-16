@@ -172,6 +172,9 @@
                 [btn addImageUsingAssetURL:quiz.assetUrl];
             }
             
+            if(quiz.videoUrl==nil || [quiz.videoUrl isEqualToString:@""])
+                [btn showIncomplete];
+            
             [btn setHidden:NO];
         }
     }

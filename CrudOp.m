@@ -199,8 +199,16 @@
         
         QuizOption *option = obj;
 
-        sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl) Values(";
-        sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@')",option.quizId, option.assetUrl];
+        if(option.videoUrl==nil || [option.videoUrl isEqualToString:@""]){
+
+            sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl) Values (";
+            sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@')",option.quizId, option.assetUrl];
+        }
+        else{
+            
+            sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl, VideoUrl, Response) Values(";
+            sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@','%@',%d)",option.quizId, option.assetUrl, option.videoUrl, option.response];
+        }
     }
     
     sql = [sqltemp UTF8String];
@@ -210,10 +218,7 @@
     if(result!=SQLITE_OK)
         NSLog(@"FAILED TO PREPARE STMT");
     sqlite3_step(stmt);
-    
-    sqlite3_finalize(stmt);
-    sqlite3_close(cruddb);
-    
+    sqlite3_finalize(stmt);        
 }
 
 -(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index {

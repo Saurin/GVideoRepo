@@ -382,9 +382,7 @@
     }
     else
     {
-        if (photoLibraryPopover == nil) {
-            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
-        }
+        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
         photoLibraryPopover.delegate=self;
         [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
@@ -405,9 +403,7 @@
     }
     else
     {
-        if (photoLibraryPopover == nil) {
-            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
-        }
+        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
         photoLibraryPopover.delegate=self;
         [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }

@@ -45,5 +45,4 @@ typedef NS_ENUM(NSInteger, TableName) {
 -(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index;
 -(void)DeleteRecordFromTable:(TableName)table where:(NSString *)where;
 -(void)UpdateRecordForTable:(TableName)table withObject:(id)obj;
-
 @end

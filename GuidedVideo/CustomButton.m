@@ -398,11 +398,19 @@
     
     imagePicker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
     
-    if (photoLibraryPopover == nil) {
-        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+    if (sourceType == UIImagePickerControllerSourceTypeCamera)
+    {
+        [presentingController presentViewController:imagePicker animated:YES completion:^{
+        }];
     }
-    photoLibraryPopover.delegate=self;
-    [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    else
+    {
+        if (photoLibraryPopover == nil) {
+            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+        }
+        photoLibraryPopover.delegate=self;
+        [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {

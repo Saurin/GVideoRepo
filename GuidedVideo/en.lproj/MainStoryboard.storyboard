@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2844" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="PaA-7I-Woj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="PaA-7I-Woj">
     <dependencies>
         <deployment version="1296" identifier="iOS"/>
         <development version="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -110,9 +110,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
-                    <navigationItem key="navigationItem" id="sNf-oI-sMQ"/>
+                    <navigationItem key="navigationItem" id="sNf-oI-sMQ">
+                        <barButtonItem key="rightBarButtonItem" tag="1000" systemItem="action" id="vgv-LU-fpD">
+                            <connections>
+                                <action selector="didActionClick:" destination="DWi-GI-fqI" id="Uod-mO-Mpf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="buttonAction" destination="vgv-LU-fpD" id="zhl-43-JeI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GHu-Sj-tmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -124,7 +133,10 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QuizEditViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addNewQuiz:"/>
+                <relationship kind="action" name="deleteQuiz:"/>
+                <relationship kind="action" name="didActionClick:"/>
                 <relationship kind="action" name="previousQuiz:"/>
+                <relationship kind="outlet" name="buttonAction" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="QuizViewController" superclassName="UIViewController">

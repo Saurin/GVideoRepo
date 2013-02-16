@@ -20,6 +20,7 @@
     MBProgressHUD *hud;
     
     NSInteger quizPageIndex;
+    UIActionSheet *normalActionSheet;
     
     NSMutableArray *quizzes;                        //all available quizzes for this topic
     QuizPage *theQuizPage;                          //current quiz page
@@ -215,30 +216,38 @@
 
 -(void)addNavigationButtons {
     
-    if(quizPageIndex==0){
+    UIActionSheet *actionSheet;
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                    destructiveButtonTitle:@"Delete Quiz"
+                                         otherButtonTitles:@"Previous Quiz", @"Next Quiz", @"Copy Quiz", nil];
+    normalActionSheet = actionSheet;
 
-        UIBarButtonItem *Button1 = [[UIBarButtonItem alloc] initWithTitle:@"Delete Quiz" style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(deleteQuiz:)] ;
-
-        UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(addNewQuiz:)] ;
-        
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, nil];
-        
-    }
-    else{
-        UIBarButtonItem *Button1 = [[UIBarButtonItem alloc]initWithTitle:@"Previous Quiz" style:UIBarButtonItemStylePlain
-                                                                  target:self action:@selector(previousQuiz:)] ;
-        
-        UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(addNewQuiz:)] ;
-
-        UIBarButtonItem *Button3 = [[UIBarButtonItem alloc] initWithTitle:@"Delete Quiz" style:UIBarButtonItemStylePlain
-                                                                   target:self action:@selector(deleteQuiz:)] ;
-
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, Button3, nil];
-
-    }
+//    if(quizPageIndex==0){
+//
+//        UIBarButtonItem *Button1 = [[UIBarButtonItem alloc] initWithTitle:@"Delete Quiz" style:UIBarButtonItemStylePlain
+//                                                                   target:self action:@selector(deleteQuiz:)] ;
+//
+//        UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
+//                                                                   target:self action:@selector(addNewQuiz:)] ;
+//        
+//        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, nil];
+//        
+//    }
+//    else{
+//        UIBarButtonItem *Button1 = [[UIBarButtonItem alloc]initWithTitle:@"Previous Quiz" style:UIBarButtonItemStylePlain
+//                                                                  target:self action:@selector(previousQuiz:)] ;
+//        
+//        UIBarButtonItem *Button2 = [[UIBarButtonItem alloc] initWithTitle:@"Next Quiz" style:UIBarButtonItemStylePlain
+//                                                                   target:self action:@selector(addNewQuiz:)] ;
+//
+//        UIBarButtonItem *Button3 = [[UIBarButtonItem alloc] initWithTitle:@"Delete Quiz" style:UIBarButtonItemStylePlain
+//                                                                   target:self action:@selector(deleteQuiz:)] ;
+//
+//        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Button2, Button1, Button3, nil];
+//
+//    }
     
     self.title = [NSString stringWithFormat:@"Add Video & Answers for Quiz - %d of %d", quizPageIndex+1, quizzes.count==0?1:quizzes.count];
 }
@@ -275,6 +284,43 @@
         [videoThumbnailImageView setHidden:YES];
         [moviePlayer play];
     }
+}
+
+-(IBAction)didActionClick:(id)sender {
+    [normalActionSheet showFromBarButtonItem:self.buttonAction animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:{
+            
+            [self performSelector:@selector(deleteQuiz:) withObject:nil afterDelay:0.2];
+            break;
+        }
+            
+        case 1: {
+            
+            [self performSelector:@selector(previousQuiz:) withObject:nil afterDelay:0.2];
+            break;
+        }
+        case 2: {
+            
+            [self performSelector:@selector(addNewQuiz:) withObject:nil afterDelay:0.2];
+            break;
+        }
+
+        case 3: {
+            
+            [self performSelector:@selector(copyQuiz:) withObject:nil afterDelay:0.2];
+            break;
+            
+        }
+        default:
+            break;
+    }
+    
+    [normalActionSheet dismissWithClickedButtonIndex:5 animated:YES];;
 }
 
 -(IBAction)addNewQuiz:(id)sender {
@@ -330,6 +376,16 @@
             [self createButtons];
             [self addNavigationButtons];
             [hud hide:YES];
+        }
+    }];
+}
+
+-(IBAction)copyQuiz:(id)sender {
+    
+    [OHAlertView showAlertWithTitle:@"" message:@"Are you sure you want to copy and leave this quiz?" cancelButton:@"Cancel" okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            
+            [[[UIAlertView alloc] initWithTitle:@"" message:@"This feature is coming up" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
         }
     }];
 }

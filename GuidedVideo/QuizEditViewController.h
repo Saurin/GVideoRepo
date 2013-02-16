@@ -11,8 +11,11 @@
 #import "Subject.h"
 #import "Data.h"
 
-@interface QuizEditViewController : UIViewController<AddSubjectDelegate>
+@interface QuizEditViewController : UIViewController<AddSubjectDelegate, UIActionSheetDelegate>
 
 @property (nonatomic) Subject *subject;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *buttonAction;
+-(IBAction)didActionClick:(id)sender;
 
 @end

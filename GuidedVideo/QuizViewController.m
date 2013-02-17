@@ -168,9 +168,10 @@
         theQuizPage = [quizzes objectAtIndex:quizPageIndex];
         theQuizPage.quizOptions=[[Data sharedData] getQuizOptionsForQuizId:theQuizPage.quizId];
         
-        for(NSInteger i=0;i<theQuizPage.quizOptions.count;i++){
+        NSMutableArray *options = [self randomizeButtons:theQuizPage.quizOptions];
+        for(NSInteger i=0;i<options.count;i++){
             
-            QuizOption *quiz = [theQuizPage.quizOptions objectAtIndex:i];
+            QuizOption *quiz = [options objectAtIndex:i];
             
             CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
             [btn createQuizButtonAtIndex:i+1 withQuiz:quiz];
@@ -209,6 +210,19 @@
 -(void)addNavigationButtons {
     
     self.title = [NSString stringWithFormat:@"Add Video & Answers for Quiz - %d of %d", quizPageIndex+1, quizzes.count==0?1:quizzes.count];
+}
+
+-(NSMutableArray *)randomizeButtons:(NSMutableArray *)options {
+
+    NSUInteger firstObject = 0;
+
+    for (int i = 0; i<[options count];i++) {
+        NSUInteger randomIndex = random() % [options count];
+        [options exchangeObjectAtIndex:firstObject withObjectAtIndex:randomIndex];
+        firstObject +=1;
+    }
+
+    return options;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -281,7 +295,10 @@
         whatNext=-1;
         [self changeVideo:theQuizPage.videoUrl];
         moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
-        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
+        //[self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
+
+        [self loadButtons];
+        [self createButtons];
         
         return;
     }
@@ -293,27 +310,6 @@
     }
 }
 
-//-(void)videoPlayBackDidFinish:(NSNotification*)notification  {
-//
-//    if(whatNext==3){            //response video just played, pause it and play question video
-//        whatNext=0;
-//        [self changeVideo:theQuizPage.videoUrl];
-//        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
-//        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
-//    }
-//    else if(whatNext==4){       //response video just played and need to take to next quiz
-//        whatNext=0;
-//        [self nextQuiz];
-//    }
-//    else if(whatNext==5){       //need to end quiz on response of response video
-//        whatNext=0;
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    else {
-//        whatNext=0;
-//    }
-//
-//}
 
 
 @end

@@ -163,6 +163,10 @@
 
 -(void)loadImage:(UIImage*)img {
     
+    [imageView removeFromSuperview];
+    imageView = [[UIImageView alloc] init];
+    [self addSubview:imageView];
+    
     imageView.frame = self.bounds;
     [imageView setContentMode:UIViewContentModeScaleAspectFit];
     imageView.image = img;

@@ -20,6 +20,7 @@
 		BF6DCFCF16BAD55000E4D6AF /* DB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = BF6DCFCE16BAD55000E4D6AF /* DB.sqlite */; };
 		BFA7146716AAA32500141710 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7146616AAA32500141710 /* CustomButton.m */; };
 		BFA7147F16ACAE0E00141710 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA7147E16ACAE0E00141710 /* Data.m */; };
+		BFAC03C316D1881F00E8DB27 /* TopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFAC03C216D1881F00E8DB27 /* TopicView.m */; };
 		BFDB4DD016C6FDC400130D08 /* IncompleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDB4DCF16C6FDC400130D08 /* IncompleteButton.m */; };
 		BFDB4DD416C74CAE00130D08 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDB4DD316C74CAE00130D08 /* MBProgressHUD.m */; };
 		BFF8FB3A16B2055F00EF9554 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF8FB3816B2055F00EF9554 /* play.png */; };
@@ -86,6 +87,8 @@
 		BFA7146616AAA32500141710 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		BFA7147D16ACAE0E00141710 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		BFA7147E16ACAE0E00141710 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
+		BFAC03C116D1881F00E8DB27 /* TopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicView.h; sourceTree = "<group>"; };
+		BFAC03C216D1881F00E8DB27 /* TopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicView.m; sourceTree = "<group>"; };
 		BFDB4DCE16C6FDC400130D08 /* IncompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncompleteButton.h; sourceTree = "<group>"; };
 		BFDB4DCF16C6FDC400130D08 /* IncompleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncompleteButton.m; sourceTree = "<group>"; };
 		BFDB4DD216C74CAE00130D08 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = GuidedVideo/MBProgressHUD.h; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 		CCBBDD4B167D1A0C00739B2F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BFAC03C116D1881F00E8DB27 /* TopicView.h */,
+				BFAC03C216D1881F00E8DB27 /* TopicView.m */,
 				BFA7146516AAA32500141710 /* CustomButton.h */,
 				BFA7146616AAA32500141710 /* CustomButton.m */,
 				BFDB4DCE16C6FDC400130D08 /* IncompleteButton.h */,
@@ -457,6 +462,7 @@
 				BF21860216BE22F100F7926B /* QuizEditViewController.m in Sources */,
 				BFDB4DD016C6FDC400130D08 /* IncompleteButton.m in Sources */,
 				BFDB4DD416C74CAE00130D08 /* MBProgressHUD.m in Sources */,
+				BFAC03C316D1881F00E8DB27 /* TopicView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,13 +569,13 @@
 		CC2688E11674FA1D00AE9FB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Joseph Sieger";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GuidedVideo/GuidedVideo-Prefix.pch";
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BDF1A799-87BF-4407-99B4-29DB13CF2B42";
+				PROVISIONING_PROFILE = "987391C9-708C-4BE6-9C5F-9BE4FFD279C3";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -584,7 +590,7 @@
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7C4411D2-BDDB-4949-B0DF-566E4A26B56A";
+				PROVISIONING_PROFILE = "987391C9-708C-4BE6-9C5F-9BE4FFD279C3";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

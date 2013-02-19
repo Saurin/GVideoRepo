@@ -14,6 +14,7 @@
 		BF2185FC16BE215C00F7926B /* TopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185FB16BE215C00F7926B /* TopicsViewController.m */; };
 		BF2185FF16BE223800F7926B /* TopicsEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185FE16BE223800F7926B /* TopicsEditViewController.m */; };
 		BF21860216BE22F100F7926B /* QuizEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF21860116BE22F100F7926B /* QuizEditViewController.m */; };
+		BF385D3216D3101200187AC7 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D2E16D3101200187AC7 /* ImageCache.m */; };
 		BF4335DB16BA021300343588 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DA16BA021300343588 /* libsqlite3.0.dylib */; };
 		BF4335DE16BA023B00343588 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DD16BA023B00343588 /* libiconv.dylib */; };
 		BF4335E316BA029F00343588 /* CrudOp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4335E216BA029F00343588 /* CrudOp.m */; };
@@ -78,6 +79,8 @@
 		BF2185FE16BE223800F7926B /* TopicsEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicsEditViewController.m; sourceTree = "<group>"; };
 		BF21860016BE22F100F7926B /* QuizEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizEditViewController.h; sourceTree = "<group>"; };
 		BF21860116BE22F100F7926B /* QuizEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizEditViewController.m; sourceTree = "<group>"; };
+		BF385D2D16D3101200187AC7 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		BF385D2E16D3101200187AC7 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		BF4335DA16BA021300343588 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BF4335DD16BA023B00343588 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		BF4335E116BA029F00343588 /* CrudOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrudOp.h; sourceTree = "<group>"; };
@@ -168,6 +171,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF385D2C16D3101200187AC7 /* ImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				BF385D2D16D3101200187AC7 /* ImageCache.h */,
+				BF385D2E16D3101200187AC7 /* ImageCache.m */,
+			);
+			path = ImageCache;
+			sourceTree = "<group>";
+		};
 		CC201F3F16752D4D005EDB6E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +194,7 @@
 		CC26889C1674FA1D00AE9FB4 = {
 			isa = PBXGroup;
 			children = (
+				BF385D2C16D3101200187AC7 /* ImageCache */,
 				CC2688EF1675072700AE9FB4 /* Constants */,
 				CC2688B11674FA1D00AE9FB4 /* GuidedVideo */,
 				CCBBDD54167E626100739B2F /* Model */,
@@ -463,6 +476,7 @@
 				BFDB4DD016C6FDC400130D08 /* IncompleteButton.m in Sources */,
 				BFDB4DD416C74CAE00130D08 /* MBProgressHUD.m in Sources */,
 				BFAC03C316D1881F00E8DB27 /* TopicView.m in Sources */,
+				BF385D3216D3101200187AC7 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

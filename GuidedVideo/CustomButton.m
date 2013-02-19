@@ -134,27 +134,35 @@
     typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
     typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
     
-    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset){
-        
-        ALAssetRepresentation *rep = [myasset defaultRepresentation];
-        CGImageRef iref = [rep fullResolutionImage];
-        UIImage *myImage;
-        
-        if (iref){
-            myImage = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
-            [self loadImage:myImage];
-        }
-    };
-    
-    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror){
-        
-    };
-    
-    ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
-    [assetslibrary assetForURL:[NSURL URLWithString:url]
-                   resultBlock:resultblock
-                  failureBlock:failureblock];
+    if([[ImageCache sharedImageCache] isImageCached:url])
+    {
+        UIImage *myImage = [[ImageCache sharedImageCache] getCachedImage:url];
+        [self loadImage:myImage];
+    }
+    else{
 
+        ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset){
+            
+            ALAssetRepresentation *rep = [myasset defaultRepresentation];
+            CGImageRef iref = [rep fullResolutionImage];
+            UIImage *myImage;
+            
+            if (iref){
+                myImage = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
+                [[ImageCache sharedImageCache] cacheImage:myImage key:url];
+                [self loadImage:myImage];
+            }
+        };
+        
+        ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror){
+            
+        };
+        
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+        [assetslibrary assetForURL:[NSURL URLWithString:url]
+                       resultBlock:resultblock
+                      failureBlock:failureblock];
+    }
 }
 
 -(void)addImage:(UIImage*)image withSize:(CGSize)size {

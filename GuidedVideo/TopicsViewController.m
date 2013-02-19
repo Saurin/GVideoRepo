@@ -1,10 +1,4 @@
-//
-//  TopicsViewController.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 2/2/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
+
 
 #import "TopicsViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -14,10 +8,12 @@
 
 @implementation TopicsViewController
 
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {}
+-(void)viewDidLayoutSubviews {
     
     [self setTitle:@""];
     
+    [(TopicView *)self.view redraw];
     [self createButtons];
 }
 

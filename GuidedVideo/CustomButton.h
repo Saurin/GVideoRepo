@@ -11,6 +11,7 @@
 #import "Subject.h"
 #import "QuizOption.h"
 #import "IncompleteButton.h"
+#import "ImageCache.h"
 
 typedef NS_ENUM(NSInteger, CustomButtonType) {
     CustomButtonTypeSubject = 0,

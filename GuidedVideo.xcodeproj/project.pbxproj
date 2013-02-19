@@ -569,13 +569,13 @@
 		CC2688E11674FA1D00AE9FB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Joseph Sieger";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GuidedVideo/GuidedVideo-Prefix.pch";
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "987391C9-708C-4BE6-9C5F-9BE4FFD279C3";
+				PROVISIONING_PROFILE = "05060F67-4933-4529-A87B-13997F972A82";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -584,13 +584,13 @@
 		CC2688E21674FA1D00AE9FB4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Joseph Sieger";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GuidedVideo/GuidedVideo-Prefix.pch";
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "987391C9-708C-4BE6-9C5F-9BE4FFD279C3";
+				PROVISIONING_PROFILE = "05060F67-4933-4529-A87B-13997F972A82";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

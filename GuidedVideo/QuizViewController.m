@@ -33,9 +33,8 @@
     quizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
     
     quizPageIndex=0;
-    [self loadButtons];
-
 }
+
 
 -(void)nextQuiz {
     whatNext=-1;
@@ -52,10 +51,14 @@
     moviePlayer.contentURL = [NSURL URLWithString:videoUrl];
 }
 
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {}
+-(void)viewDidLayoutSubviews {
+
+    [self loadButtons];
+    [self loadVideoButton];
     
     [self createButtons];
-    [self addNavigationButtons];
+    [self createVideoButton];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -65,8 +68,8 @@
 
 -(void)loadButtons {
     
-    for (UIView* v in self.view.subviews) {
-        [v removeFromSuperview];
+    for (NSInteger i=0;i<ButtonCount; i++) {
+        [[self.view viewWithTag:i+1] removeFromSuperview];
     }
     theQuizPage=nil;
     
@@ -129,7 +132,16 @@
         [btn setEditable:NO];
         btn.presentingController=self;
     }
+}
+
+-(void)loadVideoButton {
+
+    [[self.view viewWithTag:101] removeFromSuperview];
     
+    NSInteger buttonCount = ButtonCount/4+1;
+    double buttonHeight = (self.view.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
+    double buttonWidth = (self.view.frame.size.width-HPadding*(buttonCount+1))/buttonCount;
+
     NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
     NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
     
@@ -137,30 +149,10 @@
     CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
     videoButton.tag=101;
     [self.view addSubview:videoButton];
-
+    
 }
 
 -(void)createButtons {
-    
-    //set up video button
-    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
-    [videoButton createButtonAtIndex:101];
-    [videoButton setEditable:NO];
-    
-    videoButton.presentingController=self;
-    videoButton.buttonType=CustomButtonTypeVideo;
-
-    NSString *videoUrl;
-    if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
-    {
-        theQuizPage = [quizzes objectAtIndex:quizPageIndex];
-        
-        //we have video for current quiz, display it
-        videoUrl = theQuizPage.videoUrl;
-        if(![videoUrl isEqualToString:@""]){
-            [self addVideoPlayer:videoUrl];
-        }
-    }
     
     //set up quiz answer buttons
     if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
@@ -181,6 +173,29 @@
             }
             
             [btn setHidden:NO];
+        }
+    }
+}
+
+-(void)createVideoButton {
+
+    //set up video button
+    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
+    [videoButton createButtonAtIndex:101];
+    [videoButton setEditable:NO];
+    
+    videoButton.presentingController=self;
+    videoButton.buttonType=CustomButtonTypeVideo;
+    
+    NSString *videoUrl;
+    if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
+    {
+        theQuizPage = [quizzes objectAtIndex:quizPageIndex];
+        
+        //we have video for current quiz, display it
+        videoUrl = theQuizPage.videoUrl;
+        if(![videoUrl isEqualToString:@""]){
+            [self addVideoPlayer:videoUrl];
         }
     }
 }
@@ -295,7 +310,7 @@
         whatNext=-1;
         [self changeVideo:theQuizPage.videoUrl];
         moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
-        //[self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
+        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
 
         [self loadButtons];
         [self createButtons];

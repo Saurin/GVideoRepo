@@ -32,17 +32,6 @@
     //get all quizzes for this subject
     quizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
     
-    quizPageIndex=0;
-}
-
-
--(void)nextQuiz {
-    whatNext=-1;
-    quizPageIndex++;
-    
-    [moviePlayer stop];
-    [self loadButtons];
-    [self createButtons];
 }
 
 -(void)changeVideo:(NSString *)videoUrl {
@@ -51,14 +40,11 @@
     moviePlayer.contentURL = [NSURL URLWithString:videoUrl];
 }
 
--(void)viewWillAppear:(BOOL)animated {}
--(void)viewDidLayoutSubviews {
-
-    [self loadButtons];
-    [self loadVideoButton];
+-(void)viewWillAppear:(BOOL)animated {
     
+    quizPageIndex=0;
+    [self loadButtons];
     [self createButtons];
-    [self createVideoButton];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -68,8 +54,8 @@
 
 -(void)loadButtons {
     
-    for (NSInteger i=0;i<ButtonCount; i++) {
-        [[self.view viewWithTag:i+1] removeFromSuperview];
+    for (UIView* v in self.view.subviews) {
+        [v removeFromSuperview];
     }
     theQuizPage=nil;
     
@@ -132,16 +118,7 @@
         [btn setEditable:NO];
         btn.presentingController=self;
     }
-}
-
--(void)loadVideoButton {
-
-    [[self.view viewWithTag:101] removeFromSuperview];
     
-    NSInteger buttonCount = ButtonCount/4+1;
-    double buttonHeight = (self.view.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
-    double buttonWidth = (self.view.frame.size.width-HPadding*(buttonCount+1))/buttonCount;
-
     NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
     NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
     
@@ -149,10 +126,30 @@
     CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
     videoButton.tag=101;
     [self.view addSubview:videoButton];
-    
+
 }
 
 -(void)createButtons {
+    
+    //set up video button
+    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
+    [videoButton createButtonAtIndex:101];
+    [videoButton setEditable:NO];
+    
+    videoButton.presentingController=self;
+    videoButton.buttonType=CustomButtonTypeVideo;
+
+    NSString *videoUrl;
+    if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
+    {
+        theQuizPage = [quizzes objectAtIndex:quizPageIndex];
+        
+        //we have video for current quiz, display it
+        videoUrl = theQuizPage.videoUrl;
+        if(![videoUrl isEqualToString:@""]){
+            [self addVideoPlayer:videoUrl];
+        }
+    }
     
     //set up quiz answer buttons
     if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
@@ -175,29 +172,9 @@
             [btn setHidden:NO];
         }
     }
-}
-
--(void)createVideoButton {
-
-    //set up video button
-    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
-    [videoButton createButtonAtIndex:101];
-    [videoButton setEditable:NO];
     
-    videoButton.presentingController=self;
-    videoButton.buttonType=CustomButtonTypeVideo;
-    
-    NSString *videoUrl;
-    if(quizzes!=nil && quizzes.count>quizPageIndex)                     //get current quiz page
-    {
-        theQuizPage = [quizzes objectAtIndex:quizPageIndex];
-        
-        //we have video for current quiz, display it
-        videoUrl = theQuizPage.videoUrl;
-        if(![videoUrl isEqualToString:@""]){
-            [self addVideoPlayer:videoUrl];
-        }
-    }
+    //we ready to play, let kid play now
+    whatNext=0;
 }
 
 -(void)addVideoPlayer:(NSString *)videoUrl {
@@ -263,10 +240,8 @@
             
             [btn setAlpha:1];
 
-            if(whatNext==5) return;         //ignore touch as we are ending quiz
-            if(whatNext==4) return;         //ignore touch as we are going to next quiz
+            if(whatNext!=0) return;         //ignore touch as response video getting played
             
-            whatNext=-1;
             [moviePlayer stop];         //button touched so should end current video
             
             //validate answer and take necessary action
@@ -307,20 +282,27 @@
     }
     
     if(whatNext==3){            //response video just played, pause it and play question video
-        whatNext=-1;
-        [self changeVideo:theQuizPage.videoUrl];
-        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
-        [self performSelector:@selector(playVideo) withObject:nil afterDelay:1];
 
+        //[self changeVideo:theQuizPage.videoUrl];
+        moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
+
+        whatNext=-1;                //we are preparing for next video, so lets not allow any touch
         [self loadButtons];
         [self createButtons];
-        
+
+
         return;
     }
     
     if(whatNext==4){       //response video just played and need to take to next quiz
-        [self performSelector:@selector(nextQuiz) withObject:nil afterDelay:1];
+        //[self performSelector:@selector(nextQuiz) withObject:nil afterDelay:1];
+
+        quizPageIndex++;
         
+        whatNext=-1;                //we are preparing for next video, so lets not allow any touch
+        [self loadButtons];
+        [self createButtons];
+                
         return;
     }
 }

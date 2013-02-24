@@ -1,16 +1,7 @@
-//
-//  TopicView.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 2/12/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
 
-#import "TopicView.h"
-#import "CustomButton.h"
+#import "QuizView.h"
 
-
-@implementation TopicView
+@implementation QuizView
 
 -(void)awakeFromNib {
     [super awakeFromNib];
@@ -22,7 +13,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-       // Initialization code
+        // Initialization code
     }
     return self;
 }

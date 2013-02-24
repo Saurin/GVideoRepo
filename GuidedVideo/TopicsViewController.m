@@ -3,19 +3,57 @@
 #import "TopicsViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #define ButtonCount 16
-#define VPadding 20
-#define HPadding 40
 
-@implementation TopicsViewController
+@implementation TopicsViewController {
+    float ratio;
+    UIView *portraitView;
+}
 
--(void)viewWillAppear:(BOOL)animated {}
--(void)viewDidLayoutSubviews {
+-(void)viewDidLoad {
+    
+    ratio = [UIScreen mainScreen].bounds.size.width/[UIScreen mainScreen].bounds.size.height;
+}
+
+-(void)viewWillLayoutSubviews {
+
+    if (UIInterfaceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+        
+        float newHeight=self.view.frame.size.height*ratio;
+        float newTop = (self.view.frame.size.height-newHeight)/2;
+        self.view.frame = CGRectMake(0, newTop, self.view.frame.size.width, newHeight);
+    }
     
     [self setTitle:@""];
     
     [(TopicView *)self.view redraw];
     [self createButtons];
 }
+
+
+//-(BOOL)shouldAutorotate {
+//
+//    [portraitView removeFromSuperview];
+//    if (UIInterfaceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+//
+//        portraitView = [[UIView alloc] initWithFrame:self.view.bounds];
+//        UILabel *lbl = [[UILabel alloc] initWithFrame:self.view.bounds];
+//        [lbl setTextAlignment:NSTextAlignmentCenter];
+//        lbl.text = @"Not supported in Portrait mode";
+//        [portraitView addSubview:lbl];
+//        [self.view addSubview:portraitView];
+//    }
+//
+//    return YES;
+//}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [self setTitle:@""];
+    
+    [(TopicView *)self.view redraw];
+    [self createButtons];
+}
+
 
 -(void)createButtons {
     

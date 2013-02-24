@@ -387,16 +387,27 @@
     
     if (sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        [presentingController presentViewController:imagePicker animated:YES completion:^{
-            NSLog(@"Easy Picture Done");
-        }];
-
+        if(presentingController!=nil)
+            [presentingController presentViewController:imagePicker animated:YES completion:^{
+                NSLog(@"Easy Picture Done");
+            }];
+        else
+            [(UIViewController *)self.delegate presentViewController:imagePicker animated:YES completion:^{
+                NSLog(@"Easy Picture Done");
+            }];
     }
     else
     {
-        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
-        photoLibraryPopover.delegate=self;
-        [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        if([UIDevice currentDevice].userInterfaceIdiom==UIUserInterfaceIdiomPad) {
+            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+            photoLibraryPopover.delegate=self;
+            [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        else{
+            [(UIViewController *)self.delegate presentViewController:imagePicker animated:YES completion:^{
+                NSLog(@"Easy Picture Done");
+            }];
+        }
     }
 }
 
@@ -410,14 +421,28 @@
     
     if (sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        [presentingController presentViewController:imagePicker animated:YES completion:^{
-        }];
+        if(presentingController!=nil)
+            [presentingController presentViewController:imagePicker animated:YES completion:^{
+            }];
+        else
+            [(UIViewController *)self.delegate presentViewController:imagePicker animated:YES completion:^{
+                NSLog(@"Easy Picture Done");
+            }];
     }
     else
     {
-        photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
-        photoLibraryPopover.delegate=self;
-        [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        if([UIDevice currentDevice].userInterfaceIdiom==UIUserInterfaceIdiomPad) {
+            
+            photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+            photoLibraryPopover.delegate=self;
+            [photoLibraryPopover presentPopoverFromRect:self.bounds inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        else{
+            [(UIViewController *)self.delegate presentViewController:imagePicker animated:YES completion:^{
+                NSLog(@"Easy Picture Done");
+            }];
+        }
+
     }
 }
 

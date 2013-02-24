@@ -1,22 +1,35 @@
-//
-//  TopicsEditViewController.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 2/2/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
 
 #import "TopicsEditViewController.h"
 #define ButtonCount 16
-#define VPadding 20
-#define HPadding 40
 
 @implementation TopicsEditViewController
 
+{
+    float ratio;
+    UIView *portraitView;
+}
+
 -(void)viewDidLoad {
     
-    [self.navigationController setNavigationBarHidden:NO];
+    ratio = [UIScreen mainScreen].bounds.size.width/[UIScreen mainScreen].bounds.size.height;
 }
+
+-(void)viewWillLayoutSubviews {
+    
+//    if (UIInterfaceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+//        
+//        float newHeight=self.view.frame.size.height*ratio;
+//        float newTop = (self.view.frame.size.height-newHeight)/2;
+//        self.view.frame = CGRectMake(0, newTop, self.view.frame.size.width, newHeight);
+//    }
+//    
+//    [self setTitle:@"Topics"];
+//    self.navigationItem.rightBarButtonItems = nil;
+//    
+//    [(TopicView *)self.view redraw];
+//    [self createButtons];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -24,106 +37,15 @@
     self.navigationItem.rightBarButtonItems = nil;
     
     
-    [self loadButtons];
+    [(TopicView *)self.view redraw];
     [self createButtons];
     
-}
-
--(BOOL)shouldAutorotate {
-    return NO;
-}
-
--(void)loadButtons {
-    
-    NSInteger tag=1;
-    double buttonHeight = (self.view.frame.size.height-VPadding*6)/5;
-    double buttonWidth = (self.view.frame.size.width-HPadding*6)/5;
-    
-    for (NSInteger i=1;i<ButtonCount;i++) {
-        [[self.view viewWithTag:i] removeFromSuperview];
-    }
-    [[self.view viewWithTag:101] removeFromSuperview];
-    
-    //bottom row
-    for(NSInteger i=0;i<5;i++){
-        
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-    //right column
-    for(NSInteger i=3;i>0;i--){
-        
-        CGRect frame = CGRectMake(self.view.frame.size.width-buttonWidth-HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-    
-    //top row
-    for(NSInteger i=4;i>=0;i--){
-        
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-    //left column
-    for(NSInteger i=1;i<=3;i++){
-        
-        CGRect frame = CGRectMake(HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-//Joe doesn't like playing instructional video here
-//    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
-//    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
-    
-//    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
-//    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
-//    videoButton.tag=101;
-//    [self.view addSubview:videoButton];
 }
 
 -(void)createButtons {
     
     //get existing subjects, if any
     NSMutableArray *buttons = [[Data sharedData] getSubjects];
-    
-    //set up video button
-    CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
-    [videoButton createButtonAtIndex:101];
-    [videoButton setEditable:YES];
-    
-    videoButton.delegate=self;
-    videoButton.presentingController=self;
-    videoButton.buttonType=CustomButtonTypeVideo;
     
     //set up subject buttons
     for(NSInteger i=0;i<buttons.count;i++){
@@ -198,6 +120,10 @@
     }
 }
 
+-(BOOL)isEditableButtonAtTag:(NSInteger)tag {
+    return YES;
+}
+
 -(IBAction)didSaveAndCloseClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -207,7 +133,7 @@
     NSLog(@"%d %@ %@",subject.subjectId,subject.subjectName,subject.assetUrl);
     [[Data sharedData] saveSubject:subject];
     
-    [self loadButtons];
+    [(TopicView *)self.view redraw];
     [self createButtons];
     
 }
@@ -220,7 +146,7 @@
         [[Data sharedData] deleteSubjectWithSubjectId:subject.subjectId];
     }
     
-    [self loadButtons];
+    [(TopicView *)self.view redraw];
     [self createButtons];
 }
 

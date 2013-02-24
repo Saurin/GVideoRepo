@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "TopicView.h"
 #import "QuizViewController.h"
 #import "CustomButton.h"
 #import "Data.h"

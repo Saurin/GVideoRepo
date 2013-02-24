@@ -15,6 +15,12 @@
 		BF2185FF16BE223800F7926B /* TopicsEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185FE16BE223800F7926B /* TopicsEditViewController.m */; };
 		BF21860216BE22F100F7926B /* QuizEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF21860116BE22F100F7926B /* QuizEditViewController.m */; };
 		BF385D3216D3101200187AC7 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D2E16D3101200187AC7 /* ImageCache.m */; };
+		BF385D3516D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF385D3416D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard */; };
+		BF385D3816D9EF8700187AC7 /* TopicView_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D3716D9EF8700187AC7 /* TopicView_iPhone.m */; };
+		BF385D3C16D9F29700187AC7 /* TopicView_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D3B16D9F29700187AC7 /* TopicView_iPad.m */; };
+		BF385D3F16DA0F5300187AC7 /* QuizView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D3E16DA0F5300187AC7 /* QuizView.m */; };
+		BF385D4216DA0FCB00187AC7 /* QuizView_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D4116DA0FCB00187AC7 /* QuizView_iPad.m */; };
+		BF385D4516DA138E00187AC7 /* QuizView_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = BF385D4416DA138E00187AC7 /* QuizView_iPhone.m */; };
 		BF4335DB16BA021300343588 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DA16BA021300343588 /* libsqlite3.0.dylib */; };
 		BF4335DE16BA023B00343588 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4335DD16BA023B00343588 /* libiconv.dylib */; };
 		BF4335E316BA029F00343588 /* CrudOp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4335E216BA029F00343588 /* CrudOp.m */; };
@@ -81,6 +87,18 @@
 		BF21860116BE22F100F7926B /* QuizEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizEditViewController.m; sourceTree = "<group>"; };
 		BF385D2D16D3101200187AC7 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
 		BF385D2E16D3101200187AC7 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
+		BF385D3416D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		BF385D3616D9EF8700187AC7 /* TopicView_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicView_iPhone.h; sourceTree = "<group>"; };
+		BF385D3716D9EF8700187AC7 /* TopicView_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicView_iPhone.m; sourceTree = "<group>"; };
+		BF385D3916D9EFDD00187AC7 /* TopicViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopicViewDelegate.h; sourceTree = "<group>"; };
+		BF385D3A16D9F29700187AC7 /* TopicView_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicView_iPad.h; sourceTree = "<group>"; };
+		BF385D3B16D9F29700187AC7 /* TopicView_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicView_iPad.m; sourceTree = "<group>"; };
+		BF385D3D16DA0F5300187AC7 /* QuizView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizView.h; sourceTree = "<group>"; };
+		BF385D3E16DA0F5300187AC7 /* QuizView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizView.m; sourceTree = "<group>"; };
+		BF385D4016DA0FCB00187AC7 /* QuizView_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizView_iPad.h; sourceTree = "<group>"; };
+		BF385D4116DA0FCB00187AC7 /* QuizView_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizView_iPad.m; sourceTree = "<group>"; };
+		BF385D4316DA138E00187AC7 /* QuizView_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizView_iPhone.h; sourceTree = "<group>"; };
+		BF385D4416DA138E00187AC7 /* QuizView_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizView_iPhone.m; sourceTree = "<group>"; };
 		BF4335DA16BA021300343588 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		BF4335DD16BA023B00343588 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		BF4335E116BA029F00343588 /* CrudOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrudOp.h; sourceTree = "<group>"; };
@@ -244,6 +262,7 @@
 				CC2688BA1674FA1D00AE9FB4 /* AppDelegate.h */,
 				CC2688BB1674FA1D00AE9FB4 /* AppDelegate.m */,
 				CC2688C31674FA1D00AE9FB4 /* MainStoryboard.storyboard */,
+				BF385D3416D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard */,
 				CC2688B21674FA1D00AE9FB4 /* Supporting Files */,
 				BF2185FA16BE215C00F7926B /* TopicsViewController.h */,
 				BF2185FB16BE215C00F7926B /* TopicsViewController.m */,
@@ -313,12 +332,23 @@
 		CCBBDD4B167D1A0C00739B2F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BF385D3916D9EFDD00187AC7 /* TopicViewDelegate.h */,
 				BFAC03C116D1881F00E8DB27 /* TopicView.h */,
 				BFAC03C216D1881F00E8DB27 /* TopicView.m */,
+				BF385D3616D9EF8700187AC7 /* TopicView_iPhone.h */,
+				BF385D3716D9EF8700187AC7 /* TopicView_iPhone.m */,
+				BF385D3A16D9F29700187AC7 /* TopicView_iPad.h */,
+				BF385D3B16D9F29700187AC7 /* TopicView_iPad.m */,
 				BFA7146516AAA32500141710 /* CustomButton.h */,
 				BFA7146616AAA32500141710 /* CustomButton.m */,
 				BFDB4DCE16C6FDC400130D08 /* IncompleteButton.h */,
 				BFDB4DCF16C6FDC400130D08 /* IncompleteButton.m */,
+				BF385D3D16DA0F5300187AC7 /* QuizView.h */,
+				BF385D3E16DA0F5300187AC7 /* QuizView.m */,
+				BF385D4016DA0FCB00187AC7 /* QuizView_iPad.h */,
+				BF385D4116DA0FCB00187AC7 /* QuizView_iPad.m */,
+				BF385D4316DA138E00187AC7 /* QuizView_iPhone.h */,
+				BF385D4416DA138E00187AC7 /* QuizView_iPhone.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -423,6 +453,7 @@
 				BFF8FB3A16B2055F00EF9554 /* play.png in Resources */,
 				BFF8FB3B16B2055F00EF9554 /* play@2x.png in Resources */,
 				BF6DCFCF16BAD55000E4D6AF /* DB.sqlite in Resources */,
+				BF385D3516D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +508,11 @@
 				BFDB4DD416C74CAE00130D08 /* MBProgressHUD.m in Sources */,
 				BFAC03C316D1881F00E8DB27 /* TopicView.m in Sources */,
 				BF385D3216D3101200187AC7 /* ImageCache.m in Sources */,
+				BF385D3816D9EF8700187AC7 /* TopicView_iPhone.m in Sources */,
+				BF385D3C16D9F29700187AC7 /* TopicView_iPad.m in Sources */,
+				BF385D3F16DA0F5300187AC7 /* QuizView.m in Sources */,
+				BF385D4216DA0FCB00187AC7 /* QuizView_iPad.m in Sources */,
+				BF385D4516DA138E00187AC7 /* QuizView_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,7 +625,7 @@
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A806D290-CFDF-4591-922C-1B2B467F608A";
+				PROVISIONING_PROFILE = "D1207187-B7C6-4778-900B-16B19119C67F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -604,7 +640,7 @@
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A806D290-CFDF-4591-922C-1B2B467F608A";
+				PROVISIONING_PROFILE = "D1207187-B7C6-4778-900B-16B19119C67F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TopicViewDelegate.h"
 
-@protocol TopicViewDelegate <NSObject>
-
-@optional
-- (BOOL)isEditableButtonAtTag:(NSInteger)tag;
-
-@end
 
 
 @interface TopicView : UIView <TopicViewDelegate>

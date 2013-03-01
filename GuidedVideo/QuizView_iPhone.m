@@ -8,11 +8,23 @@
 #define HPadding 5
 
 
-@implementation QuizView_iPhone
+@implementation QuizView_iPhone {
+    double buttonHeight, buttonWidth;
+    NSInteger height, width;
+}
 
 -(void)awakeFromNib {
+    
     [super awakeFromNib];
     
+    NSInteger buttonCount = ButtonCount/2;
+    buttonHeight = (self.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
+    buttonWidth = (self.frame.size.width*.37-HPadding*(buttonCount))/buttonCount;
+    
+    
+    height = self.frame.size.height-VPadding*2;
+    width = self.frame.size.width*.6-HPadding*2;
+
     [self loadButtons];
 }
 
@@ -36,21 +48,12 @@
         [v removeFromSuperview];
     }
     
-    NSInteger buttonCount = ButtonCount/2;
-    double buttonHeight = (self.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
-    double buttonWidth = (self.frame.size.width*.6-HPadding*(buttonCount+1))/buttonCount;
-    
-    
-    NSInteger height = self.frame.size.height-VPadding*2;
-    NSInteger width = self.frame.size.width*.4-HPadding*2;
     
     CGRect frame = CGRectMake(HPadding, VPadding, width, height);
     CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
     videoButton.tag=101;
     [self addSubview:videoButton];
 
-    
-    
     NSInteger tag=1,x=1,y=1;
     for(NSInteger i=0;i<ButtonCount;i++){
         

@@ -30,7 +30,7 @@
         <scene sceneID="dZ4-t2-MYM">
             <objects>
                 <viewController autoresizesArchivedViewToFullSize="NO" id="vdc-FV-Xop" customClass="TopicsEditViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dCo-O7-6vI" customClass="TopicView_iPhone">
+                    <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" id="dCo-O7-6vI" customClass="TopicView_iPhone">
                         <rect key="frame" x="0.0" y="64" width="568" height="256"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -93,7 +93,7 @@
         <scene sceneID="EwE-pQ-GEe">
             <objects>
                 <viewController autoresizesArchivedViewToFullSize="NO" id="Iam-K7-SuD" customClass="QuizViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="reo-as-4w9" customClass="QuizView_iPhone">
+                    <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" id="reo-as-4w9" customClass="QuizView_iPhone">
                         <rect key="frame" x="0.0" y="64" width="568" height="256"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

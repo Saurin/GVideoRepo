@@ -8,7 +8,9 @@
 #define HPadding 40
 
 
-@implementation QuizView_iPad
+@implementation QuizView_iPad {
+    
+}
 
 -(void)awakeFromNib {
     [super awakeFromNib];

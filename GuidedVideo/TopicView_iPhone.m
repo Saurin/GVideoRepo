@@ -37,17 +37,16 @@
     double buttonHeight = (self.frame.size.height-VPadding*4)/3;
     double buttonWidth = (self.frame.size.width-HPadding*4)/3;
     
-    for (NSInteger i=1;i<ButtonCount;i++) {
+    for (NSInteger i=1;i<=ButtonCount;i++) {
         [[self viewWithTag:i] removeFromSuperview];
     }
     [[self viewWithTag:101] removeFromSuperview];
     
     
     int x=1,y=1;
-    for(NSInteger i=0;i<=ButtonCount;i++){
+    for(NSInteger i=0;i<ButtonCount;i++){
         
         CGRect frame = CGRectMake(HPadding*x+buttonWidth*(x-1),VPadding*y+buttonHeight*(y-1), buttonWidth, buttonHeight);
-        NSLog(@"%d %f %f %f %f",i, frame.size.height,frame.size.width,frame.origin.x,frame.origin.y);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;

@@ -9,7 +9,7 @@
 #import "QuizView.h"
 #import "CustomButton.h"
 
-@interface QuizView_iPhone : QuizView<AddSubjectDelegate>
+@interface QuizView_iPhone : QuizView<AddSubjectDelegate, QuizViewDelegate>
 
 @property (nonatomic, readwrite, assign) IBOutlet id delegate;
 

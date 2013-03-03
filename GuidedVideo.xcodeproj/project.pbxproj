@@ -108,6 +108,7 @@
 		BFA7146616AAA32500141710 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		BFA7147D16ACAE0E00141710 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		BFA7147E16ACAE0E00141710 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
+		BFA977F616E322980094FC27 /* QuizViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizViewDelegate.h; sourceTree = "<group>"; };
 		BFAC03C116D1881F00E8DB27 /* TopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicView.h; sourceTree = "<group>"; };
 		BFAC03C216D1881F00E8DB27 /* TopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicView.m; sourceTree = "<group>"; };
 		BFDB4DCE16C6FDC400130D08 /* IncompleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncompleteButton.h; sourceTree = "<group>"; };
@@ -333,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				BF385D3916D9EFDD00187AC7 /* TopicViewDelegate.h */,
+				BFA977F616E322980094FC27 /* QuizViewDelegate.h */,
 				BFAC03C116D1881F00E8DB27 /* TopicView.h */,
 				BFAC03C216D1881F00E8DB27 /* TopicView.m */,
 				BF385D3616D9EF8700187AC7 /* TopicView_iPhone.h */,
@@ -623,9 +625,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GuidedVideo/GuidedVideo-Prefix.pch";
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F21CC72-EEED-4F3F-B5D0-C2B2293B0F5E";
+				PROVISIONING_PROFILE = "C94867F0-5D2E-47D9-9CA8-CA1ADDD187ED";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -638,9 +640,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GuidedVideo/GuidedVideo-Prefix.pch";
 				INFOPLIST_FILE = "GuidedVideo/GuidedVideo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5F21CC72-EEED-4F3F-B5D0-C2B2293B0F5E";
+				PROVISIONING_PROFILE = "C94867F0-5D2E-47D9-9CA8-CA1ADDD187ED";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

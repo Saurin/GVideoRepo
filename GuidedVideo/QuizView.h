@@ -1,9 +1,9 @@
 
 
 #import <UIKit/UIKit.h>
+#import "QuizViewDelegate.h"
 
-
-@interface QuizView : UIView
+@interface QuizView : UIView <QuizViewDelegate>
 
 @property (nonatomic, readwrite, assign) IBOutlet id delegate;
 

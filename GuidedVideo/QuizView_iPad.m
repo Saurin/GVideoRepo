@@ -53,7 +53,13 @@
         btn.tag=tag++;
         [self addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:NO];
+
+        BOOL isEditable=NO;
+        if([self.delegate respondsToSelector:@selector(isEditableButtonAtTag:)])
+            isEditable = [self.delegate isEditableButtonAtTag:btn.tag];
+        
+        [btn setEditable:isEditable];
+
         btn.delegate=self;
         
     }
@@ -67,7 +73,12 @@
         btn.tag=tag++;
         [self addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:NO];
+
+        BOOL isEditable=NO;
+        if([self.delegate respondsToSelector:@selector(isEditableButtonAtTag:)])
+            isEditable = [self.delegate isEditableButtonAtTag:btn.tag];
+        
+        [btn setEditable:isEditable];
         btn.delegate=self;
     }
     
@@ -81,7 +92,11 @@
         btn.tag=tag++;
         [self addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:NO];
+        BOOL isEditable=NO;
+        if([self.delegate respondsToSelector:@selector(isEditableButtonAtTag:)])
+            isEditable = [self.delegate isEditableButtonAtTag:btn.tag];
+        
+        [btn setEditable:isEditable];
         btn.delegate=self;
     }
     
@@ -94,7 +109,11 @@
         btn.tag=tag++;
         [self addSubview:btn];
         [btn setHidden:YES];
-        [btn setEditable:NO];
+        BOOL isEditable=NO;
+        if([self.delegate respondsToSelector:@selector(isEditableButtonAtTag:)])
+            isEditable = [self.delegate isEditableButtonAtTag:btn.tag];
+        
+        [btn setEditable:isEditable];
         btn.delegate=self;
     }
     

@@ -31,11 +31,14 @@
         <scene sceneID="mgd-em-O57">
             <objects>
                 <viewController autoresizesArchivedViewToFullSize="NO" id="m4m-53-wUc" customClass="TopicsEditViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GF7-lS-Yef">
+                    <view key="view" contentMode="scaleToFill" id="GF7-lS-Yef" customClass="TopicView_iPad">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <connections>
+                            <outlet property="delegate" destination="m4m-53-wUc" id="iFz-Q6-RSf"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="ZDU-Ls-779">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="Spm-2t-cLg">
@@ -110,11 +113,14 @@
         <scene sceneID="2J6-wG-DLW">
             <objects>
                 <viewController autoresizesArchivedViewToFullSize="NO" id="DWi-GI-fqI" customClass="QuizEditViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hxT-Q4-cbv">
+                    <view key="view" contentMode="scaleToFill" id="hxT-Q4-cbv" customClass="QuizView_iPad">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <connections>
+                            <outlet property="delegate" destination="DWi-GI-fqI" id="caT-gD-l3q"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="sNf-oI-sMQ">
                         <barButtonItem key="rightBarButtonItem" tag="1000" systemItem="action" id="vgv-LU-fpD">

@@ -10,6 +10,7 @@
 #import "CustomButton.h"
 #import "Subject.h"
 #import "Data.h"
+#import "QuizView.h"
 
 @interface QuizEditViewController : UIViewController<AddSubjectDelegate, UIActionSheetDelegate>
 

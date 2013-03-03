@@ -17,6 +17,7 @@
 #define HPadding 40
 
 @implementation QuizEditViewController {
+    QuizView *mainView;
     MBProgressHUD *hud;
     
     NSInteger quizPageIndex;
@@ -29,7 +30,9 @@
 }
 
 -(void)viewDidLoad {
-
+    [super viewDidLoad];
+    
+    mainView = (QuizView *)self.view;
     quizPageIndex=0;
 }
 
@@ -37,7 +40,7 @@
     
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [hud show:YES];
-    [self loadButtons];
+
     [self createButtons];
     [self addNavigationButtons];
     [hud hide:YES];
@@ -48,87 +51,92 @@
     moviePlayer=nil;
 }
 
+-(BOOL)isEditableButtonAtTag:(NSInteger)tag {
+    return YES;
+}
+
 -(void)loadButtons {
-    
-    theQuizPage=nil;
-    for(NSInteger i=1;i<=ButtonCount;i++){
-        [[self.view viewWithTag:i] removeFromSuperview];
-    }
-    [[self.view viewWithTag:101] removeFromSuperview];
-    [moviePlayer stop];
-    moviePlayer.contentURL=nil;
-    
-    
-    NSInteger tag=1;
-    NSInteger buttonCount = ButtonCount/4+1;
-    double buttonHeight = (self.view.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
-    double buttonWidth = (self.view.frame.size.width-HPadding*(buttonCount+1))/buttonCount;
-    
-    //bottom row
-    for(NSInteger i=0;i<4;i++){
-        
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-        
-    }
-    
-    //right column
-    for(NSInteger i=2;i>0;i--){
-        
-        CGRect frame = CGRectMake(self.view.frame.size.width-buttonWidth-HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-    
-    //top row
-    for(NSInteger i=3;i>=0;i--){
-        
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-    //left column
-    for(NSInteger i=1;i<=2;i++){
-        
-        CGRect frame = CGRectMake(HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
-        
-        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
-        btn.tag=tag++;
-        [self.view addSubview:btn];
-        [btn setHidden:YES];
-        [btn setEditable:YES];
-        btn.delegate=self;
-        btn.presentingController=self;
-    }
-    
-    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
-    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
-    
-    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
-    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
-    videoButton.tag=101;
-    [self.view addSubview:videoButton];
+
+    [mainView redraw];
+//    theQuizPage=nil;
+//    for(NSInteger i=1;i<=ButtonCount;i++){
+//        [[self.view viewWithTag:i] removeFromSuperview];
+//    }
+//    [[self.view viewWithTag:101] removeFromSuperview];
+//    [moviePlayer stop];
+//    moviePlayer.contentURL=nil;
+//    
+//    
+//    NSInteger tag=1;
+//    NSInteger buttonCount = ButtonCount/4+1;
+//    double buttonHeight = (self.view.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
+//    double buttonWidth = (self.view.frame.size.width-HPadding*(buttonCount+1))/buttonCount;
+//    
+//    //bottom row
+//    for(NSInteger i=0;i<4;i++){
+//        
+//        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, self.view.frame.size.height-buttonHeight-VPadding, buttonWidth, buttonHeight);
+//        
+//        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
+//        btn.tag=tag++;
+//        [self.view addSubview:btn];
+//        [btn setHidden:YES];
+//        [btn setEditable:YES];
+//        btn.delegate=self;
+//        btn.presentingController=self;
+//        
+//    }
+//    
+//    //right column
+//    for(NSInteger i=2;i>0;i--){
+//        
+//        CGRect frame = CGRectMake(self.view.frame.size.width-buttonWidth-HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
+//        
+//        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
+//        btn.tag=tag++;
+//        [self.view addSubview:btn];
+//        [btn setHidden:YES];
+//        [btn setEditable:YES];
+//        btn.delegate=self;
+//        btn.presentingController=self;
+//    }
+//    
+//    
+//    //top row
+//    for(NSInteger i=3;i>=0;i--){
+//        
+//        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, VPadding, buttonWidth, buttonHeight);
+//        
+//        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
+//        btn.tag=tag++;
+//        [self.view addSubview:btn];
+//        [btn setHidden:YES];
+//        [btn setEditable:YES];
+//        btn.delegate=self;
+//        btn.presentingController=self;
+//    }
+//    
+//    //left column
+//    for(NSInteger i=1;i<=2;i++){
+//        
+//        CGRect frame = CGRectMake(HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
+//        
+//        CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
+//        btn.tag=tag++;
+//        [self.view addSubview:btn];
+//        [btn setHidden:YES];
+//        [btn setEditable:YES];
+//        btn.delegate=self;
+//        btn.presentingController=self;
+//    }
+//    
+//    NSInteger height = self.view.frame.size.height-buttonHeight*2-VPadding*4;
+//    NSInteger width = self.view.frame.size.width-buttonWidth*2-HPadding*4;
+//    
+//    CGRect frame = CGRectMake((self.view.frame.size.width-width)/2, (self.view.frame.size.height-height)/2, width, height);
+//    CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
+//    videoButton.tag=101;
+//    [self.view addSubview:videoButton];
     
 }
 

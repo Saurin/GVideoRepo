@@ -18,12 +18,11 @@
     [super awakeFromNib];
     
     NSInteger buttonCount = ButtonCount/2;
-    buttonHeight = (self.frame.size.height-VPadding*(buttonCount+1))/buttonCount;
-    buttonWidth = (self.frame.size.width*.37-HPadding*(buttonCount))/buttonCount;
+    buttonHeight = (self.frame.size.height-VPadding*(buttonCount))/buttonCount;
+    buttonWidth = (self.frame.size.width*.5-HPadding*(buttonCount))/buttonCount;
     
-    
-    height = self.frame.size.height-VPadding*2;
-    width = self.frame.size.width*.6-HPadding*2;
+    height = self.frame.size.height-VPadding;
+    width = self.frame.size.width*.5-HPadding*2;
 
     [self loadButtons];
 }
@@ -64,7 +63,14 @@
         [self addSubview:btn];
         [btn setHidden:YES];
         
+        BOOL isEditable=NO;
+        if([self.delegate respondsToSelector:@selector(isEditableButtonAtTag:)])
+            isEditable = [self.delegate isEditableButtonAtTag:btn.tag];
+        
+        [btn setEditable:isEditable];
+
         btn.delegate=self.delegate;
+        
         
         y++;
         if(y==4){

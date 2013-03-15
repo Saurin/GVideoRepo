@@ -12,7 +12,7 @@
 #import "CustomButton.h"
 #import "Data.h"
 
-@interface TopicsViewController : UIViewController
+@interface TopicsViewController : UIViewController <AddSubjectDelegate, UISplitViewControllerDelegate>
 
 -(IBAction)didEditClick:(id)sender;
 

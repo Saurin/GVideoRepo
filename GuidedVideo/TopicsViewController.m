@@ -2,6 +2,7 @@
 
 #import "TopicsViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "OHAlertView.h"
 #define ButtonCount 16
 
 @implementation TopicsViewController {
@@ -12,6 +13,16 @@
 -(void)viewDidLoad {
     
     ratio = [UIScreen mainScreen].bounds.size.width/[UIScreen mainScreen].bounds.size.height;
+    
+    //this is to hide masterview controller of splitview
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.splitViewController.delegate=self;
+    }
+    
+    //Just to notify user that in play mode they will have no way to come back
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Need some message to let user know that there is no way to exit this view" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    
+    [alert show];
 }
 
 -(void)viewWillLayoutSubviews {
@@ -28,23 +39,6 @@
     [(TopicView *)self.view redraw];
     [self createButtons];
 }
-
-
-//-(BOOL)shouldAutorotate {
-//
-//    [portraitView removeFromSuperview];
-//    if (UIInterfaceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-//
-//        portraitView = [[UIView alloc] initWithFrame:self.view.bounds];
-//        UILabel *lbl = [[UILabel alloc] initWithFrame:self.view.bounds];
-//        [lbl setTextAlignment:NSTextAlignmentCenter];
-//        lbl.text = @"Not supported in Portrait mode";
-//        [portraitView addSubview:lbl];
-//        [self.view addSubview:portraitView];
-//    }
-//
-//    return YES;
-//}
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -101,11 +95,6 @@
     [super viewDidUnload];
 }
 
--(IBAction)didEditClick:(id)sender {
-    [self setTitle:@"Done"];
-    [self performSegueWithIdentifier:@"Edit" sender:nil];
-}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     
@@ -131,5 +120,12 @@
         }
     }
 }
+
+
+-(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
+    
+    return YES;
+}
+
 
 @end

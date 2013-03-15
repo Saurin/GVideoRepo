@@ -12,6 +12,7 @@
 #define ButtonCount 12
 
 @implementation QuizViewController {
+    float ratio;
     
     NSInteger quizPageIndex;
 
@@ -27,11 +28,28 @@
 
 -(void)viewDidLoad {
 
+     ratio = [UIScreen mainScreen].bounds.size.width/[UIScreen mainScreen].bounds.size.height;
+    
     self.mainView = (QuizView *)self.view;
     
     //get all quizzes for this subject
     quizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
     
+}
+
+-(void)viewWillLayoutSubviews {
+    
+    if (UIInterfaceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+        
+        float newHeight=self.view.frame.size.height*ratio;
+        float newTop = (self.view.frame.size.height-newHeight)/2;
+        self.view.frame = CGRectMake(0, newTop, self.view.frame.size.width, newHeight);
+    }
+    
+    [self setTitle:@""];
+    
+    [(QuizView *)self.view redraw];
+    [self createButtons];
 }
 
 -(void)changeVideo:(NSString *)videoUrl {
@@ -194,8 +212,9 @@
 {
     if(whatNext==5){       //need to end quiz on response of response video
         whatNext=-1;
-        [self.navigationController popViewControllerAnimated:YES];
-        
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
         return;
     }
     

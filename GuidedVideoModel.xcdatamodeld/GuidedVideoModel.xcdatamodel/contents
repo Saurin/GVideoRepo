@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C3006" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Subject" representedClassName="Subject" syncable="YES">
-        <attribute name="isActionButton" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="isSubjectShown" optional="YES" attributeType="Boolean" syncable="YES"/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="SubjectModel" representedClassName="SubjectModel" syncable="YES">
+        <attribute name="assetUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="subjectId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="subjectName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tileImageUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Subject" positionX="-63" positionY="-27" width="128" height="103"/>
+        <element name="SubjectModel" positionX="160" positionY="192" width="128" height="105"/>
     </elements>
 </model>

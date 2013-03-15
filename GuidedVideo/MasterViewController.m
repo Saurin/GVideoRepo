@@ -1,18 +1,10 @@
-//
-//  MasterViewController.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/12/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
 
 #import "MasterViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
-@interface MasterViewController ()
-
-@end
-
-@implementation MasterViewController
+@implementation MasterViewController {
+    NSMutableArray *options;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,12 +18,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure Me",@"Play with Me",nil]
+               ,[NSMutableArray arrayWithObjects:@"Tutorial",@"Settings",@"Feedback",nil]
+               ,[NSMutableArray arrayWithObjects:@"Contact Us",@"About Us",nil]
+               , nil];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.clearsSelectionOnViewWillAppear = NO;
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,82 +34,134 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+//        
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        id object = [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+//    }
+//}
+
+-(NSString *)selectedItem {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    return [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+}
+
+#pragma mark - Table view
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return [options count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [(NSMutableArray *)[options objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    cell.textLabel.text=[(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+
+        //selected object on table view
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        id object = [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
+        if([[object description] isEqualToString:@"Configure Me"]){
+            self.detailViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+            
+            UIViewController *masterViewController = [self.splitViewController.viewControllers objectAtIndex:0];
+            NSArray *viewControllers = [[NSArray alloc] initWithObjects:masterViewController, self.detailViewController, nil];
+            self.splitViewController.viewControllers = viewControllers;
+        }
+        else if([[object description] isEqualToString:@"Play with Me"]){
+            self.detailViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"TopicsViewController"];
+            
+            UIViewController *masterViewController = [self.splitViewController.viewControllers objectAtIndex:0];
+            NSArray *viewControllers = [[NSArray alloc] initWithObjects:masterViewController, self.detailViewController, nil];
+            self.splitViewController.viewControllers = viewControllers;
+            
+            [masterViewController.view setFrame:CGRectZero];
+            [self.detailViewController.view setFrame:self.splitViewController.view.bounds];
+        }
+        else
+        {
+            self.detailViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
+            
+            UIViewController *masterViewController = [self.splitViewController.viewControllers objectAtIndex:0];
+            NSArray *viewControllers = [[NSArray alloc] initWithObjects:masterViewController, self.detailViewController, nil];
+            self.splitViewController.viewControllers = viewControllers;
+            
+            [self performSelector:@selector(postNotificationAboutSelection:) withObject:[NSNotification notificationWithName:@"SelectedValue" object:object] afterDelay:0.1];
+        }
+    }
+}
+
+#pragma mark TableView Footer Configuration
+
+static const CGFloat kFooterViewHeight= 300.0f;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
+       && section==[options count]-1){
+        
+        CGFloat retVal= kFooterViewHeight;
+        return retVal;
+    }
+    
+    return 0.1f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+
+    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
+       && section==[options count]-1){
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GuidedVideo.png"]];
+        [imageView setContentMode:UIViewContentModeCenter];
+        [self makeRoundRectView:imageView];
+        imageView.frame=CGRectMake((self.view.bounds.size.width-imageView.frame.size.width)/2, 30, imageView.frame.size.width, imageView.frame.size.height);
+
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, kFooterViewHeight)];
+        [view addSubview:imageView];
+        
+        //Now load default detail view, if not loaded
+        if(self.detailViewController==nil){
+            [self performSelector:@selector(loadDetailViewController) withObject:nil afterDelay:0.2];
+        }
+        return view;
+    }
+    
+    return [[UIView alloc] init];
+}
+
+
+-(void)makeRoundRectView:(UIView *)view {
+    view.layer.cornerRadius = 15;
+    view.layer.masksToBounds = YES;
+}
+
+-(void)loadDetailViewController {
+
+    //load program view as default
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewRowAnimationTop];
+    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+}
+
+-(void)postNotificationAboutSelection:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:notification.name object:notification.object];
 }
 
 @end

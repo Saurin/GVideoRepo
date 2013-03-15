@@ -1,12 +1,9 @@
-//
-//  SubjectListViewController.h
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/13/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
+#import "TopicsEditViewController.h"
+#import "Subject.h"
+#import "Utility.h"
 
 @interface SubjectListViewController : UITableViewController
 

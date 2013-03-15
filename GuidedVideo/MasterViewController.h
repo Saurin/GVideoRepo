@@ -1,13 +1,14 @@
-//
-//  MasterViewController.h
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/12/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
+#import "DetailViewController.h"
+#import "TopicsViewController.h"
+#import "SubjectListViewController.h"
+
 
 @interface MasterViewController : UITableViewController
 
+@property(nonatomic,retain) UIViewController *detailViewController;
+
 @end
+
+

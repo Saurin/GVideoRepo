@@ -10,4 +10,9 @@
 
 @interface Menu : NSObject
 
+@property (nonatomic) NSInteger menuId;
+@property (nonatomic, retain) NSString *menuName;
+
+- (id)initWithMenuId:(NSInteger)menuId name:(NSString *)menuName;
+
 @end

@@ -1,18 +1,10 @@
-//
-//  DetailViewController.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/13/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
+
 
 #import "DetailViewController.h"
 
-@interface DetailViewController ()
-
-@end
-
-@implementation DetailViewController
+@implementation DetailViewController {
+    NSMutableArray *options;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +19,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNotification:)
+                                                 name:@"SelectedValue"
+                                               object:nil];
+    
+    self.feedbackArray = [NSMutableArray arrayWithObjects:@"Rate This App", @"How to Write Review", nil];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,5 +34,49 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Managing the detail item
+
+- (void) receiveNotification:(NSNotification *) notification
+{
+    NSString *name = [notification name];
+    if ([name isEqualToString:@"SelectedValue"]) {
+        
+        NSString *object = [notification object];
+        self.title = object;
+        
+        options = [[NSMutableArray alloc] init];
+        if ([object isEqualToString:@"Tutorial"]){
+            
+        }
+        else if ([object isEqualToString:@"Feedback"]){
+            options = [self.feedbackArray copy];
+        }
+        
+        [self.table reloadData];
+    }
+}
+
+#pragma mark - Table view
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [options count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.textLabel.text=[options objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
 
 @end

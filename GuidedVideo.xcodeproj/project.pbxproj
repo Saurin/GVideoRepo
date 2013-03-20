@@ -17,6 +17,10 @@
 		BF12373E16F1300C008A755D /* SubjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12373D16F1300C008A755D /* SubjectListViewController.m */; };
 		BF12374116F16DE5008A755D /* SubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12374016F16DE5008A755D /* SubjectModel.m */; };
 		BF12374416F22883008A755D /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12374316F22883008A755D /* Utility.m */; };
+		BF12374716F42A4D008A755D /* SubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12374616F42A4D008A755D /* SubjectViewController.m */; };
+		BF1237A716F78242008A755D /* DetailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237A616F78242008A755D /* DetailViewManager.m */; };
+		BF1237B916F7C9C5008A755D /* SubjectList.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1237B816F7C9C5008A755D /* SubjectList.xib */; };
+		BF1237BC16F7CCB2008A755D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1237BA16F7CCB2008A755D /* MainWindow.xib */; };
 		BF2185F616BD8D3400F7926B /* QuizPage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185F516BD8D3400F7926B /* QuizPage.m */; };
 		BF2185F916BD94F500F7926B /* QuizOption.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185F816BD94F400F7926B /* QuizOption.m */; };
 		BF2185FC16BE215C00F7926B /* TopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF2185FB16BE215C00F7926B /* TopicsViewController.m */; };
@@ -93,6 +97,12 @@
 		BF12374016F16DE5008A755D /* SubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectModel.m; sourceTree = "<group>"; };
 		BF12374216F22883008A755D /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		BF12374316F22883008A755D /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		BF12374516F42A4C008A755D /* SubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectViewController.h; sourceTree = "<group>"; };
+		BF12374616F42A4D008A755D /* SubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectViewController.m; sourceTree = "<group>"; };
+		BF1237A516F78242008A755D /* DetailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewManager.h; sourceTree = "<group>"; };
+		BF1237A616F78242008A755D /* DetailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewManager.m; sourceTree = "<group>"; };
+		BF1237B816F7C9C5008A755D /* SubjectList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubjectList.xib; path = Views/SubjectList.xib; sourceTree = SOURCE_ROOT; };
+		BF1237BB16F7CCB2008A755D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		BF2185F416BD8D3400F7926B /* QuizPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizPage.h; sourceTree = "<group>"; };
 		BF2185F516BD8D3400F7926B /* QuizPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizPage.m; sourceTree = "<group>"; };
 		BF2185F716BD94F400F7926B /* QuizOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizOption.h; sourceTree = "<group>"; };
@@ -205,10 +215,21 @@
 		BF12372616EFF526008A755D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BF1237BA16F7CCB2008A755D /* MainWindow.xib */,
 				CC2688C31674FA1D00AE9FB4 /* MainStoryboard.storyboard */,
 				BF385D3416D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard */,
+				BF1237B816F7C9C5008A755D /* SubjectList.xib */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		BF1237A416F78241008A755D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BF1237A516F78242008A755D /* DetailViewManager.h */,
+				BF1237A616F78242008A755D /* DetailViewManager.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		BF385D2C16D3101200187AC7 /* ImageCache */ = {
@@ -236,6 +257,7 @@
 		CC26889C1674FA1D00AE9FB4 = {
 			isa = PBXGroup;
 			children = (
+				BF1237A416F78241008A755D /* Classes */,
 				BF385D2C16D3101200187AC7 /* ImageCache */,
 				CC2688EF1675072700AE9FB4 /* Constants */,
 				CC2688B11674FA1D00AE9FB4 /* GuidedVideo */,
@@ -292,6 +314,8 @@
 				BF12373116F0B88E008A755D /* DetailViewController.m */,
 				BF12373C16F1300C008A755D /* SubjectListViewController.h */,
 				BF12373D16F1300C008A755D /* SubjectListViewController.m */,
+				BF12374516F42A4C008A755D /* SubjectViewController.h */,
+				BF12374616F42A4D008A755D /* SubjectViewController.m */,
 				BF2185FA16BE215C00F7926B /* TopicsViewController.h */,
 				BF2185FB16BE215C00F7926B /* TopicsViewController.m */,
 				BF2185FD16BE223800F7926B /* TopicsEditViewController.h */,
@@ -468,6 +492,8 @@
 				BF385D3516D9EEA500187AC7 /* MainStoryboard_iPhone.storyboard in Resources */,
 				BF12373416F0D68B008A755D /* GuidedVideo.png in Resources */,
 				BF12373816F0E08C008A755D /* GuidedVideo@2x.png in Resources */,
+				BF1237B916F7C9C5008A755D /* SubjectList.xib in Resources */,
+				BF1237BC16F7CCB2008A755D /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +558,8 @@
 				BF12373E16F1300C008A755D /* SubjectListViewController.m in Sources */,
 				BF12374116F16DE5008A755D /* SubjectModel.m in Sources */,
 				BF12374416F22883008A755D /* Utility.m in Sources */,
+				BF12374716F42A4D008A755D /* SubjectViewController.m in Sources */,
+				BF1237A716F78242008A755D /* DetailViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +581,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BF1237BA16F7CCB2008A755D /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF1237BB16F7CCB2008A755D /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
 		CC2688B41674FA1D00AE9FB4 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -636,7 +672,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "C94867F0-5D2E-47D9-9CA8-CA1ADDD187ED";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -651,7 +687,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "C94867F0-5D2E-47D9-9CA8-CA1ADDD187ED";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

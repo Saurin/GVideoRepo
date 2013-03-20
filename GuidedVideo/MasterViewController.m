@@ -18,6 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.splitViewController.delegate=self;
     
     options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure Me",@"Play with Me",nil]
                ,[NSMutableArray arrayWithObjects:@"Tutorial",@"Settings",@"Feedback",nil]
@@ -34,18 +35,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-//        
-//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        id object = [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-//    }
-//}
 
 -(NSString *)selectedItem {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     return [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+}
+
+-(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
+{
+    return NO;
 }
 
 #pragma mark - Table view
@@ -62,8 +60,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Dequeue or create a cell of the appropriate type.
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+
     cell.textLabel.text=[(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
     return cell;
@@ -71,6 +74,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Get a reference to the DetailViewManager.
+    // DetailViewManager is the delegate of our split view.
+    DetailViewManager *detailViewManager = (DetailViewManager*)self.splitViewController.delegate;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
 
@@ -79,21 +85,27 @@
         id object = [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
         if([[object description] isEqualToString:@"Configure Me"]){
-            self.detailViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
-            
-            UIViewController *masterViewController = [self.splitViewController.viewControllers objectAtIndex:0];
-            NSArray *viewControllers = [[NSArray alloc] initWithObjects:masterViewController, self.detailViewController, nil];
-            self.splitViewController.viewControllers = viewControllers;
+
+            UIViewController <SubstitutableDetailViewController> *detailViewController = nil;
+
+            SubjectListViewController *newDetailViewController = [[SubjectListViewController alloc] initWithNibName:@"SubjectList" bundle:nil];
+            detailViewController = newDetailViewController;
+
+            detailViewController.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+            detailViewManager.detailViewController = detailViewController;
+
+//            self.detailViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"SubjectViewController"];
+//            
+//            UIViewController *masterViewController = [self.splitViewController.viewControllers objectAtIndex:0];
+//            NSArray *viewControllers = [[NSArray alloc] initWithObjects:masterViewController, self.detailViewController, nil];
+//            self.splitViewController.viewControllers = viewControllers;
         }
         else if([[object description] isEqualToString:@"Play with Me"]){
+            
             self.detailViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"TopicsViewController"];
-            
-            UIViewController *masterViewController = [self.splitViewController.viewControllers objectAtIndex:0];
-            NSArray *viewControllers = [[NSArray alloc] initWithObjects:masterViewController, self.detailViewController, nil];
-            self.splitViewController.viewControllers = viewControllers;
-            
-            [masterViewController.view setFrame:CGRectZero];
-            [self.detailViewController.view setFrame:self.splitViewController.view.bounds];
+            [self.splitViewController presentViewController:self.detailViewController animated:YES completion:^{
+                
+            }];
         }
         else
         {
@@ -108,21 +120,6 @@
     }
 }
 
-#pragma mark TableView Footer Configuration
-
-static const CGFloat kFooterViewHeight= 300.0f;
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
-       && section==[options count]-1){
-        
-        CGFloat retVal= kFooterViewHeight;
-        return retVal;
-    }
-    
-    return 0.1f;
-}
-
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
 
@@ -134,7 +131,7 @@ static const CGFloat kFooterViewHeight= 300.0f;
         [self makeRoundRectView:imageView];
         imageView.frame=CGRectMake((self.view.bounds.size.width-imageView.frame.size.width)/2, 30, imageView.frame.size.width, imageView.frame.size.height);
 
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, kFooterViewHeight)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 300)];
         [view addSubview:imageView];
         
         //Now load default detail view, if not loaded
@@ -154,7 +151,6 @@ static const CGFloat kFooterViewHeight= 300.0f;
 }
 
 -(void)loadDetailViewController {
-
     //load program view as default
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewRowAnimationTop];
     [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];

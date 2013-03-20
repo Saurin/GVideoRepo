@@ -14,11 +14,6 @@
     
     ratio = [UIScreen mainScreen].bounds.size.width/[UIScreen mainScreen].bounds.size.height;
     
-    //this is to hide masterview controller of splitview
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.splitViewController.delegate=self;
-    }
-    
     //Just to notify user that in play mode they will have no way to come back
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Need some message to let user know that there is no way to exit this view" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     
@@ -48,6 +43,20 @@
     [self createButtons];
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+	if (motion == UIEventSubtypeMotionShake)
+	{
+        [self resignFirstResponder];
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+	}
+}
 
 -(void)createButtons {
     
@@ -120,12 +129,5 @@
         }
     }
 }
-
-
--(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation {
-    
-    return YES;
-}
-
 
 @end

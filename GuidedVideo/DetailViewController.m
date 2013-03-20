@@ -20,6 +20,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SelectedValue" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveNotification:)
                                                  name:@"SelectedValue"
@@ -78,5 +79,20 @@
     return cell;
 }
 
+#pragma mark -
+#pragma mark SubstitutableDetailViewController
+
+//- (void)setNavigationPaneBarButtonItem:(UIBarButtonItem *)navigationPaneBarButtonItem
+//{
+//    if (navigationPaneBarButtonItem != _navigationPaneBarButtonItem) {
+//        if (navigationPaneBarButtonItem)
+//            [self.toolbar setItems:[NSArray arrayWithObject:navigationPaneBarButtonItem] animated:NO];
+//        else
+//            [self.toolbar setItems:nil animated:NO];
+//        
+//        [_navigationPaneBarButtonItem release];
+//        _navigationPaneBarButtonItem = [navigationPaneBarButtonItem retain];
+//    }
+//}
 
 @end

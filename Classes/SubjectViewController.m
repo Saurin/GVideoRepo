@@ -18,10 +18,12 @@
 
     //add right bar button to save subject and move to instructions
     UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveSubject:)];
+    [saveSubject setTitle:@"Next"];
     [self.navigationItem setRightBarButtonItem:saveSubject];
     
     self.title = @"Subject";
     _dirtySubject=[self.thisSubject copy];
+    
 }
 
 - (void)viewDidUnload {
@@ -30,6 +32,13 @@
     photoLibraryPopover=nil;
     self.tblImageFrom = nil;
     imageFromArray = nil;
+}
+
+-(void)viewDidLayoutSubviews {
+    [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
+}
+-(void)sendSelectionNotification:(id)object {
+    [[ApplicationNotification notification] postNotificationFromSubjectView:object userInfo:nil];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -74,9 +83,15 @@
         if(self.thisSubject.subjectId!=-1){
             
             self.txtSubject.text = self.thisSubject.subjectName;
-            //rest image object, if already created
+            //reset image object, if already created
             [self.imgCurrent removeFromSuperview];
             self.imgCurrent = nil;
+            
+            [self makeRoundRectView:self.btnDelete layerRadius:5];
+        }
+        //hide delete button while adding a new one
+        else{
+            [self.btnDelete setHidden:YES];
         }
     }
     else{
@@ -93,7 +108,7 @@
 
                 [[Utility alloc] setImageFromAssetURL:self.thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
                     
-                    self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, 7, 80, 60)];
+                    self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
                     [self.imgCurrent setImage:image];
                     [self makeRoundRectView:self.imgCurrent layerRadius:10];
                     cell.accessoryView=self.imgCurrent;
@@ -124,6 +139,21 @@
 }
 
 #pragma Save subject
+-(IBAction)didSubjectDeleteClick:(id)sender {
+
+    [[[OHAlertView alloc] initWithTitle:@""
+                                message:@"Do you want to delete this Subject? You can't recover it once deleted."
+                           cancelButton:@"Cancel"
+                           otherButtons:[NSArray arrayWithObject:@"OK"]
+                         onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                             if(buttonIndex==1){
+                                 [[Data sharedData] deleteSubjectWithSubjectId:self.thisSubject.subjectId];
+                                 [self.navigationController popViewControllerAnimated:YES];
+                             }
+                         }] show];
+
+}
+
 -(IBAction)saveSubject:(id)sender
 {
     //hide keyboard or dismiss popover
@@ -132,13 +162,17 @@
     
     [self save];
     
-    [[[OHAlertView alloc] initWithTitle:@""
-            message:@"Saved...This needs to go to next view"
-            cancelButton:nil
-            otherButtons:[NSArray arrayWithObject:@"OK"]
-            onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-                [self.navigationController popViewControllerAnimated:YES];
-    }] show];
+//    [[[OHAlertView alloc] initWithTitle:@""
+//            message:@"Saved...This needs to go to next view"
+//            cancelButton:nil
+//            otherButtons:[NSArray arrayWithObject:@"OK"]
+//            onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+//                [self.navigationController popViewControllerAnimated:YES];
+//    }] show];
+    
+    QuizEditViewController *quizEditVC = [[QuizEditViewController alloc] initWithNibName:@"QuizEdit" bundle:nil];
+    quizEditVC.subject = _dirtySubject;
+    [self.navigationController pushViewController:quizEditVC animated:YES];
 }
 
 -(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
@@ -152,8 +186,8 @@
         
         [[[OHAlertView alloc] initWithTitle:@""
                 message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
-               cancelButton:@"Cancel"
-               otherButtons:[NSArray arrayWithObject:@"OK"]
+               cancelButton:@"No"
+               otherButtons:[NSArray arrayWithObject:@"Yes"]
                  onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
                      if(buttonIndex==1){
                          [self save];
@@ -177,6 +211,7 @@
     
     //do validation, or keep save button disabled
     _dirtySubject.subjectName = self.txtSubject.text;
+    if(_dirtySubject.assetUrl==nil) _dirtySubject.assetUrl = @"";
     [[Data sharedData] saveSubject:_dirtySubject];
 
     return TRUE;
@@ -188,6 +223,7 @@
     _dirtySubject=[self.thisSubject copy];
     
     [self.tblImageFrom reloadData];
+    [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
 }
 
 #pragma Camera and Photo library

@@ -7,7 +7,7 @@
 #import "Data.h"
 #import "Subject.h"
 #import "DetailViewManager.h"
-
+#import "ApplicationNotification.h"
 
 @interface BaseViewController : UIViewController 
 
@@ -16,4 +16,5 @@
 @property (nonatomic, strong) DetailViewManager *detailViewManager;
 
 -(void)makeRoundRectView:(UIView *)view layerRadius:(NSInteger)radius;
+
 @end

@@ -13,7 +13,8 @@ static char * const myIndexPathAssociationKey = "";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"SubjectListViewController" object:nil];
+    
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 
     // Uncomment the following line to preserve selection between presentations.
@@ -29,10 +30,14 @@ static char * const myIndexPathAssociationKey = "";
     
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
-        Subject *sub = [[Subject alloc] init];
-        sub.subjectId=-1;
-        sub.subjectName=@"Add Subject...";
-        [subjects addObject:sub];
+        
+        //we want to give only 12 subjects as free....
+        if([subjects count]<=12){
+            Subject *sub = [[Subject alloc] init];
+            sub.subjectId=-1;
+            sub.subjectName=@"Add Subject...";
+            [subjects addObject:sub];
+        }
     
         //if masterviewcontroller is not menu, change it to MenuTableViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[MenuTableViewController class]]){
@@ -52,6 +57,21 @@ static char * const myIndexPathAssociationKey = "";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleNotification:(NSNotification*)note {
+    //ignore other notifications, we may receive
+    
+    if([note.name isEqualToString:@"SubjectListViewController"]){
+        if([note.object isKindOfClass:[Subject class]]){
+
+            NSInteger index = [subjects indexOfObject:note.object];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        }
+    }
 }
 
 #pragma mark - Table view data source
@@ -76,7 +96,7 @@ static char * const myIndexPathAssociationKey = "";
     }
     else{
         [cell setAccessoryType:UITableViewCellAccessoryNone];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     }
     
     
@@ -132,6 +152,25 @@ static char * const myIndexPathAssociationKey = "";
     return self.isListDetailController?@"Subjects":@"";
 }
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //send notification to detail view that user wants to change subject selection
+    if(!self.isListDetailController) {
+        //As we have pushed a view controller using navigation controller, get latest object on detailViewController
+        //this should be current detail view, user is seeing.
+        
+        BaseViewController *someController = (SubjectViewController *)self.detailViewManager.detailViewController;
+        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[SubjectViewController class]]){
+            
+            SubjectViewController *subjectViewController = [someController.navigationController.viewControllers lastObject];
+            [subjectViewController didSubjectSelectionChange:[subjects objectAtIndex:indexPath.row]];
+        }
+        
+        return nil;
+    }
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(self.isListDetailController){
@@ -144,16 +183,6 @@ static char * const myIndexPathAssociationKey = "";
         [subjectViewController setThisSubject:[subjects objectAtIndex:indexPath.row]];
         [subjectViewController setDelegate:masterViewController];
         [self.navigationController pushViewController:subjectViewController animated:YES];
-       
-    }
-    //send notification to detail view that user wants to change subject selection
-    else {
-        //As we have pushed a view controller using navigation controller, get latest object on detailViewController
-        //this should be current detail view, user is seeing.
-
-        BaseViewController *someController = (SubjectViewController *)self.detailViewManager.detailViewController;
-        SubjectViewController *subjectViewController = [someController.navigationController.viewControllers lastObject];
-        [subjectViewController didSubjectSelectionChange:[subjects objectAtIndex:indexPath.row]];
     }
 }
 

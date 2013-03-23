@@ -3,6 +3,7 @@
 #import "DetailViewManager.h"
 #import "DetailViewController.h"
 #import "SubjectListViewController.h"
+#import "PlayViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @implementation MenuTableViewController {
@@ -81,6 +82,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     
     // Set appropriate labels for the cells.
     cell.textLabel.text = [(NSMutableArray *)[options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -92,22 +94,47 @@
 #pragma mark -
 #pragma mark Table view selection
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // Get a reference to the DetailViewManager.  
+    // Get a reference to the DetailViewManager.
     // DetailViewManager is the delegate of our split view.
-    DetailViewManager *detailViewManager = (DetailViewManager*)self.splitViewController.delegate;
     
+    // DetailViewManager exposes a property, detailViewController.  Set this property
+    // to the detail view controller we want displayed.  Configuring the detail view
+    // controller to display the navigation button (if needed) and presenting it
+    // happens inside DetailViewManager.
+
+    DetailViewManager *detailViewManager = (DetailViewManager*)self.splitViewController.delegate;
     // Create and configure a new detail view controller appropriate for the selection.
     detailViewController = nil;
     
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
-    if(section==0 && row==0){
+
+    if(section==0){
+        switch (row) {
+            case 0:{
+
+                SubjectListViewController *newDetailViewController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
+                [newDetailViewController setIsListDetailController:YES];
+                detailViewController = newDetailViewController;
+
+                break;
+            }
+            case 1:{
+
+                PlayViewController *newDetailViewController = [[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil];
+                [self.navigationController presentModalViewController:newDetailViewController animated:YES];
+                
+                return nil;             //we dont want play me shown selected
+
+                break;
+            }
+            default:
+                break;
+        }
+
             
-        SubjectListViewController *newDetailViewController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
-        [newDetailViewController setIsListDetailController:YES];
-        detailViewController = newDetailViewController;
     }
     else{
         
@@ -117,11 +144,9 @@
     
     detailViewController.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
     
-    // DetailViewManager exposes a property, detailViewController.  Set this property
-    // to the detail view controller we want displayed.  Configuring the detail view
-    // controller to display the navigation button (if needed) and presenting it
-    // happens inside DetailViewManager.
     detailViewManager.detailViewController = detailViewController;
+    
+    return indexPath;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -150,7 +175,7 @@
 
 -(void)loadDefaultDetailViewController {
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewRowAnimationTop];
-    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+    [self tableView:self.tableView willSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 -(void)makeRoundRectView:(UIView *)view {

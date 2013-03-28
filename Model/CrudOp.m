@@ -10,15 +10,6 @@
 
 @implementation CrudOp
 
-@synthesize  coldbl;
-@synthesize colint;
-@synthesize coltext;
-@synthesize dataId;
-@synthesize fileMgr;
-@synthesize homeDir;
-@synthesize title;
-
-
 + (CrudOp *)sharedDB
 {
     static CrudOp *sharedDB = nil;
@@ -51,7 +42,7 @@
     [fileMgr removeItemAtPath:copydbpath error:&err];
     if(![fileMgr copyItemAtPath:dbpath toPath:copydbpath error:&err])
     {
-        UIAlertView *tellErr = [[UIAlertView alloc] initWithTitle:title message:@"Unable to copy database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *tellErr = [[UIAlertView alloc] initWithTitle:@"" message:@"Unable to copy database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [tellErr show];
     }
 }
@@ -308,6 +299,91 @@
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
 }
+
+-(void)UpdateTable:(TableName)table set:(NSString *)set where:(NSString *)where {
+
+    NSMutableArray *tables = [NSMutableArray arrayWithObjects:@"Subject",@"Quiz",@"QuizAsset", nil];
+    
+    fileMgr = [NSFileManager defaultManager];
+    sqlite3_stmt *stmt=nil;
+    sqlite3 *cruddb;
+    const char *sql;
+    NSString *sqltemp;
+
+    sqltemp = [@"" stringByAppendingFormat:@"Update %@ set %@ where %@",[tables objectAtIndex:table],set,where];
+    sql = [sqltemp UTF8String];
+    int result=sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
+    
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(cruddb);
+}
+
+-(BOOL)isColumnExist:(NSString *)columnName inTable:(TableName)table {
+    
+    NSMutableArray *tables = [NSMutableArray arrayWithObjects:@"Subject",@"Quiz",@"QuizAsset", nil];
+    
+    fileMgr = [NSFileManager defaultManager];
+    sqlite3_stmt *stmt=nil;
+    sqlite3 *cruddb;
+    
+    const char *sql=[@"" UTF8String];
+    
+    NSString *sqltemp =  [@"pragma table_info(" stringByAppendingFormat:@"%@)",[tables objectAtIndex:table]];
+    sql = [sqltemp UTF8String];
+    
+    //Open db
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
+    if(sqlite3_open([cruddatabase UTF8String], &cruddb)!=SQLITE_OK)
+        NSLog(@"FAILED TO OPEN DB");
+    
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
+    
+    BOOL colFound=NO;
+    while(sqlite3_step(stmt)== SQLITE_ROW)
+    {
+        if(sqlite3_column_text(stmt, 1)!=nil){
+            if([[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 1)] isEqualToString:columnName]) {
+                colFound=YES;
+                break;
+            }
+        }
+    }
+    
+    sqlite3_finalize(stmt);
+    sqlite3_close(cruddb);
+    
+    return colFound;
+}
+
+-(void)addColumn:(NSString *)columnName dataType:(NSString *)type inTable:(TableName)table {
+    
+    NSMutableArray *tables = [NSMutableArray arrayWithObjects:@"Subject",@"Quiz",@"QuizAsset", nil];
+    
+    fileMgr = [NSFileManager defaultManager];
+    sqlite3_stmt *stmt=nil;
+    sqlite3 *cruddb;
+    const char *sql;
+
+    NSString *sqltemp = [NSString stringWithFormat:@"alter table %@ add column %@ %@",[tables objectAtIndex:table],columnName,type];
+    
+    sql = [sqltemp UTF8String];
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
+    sqlite3_open([cruddatabase UTF8String], &cruddb);
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
+    
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(cruddb);
+
+}
+
 
 
 @end

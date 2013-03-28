@@ -23,6 +23,9 @@
 		BF1237CA16F962DB008A755D /* SubjectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1237C816F962DB008A755D /* SubjectView.xib */; };
 		BF166C7316FB47E1003C97F5 /* dummy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF166C7216FB47E1003C97F5 /* dummy.jpg */; };
 		BF166CAB16FB6C7E003C97F5 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C616F93C85008A755D /* Utility.m */; };
+		BF31536F17008DBD00D8A31B /* InstructionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF31536D17008DBD00D8A31B /* InstructionView.xib */; };
+		BF3153721703315E00D8A31B /* InstructionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3153711703315E00D8A31B /* InstructionListViewController.m */; };
+		BF3153751703318500D8A31B /* InstructionListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF3153731703318500D8A31B /* InstructionListView.xib */; };
 		BF36F16616F9006700CD16BA /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BF36F16516F9006700CD16BA /* CustomButton.m */; };
 		BF36F18216F9008F00CD16BA /* CrudOp.m in Sources */ = {isa = PBXBuildFile; fileRef = BF36F17816F9008F00CD16BA /* CrudOp.m */; };
 		BF36F18316F9008F00CD16BA /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = BF36F17A16F9008F00CD16BA /* Data.m */; };
@@ -93,6 +96,10 @@
 		BF1237C616F93C85008A755D /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		BF1237C916F962DB008A755D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SubjectView.xib; sourceTree = "<group>"; };
 		BF166C7216FB47E1003C97F5 /* dummy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dummy.jpg; sourceTree = "<group>"; };
+		BF31536E17008DBD00D8A31B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/InstructionView.xib; sourceTree = "<group>"; };
+		BF3153701703315E00D8A31B /* InstructionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionListViewController.h; sourceTree = "<group>"; };
+		BF3153711703315E00D8A31B /* InstructionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionListViewController.m; sourceTree = "<group>"; };
+		BF3153741703318500D8A31B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/InstructionListView.xib; sourceTree = "<group>"; };
 		BF36F16416F9006700CD16BA /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		BF36F16516F9006700CD16BA /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		BF36F17716F9008F00CD16BA /* CrudOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrudOp.h; sourceTree = "<group>"; };
@@ -197,6 +204,8 @@
 				28AA66D8115C16800003B21C /* SubjectViewController.h */,
 				28AA66D9115C16800003B21C /* SubjectViewController.m */,
 				BFAE9C8B16FBDECD00239133 /* SubjectViewChangeDelegate.h */,
+				BF3153701703315E00D8A31B /* InstructionListViewController.h */,
+				BF3153711703315E00D8A31B /* InstructionListViewController.m */,
 				BF618FC016FD7E9D001042EF /* QuizEditViewController.h */,
 				BF618FC116FD7E9D001042EF /* QuizEditViewController.m */,
 				BF618FAA16FD506F001042EF /* PlayViewController.h */,
@@ -257,12 +266,14 @@
 				D0B85E8715EE80E6006637B7 /* Icon-Small@2x.png */,
 				D0B85E8815EE80E6006637B7 /* Icon.png */,
 				D0B85E8915EE80E6006637B7 /* Icon@2x.png */,
+				8D1107310486CEB800E47090 /* GuidedVideo-Info.plist */,
 				7E9552EA11766B410003D25C /* MainWindow.xib */,
 				BF1237BD16F935F5008A755D /* MenuView.xib */,
 				7E9552E811766B410003D25C /* DetailView.xib */,
 				7E9552EC11766B410003D25C /* SubjectListView.xib */,
-				8D1107310486CEB800E47090 /* GuidedVideo-Info.plist */,
 				BF1237C816F962DB008A755D /* SubjectView.xib */,
+				BF3153731703318500D8A31B /* InstructionListView.xib */,
+				BF31536D17008DBD00D8A31B /* InstructionView.xib */,
 				BF618FA716FD4FE0001042EF /* PlayView.xib */,
 				BF618FBD16FD7C70001042EF /* QuizView.xib */,
 				BF618FC316FD7EC5001042EF /* QuizEdit.xib */,
@@ -414,6 +425,8 @@
 				BF618FA916FD4FE0001042EF /* PlayView.xib in Resources */,
 				BF618FBF16FD7C70001042EF /* QuizView.xib in Resources */,
 				BF618FC516FD7EC5001042EF /* QuizEdit.xib in Resources */,
+				BF31536F17008DBD00D8A31B /* InstructionView.xib in Resources */,
+				BF3153751703318500D8A31B /* InstructionListView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +464,7 @@
 				BF618FB816FD7933001042EF /* QuizView_iPad.m in Sources */,
 				BF618FBB16FD79BE001042EF /* ImageCell.m in Sources */,
 				BF618FC216FD7E9D001042EF /* QuizEditViewController.m in Sources */,
+				BF3153721703315E00D8A31B /* InstructionListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +501,22 @@
 				BF1237C916F962DB008A755D /* en */,
 			);
 			name = SubjectView.xib;
+			sourceTree = "<group>";
+		};
+		BF31536D17008DBD00D8A31B /* InstructionView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF31536E17008DBD00D8A31B /* en */,
+			);
+			name = InstructionView.xib;
+			sourceTree = "<group>";
+		};
+		BF3153731703318500D8A31B /* InstructionListView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF3153741703318500D8A31B /* en */,
+			);
+			name = InstructionListView.xib;
 			sourceTree = "<group>";
 		};
 		BF618FA716FD4FE0001042EF /* PlayView.xib */ = {
@@ -528,6 +558,7 @@
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -542,6 +573,7 @@
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};

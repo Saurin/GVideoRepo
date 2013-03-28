@@ -19,24 +19,11 @@ typedef NS_ENUM(NSInteger, TableName) {
 };
 
 @interface CrudOp : NSObject <UIAlertViewDelegate> {
-    NSInteger dataId;
-    NSString *coltext;
-    NSInteger colint;
-    double coldbl;
+    
     sqlite3 *db;
     NSFileManager *fileMgr;
     NSString *homeDir;
-    NSString *title;
-    NSMutableArray *searchTerms;
 }
-
-@property (nonatomic,strong) NSString *title;
-@property (nonatomic,strong) NSString *coltext;
-@property (nonatomic,strong) NSString *homeDir;
-@property (nonatomic, assign) NSInteger dataId;
-@property (nonatomic,assign) NSInteger colint;
-@property (nonatomic, assign) double coldbl;
-@property (nonatomic,strong) NSFileManager *fileMgr;
 
 + (CrudOp *)sharedDB;
 
@@ -45,4 +32,7 @@ typedef NS_ENUM(NSInteger, TableName) {
 -(void)DeleteRecordFromTable:(TableName)table withId:(NSInteger)index;
 -(void)DeleteRecordFromTable:(TableName)table where:(NSString *)where;
 -(void)UpdateRecordForTable:(TableName)table withObject:(id)obj;
+-(void)UpdateTable:(TableName)table set:(NSString *)set where:(NSString *)where;
+-(BOOL)isColumnExist:(NSString *)columnName inTable:(TableName)table;
+-(void)addColumn:(NSString *)columnName dataType:(NSString *)type inTable:(TableName)table;
 @end

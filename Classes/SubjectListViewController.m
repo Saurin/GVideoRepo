@@ -114,7 +114,7 @@ static char * const myIndexPathAssociationKey = "";
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(queue, ^{
 
-        [[Utility alloc] setImageFromAssetURL:thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
+        [[Utility alloc] getImageFromAssetURL:thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
 
             // Code to actually update the cell once the image is obtained must be run on the main queue.
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -145,7 +145,7 @@ static char * const myIndexPathAssociationKey = "";
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    return NO;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -182,6 +182,7 @@ static char * const myIndexPathAssociationKey = "";
         SubjectViewController *subjectViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
         [subjectViewController setThisSubject:[subjects objectAtIndex:indexPath.row]];
         [subjectViewController setDelegate:masterViewController];
+        [subjectViewController setIsDetailController:YES];
         [self.navigationController pushViewController:subjectViewController animated:YES];
     }
 }

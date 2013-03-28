@@ -6,5 +6,7 @@
 typedef void (^UtilityImageHandler)(NSString *url, UIImage *image);
 @property (nonatomic, copy) UtilityImageHandler utilityImageHandler;
 
--(void)setImageFromAssetURL:(NSString*)url completion:(UtilityImageHandler)completionBlock;
+-(void)getImageFromAssetURL:(NSString*)url completion:(UtilityImageHandler)completionBlock;
+-(UIImage *)getThumbnailFromVideoURL:(NSString*)url;
+
 @end

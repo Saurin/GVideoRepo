@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DetailViewManager.h"
+#import "CrudOp.h"
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>
 

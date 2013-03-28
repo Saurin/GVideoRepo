@@ -18,9 +18,20 @@
     // sets it to YES if so.
     if ([self.splitViewController respondsToSelector:@selector(setPresentsWithGesture:)])
         [self.splitViewController setPresentsWithGesture:YES];
-        
+    
+    
+    //detect and make DB changes here....
+    [self makeDBChanges];
     
 	return YES;
+}
+
+-(void)makeDBChanges{
+    
+    if(![[CrudOp sharedDB] isColumnExist:@"QuizName" inTable:DBTableQuiz]) {
+        [[CrudOp sharedDB] addColumn:@"QuizName" dataType:@"varchar" inTable:DBTableQuiz];
+        [[CrudOp sharedDB] UpdateTable:DBTableQuiz set:@"QuizName=''" where:@"1=1"];
+    }
 }
 
 // -------------------------------------------------------------------------------

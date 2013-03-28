@@ -1,6 +1,10 @@
 
 #import "Utility.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <MediaPlayer/MediaPlayer.h>  
+#import <AVFoundation/AVFoundation.h>
+#import <CoreMedia/CoreMedia.h>
+#import <CoreVideo/CoreVideo.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ImageCache.h"
 
@@ -15,7 +19,7 @@
     return nil;
 }
 
--(void)setImageFromAssetURL:(NSString*)url completion:(UtilityImageHandler)completionBlock {
+-(void)getImageFromAssetURL:(NSString*)url completion:(UtilityImageHandler)completionBlock {
     
     self.utilityImageHandler = completionBlock;
     
@@ -65,6 +69,30 @@
     }
 }
 
+-(UIImage *)getThumbnailFromVideoURL:(NSString*)url {
+
+    UIImage *thumbnail;
+    if([[ImageCache sharedImageCache] isImageCached:url])
+    {
+        thumbnail = [[ImageCache sharedImageCache] getCachedImage:url];
+    }
+    else{
+
+        if(url!=nil && ![url isEqualToString:@""]){
+
+            MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:url]];
+            player.shouldAutoplay=NO;
+            
+            thumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionExact];
+            
+            [[ImageCache sharedImageCache] cacheImage:thumbnail key:url];
+            player=nil;
+        }
+    }
+    
+    return thumbnail;
+}
+
 
 //get all images from photo library
 -(void)getAllImages {
@@ -103,4 +131,6 @@
      ];
 
 }
+
+
 @end

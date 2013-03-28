@@ -1,12 +1,13 @@
 
 
 #import "BaseViewController.h"
-#import "QuizEditViewController.h"
-#import "DetailViewManager.h"
+#import "InstructionListViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "SubjectViewChangeDelegate.h"
 
 @interface SubjectViewController : BaseViewController <SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
+
+@property BOOL isDetailController;
 
 @property (nonatomic, strong) Subject *thisSubject;
 @property (nonatomic, strong) UITextField *txtSubject;

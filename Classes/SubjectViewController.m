@@ -1,5 +1,6 @@
 
 #import "SubjectViewController.h"
+#import "SubjectListViewController.h"
 
 @implementation SubjectViewController {
     NSMutableArray *imageFromArray;
@@ -14,15 +15,34 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     imageFromArray = [NSMutableArray arrayWithObjects:@"Current Image",@"Camera",@"Photo Library", nil];
+    self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 
-    //add right bar button to save subject and move to instructions
-    UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveSubject:)];
-    [saveSubject setTitle:@"Next"];
-    [self.navigationItem setRightBarButtonItem:saveSubject];
-    
     self.title = @"Subject";
     _dirtySubject=[self.thisSubject copy];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    //add right bar button to save subject and move to instructions
+    //only if VC is DetailViewController
+    if(self.isDetailController){
+        UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
+        
+        [saveSubject setTintColor:[UIColor blueColor]];
+        [self.navigationItem setRightBarButtonItem:saveSubject];
+        
+        //if masterviewcontroller is not menu, change it to MenuTableViewController
+        if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectListViewController class]]){
+            SubjectListViewController *masterController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
+            [self.detailViewManager setMasterViewController:masterController];
+        }
+    }
+    else{
+        [self.btnDelete setHidden:YES];
+    }
     
 }
 
@@ -35,8 +55,12 @@
 }
 
 -(void)viewDidLayoutSubviews {
-    [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
+    
+    if(self.isDetailController){
+        [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
+    }
 }
+
 -(void)sendSelectionNotification:(id)object {
     [[ApplicationNotification notification] postNotificationFromSubjectView:object userInfo:nil];
 }
@@ -47,6 +71,10 @@
 
 #pragma mark -
 #pragma mark Rotation support
+
+-(BOOL)shouldAutorotate {
+    return YES;
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
@@ -61,7 +89,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section==0?1:[imageFromArray count];
+    if(section==0)
+        return 1;
+    else{
+        if(self.isDetailController)
+            return [imageFromArray count];
+        else
+            return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,10 +111,13 @@
         frame.origin.x = 5;
         
         self.txtSubject = [[UITextField alloc] initWithFrame:frame];
+        self.txtSubject.placeholder = @"A new Subject";
         [self.txtSubject setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [cell.contentView addSubview:self.txtSubject];
         
-        self.txtSubject.placeholder = @"A new Subject";
+        if(!self.isDetailController){
+            [self.txtSubject setUserInteractionEnabled:NO];
+        }
         if(self.thisSubject.subjectId!=-1){
             
             self.txtSubject.text = self.thisSubject.subjectName;
@@ -96,7 +134,7 @@
     }
     else{
 
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        if(!self.isDetailController) [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.text = [imageFromArray objectAtIndex:indexPath.row];
         
@@ -106,7 +144,7 @@
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             if(self.imgCurrent==Nil){
 
-                [[Utility alloc] setImageFromAssetURL:self.thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
+                [[Utility alloc] getImageFromAssetURL:self.thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
                     
                     self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
                     [self.imgCurrent setImage:image];
@@ -154,7 +192,7 @@
 
 }
 
--(IBAction)saveSubject:(id)sender
+-(IBAction)didSaveSubjectAndNextClick:(id)sender
 {
     //hide keyboard or dismiss popover
     [self.txtSubject resignFirstResponder];
@@ -162,17 +200,19 @@
     
     [self save];
     
-//    [[[OHAlertView alloc] initWithTitle:@""
-//            message:@"Saved...This needs to go to next view"
-//            cancelButton:nil
-//            otherButtons:[NSArray arrayWithObject:@"OK"]
-//            onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-//                [self.navigationController popViewControllerAnimated:YES];
-//    }] show];
+    //Now change MasterViewController to show readonly suject
+    SubjectViewController *masterViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
+    [masterViewController setIsDetailController:NO];
+    [masterViewController setThisSubject:self.thisSubject];
+    [self.detailViewManager setMasterViewController:masterViewController];
+
+    //push it to Instruction List as DetailViewController
+    InstructionListViewController *detailViewController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
+    [detailViewController setThisSubject:_dirtySubject];
+    [detailViewController setIsListDetailController:YES];
     
-    QuizEditViewController *quizEditVC = [[QuizEditViewController alloc] initWithNibName:@"QuizEdit" bundle:nil];
-    quizEditVC.subject = _dirtySubject;
-    [self.navigationController pushViewController:quizEditVC animated:YES];
+
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 -(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
@@ -282,7 +322,7 @@
     UITableViewCell *cell = [self.tblImageFrom cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
     cell.detailTextLabel.text = _dirtySubject.assetUrl;
     
-    [[Utility alloc] setImageFromAssetURL:_dirtySubject.assetUrl completion:^(NSString *url, UIImage *image) {
+    [[Utility alloc] getImageFromAssetURL:_dirtySubject.assetUrl completion:^(NSString *url, UIImage *image) {
         
         self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-90, 7, 80, 60)];
         [self.imgCurrent setImage:image];

@@ -32,15 +32,6 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-//    CGRect screen = [[UIScreen mainScreen] bounds];
-//    CGFloat width = CGRectGetWidth(screen);
-//    CGFloat height = CGRectGetHeight(screen);
-//    
-//	self.navigationController.view.bounds  = CGRectMake(0.0, 0.0, width, height);
-//	self.navigationController.view.center  = CGPointMake (width/2, height/2);
-//    
-    
-//    mainView = (QuizView *)self.view;
     quizPageIndex=0;
 }
 
@@ -224,13 +215,6 @@
     CustomButton *videoButton = (CustomButton *)[self.view viewWithTag:101];
     [moviePlayer.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
     [videoButton addSubview:moviePlayer.view];
-    
-    
-//    UIImage *videoThumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-//    videoThumbnailImageView=[[UIImageView alloc] initWithImage:videoThumbnail];
-//    [videoThumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
-//    [videoThumbnailImageView setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
-//    [videoButton addSubview:videoThumbnailImageView];
 }
 
 -(void)addNavigationButtons {

@@ -20,7 +20,6 @@
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 
     self.title = @"Subject";
-    _dirtySubject=[self.thisSubject copy];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -29,16 +28,21 @@
     //add right bar button to save subject and move to instructions
     //only if VC is DetailViewController
     if(self.isDetailController){
+
+        _dirtySubject=[self.thisSubject copy];
+        
         UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
         
         [saveSubject setTintColor:[UIColor blueColor]];
         [self.navigationItem setRightBarButtonItem:saveSubject];
         
-        //if masterviewcontroller is not menu, change it to MenuTableViewController
+        //if masterviewcontroller is not SubjectListViewController, change it to SubjectListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectListViewController class]]){
             SubjectListViewController *masterController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
             [self.detailViewManager setMasterViewController:masterController];
         }
+        [self.btnDelete setHidden:NO];
+        [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
         [self.btnDelete setHidden:YES];
@@ -102,6 +106,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    
     if(indexPath.section==0){
         
         [cell setSelectionStyle:UITableViewCellEditingStyleNone];
@@ -117,19 +123,24 @@
         
         if(!self.isDetailController){
             [self.txtSubject setUserInteractionEnabled:NO];
-        }
-        if(self.thisSubject.subjectId!=-1){
-            
             self.txtSubject.text = self.thisSubject.subjectName;
-            //reset image object, if already created
-            [self.imgCurrent removeFromSuperview];
-            self.imgCurrent = nil;
-            
-            [self makeRoundRectView:self.btnDelete layerRadius:5];
         }
-        //hide delete button while adding a new one
         else{
-            [self.btnDelete setHidden:YES];
+            //existing subject
+            if(self.thisSubject.subjectId!=-1){
+                
+                self.txtSubject.text = self.thisSubject.subjectName;
+
+                //reset image object, if already created
+                [self.imgCurrent removeFromSuperview];
+                self.imgCurrent = nil;
+                
+                [self makeRoundRectView:self.btnDelete layerRadius:5];
+            }
+            //hide delete button while adding a new one
+            else{
+                [self.btnDelete setHidden:YES];
+            }
         }
     }
     else{
@@ -197,22 +208,24 @@
     //hide keyboard or dismiss popover
     [self.txtSubject resignFirstResponder];
     [photoLibraryPopover dismissPopoverAnimated:YES];
+    imagePicker=nil;
     
-    [self save];
-    
-    //Now change MasterViewController to show readonly suject
-    SubjectViewController *masterViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
-    [masterViewController setIsDetailController:NO];
-    [masterViewController setThisSubject:self.thisSubject];
-    [self.detailViewManager setMasterViewController:masterViewController];
+    if([self save]){
 
-    //push it to Instruction List as DetailViewController
-    InstructionListViewController *detailViewController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
-    [detailViewController setThisSubject:_dirtySubject];
-    [detailViewController setIsListDetailController:YES];
-    
+        //Now change MasterViewController to show readonly suject
+        SubjectViewController *masterViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
+        [masterViewController setIsDetailController:NO];
+        [masterViewController setThisSubject:_dirtySubject];
+        [self.detailViewManager setMasterViewController:masterViewController];
 
-    [self.navigationController pushViewController:detailViewController animated:YES];
+        //push it to Instruction List as DetailViewController
+        InstructionListViewController *detailViewController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
+        [detailViewController setThisSubject:_dirtySubject];
+        [detailViewController setIsListDetailController:YES];
+        
+
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
 
 -(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
@@ -252,14 +265,17 @@
     //do validation, or keep save button disabled
     _dirtySubject.subjectName = self.txtSubject.text;
     if(_dirtySubject.assetUrl==nil) _dirtySubject.assetUrl = @"";
-    [[Data sharedData] saveSubject:_dirtySubject];
-
+    
+    NSInteger res = [[Data sharedData] saveSubject:_dirtySubject];
+    _dirtySubject.subjectId=res;
+    self.thisSubject=[_dirtySubject copy];
+    
     return TRUE;
 }
 
 -(void)load:(Subject *)subject{
     
-    self.thisSubject = subject;
+    self.thisSubject = [subject copy];
     _dirtySubject=[self.thisSubject copy];
     
     [self.tblImageFrom reloadData];
@@ -334,6 +350,7 @@
     //close popover and picker
     [photoLibraryPopover dismissPopoverAnimated:YES];
     [picker dismissViewControllerAnimated:YES completion:^{
+        imagePicker=nil;
     }];
     
 }
@@ -343,9 +360,14 @@
     [photoLibraryPopover dismissPopoverAnimated:YES];
     
     [picker dismissViewControllerAnimated:YES completion:^{
+        imagePicker=nil;
     }];
+    
 }
 
-
+-(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    photoLibraryPopover=nil;
+    imagePicker=nil;
+}
 
 @end

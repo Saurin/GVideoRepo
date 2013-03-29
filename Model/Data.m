@@ -50,13 +50,15 @@
     return [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[NSString stringWithFormat:@"QuizId=%d",index]];
 }
 
--(void)saveSubject:(Subject *)sub {
+-(NSInteger)saveSubject:(Subject *)sub {
 
     if([self getSubjectAtSubjectId:sub.subjectId]){
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableSubject withObject:sub];
+        return sub.subjectId;
     }
     else{
         [[CrudOp sharedDB] InsertRecordInTable:DBTableSubject withObject:sub];
+        return [[CrudOp sharedDB] getIdentiyFromTable:DBTableSubject];
     }
 }
 
@@ -102,12 +104,16 @@
     return YES;
 }
 
--(void)saveQuiz:(QuizPage *)quizPage {
+-(NSInteger)saveQuiz:(QuizPage *)quizPage {
     
-    if(quizPage.quizId==0)
+    if(quizPage.quizId==0){
         [[CrudOp sharedDB] InsertRecordInTable:DBTableQuiz withObject:quizPage];
-    else
+        return [[CrudOp sharedDB] getIdentiyFromTable:DBTableQuiz];
+    }
+    else{
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableQuiz withObject:quizPage];
+        return quizPage.quizId;
+    }
 }
 
 -(void)deleteQuizWithQuizId:(NSInteger)index {
@@ -116,12 +122,16 @@
     [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuiz withId:index];
 }
 
--(void)saveQuizOption:(QuizOption *)quizOption {
+-(NSInteger)saveQuizOption:(QuizOption *)quizOption {
     
-    if(quizOption.quizOptionId==0)
-       [[CrudOp sharedDB] InsertRecordInTable:DBTableQuizOption withObject:quizOption];
-    else
+    if(quizOption.quizOptionId==0) {
+        [[CrudOp sharedDB] InsertRecordInTable:DBTableQuizOption withObject:quizOption];
+        return [[CrudOp sharedDB] getIdentiyFromTable:DBTableQuizOption];
+    }
+    else{
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableQuizOption withObject:quizOption];
+        return quizOption.quizOptionId;
+    }
 }
 
 -(void)deleteQuizOptionWithId:(NSInteger)index {

@@ -24,7 +24,7 @@
     }
 }
 
-//sends notification to SubjectViewController in MasterViewController to highlight subject
+//sends notification to SubjectListViewController in MasterViewController to highlight subject
 -(void)postNotificationFromSubjectView:(id)object userInfo:(NSDictionary *)userInfo {
 
     if(userInfo==nil){
@@ -33,5 +33,13 @@
     }
 }
 
+//sends notification to InstructionListViewController in MasterViewController to highlight quiz
+-(void)postNotificationFromInstructionView:(id)object userInfo:(NSDictionary *)userInfo {
+    
+    if(userInfo==nil){
+        
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"InstructionListViewController" object:object]];
+    }
+}
 
 @end

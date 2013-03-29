@@ -18,4 +18,5 @@ typedef NS_ENUM(NSInteger, ANReceiver) {
 
 +(ApplicationNotification *)notification;
 -(void)postNotificationFromSubjectView:(id)object userInfo:(NSDictionary *)userInfo;
+-(void)postNotificationFromInstructionView:(id)object userInfo:(NSDictionary *)userInfo;
 @end

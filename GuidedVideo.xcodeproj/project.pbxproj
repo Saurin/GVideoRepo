@@ -60,6 +60,9 @@
 		BFC9472516FCF4EC009179E2 /* redbar.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC9472316FCF4EC009179E2 /* redbar.png */; };
 		BFC9472616FCF4EC009179E2 /* redbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC9472416FCF4EC009179E2 /* redbar@2x.png */; };
 		BFC9472A16FCF796009179E2 /* ApplicationNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC9472916FCF796009179E2 /* ApplicationNotification.m */; };
+		BFF94AD31705353A00A4EEB9 /* PreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFF94AD11705353A00A4EEB9 /* PreviewView.xib */; };
+		BFF94AD61705355600A4EEB9 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF94AD51705355600A4EEB9 /* PreviewViewController.m */; };
+		BFFE06541704800700CAE2A3 /* InstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFE06531704800700CAE2A3 /* InstructionViewController.m */; };
 		D0B85E8A15EE80E6006637B7 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B85E8415EE80E6006637B7 /* Icon-72.png */; };
 		D0B85E8B15EE80E6006637B7 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B85E8515EE80E6006637B7 /* Icon-Small-50.png */; };
 		D0B85E8C15EE80E6006637B7 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B85E8615EE80E6006637B7 /* Icon-Small.png */; };
@@ -154,6 +157,11 @@
 		BFC9472416FCF4EC009179E2 /* redbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "redbar@2x.png"; path = "images/redbar@2x.png"; sourceTree = "<group>"; };
 		BFC9472816FCF796009179E2 /* ApplicationNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationNotification.h; path = Global/ApplicationNotification.h; sourceTree = "<group>"; };
 		BFC9472916FCF796009179E2 /* ApplicationNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplicationNotification.m; path = Global/ApplicationNotification.m; sourceTree = "<group>"; };
+		BFF94AD21705353A00A4EEB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreviewView.xib; sourceTree = "<group>"; };
+		BFF94AD41705355600A4EEB9 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		BFF94AD51705355600A4EEB9 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		BFFE06521704800700CAE2A3 /* InstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionViewController.h; sourceTree = "<group>"; };
+		BFFE06531704800700CAE2A3 /* InstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionViewController.m; sourceTree = "<group>"; };
 		D0B85E8415EE80E6006637B7 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "images/Icon-72.png"; sourceTree = "<group>"; };
 		D0B85E8515EE80E6006637B7 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "images/Icon-Small-50.png"; sourceTree = "<group>"; };
 		D0B85E8615EE80E6006637B7 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "images/Icon-Small.png"; sourceTree = "<group>"; };
@@ -206,6 +214,8 @@
 				BFAE9C8B16FBDECD00239133 /* SubjectViewChangeDelegate.h */,
 				BF3153701703315E00D8A31B /* InstructionListViewController.h */,
 				BF3153711703315E00D8A31B /* InstructionListViewController.m */,
+				BFFE06521704800700CAE2A3 /* InstructionViewController.h */,
+				BFFE06531704800700CAE2A3 /* InstructionViewController.m */,
 				BF618FC016FD7E9D001042EF /* QuizEditViewController.h */,
 				BF618FC116FD7E9D001042EF /* QuizEditViewController.m */,
 				BF618FAA16FD506F001042EF /* PlayViewController.h */,
@@ -214,6 +224,8 @@
 				BF618FB116FD7767001042EF /* QuizViewController.m */,
 				28AA66D2115C16800003B21C /* AppDelegate.h */,
 				28AA66D3115C16800003B21C /* AppDelegate.m */,
+				BFF94AD41705355600A4EEB9 /* PreviewViewController.h */,
+				BFF94AD51705355600A4EEB9 /* PreviewViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -277,6 +289,7 @@
 				BF618FA716FD4FE0001042EF /* PlayView.xib */,
 				BF618FBD16FD7C70001042EF /* QuizView.xib */,
 				BF618FC316FD7EC5001042EF /* QuizEdit.xib */,
+				BFF94AD11705353A00A4EEB9 /* PreviewView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -427,6 +440,7 @@
 				BF618FC516FD7EC5001042EF /* QuizEdit.xib in Resources */,
 				BF31536F17008DBD00D8A31B /* InstructionView.xib in Resources */,
 				BF3153751703318500D8A31B /* InstructionListView.xib in Resources */,
+				BFF94AD31705353A00A4EEB9 /* PreviewView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +479,8 @@
 				BF618FBB16FD79BE001042EF /* ImageCell.m in Sources */,
 				BF618FC216FD7E9D001042EF /* QuizEditViewController.m in Sources */,
 				BF3153721703315E00D8A31B /* InstructionListViewController.m in Sources */,
+				BFFE06541704800700CAE2A3 /* InstructionViewController.m in Sources */,
+				BFF94AD61705355600A4EEB9 /* PreviewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +559,14 @@
 			name = QuizEdit.xib;
 			sourceTree = "<group>";
 		};
+		BFF94AD11705353A00A4EEB9 /* PreviewView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFF94AD21705353A00A4EEB9 /* en */,
+			);
+			name = PreviewView.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -551,6 +575,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -558,6 +583,7 @@
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
+				PROVISIONING_PROFILE = "C145FB73-CDF8-4805-B623-C111C5DC5206";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -567,11 +593,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
+				PROVISIONING_PROFILE = "C145FB73-CDF8-4805-B623-C111C5DC5206";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -581,7 +609,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -601,7 +628,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;

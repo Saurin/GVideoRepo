@@ -6,6 +6,8 @@
 #import "OHAlertView.h"
 #import "Data.h"
 #import "Subject.h"
+#import "QuizPage.h"
+#import "QuizOption.h"
 #import "DetailViewManager.h"
 #import "ApplicationNotification.h"
 

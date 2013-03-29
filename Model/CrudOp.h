@@ -35,4 +35,5 @@ typedef NS_ENUM(NSInteger, TableName) {
 -(void)UpdateTable:(TableName)table set:(NSString *)set where:(NSString *)where;
 -(BOOL)isColumnExist:(NSString *)columnName inTable:(TableName)table;
 -(void)addColumn:(NSString *)columnName dataType:(NSString *)type inTable:(TableName)table;
+-(NSInteger)getIdentiyFromTable:(TableName) table;
 @end

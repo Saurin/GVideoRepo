@@ -25,17 +25,20 @@ static char * const myIndexPathAssociationKey = "";
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
         
+        self.title = @"Instructions";
+        
         //we want to give only 5 instructions as free....
-        if([instructions count]<=5){
+        if([instructions count]<5){
             QuizPage *quizPage = [[QuizPage alloc] init];
             quizPage.subjectId=self.thisSubject.subjectId;
             quizPage.quizId=0;
+            quizPage.quizName=@"Add a new Instruction";
             quizPage.quizOptions=[[NSMutableArray alloc] init];
 
             [instructions addObject:quizPage];
         }
         
-        //if masterviewcontroller is not menu, change it to MenuTableViewController
+        //if masterviewcontroller is not SubjectView, change it to SubjectViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectViewController class]]){
             SubjectViewController *menuController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
             [menuController setThisSubject:self.thisSubject];
@@ -83,7 +86,9 @@ static char * const myIndexPathAssociationKey = "";
     }
     
     QuizPage *page = [instructions objectAtIndex:indexPath.row];
-    cell.textLabel.text = page.videoUrl;
+    cell.textLabel.text = page.quizName;
+    cell.detailTextLabel.text=page.videoUrl;
+    
     cell.tag = page.quizId;
     
     UIImage *img = [[Utility alloc] getThumbnailFromVideoURL:page.videoUrl];
@@ -121,15 +126,16 @@ static char * const myIndexPathAssociationKey = "";
 {
     if(self.isListDetailController){
         
-//        SubjectListViewController *masterViewController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
-//        [masterViewController setIsListDetailController:NO];
-//        [self.detailViewManager setMasterViewController:masterViewController];
-//        
-//        SubjectViewController *subjectViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
-//        [subjectViewController setThisSubject:[subjects objectAtIndex:indexPath.row]];
-//        [subjectViewController setDelegate:masterViewController];
-//        [subjectViewController setIsDetailController:YES];
-//        [self.navigationController pushViewController:subjectViewController animated:YES];
+        InstructionListViewController *masterViewController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
+        [masterViewController setIsListDetailController:NO];
+        [masterViewController setThisSubject:self.thisSubject];
+        [self.detailViewManager setMasterViewController:masterViewController];
+        
+        InstructionViewController *instructionViewController = [[InstructionViewController alloc] initWithNibName:@"InstructionView" bundle:nil];
+        [instructionViewController setThisQuiz:[instructions objectAtIndex:indexPath.row]];
+        //[instructionViewController setDelegate:masterViewController];
+        [instructionViewController setIsDetailController:YES];
+        [self.navigationController pushViewController:instructionViewController animated:YES];
     }
 }
 

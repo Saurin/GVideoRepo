@@ -5,8 +5,11 @@
 
 @property (nonatomic) NSInteger subjectId;
 @property (nonatomic) NSInteger quizId;
-@property (nonatomic) NSInteger quizName;
+@property (nonatomic) NSString *quizName;
 @property (nonatomic, strong) NSMutableArray* quizOptions;
 @property (nonatomic, strong) NSString * videoUrl;
+
+-(id)copy;
+-(BOOL)isEqual:(QuizPage *)object;
 
 @end

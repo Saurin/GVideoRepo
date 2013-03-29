@@ -79,7 +79,7 @@
     }
     else if(table==DBTableQuiz){
 
-        NSString *sqltemp = @"Select QuizId, SubjectId, VideoUrl From Quiz ";
+        NSString *sqltemp = @"Select QuizId, SubjectId, VideoUrl, QuizName From Quiz ";
         if(![filter isEqualToString:@""]){
             sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
         }
@@ -134,6 +134,8 @@
             
             if(sqlite3_column_text(stmt, 2)!=nil)
                 quiz.videoUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 2)];
+            if(sqlite3_column_text(stmt, 3)!=nil)
+                quiz.quizName=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 3)];
 
             [myMutuableArray addObject:quiz];
         }
@@ -183,8 +185,8 @@
         
         QuizPage *quiz = obj;
         
-        sqltemp = @"Insert into Quiz(SubjectId, VideoUrl) Values(";
-        sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@')",quiz.subjectId, quiz.videoUrl];
+        sqltemp = @"Insert into Quiz(SubjectId, VideoUrl, QuizName) Values(";
+        sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@','%@')",quiz.subjectId, quiz.videoUrl, quiz.quizName];
     }
     else if(table==DBTableQuizOption){
         
@@ -281,7 +283,7 @@
     }
     else if(table==DBTableQuiz) {
         QuizPage *quiz = obj;
-        sqltemp = [NSString stringWithFormat:@"Update Quiz set VideoUrl='%@' where QuizId=%d",quiz.videoUrl,quiz.quizId];
+        sqltemp = [NSString stringWithFormat:@"Update Quiz set VideoUrl='%@', QuizName='%@' where QuizId=%d",quiz.videoUrl,quiz.quizName,quiz.quizId];
     }
     else if(table==DBTableQuizOption){
         QuizOption *option = obj;
@@ -384,6 +386,37 @@
 
 }
 
+-(NSInteger)getIdentiyFromTable:(TableName) table{
 
+    NSMutableArray *tables = [NSMutableArray arrayWithObjects:@"Subject",@"Quiz",@"QuizAsset", nil];
+    
+    fileMgr = [NSFileManager defaultManager];
+    sqlite3_stmt *stmt=nil;
+    sqlite3 *cruddb;
+    
+    const char *sql=[@"" UTF8String];
+    NSString *sqltemp = [@"" stringByAppendingFormat:@"select seq from sqlite_sequence where name='%@'",[tables objectAtIndex:table]];
+    sql = [sqltemp UTF8String];
+
+    //Open db
+    NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
+    if(sqlite3_open([cruddatabase UTF8String], &cruddb)!=SQLITE_OK)
+        NSLog(@"FAILED TO OPEN DB");
+    
+    int result = sqlite3_prepare_v2(cruddb, sql, -1, &stmt, NULL);
+    if(result!=SQLITE_OK)
+        NSLog(@"FAILED TO PREPARE STMT");
+    
+    NSInteger res=0;
+    while(sqlite3_step(stmt)== SQLITE_ROW)
+    {
+        res=sqlite3_column_int(stmt, 0);
+    }
+    
+    sqlite3_finalize(stmt);
+    sqlite3_close(cruddb);
+    
+    return res;
+}
 
 @end

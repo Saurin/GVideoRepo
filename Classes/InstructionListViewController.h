@@ -1,12 +1,6 @@
-//
-//  InstructionListViewController.h
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/27/13.
-//
-//
 
 #import "BaseViewController.h"
+#import "InstructionViewController.h"
 
 @interface InstructionListViewController : BaseViewController<SubstitutableDetailViewController>
 

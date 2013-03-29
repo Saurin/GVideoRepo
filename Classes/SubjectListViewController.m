@@ -90,6 +90,8 @@ static char * const myIndexPathAssociationKey = "";
 {
     //dont want to reuse cell as we have cell image getting added on a different queue
     ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    
     if(self.isListDetailController){
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];

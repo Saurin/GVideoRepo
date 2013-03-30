@@ -26,15 +26,17 @@
  
     [super layoutSubviews];
     
-    imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(5,self.contentView.bounds.size.height/2-30,75,60)];
-    [self makeRoundRectView:imgCurrent];
-    [self.contentView addSubview:imgCurrent];
+    if(imgCurrent==nil){
+        imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(5,self.contentView.bounds.size.height/2-30,75,60)];
+        [self makeRoundRectView:imgCurrent];
+        [self.contentView addSubview:imgCurrent];
 
-    activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [imgCurrent addSubview:activity];
-    activity.center = imgCurrent.center;
-    [activity startAnimating];
-    
+        activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [imgCurrent addSubview:activity];
+        activity.center = imgCurrent.center;
+        [activity startAnimating];
+    }
+
     self.textLabel.bounds = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     self.textLabel.frame = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
 }

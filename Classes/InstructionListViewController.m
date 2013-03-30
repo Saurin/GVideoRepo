@@ -32,7 +32,7 @@ static char * const myIndexPathAssociationKey = "";
             QuizPage *quizPage = [[QuizPage alloc] init];
             quizPage.subjectId=self.thisSubject.subjectId;
             quizPage.quizId=0;
-            quizPage.quizName=@"Add a new Instruction";
+            quizPage.quizName=@"Add a new Instruction...";
             quizPage.quizOptions=[[NSMutableArray alloc] init];
 
             [instructions addObject:quizPage];
@@ -51,7 +51,28 @@ static char * const myIndexPathAssociationKey = "";
     }
     
     [self.tableView setRowHeight:75];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
+    [self getVideoThumbnails:0];
+}
+
+-(void)getVideoThumbnails:(NSInteger)index {
+    __block NSInteger idx=index;
+    
+    if(idx<instructions.count){
+
+        [[[Utility alloc] init] getThumbnailFromVideoURL:((QuizPage *)[instructions objectAtIndex:index]).videoUrl completion:^(NSString *url, UIImage *image) {
+            
+            ((QuizPage *)[instructions objectAtIndex:idx]).imgThumb = image;
+            if(idx++<instructions.count){
+                [self getVideoThumbnails:idx];
+            }
+            else{
+                [self.tableView reloadData];
+            }
+            
+        }];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,29 +95,61 @@ static char * const myIndexPathAssociationKey = "";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //dont want to reuse cell as we have cell image getting added on a different queue
-    ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    if(self.isListDetailController){
-        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+    QuizPage *page = [instructions objectAtIndex:indexPath.row];
+    
+    //No image, regular UITableViewCell for Add Subject cell...
+    if(self.isListDetailController && indexPath.row==[instructions count]-1){
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        
+        cell.textLabel.text = page.quizName;
+        cell.tag=page.quizId;
+        
+        return cell;
+        
     }
     else{
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
+        
+        //dont want to reuse cell as we have cell image getting added on a different queue
+        ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-    }
-    
-    QuizPage *page = [instructions objectAtIndex:indexPath.row];
-    cell.textLabel.text = page.quizName;
-    cell.detailTextLabel.text=page.videoUrl;
-    
-    cell.tag = page.quizId;
-    
-    UIImage *img = [[Utility alloc] getThumbnailFromVideoURL:page.videoUrl];
-    [cell.imageView setImage:img];
-    [cell setEditing:YES];
-    [cell setEditing:NO];
 
-    return cell;
+        if(self.isListDetailController){
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
+        else{
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        
+        cell.textLabel.text = page.quizName;
+        cell.tag = page.quizId;
+        
+        // Store a reference to the current cell that will enable the image to be associated with the correct
+        // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied
+        // to a cell that has been dequeued and reused for other content, during rapid scrolling.
+        objc_setAssociatedObject(cell, myIndexPathAssociationKey, indexPath, OBJC_ASSOCIATION_ASSIGN);
+        
+        // Load the image on a high priority background queue using Grand Central Dispatch.
+        // Can change priority by replacing HIGH with DEFAULT or LOW if desired.
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        dispatch_async(queue, ^{
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                NSIndexPath *cellIndexPath = (NSIndexPath *)objc_getAssociatedObject(cell, myIndexPathAssociationKey);
+                if ([indexPath isEqual:cellIndexPath]) {
+                    // Only set cell image if the cell currently being displayed is the one that actually required this image.
+                    // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
+                    
+                    [cell showImage:((QuizPage *)[instructions objectAtIndex:indexPath.row]).imgThumb];
+                }
+            });
+
+        });
+
+
+        return cell;
+    }
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

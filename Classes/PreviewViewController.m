@@ -46,7 +46,7 @@
     
     player.controlStyle=MPMovieControlStyleEmbedded;
     player.movieSourceType=MPMovieSourceTypeStreaming;
-    player.shouldAutoplay=YES;
+    player.shouldAutoplay=NO;
     player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
     moviePlayer=player;
     

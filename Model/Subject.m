@@ -11,7 +11,6 @@
 
 @implementation Subject
 
-@synthesize isAddButton;
 @synthesize subjectId;
 @synthesize subjectName;
 @synthesize assetUrl;

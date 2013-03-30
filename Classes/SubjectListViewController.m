@@ -25,7 +25,7 @@ static char * const myIndexPathAssociationKey = "";
     if(self.isListDetailController){
         
         //we want to give only 12 subjects as free....
-        if([subjects count]<=12){
+        if([subjects count]<12){
             Subject *sub = [[Subject alloc] init];
             sub.subjectId=-1;
             sub.subjectName=@"Add Subject...";
@@ -101,11 +101,9 @@ static char * const myIndexPathAssociationKey = "";
         
         if(self.isListDetailController){
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         }
         else{
             [cell setAccessoryType:UITableViewCellAccessoryNone];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         }
         
         cell.textLabel.text = thisSubject.subjectName;

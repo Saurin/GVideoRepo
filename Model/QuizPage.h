@@ -8,6 +8,7 @@
 @property (nonatomic) NSString *quizName;
 @property (nonatomic, strong) NSMutableArray* quizOptions;
 @property (nonatomic, strong) NSString * videoUrl;
+@property (nonatomic, strong) UIImage *imgThumb;
 
 -(id)copy;
 -(BOOL)isEqual:(QuizPage *)object;

@@ -11,12 +11,10 @@
 
 @interface Subject : NSObject <NSCopying>
 
-@property BOOL isAddButton;
 @property (nonatomic) NSInteger subjectId;
 @property (nonatomic, strong) NSString * subjectName;
 @property (nonatomic, strong) NSString * assetUrl;
 @property (nonatomic, strong) NSMutableArray *quizPages;
-@property (nonatomic, strong) UIImage *img;
 
 -(id)copy;
 -(BOOL)isEqual:(Subject *)object;

@@ -69,12 +69,15 @@
     }
 }
 
--(UIImage *)getThumbnailFromVideoURL:(NSString*)url {
+-(void)getThumbnailFromVideoURL:(NSString*)url completion:(UtilityImageHandler)completionBlock {
+    
+    self.utilityImageHandler = completionBlock;
 
     UIImage *thumbnail;
     if([[ImageCache sharedImageCache] isImageCached:url])
     {
         thumbnail = [[ImageCache sharedImageCache] getCachedImage:url];
+        self.utilityImageHandler(url,thumbnail);
     }
     else{
 
@@ -86,11 +89,12 @@
             thumbnail = [player thumbnailImageAtTime:0 timeOption:MPMovieTimeOptionExact];
             
             [[ImageCache sharedImageCache] cacheImage:thumbnail key:url];
+            [player stop];
             player=nil;
+            
+            self.utilityImageHandler(url,thumbnail);
         }
     }
-    
-    return thumbnail;
 }
 
 

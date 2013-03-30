@@ -2,6 +2,7 @@
 #import "InstructionViewController.h"
 #import "InstructionListViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import <MediaPlayer/MediaPlayer.h>  
 #import "PreviewViewController.h"
 
 @implementation InstructionViewController {
@@ -10,6 +11,7 @@
     
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
     UIImagePickerController *videoPicker;
+    MPMoviePlayerController *moviePlayer;
 }
 
 - (void)viewDidLoad
@@ -28,6 +30,9 @@
     //add right bar button to save subject and move to instructions
     //only if VC is DetailViewController
     if(self.isDetailController){
+        
+        _dirtyQuiz= [self.thisQuiz copy];
+        
         UIBarButtonItem *saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveQuizAndNextClick:)];
         
         [saveQuiz setTintColor:[UIColor blueColor]];
@@ -38,6 +43,8 @@
             InstructionListViewController *masterController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
             [self.detailViewManager setMasterViewController:masterController];
         }
+        [self.btnDelete setHidden:NO];
+        [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
         [self.btnDelete setHidden:YES];
@@ -84,97 +91,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
-
-#pragma Save Quiz
--(IBAction)didQuizDeleteClick:(id)sender {
-    
-    [[[OHAlertView alloc] initWithTitle:@""
-                                message:@"Do you want to delete this Instruction? You can't recover it once deleted."
-                           cancelButton:@"Cancel"
-                           otherButtons:[NSArray arrayWithObject:@"OK"]
-                         onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-                             if(buttonIndex==1){
-                                 [[Data sharedData] deleteQuizWithQuizId:self.thisQuiz.quizId];
-                                 [self.navigationController popViewControllerAnimated:YES];
-                             }
-                         }] show];
-    
-}
-
--(IBAction)didSaveQuizAndNextClick:(id)sender
-{
-    //hide keyboard or dismiss popover
-    [self.txtQuizName resignFirstResponder];
-    [photoLibraryPopover dismissPopoverAnimated:YES];
-    videoPicker=nil;
-    
-    [self save];
-    [self.navigationController popViewControllerAnimated:YES];          //this needs to goto alternatives
-}
-
-//-(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
-//    
-//    //hide keyboard or dismiss popover
-//    [self.txtSubject resignFirstResponder];
-//    [photoLibraryPopover dismissPopoverAnimated:YES];
-//    
-//    _dirtySubject.subjectName = self.txtSubject.text;
-//    if(![self.thisSubject isEqual:_dirtySubject]){
-//        
-//        [[[OHAlertView alloc] initWithTitle:@""
-//                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
-//                               cancelButton:@"No"
-//                               otherButtons:[NSArray arrayWithObject:@"Yes"]
-//                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-//                                 if(buttonIndex==1){
-//                                     [self save];
-//                                     [self.delegate didSubjectChange:_dirtySubject];
-//                                     [self load:newSubject];
-//                                 }
-//                                 else{
-//                                     [self load:newSubject];
-//                                 }
-//                             }] show];
-//    }
-//    //we have no changes detected, load new subject
-//    else{
-//        [self load:newSubject];
-//    }
-//    
-//    return YES;
-//}
-
--(BOOL)save{
-    
-    //do validation, or keep save button disabled
-    _dirtyQuiz.quizName = self.txtQuizName.text;
-    if(_dirtyQuiz.videoUrl==nil) _dirtyQuiz.videoUrl = @"";
-    [[Data sharedData] saveQuiz:_dirtyQuiz];
-    
-    return TRUE;
-}
-
--(void)load:(QuizPage *)quiz{
-    
-    self.thisQuiz = quiz;
-    _dirtyQuiz=[self.thisQuiz copy];
-    
-    [self.tblVideoFrom reloadData];
-    [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisQuiz afterDelay:0.1];
-}
-
--(void)showVideoAtCell:(UITableViewCell *)cell {
-    
-    PreviewViewController *preview = [[PreviewViewController alloc] initWithNibName:@"PreviewView" bundle:nil];
-    [preview setVideoUrl:self.thisQuiz.videoUrl];
-    [preview willMoveToParentViewController:self.splitViewController];
-    
-    [self.splitViewController addChildViewController:preview];
-    preview.view.frame = self.splitViewController.view.bounds;
-    [self.splitViewController.view addSubview:preview.view];
-    [preview didMoveToParentViewController:self.splitViewController];
-}
-
 
 #pragma mark - Table view data source
 
@@ -232,7 +148,9 @@
     }
     else{
         
-        if(!self.isDetailController) [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if(!self.isDetailController)
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.text = [videoFromArray objectAtIndex:indexPath.row];
         
@@ -240,13 +158,16 @@
         if(indexPath.row==0){
             cell.detailTextLabel.text = self.thisQuiz.videoUrl;
             [cell setAccessoryType:UITableViewCellAccessoryNone];
+
             if(self.imgCurrentVideo==Nil){
-                UIImage *image=[[Utility alloc] getThumbnailFromVideoURL:self.thisQuiz.videoUrl];
-                
-                self.imgCurrentVideo = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
-                [self.imgCurrentVideo setImage:image];
-                [self makeRoundRectView:self.imgCurrentVideo layerRadius:10];
-                cell.accessoryView=self.imgCurrentVideo;
+            
+                [[Utility alloc] getThumbnailFromVideoURL:self.thisQuiz.videoUrl completion:^(NSString *url, UIImage *image) {
+                    
+                    self.imgCurrentVideo = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
+                    [self.imgCurrentVideo setImage:image];
+                    [self makeRoundRectView:self.imgCurrentVideo layerRadius:10];
+                    cell.accessoryView=self.imgCurrentVideo;
+                }];
             }
         }
     }
@@ -270,9 +191,110 @@
     if(indexPath.section==1 && indexPath.row>0){
         [self showVideoPicker:indexPath.row==1? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary selectedCell:cell];
     }
-    else if(indexPath.section==1 && indexPath.row==0)
-        [self showVideoAtCell:cell];
+    else if(indexPath.section==1 && indexPath.row==0 && ![self.thisQuiz.videoUrl isEqualToString:@""]) {
+        [self performSelector:@selector(showVideoAtCell:) withObject:cell afterDelay:0.2];
+    }
 }
+
+#pragma Save Quiz
+-(IBAction)didQuizDeleteClick:(id)sender {
+    
+    [[[OHAlertView alloc] initWithTitle:@""
+                                message:@"Do you want to delete this Instruction? You can't recover it once deleted."
+                           cancelButton:@"Cancel"
+                           otherButtons:[NSArray arrayWithObject:@"OK"]
+                         onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                             if(buttonIndex==1){
+                                 [[Data sharedData] deleteQuizWithQuizId:self.thisQuiz.quizId];
+                                 [self.navigationController popViewControllerAnimated:YES];
+                             }
+                         }] show];
+    
+}
+
+-(IBAction)didSaveQuizAndNextClick:(id)sender
+{
+    //hide keyboard or dismiss popover
+    [self.txtQuizName resignFirstResponder];
+    [photoLibraryPopover dismissPopoverAnimated:YES];
+    videoPicker=nil;
+    
+    [self save];
+    [self.navigationController popViewControllerAnimated:YES];          //this needs to goto alternatives
+}
+
+-(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
+    
+    //    //hide keyboard or dismiss popover
+    //    [self.txtSubject resignFirstResponder];
+    //    [photoLibraryPopover dismissPopoverAnimated:YES];
+    //
+    //    _dirtySubject.subjectName = self.txtSubject.text;
+    //    if(![self.thisSubject isEqual:_dirtySubject]){
+    //
+    //        [[[OHAlertView alloc] initWithTitle:@""
+    //                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
+    //                               cancelButton:@"No"
+    //                               otherButtons:[NSArray arrayWithObject:@"Yes"]
+    //                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+    //                                 if(buttonIndex==1){
+    //                                     [self save];
+    //                                     [self.delegate didSubjectChange:_dirtySubject];
+    //                                     [self load:newSubject];
+    //                                 }
+    //                                 else{
+    //                                     [self load:newSubject];
+    //                                 }
+    //                             }] show];
+    //    }
+    //    //we have no changes detected, load new subject
+    //    else{
+    //        [self load:newSubject];
+    //    }
+    
+    return YES;
+}
+
+-(BOOL)save{
+    
+    //do validation, or keep save button disabled
+    _dirtyQuiz.quizName = self.txtQuizName.text;
+    if(_dirtyQuiz.videoUrl==nil) _dirtyQuiz.videoUrl = @"";
+    
+    NSInteger res = [[Data sharedData] saveQuiz:_dirtyQuiz];
+    _dirtyQuiz.quizId=res;
+    self.thisQuiz = [_dirtyQuiz copy];
+    
+    return TRUE;
+}
+
+-(void)load:(QuizPage *)quiz{
+    
+    self.thisQuiz = quiz;
+    _dirtyQuiz=[self.thisQuiz copy];
+    
+    [self.tblVideoFrom reloadData];
+    [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisQuiz afterDelay:0.1];
+}
+
+-(void)showVideoAtCell:(UITableViewCell *)cell {
+    
+    NSURL *url = [NSURL URLWithString:self.thisQuiz.videoUrl];
+    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    [player prepareToPlay];
+    
+    [player.view setFrame:CGRectMake(0, 0, 450, 300)];
+    [player.view setAlpha:1];
+    [self.view addSubview:player.view];
+    
+    player.controlStyle=MPMovieControlStyleEmbedded;
+    player.movieSourceType=MPMovieSourceTypeStreaming;
+    player.shouldAutoplay=NO;
+    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
+    moviePlayer=player;
+    
+}
+
 
 #pragma Camera and Photo library
 -(void)showVideoPicker:(UIImagePickerControllerSourceType)sourceType selectedCell:(UITableViewCell *)cell{
@@ -316,8 +338,9 @@
     NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
     _dirtyQuiz.videoUrl = videoUrl.absoluteString;
     
-    UIImage *image=[[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString];
-    [self.imgCurrentVideo setImage:image];
+    [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
+        [self.imgCurrentVideo setImage:image];
+    }];
 
     [photoLibraryPopover dismissPopoverAnimated:YES];
     

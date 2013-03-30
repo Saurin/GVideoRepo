@@ -2,7 +2,6 @@
 #import "InstructionViewController.h"
 #import "InstructionListViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
-
 #import "PreviewViewController.h"
 
 @implementation InstructionViewController {
@@ -11,7 +10,6 @@
     
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
     UIImagePickerController *videoPicker;
-    
 }
 
 - (void)viewDidLoad
@@ -165,15 +163,19 @@
     [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisQuiz afterDelay:0.1];
 }
 
--(void)showVideo {
+-(void)showVideoAtCell:(UITableViewCell *)cell {
     
     PreviewViewController *preview = [[PreviewViewController alloc] initWithNibName:@"PreviewView" bundle:nil];
     [preview setVideoUrl:self.thisQuiz.videoUrl];
-    [self.view addSubview:preview.view];
+    [preview willMoveToParentViewController:self.splitViewController];
     
-
-
+    [self.splitViewController addChildViewController:preview];
+    preview.view.frame = self.splitViewController.view.bounds;
+    [self.splitViewController.view addSubview:preview.view];
+    [preview didMoveToParentViewController:self.splitViewController];
 }
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -263,13 +265,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
     if(indexPath.section==1 && indexPath.row>0){
-        
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self showVideoPicker:indexPath.row==1? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary selectedCell:cell];
     }
     else if(indexPath.section==1 && indexPath.row==0)
-        [self showVideo];
+        [self showVideoAtCell:cell];
 }
 
 #pragma Camera and Photo library

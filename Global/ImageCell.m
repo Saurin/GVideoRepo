@@ -2,7 +2,10 @@
 #import "ImageCell.h"
 #import "Utility.h"
 
-@implementation ImageCell
+@implementation ImageCell {
+    UIImageView *imgCurrent;
+    UIActivityIndicatorView *activity;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -23,19 +26,33 @@
  
     [super layoutSubviews];
     
-    self.imageView.bounds = CGRectMake(5,self.contentView.bounds.size.height/2-30,75,60);
-    self.imageView.frame = CGRectMake(5,self.contentView.bounds.size.height/2-30,75,60);
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit | UIViewContentModeScaleAspectFill;
+    imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(5,self.contentView.bounds.size.height/2-30,75,60)];
+    [self makeRoundRectView:imgCurrent];
+    [self.contentView addSubview:imgCurrent];
 
-    [self makeRoundRectView:self.imageView];
+    activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [imgCurrent addSubview:activity];
+    activity.center = imgCurrent.center;
+    [activity startAnimating];
+    
     self.textLabel.bounds = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     self.textLabel.frame = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
-    
 }
 
 -(void)makeRoundRectView:(UIView *)view {
     view.layer.cornerRadius = 10;
     view.layer.masksToBounds = YES;
+}
+
+-(void)showImage:(UIImage *)image {
+    [imgCurrent setImage:image];
+    [activity stopAnimating];
+    [activity removeFromSuperview];
+}
+
+-(void)dealloc {
+    imgCurrent=nil;
+    activity=nil;
 }
 
 @end

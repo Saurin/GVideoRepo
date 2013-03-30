@@ -1,28 +1,10 @@
-//
-//  PreviewViewController.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/28/13.
-//
-//
 
 #import "PreviewViewController.h"
 #import <MediaPlayer/MediaPlayer.h>  
 
 
 @implementation PreviewViewController {
-    UIView *playerView;
-    MPMoviePlayerController *player;
-
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    MPMoviePlayerController *moviePlayer;
 }
 
 - (void)viewDidLoad
@@ -32,22 +14,9 @@
     
     self.view.backgroundColor =[UIColor clearColor];
     [self.view setOpaque:NO];
+    [self.view setAlpha:0.3];
     
-    playerView = [self.view viewWithTag:1];
-
-    NSURL *url = [NSURL URLWithString:self.videoUrl];
-    MPMoviePlayerController *p = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [p prepareToPlay];
-
-    [playerView addSubview:player.view];
-
-    p.controlStyle=MPMovieControlStyleEmbedded;
-    p.movieSourceType=MPMovieSourceTypeStreaming;
-    p.shouldAutoplay=YES;
-    p.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
-    player=p;
-    
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayBackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [self addVideoPlayer:self.videoUrl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,8 +25,40 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)click:(id)sender {
+-(void)viewDidUnload {
+    [super viewDidUnload];
+    moviePlayer=nil;
+}
+
+-(void)addVideoPlayer:(NSString *)videoUrl {
+    
+    NSURL *url = [NSURL URLWithString:videoUrl];
+    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+    [player prepareToPlay];
+    
+    CGRect screen = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(screen);
+    CGFloat height = CGRectGetHeight(screen);
+
+    [player.view setFrame:CGRectMake(0, 0, width-200, height-100)];
+    [player.view setAlpha:1];
+    [self.view addSubview:player.view];
+    
+    player.controlStyle=MPMovieControlStyleEmbedded;
+    player.movieSourceType=MPMovieSourceTypeStreaming;
+    player.shouldAutoplay=YES;
+    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
+    moviePlayer=player;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoPlayBackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+}
+
+-(void)videoPlayBackDidFinish:(NSNotification *)notification {
     [self.view removeFromSuperview];
+}
+
+-(IBAction)click:(id)sender {
+
 }
 
 @end

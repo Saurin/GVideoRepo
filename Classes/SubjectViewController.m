@@ -282,6 +282,21 @@
     [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
 }
 
+-(void)showSelectedImageWithURL:(NSString *)assetUrl {
+    
+    //Now update current image with newly selected image
+    UITableViewCell *cell = [self.tblImageFrom cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+    cell.detailTextLabel.text = assetUrl;
+    
+    [[Utility alloc] getImageFromAssetURL:assetUrl completion:^(NSString *url, UIImage *image) {
+        
+        self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-90, 7, 80, 60)];
+        [self.imgCurrent setImage:image];
+        [self makeRoundRectView:self.imgCurrent layerRadius:10];
+        cell.accessoryView=self.imgCurrent;
+    }];
+}
+
 #pragma Camera and Photo library
 - (void)showImagePickerEasy:(UIImagePickerControllerSourceType)sourceType selectedCell:(UITableViewCell *)cell {
     
@@ -311,7 +326,6 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    
     NSString *assetURL = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] description];
     UIImage *pickedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
 
@@ -321,38 +335,27 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library writeImageToSavedPhotosAlbum:[pickedImage CGImage] orientation:(ALAssetOrientation)[pickedImage imageOrientation] completionBlock:^(NSURL *url, NSError   *error) {
             if (error) {
-                NSLog(@"error");
+                [[[UIAlertView alloc] initWithTitle:@"" message:@"Unable to save Image" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
             }
             else
             {
                 _dirtySubject.assetUrl = url.absoluteString;
+                [self showSelectedImageWithURL:url.absoluteString];
             }
+        }];
+        [picker dismissViewControllerAnimated:YES completion:^{
         }];
     }
     else
     {
         _dirtySubject.assetUrl = assetURL;
-    }
+        [self showSelectedImageWithURL:assetURL];
 
-    //Now update current image with newly selected image
-    UITableViewCell *cell = [self.tblImageFrom cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
-    cell.detailTextLabel.text = _dirtySubject.assetUrl;
-    
-    [[Utility alloc] getImageFromAssetURL:_dirtySubject.assetUrl completion:^(NSString *url, UIImage *image) {
-        
-        self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-90, 7, 80, 60)];
-        [self.imgCurrent setImage:image];
-        [self makeRoundRectView:self.imgCurrent layerRadius:10];
-        cell.accessoryView=self.imgCurrent;
-    }];
-    
-    
-    //close popover and picker
-    [photoLibraryPopover dismissPopoverAnimated:YES];
-    [picker dismissViewControllerAnimated:YES completion:^{
-        imagePicker=nil;
-    }];
-    
+        //close popover and picker
+        [photoLibraryPopover dismissPopoverAnimated:YES];
+        [picker dismissViewControllerAnimated:YES completion:^{
+        }];
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString * subjectName;
 @property (nonatomic, strong) NSString * assetUrl;
 @property (nonatomic, strong) NSMutableArray *quizPages;
+@property (nonatomic, strong) UIImage *img;
 
 -(id)copy;
 -(BOOL)isEqual:(Subject *)object;

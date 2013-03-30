@@ -4,4 +4,6 @@
 #import <QuartzCore/QuartzCore.h>
 @interface ImageCell : UITableViewCell
 
+-(void)showImage:(UIImage *)image;
+
 @end

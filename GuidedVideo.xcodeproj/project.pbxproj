@@ -60,6 +60,10 @@
 		BFC9472516FCF4EC009179E2 /* redbar.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC9472316FCF4EC009179E2 /* redbar.png */; };
 		BFC9472616FCF4EC009179E2 /* redbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC9472416FCF4EC009179E2 /* redbar@2x.png */; };
 		BFC9472A16FCF796009179E2 /* ApplicationNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC9472916FCF796009179E2 /* ApplicationNotification.m */; };
+		BFE8E1611707C16A004F9EEB /* AlternativeListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFE8E15F1707C16A004F9EEB /* AlternativeListView.xib */; };
+		BFE8E1641707C1A8004F9EEB /* AlternativeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E1631707C1A8004F9EEB /* AlternativeListViewController.m */; };
+		BFE8E167170894E0004F9EEB /* AlternativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE8E166170894DF004F9EEB /* AlternativeViewController.m */; };
+		BFE8E16A170894F8004F9EEB /* AlternativeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFE8E168170894F8004F9EEB /* AlternativeView.xib */; };
 		BFF94AD31705353A00A4EEB9 /* PreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFF94AD11705353A00A4EEB9 /* PreviewView.xib */; };
 		BFF94AD61705355600A4EEB9 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF94AD51705355600A4EEB9 /* PreviewViewController.m */; };
 		BFFE06541704800700CAE2A3 /* InstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFE06531704800700CAE2A3 /* InstructionViewController.m */; };
@@ -152,11 +156,17 @@
 		BFAE9C8516FA8FBA00239133 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		BFAE9C8716FA904C00239133 /* GuidedVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GuidedVideo.png; path = images/GuidedVideo.png; sourceTree = "<group>"; };
 		BFAE9C8816FA904C00239133 /* GuidedVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GuidedVideo@2x.png"; path = "images/GuidedVideo@2x.png"; sourceTree = "<group>"; };
-		BFAE9C8B16FBDECD00239133 /* SubjectViewChangeDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubjectViewChangeDelegate.h; sourceTree = "<group>"; };
+		BFAE9C8B16FBDECD00239133 /* SelectionChangeDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SelectionChangeDelegate.h; path = Classes/SelectionChangeDelegate.h; sourceTree = "<group>"; };
 		BFC9472316FCF4EC009179E2 /* redbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redbar.png; path = images/redbar.png; sourceTree = "<group>"; };
 		BFC9472416FCF4EC009179E2 /* redbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "redbar@2x.png"; path = "images/redbar@2x.png"; sourceTree = "<group>"; };
 		BFC9472816FCF796009179E2 /* ApplicationNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicationNotification.h; path = Global/ApplicationNotification.h; sourceTree = "<group>"; };
 		BFC9472916FCF796009179E2 /* ApplicationNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplicationNotification.m; path = Global/ApplicationNotification.m; sourceTree = "<group>"; };
+		BFE8E1601707C16A004F9EEB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AlternativeListView.xib; sourceTree = "<group>"; };
+		BFE8E1621707C1A8004F9EEB /* AlternativeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternativeListViewController.h; sourceTree = "<group>"; };
+		BFE8E1631707C1A8004F9EEB /* AlternativeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternativeListViewController.m; sourceTree = "<group>"; };
+		BFE8E165170894DF004F9EEB /* AlternativeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternativeViewController.h; sourceTree = "<group>"; };
+		BFE8E166170894DF004F9EEB /* AlternativeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternativeViewController.m; sourceTree = "<group>"; };
+		BFE8E169170894F8004F9EEB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AlternativeView.xib; sourceTree = "<group>"; };
 		BFF94AD21705353A00A4EEB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreviewView.xib; sourceTree = "<group>"; };
 		BFF94AD41705355600A4EEB9 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		BFF94AD51705355600A4EEB9 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
@@ -211,11 +221,14 @@
 				BF1237C016F93B20008A755D /* SubjectListViewController.m */,
 				28AA66D8115C16800003B21C /* SubjectViewController.h */,
 				28AA66D9115C16800003B21C /* SubjectViewController.m */,
-				BFAE9C8B16FBDECD00239133 /* SubjectViewChangeDelegate.h */,
 				BF3153701703315E00D8A31B /* InstructionListViewController.h */,
 				BF3153711703315E00D8A31B /* InstructionListViewController.m */,
 				BFFE06521704800700CAE2A3 /* InstructionViewController.h */,
 				BFFE06531704800700CAE2A3 /* InstructionViewController.m */,
+				BFE8E1621707C1A8004F9EEB /* AlternativeListViewController.h */,
+				BFE8E1631707C1A8004F9EEB /* AlternativeListViewController.m */,
+				BFE8E165170894DF004F9EEB /* AlternativeViewController.h */,
+				BFE8E166170894DF004F9EEB /* AlternativeViewController.m */,
 				BF618FC016FD7E9D001042EF /* QuizEditViewController.h */,
 				BF618FC116FD7E9D001042EF /* QuizEditViewController.m */,
 				BF618FAA16FD506F001042EF /* PlayViewController.h */,
@@ -290,6 +303,8 @@
 				BF618FBD16FD7C70001042EF /* QuizView.xib */,
 				BF618FC316FD7EC5001042EF /* QuizEdit.xib */,
 				BFF94AD11705353A00A4EEB9 /* PreviewView.xib */,
+				BFE8E15F1707C16A004F9EEB /* AlternativeListView.xib */,
+				BFE8E168170894F8004F9EEB /* AlternativeView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -349,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				BF618FBC16FD7A2A001042EF /* QuizViewDelegate.h */,
+				BFAE9C8B16FBDECD00239133 /* SelectionChangeDelegate.h */,
 				BF618FB916FD79BE001042EF /* ImageCell.h */,
 				BF618FBA16FD79BE001042EF /* ImageCell.m */,
 				BF618FB316FD791F001042EF /* QuizView.h */,
@@ -441,6 +457,8 @@
 				BF31536F17008DBD00D8A31B /* InstructionView.xib in Resources */,
 				BF3153751703318500D8A31B /* InstructionListView.xib in Resources */,
 				BFF94AD31705353A00A4EEB9 /* PreviewView.xib in Resources */,
+				BFE8E1611707C16A004F9EEB /* AlternativeListView.xib in Resources */,
+				BFE8E16A170894F8004F9EEB /* AlternativeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +499,8 @@
 				BF3153721703315E00D8A31B /* InstructionListViewController.m in Sources */,
 				BFFE06541704800700CAE2A3 /* InstructionViewController.m in Sources */,
 				BFF94AD61705355600A4EEB9 /* PreviewViewController.m in Sources */,
+				BFE8E1641707C1A8004F9EEB /* AlternativeListViewController.m in Sources */,
+				BFE8E167170894E0004F9EEB /* AlternativeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +577,22 @@
 				BF618FC416FD7EC5001042EF /* en */,
 			);
 			name = QuizEdit.xib;
+			sourceTree = "<group>";
+		};
+		BFE8E15F1707C16A004F9EEB /* AlternativeListView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFE8E1601707C16A004F9EEB /* en */,
+			);
+			name = AlternativeListView.xib;
+			sourceTree = "<group>";
+		};
+		BFE8E168170894F8004F9EEB /* AlternativeView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFE8E169170894F8004F9EEB /* en */,
+			);
+			name = AlternativeView.xib;
 			sourceTree = "<group>";
 		};
 		BFF94AD11705353A00A4EEB9 /* PreviewView.xib */ = {

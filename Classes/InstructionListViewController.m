@@ -51,34 +51,48 @@ static char * const myIndexPathAssociationKey = "";
     }
     
     [self.tableView setRowHeight:75];
-    //[self.tableView reloadData];
-    [self getVideoThumbnails:0];
+    if(instructions.count>0)
+        [self getVideoThumbnails:0];
 }
 
 -(void)getVideoThumbnails:(NSInteger)index {
     __block NSInteger idx=index;
     
-    if(idx<instructions.count){
+    NSLog(@"%d",index);
 
+    if(((QuizPage *)[instructions objectAtIndex:index]).quizId!=0){    //we need no image for "Add a new..."
         [[[Utility alloc] init] getThumbnailFromVideoURL:((QuizPage *)[instructions objectAtIndex:index]).videoUrl completion:^(NSString *url, UIImage *image) {
             
             ((QuizPage *)[instructions objectAtIndex:idx]).imgThumb = image;
-            if(idx++<instructions.count){
-                [self getVideoThumbnails:idx];
-            }
-            else{
-                [self.tableView reloadData];
-            }
+            if(idx+1<instructions.count)
+                [self getVideoThumbnails:idx+1];
             
+            return;
         }];
     }
-
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)handleNotification:(NSNotification*)note {
+    //ignore other notifications, we may receive
+    
+    if([note.name isEqualToString:@"InstructionListViewController"]){
+        if([note.object isKindOfClass:[QuizPage class]]){
+            
+            NSInteger index = [instructions indexOfObject:note.object];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        }
+    }
 }
 
 #pragma mark - Table view data source
@@ -98,7 +112,7 @@ static char * const myIndexPathAssociationKey = "";
     QuizPage *page = [instructions objectAtIndex:indexPath.row];
     
     //No image, regular UITableViewCell for Add Subject cell...
-    if(self.isListDetailController && indexPath.row==[instructions count]-1){
+    if(self.isListDetailController && page.quizId==0){
         
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         
@@ -163,12 +177,12 @@ static char * const myIndexPathAssociationKey = "";
         //As we have pushed a view controller using navigation controller, get latest object on detailViewController
         //this should be current detail view, user is seeing.
         
-//        BaseViewController *someController = (SubjectViewController *)self.detailViewManager.detailViewController;
-//        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[SubjectViewController class]]){
-//            
-//            SubjectViewController *subjectViewController = [someController.navigationController.viewControllers lastObject];
-//            [subjectViewController didSubjectSelectionChange:[subjects objectAtIndex:indexPath.row]];
-//        }
+        BaseViewController *someController = (InstructionViewController *)self.detailViewManager.detailViewController;
+        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[InstructionViewController class]]){
+            
+            InstructionViewController *instructionViewController = [someController.navigationController.viewControllers lastObject];
+            [instructionViewController didQuizSelectionChange:[instructions objectAtIndex:indexPath.row]];
+        }
         
         return nil;
     }
@@ -186,10 +200,16 @@ static char * const myIndexPathAssociationKey = "";
         
         InstructionViewController *instructionViewController = [[InstructionViewController alloc] initWithNibName:@"InstructionView" bundle:nil];
         [instructionViewController setThisQuiz:[instructions objectAtIndex:indexPath.row]];
-        //[instructionViewController setDelegate:masterViewController];
+        [instructionViewController setDelegate:masterViewController];
         [instructionViewController setIsDetailController:YES];
         [self.navigationController pushViewController:instructionViewController animated:YES];
     }
+}
+
+-(void)didQuizChange:(QuizPage *)newQuiz {
+    
+    instructions = [[Data sharedData] getSubjectAtSubjectId:self.thisSubject.subjectId].quizPages;
+    [self getVideoThumbnails:0];    //this internally calls reload table
 }
 
 @end

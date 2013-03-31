@@ -19,6 +19,7 @@
     
 -(Subject *)getSubjectAtSubjectId:(NSInteger)index;
 -(NSMutableArray *)getQuizOptionsForQuizId:(NSInteger)index;
+-(QuizPage *)getQuizAtQuizId:(NSInteger)index;
 
 - (NSInteger)saveSubject:(Subject *)sub;
 - (void)deleteSubjectWithSubjectId:(NSInteger)index;

@@ -1,45 +1,47 @@
 
-
-#import "SubjectListViewController.h"
+#import "AlternativeListViewController.h"
+#import "InstructionViewController.h"
+#import "AlternativeViewController.h"
 #import <objc/runtime.h>
 #import "ImageCell.h"
 
 static char * const myIndexPathAssociationKey = "";
-@implementation SubjectListViewController {
-    NSMutableArray *subjects;
+@implementation AlternativeListViewController{
+    NSMutableArray *alternatives;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"SubjectListViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"AlternativeListViewController" object:nil];
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    subjects = [[Data sharedData] getSubjects];
+    alternatives = [[Data sharedData] getQuizOptionsForQuizId:self.quizPage.quizId];
     
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
         
-        //we want to give only 12 subjects as free....
-        if([subjects count]<12){
-            Subject *sub = [[Subject alloc] init];
-            sub.subjectId=0;
-            sub.subjectName=@"Add a new Subject...";
-            [subjects addObject:sub];
+        //we want to give only 12 options per quiz....
+        if([alternatives count]<12){
+            QuizOption *option = [[QuizOption alloc] init];
+            option.quizId=self.quizPage.quizId;
+            option.quizOptionId=0;
+            [alternatives addObject:option];
         }
-    
-        //if masterviewcontroller is not menu, change it to MenuTableViewController
-        if(![self.detailViewManager.masterViewController isKindOfClass:[MenuTableViewController class]]){
-            MenuTableViewController *menuController = [[MenuTableViewController alloc] initWithNibName:@"MenuView" bundle:nil];
-            [self.detailViewManager setMasterViewController:menuController];
+        
+        //change it to InstructionViewController
+        if(![self.detailViewManager.masterViewController isKindOfClass:[InstructionViewController class]]){
+            InstructionViewController *masterViewController = [[InstructionViewController alloc] initWithNibName:@"InstructionView" bundle:nil];
+            [masterViewController setThisQuiz:[[Data sharedData] getQuizAtQuizId:self.quizPage.quizId]];
+            [self.detailViewManager setMasterViewController:masterViewController];
         }
     }
     else {
-        self.title = @"Subjects";
+        self.title = @"Alternatives";
     }
     
     [self.tableView setRowHeight:75];
@@ -55,10 +57,10 @@ static char * const myIndexPathAssociationKey = "";
 - (void)handleNotification:(NSNotification*)note {
     //ignore other notifications, we may receive
     
-    if([note.name isEqualToString:@"SubjectListViewController"]){
+    if([note.name isEqualToString:@"AlternativeListViewController"]){
         if([note.object isKindOfClass:[Subject class]]){
-
-            NSInteger index = [subjects indexOfObject:note.object];
+            
+            NSInteger index = [alternatives indexOfObject:note.object];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             
             [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -76,25 +78,25 @@ static char * const myIndexPathAssociationKey = "";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [subjects count];
+    return [alternatives count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Subject *thisSubject = [subjects objectAtIndex:indexPath.row];
-
+    QuizOption *thisOption = [alternatives objectAtIndex:indexPath.row];
+    
     //No image, regular UITableViewCell for Add Subject cell...
-    if(self.isListDetailController && thisSubject.subjectId==0){
+    if(self.isListDetailController && thisOption.quizOptionId==0){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-
-        cell.textLabel.text = thisSubject.subjectName;
-        cell.tag = thisSubject.subjectId;
+        
+        cell.textLabel.text = @"Add a new Alternatives...";
+        cell.tag = thisOption.quizOptionId;
         
         return cell;
         
     }
     else{
-
+        
         //dont want to reuse cell as we have cell image getting added on a different queue
         ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -106,8 +108,8 @@ static char * const myIndexPathAssociationKey = "";
             [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
         
-        cell.textLabel.text = thisSubject.subjectName;
-        cell.tag = thisSubject.subjectId;
+        cell.textLabel.text = thisOption.assetUrl;
+        cell.tag = thisOption.quizOptionId;
         
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied
@@ -118,40 +120,28 @@ static char * const myIndexPathAssociationKey = "";
         // Can change priority by replacing HIGH with DEFAULT or LOW if desired.
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_async(queue, ^{
-
-            [[Utility alloc] getImageFromAssetURL:thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
-
+            
+            [[Utility alloc] getImageFromAssetURL:thisOption.assetUrl completion:^(NSString *url, UIImage *image) {
+                
                 // Code to actually update the cell once the image is obtained must be run on the main queue.
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSIndexPath *cellIndexPath = (NSIndexPath *)objc_getAssociatedObject(cell, myIndexPathAssociationKey);
                     if ([indexPath isEqual:cellIndexPath]) {
                         // Only set cell image if the cell currently being displayed is the one that actually required this image.
                         // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
-
+                        
                         [cell showImage:image];
                     }
                 });
             }];
         });
-
+        
         return cell;
     }
 }
 
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return NO;
-}
-
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.isListDetailController?@"Subjects":@"";
+    return self.isListDetailController?@"Alternatives":@"";
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,11 +151,11 @@ static char * const myIndexPathAssociationKey = "";
         //As we have pushed a view controller using navigation controller, get latest object on detailViewController
         //this should be current detail view, user is seeing.
         
-        BaseViewController *someController = (SubjectViewController *)self.detailViewManager.detailViewController;
-        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[SubjectViewController class]]){
+        BaseViewController *someController = (InstructionViewController *)self.detailViewManager.detailViewController;
+        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[InstructionViewController class]]){
             
-            SubjectViewController *subjectViewController = [someController.navigationController.viewControllers lastObject];
-            [subjectViewController didSubjectSelectionChange:[subjects objectAtIndex:indexPath.row]];
+            InstructionViewController *instructionViewController = [someController.navigationController.viewControllers lastObject];
+            [instructionViewController didQuizSelectionChange:[alternatives objectAtIndex:indexPath.row]];
         }
         
         return nil;
@@ -177,16 +167,16 @@ static char * const myIndexPathAssociationKey = "";
 {
     if(self.isListDetailController){
         
-        SubjectListViewController *masterViewController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
+        AlternativeListViewController *masterViewController = [[AlternativeListViewController alloc] initWithNibName:@"AlternativeListView" bundle:nil];
         [masterViewController setIsListDetailController:NO];
+        [masterViewController setQuizPage:self.quizPage];
         [self.detailViewManager setMasterViewController:masterViewController];
         
-        SubjectViewController *subjectViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
-        [subjectViewController setThisSubject:[subjects objectAtIndex:indexPath.row]];
-        NSLog(@"%d",((Subject *)[subjects objectAtIndex:indexPath.row]).subjectId);
-        [subjectViewController setDelegate:masterViewController];
-        [subjectViewController setIsDetailController:YES];
-        [self.navigationController pushViewController:subjectViewController animated:YES];
+        AlternativeViewController *alternativeViewController = [[AlternativeViewController alloc] initWithNibName:@"AlternativeView" bundle:nil];
+        [alternativeViewController setQuizOption:[alternatives objectAtIndex:indexPath.row]];
+        [alternativeViewController setDelegate:masterViewController];
+        [alternativeViewController setIsDetailController:YES];
+        [self.navigationController pushViewController:alternativeViewController animated:YES];
     }
 }
 
@@ -195,8 +185,9 @@ static char * const myIndexPathAssociationKey = "";
     
     //new subject received, lets just refresh our table view
     //here we assume, this notification will only be received when SubjectList is a masterviewcontroller
-    subjects = [[Data sharedData] getSubjects];
+    alternatives = [[Data sharedData] getQuizOptionsForQuizId:self.quizPage.quizId];
     [self.tableView reloadData];
 }
+
 
 @end

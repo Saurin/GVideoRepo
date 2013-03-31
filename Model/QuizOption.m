@@ -19,4 +19,35 @@
     return nil;
 }
 
+-(id)copy
+{
+    QuizOption *object = [[QuizOption alloc] init];
+    object.quizId=self.quizId;
+    object.quizOptionId=self.quizOptionId;
+    object.assetUrl=self.assetUrl;
+    object.videoUrl=self.videoUrl;
+    object.response=self.response;
+    
+    return object;
+}
+
+-(BOOL)isEqual:(QuizOption *)object {
+    
+    if (object==nil) {
+        return FALSE;
+    }
+    
+    if(self.quizOptionId==object.quizOptionId
+       && self.quizId==object.quizId
+       && [self.assetUrl isEqualToString:object.assetUrl]
+       && [self.videoUrl isEqualToString:object.videoUrl]
+       && self.response==object.response){
+        
+        return TRUE;
+    }
+    else{
+        return FALSE;
+    }
+}
+           
 @end

@@ -1,6 +1,7 @@
 
 #import "InstructionViewController.h"
 #import "InstructionListViewController.h"
+#import "AlternativeListViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <MediaPlayer/MediaPlayer.h>  
 #import "PreviewViewController.h"
@@ -41,6 +42,7 @@
         //if masterviewcontroller is not InsturctionListViewController, change it to InsturctionListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[InstructionListViewController class]]){
             InstructionListViewController *masterController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
+            [masterController setThisSubject:[[Data sharedData] getSubjectAtSubjectId:self.thisQuiz.subjectId]];
             [self.detailViewManager setMasterViewController:masterController];
         }
         [self.btnDelete setHidden:NO];
@@ -219,38 +221,52 @@
     [photoLibraryPopover dismissPopoverAnimated:YES];
     videoPicker=nil;
     
-    [self save];
-    [self.navigationController popViewControllerAnimated:YES];          //this needs to goto alternatives
+    if([self save]){
+        
+        //Now change MasterViewController to show readonly suject
+        InstructionViewController *masterViewController = [[InstructionViewController alloc] initWithNibName:@"InstructionView" bundle:nil];
+        [masterViewController setIsDetailController:NO];
+        [masterViewController setThisQuiz:_dirtyQuiz];
+        [self.detailViewManager setMasterViewController:masterViewController];
+        
+        //push it to Alternative List as DetailViewController
+        AlternativeListViewController *detailViewController = [[AlternativeListViewController alloc] initWithNibName:@"AlternativeListView" bundle:nil];
+        [detailViewController setQuizPage:_dirtyQuiz];
+        [detailViewController setIsListDetailController:YES];
+        
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
+
 }
 
--(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
+-(BOOL)didQuizSelectionChange:(QuizPage *)newQuiz {
     
-    //    //hide keyboard or dismiss popover
-    //    [self.txtSubject resignFirstResponder];
-    //    [photoLibraryPopover dismissPopoverAnimated:YES];
-    //
-    //    _dirtySubject.subjectName = self.txtSubject.text;
-    //    if(![self.thisSubject isEqual:_dirtySubject]){
-    //
-    //        [[[OHAlertView alloc] initWithTitle:@""
-    //                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
-    //                               cancelButton:@"No"
-    //                               otherButtons:[NSArray arrayWithObject:@"Yes"]
-    //                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-    //                                 if(buttonIndex==1){
-    //                                     [self save];
-    //                                     [self.delegate didSubjectChange:_dirtySubject];
-    //                                     [self load:newSubject];
-    //                                 }
-    //                                 else{
-    //                                     [self load:newSubject];
-    //                                 }
-    //                             }] show];
-    //    }
-    //    //we have no changes detected, load new subject
-    //    else{
-    //        [self load:newSubject];
-    //    }
+    //hide keyboard or dismiss popover
+    [self.txtQuizName resignFirstResponder];
+    [photoLibraryPopover dismissPopoverAnimated:YES];
+
+    _dirtyQuiz.quizName = self.txtQuizName.text;
+    if(![self.thisQuiz isEqual:_dirtyQuiz]){
+
+        [[[OHAlertView alloc] initWithTitle:@""
+                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
+                               cancelButton:@"No"
+                               otherButtons:[NSArray arrayWithObject:@"Yes"]
+                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                                 if(buttonIndex==1){
+                                     [self save];
+                                     [self.delegate didQuizChange:_dirtyQuiz];
+                                     [self load:newQuiz];
+                                 }
+                                 else{
+                                     [self load:newQuiz];
+                                 }
+                             }] show];
+    }
+    //we have no changes detected, load new subject
+    else{
+        [self load:newQuiz];
+    }
     
     return YES;
 }

@@ -94,6 +94,9 @@
             
             self.utilityImageHandler(url,thumbnail);
         }
+        else{
+            self.utilityImageHandler(url,nil);
+        }
     }
 }
 

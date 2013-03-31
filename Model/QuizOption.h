@@ -8,12 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QuizOption : NSObject
+@interface QuizOption : NSObject <NSCopying>
 
 @property (nonatomic) NSInteger quizOptionId;
 @property (nonatomic) NSInteger quizId;
 @property (nonatomic, strong) NSString* assetUrl;
 @property (nonatomic, strong) NSString* videoUrl;
 @property (nonatomic) NSInteger response;
+
+-(id)copy;
+-(BOOL)isEqual:(QuizOption *)object;
 
 @end

@@ -44,9 +44,9 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="443026811"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor" id="632093583">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">2</int>
+							<bytes key="NSRGB">MC44NTA5ODA0NjA2IDAuODU4ODIzNTk3NCAwLjg4MjM1MzAwNzgAA</bytes>
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -65,17 +65,20 @@
 					<object class="IBUIButton" id="443026811">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{54, 894}, {630, 59}}</string>
+						<string key="NSFrame">{{54, 894}, {630, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<reference key="IBUIBackgroundColor" ref="632093583"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">Delete Quiz</string>
+						<string key="IBUINormalTitle">Delete Instruction</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="1006069277">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -105,11 +108,8 @@
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="716089193"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-					<object class="NSColorSpace" key="NSCustomColorSpace">
-						<int key="NSID">2</int>
-					</object>
+					<int key="NSColorSpace">2</int>
+					<bytes key="NSRGB">MC44NTA5ODA0NjA2IDAuODU4ODIzNTk3NCAwLjg4MjM1MzAwNzgAA</bytes>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
 					<int key="IBUIStatusBarStyle">2</int>
@@ -242,20 +242,15 @@
 					<string key="superclassName">BaseViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="didQuizDeleteClick:">id</string>
-						<string key="didSaveSubjectAndNextClick:">id</string>
-						<string key="didSubjectDeleteClick:">id</string>
+						<string key="didSaveQuizAndNextClick:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="didQuizDeleteClick:">
 							<string key="name">didQuizDeleteClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="didSaveSubjectAndNextClick:">
-							<string key="name">didSaveSubjectAndNextClick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="didSubjectDeleteClick:">
-							<string key="name">didSubjectDeleteClick:</string>
+						<object class="IBActionInfo" key="didSaveQuizAndNextClick:">
+							<string key="name">didSaveQuizAndNextClick:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

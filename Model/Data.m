@@ -45,6 +45,13 @@
     return sub;
 }
 
+-(QuizPage *)getQuizAtQuizId:(NSInteger)index {
+    
+    NSMutableArray *quizzes = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[NSString stringWithFormat:@"QuizId=%d",index]];
+
+    return [quizzes objectAtIndex:0];
+}
+
 -(NSMutableArray *)getQuizOptionsForQuizId:(NSInteger)index {
     
     return [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[NSString stringWithFormat:@"QuizId=%d",index]];
@@ -52,7 +59,7 @@
 
 -(NSInteger)saveSubject:(Subject *)sub {
 
-    if([self getSubjectAtSubjectId:sub.subjectId]){
+    if(sub.subjectId!=0){
         [[CrudOp sharedDB] UpdateRecordForTable:DBTableSubject withObject:sub];
         return sub.subjectId;
     }

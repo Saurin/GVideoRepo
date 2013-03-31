@@ -127,7 +127,7 @@
         }
         else{
             //existing subject
-            if(self.thisSubject.subjectId!=-1){
+            if(self.thisSubject.subjectId!=0){
                 
                 self.txtSubject.text = self.thisSubject.subjectName;
 

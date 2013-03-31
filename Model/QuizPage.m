@@ -36,15 +36,15 @@
         return FALSE;
     }
     
-    if(self.subjectId!=object.subjectId
-       || !self.quizId!=object.quizId
-       || ![self.quizName isEqualToString:object.quizName]
-       || ![self.videoUrl isEqualToString:object.videoUrl]){
+    if(self.subjectId==object.subjectId
+       && self.quizId==object.quizId
+       && [self.quizName isEqualToString:object.quizName]
+       && [self.videoUrl isEqualToString:object.videoUrl]){
         
-        return FALSE;
+        return TRUE;
     }
     else{
-        return TRUE;
+        return FALSE;
     }
 }
 

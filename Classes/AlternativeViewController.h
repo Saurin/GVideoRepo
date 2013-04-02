@@ -8,7 +8,7 @@
 
 
 @property BOOL isDetailController;
-
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) QuizOption *quizOption;
 @property (nonatomic, strong) UITextField *txtOptionName;
 @property (nonatomic, strong) IBOutlet UITableView *tblImageFrom;

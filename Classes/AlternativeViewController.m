@@ -4,8 +4,7 @@
 
 @implementation AlternativeViewController {
 
-    NSMutableArray *imageFromArray;
-    NSMutableArray *videoFromArray;
+    NSMutableArray *imageFromArray, *videoFromArray, *responseFromArray;
     QuizOption *_dirtyOption;
     
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
@@ -17,10 +16,13 @@
     [super viewDidLoad];
     imageFromArray = [NSMutableArray arrayWithObjects:@"Current Image",@"Camera",@"Photo Library", nil];
     videoFromArray = [NSMutableArray arrayWithObjects:@"Current Video",@"Camera",@"Photo Library", nil];
+    responseFromArray = [NSMutableArray arrayWithObjects:@"Repeat Instruction",@"Next Instruction", nil];
+    
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
     
     self.title = @"Alternative";
     _dirtyOption=[self.quizOption copy];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -43,15 +45,24 @@
             [masterController setQuizPage:[[Data sharedData] getQuizAtQuizId:self.quizOption.quizId]];
             [self.detailViewManager setMasterViewController:masterController];
         }
+        
         [self.btnDelete setHidden:NO];
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
-    else{
+    else
+    {
         [self.btnDelete setHidden:YES];
     }
- 
-    [self.tblImageFrom reloadData];
+}
+
+-(void)viewWillLayoutSubviews {
     
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    self.scrollView.contentSize=CGSizeMake(self.view.frame.size.width, UIDeviceOrientationIsLandscape(orientation)?950:self.view.frame.size.height);
+    
+    CGRect frame = self.btnDelete.frame;
+    frame.origin.y=self.scrollView.contentSize.height-200;
+    [self.btnDelete setFrame:frame];
 }
 
 - (void)viewDidUnload {
@@ -61,6 +72,7 @@
     self.tblImageFrom = nil;
     videoFromArray = nil;
     imageFromArray=nil;
+    responseFromArray=nil;
 }
 
 //-(void)viewDidAppear:(BOOL)animated {
@@ -125,6 +137,7 @@
     [photoLibraryPopover dismissPopoverAnimated:YES];
     videoPicker=nil;
     imagePicker=nil;
+    responseFromArray=nil;
     
     if([self save]){
         
@@ -212,7 +225,7 @@
             return 1;
     }
     else {                                      //allow user to provide what action app needs to take on
-        return 1;
+        return 2;
     }
 }
 
@@ -275,7 +288,7 @@
                     
                     self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
                     [self.imgCurrent setImage:image];
-                    [self makeRoundRectView:self.imgVideoCurrent layerRadius:10];
+                    [self makeRoundRectView:self.imgCurrent layerRadius:10];
                     cell.accessoryView=self.imgCurrent;
                 }];
             }
@@ -318,7 +331,8 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         
-        cell.textLabel.text = @"Add response control here...";
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        cell.textLabel.text = [responseFromArray objectAtIndex:indexPath.row];
         
         return  cell;
     }

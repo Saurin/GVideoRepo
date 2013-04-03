@@ -1,10 +1,4 @@
-//
-//  ApplicationNotification.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/22/13.
-//
-//
+
 
 #import "ApplicationNotification.h"
 
@@ -39,6 +33,15 @@
     if(userInfo==nil){
         
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"InstructionListViewController" object:object]];
+    }
+}
+
+//sends notification to AlternativeListViewController in MasterViewController to highlight quizoption
+-(void)postNotificationFromAlternativeView:(id)object userInfo:(NSDictionary *)userInfo {
+    
+    if(userInfo==nil){
+        
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"AlternativeListViewController" object:object]];
     }
 }
 

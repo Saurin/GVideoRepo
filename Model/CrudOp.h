@@ -1,10 +1,4 @@
-//
-//  CrudOp.h
-//  YardLines
-//
-//  Created by June Lee on 9/28/12.
-//  Copyright (c) 2012 Insurance Auto Auctions, INC. All rights reserved.
-//
+
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>

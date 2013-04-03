@@ -1,10 +1,4 @@
-//
-//  ApplicationNotification.h
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 3/22/13.
-//
-//
+
 
 #import <Foundation/Foundation.h>
 
@@ -19,4 +13,5 @@ typedef NS_ENUM(NSInteger, ANReceiver) {
 +(ApplicationNotification *)notification;
 -(void)postNotificationFromSubjectView:(id)object userInfo:(NSDictionary *)userInfo;
 -(void)postNotificationFromInstructionView:(id)object userInfo:(NSDictionary *)userInfo;
+-(void)postNotificationFromAlternativeView:(id)object userInfo:(NSDictionary *)userInfo;
 @end

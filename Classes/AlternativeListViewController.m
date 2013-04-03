@@ -108,7 +108,7 @@ static char * const myIndexPathAssociationKey = "";
             [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
         
-        cell.textLabel.text = thisOption.assetUrl;
+        cell.textLabel.text = thisOption.assetName;
         cell.tag = thisOption.quizOptionId;
         
         // Store a reference to the current cell that will enable the image to be associated with the correct

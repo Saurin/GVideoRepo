@@ -27,11 +27,18 @@
 }
 
 -(void)makeDBChanges{
+
     
     if(![[CrudOp sharedDB] isColumnExist:@"QuizName" inTable:DBTableQuiz]) {
         [[CrudOp sharedDB] addColumn:@"QuizName" dataType:@"varchar" inTable:DBTableQuiz];
         [[CrudOp sharedDB] UpdateTable:DBTableQuiz set:@"QuizName=''" where:@"1=1"];
     }
+    
+    if(![[CrudOp sharedDB] isColumnExist:@"AssetName" inTable:DBTableQuizOption]) {
+        [[CrudOp sharedDB] addColumn:@"AssetName" dataType:@"varchar" inTable:DBTableQuizOption];
+        [[CrudOp sharedDB] UpdateTable:DBTableQuiz set:@"AssetName=''" where:@"1=1"];
+    }
+    
 }
 
 // -------------------------------------------------------------------------------

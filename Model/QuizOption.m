@@ -27,6 +27,7 @@
     object.assetUrl=self.assetUrl;
     object.videoUrl=self.videoUrl;
     object.response=self.response;
+    object.assetName=self.assetName;
     
     return object;
 }
@@ -41,7 +42,8 @@
        && self.quizId==object.quizId
        && [self.assetUrl isEqualToString:object.assetUrl]
        && [self.videoUrl isEqualToString:object.videoUrl]
-       && self.response==object.response){
+       && self.response==object.response
+       && [self.assetName isEqualToString:object.assetName]){
         
         return TRUE;
     }

@@ -1,10 +1,4 @@
-//
-//  CrudOp.m
-//  YardLines
-//
-//  Created by June Lee on 9/28/12.
-//  Copyright (c) 2012 Insurance Auto Auctions, INC. All rights reserved.
-//
+
 
 #import "CrudOp.h"
 
@@ -89,7 +83,7 @@
     }
     else if(table==DBTableQuizOption){
 
-        NSString *sqltemp = @"Select Id, QuizId, AssetUrl, VideoUrl, Response From QuizAsset ";
+        NSString *sqltemp = @"Select Id, QuizId, AssetUrl, VideoUrl, Response, AssetName From QuizAsset ";
         if(![filter isEqualToString:@""]){
             sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
         }
@@ -152,8 +146,11 @@
                 option.assetUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 2)];
             if(sqlite3_column_text(stmt, 3)!=nil)
                 option.videoUrl=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 3)];
-
+            
             option.response=sqlite3_column_int(stmt, 4);
+            
+            if(sqlite3_column_text(stmt, 5)!=nil)
+                option.assetName=[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 5)];
             
             [myMutuableArray addObject:option];
         }
@@ -194,13 +191,13 @@
 
         if(option.videoUrl==nil || [option.videoUrl isEqualToString:@""]){
 
-            sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl) Values (";
-            sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@')",option.quizId, option.assetUrl];
+            sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl, AssetName) Values (";
+            sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@','%@')",option.quizId, option.assetUrl, option.assetName];
         }
         else{
             
-            sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl, VideoUrl, Response) Values(";
-            sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@','%@',%d)",option.quizId, option.assetUrl, option.videoUrl, option.response];
+            sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl, VideoUrl, Response, AssetName) Values(";
+            sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@','%@',%d,'%@')",option.quizId, option.assetUrl, option.videoUrl, option.response, option.assetName];
         }
     }
     
@@ -287,7 +284,7 @@
     }
     else if(table==DBTableQuizOption){
         QuizOption *option = obj;
-        sqltemp = [NSString stringWithFormat:@"Update QuizAsset set AssetUrl='%@', VideoUrl='%@', Response=%d where Id=%d", option.assetUrl, option.videoUrl, option.response ,option.quizOptionId];
+        sqltemp = [NSString stringWithFormat:@"Update QuizAsset set AssetUrl='%@', VideoUrl='%@', Response=%d, AssetName='%@' where Id=%d", option.assetUrl, option.videoUrl, option.response, option.assetName ,option.quizOptionId];
     }
     
     sql = [sqltemp UTF8String];

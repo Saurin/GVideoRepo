@@ -1,10 +1,4 @@
-//
-//  Data.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 1/20/13.
-//  Copyright (c) 2013 Mark Wade. All rights reserved.
-//
+
 
 #import "Data.h"
 #import <Foundation/NSJSONSerialization.h>

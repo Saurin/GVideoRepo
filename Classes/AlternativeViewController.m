@@ -6,6 +6,7 @@
 
     NSMutableArray *imageFromArray, *videoFromArray, *responseFromArray;
     QuizOption *_dirtyOption;
+    NSInteger userResponse;
     
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
     UIImagePickerController *videoPicker, *imagePicker;
@@ -58,11 +59,20 @@
 -(void)viewWillLayoutSubviews {
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    self.scrollView.contentSize=CGSizeMake(self.view.frame.size.width, UIDeviceOrientationIsLandscape(orientation)?950:self.view.frame.size.height);
-    
+    self.scrollView.frame=self.view.frame;
+    if(orientation==UIDeviceOrientationFaceUp || UIDeviceOrientationIsLandscape(orientation)){
+        self.scrollView.contentSize=CGSizeMake(self.view.frame.size.width,750);
+    }
+    else{
+        self.scrollView.contentSize=CGSizeMake(self.view.frame.size.width,self.view.frame.size.height);
+    }
+
     CGRect frame = self.btnDelete.frame;
-    frame.origin.y=self.scrollView.contentSize.height-200;
+    frame.origin.y=self.scrollView.contentSize.height-80;
+//    frame.size.width = self.btnDelete.frame.size.width;
+//    frame.origin.x=self.tblImageFrom.contentOffset.x;
     [self.btnDelete setFrame:frame];
+
 }
 
 - (void)viewDidUnload {
@@ -75,14 +85,6 @@
     responseFromArray=nil;
 }
 
-//-(void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//    
-//    QuizEditViewController *edit = [[QuizEditViewController alloc] initWithNibName:@"QuizEdit" bundle:nil];
-//    edit.subject = [[Data sharedData] getSubjectAtSubjectId:43];
-//    [self presentModalViewController:edit animated:YES];
-//}
-
 -(void)viewDidLayoutSubviews {
     
     if(self.isDetailController){
@@ -91,7 +93,7 @@
 }
 
 -(void)sendSelectionNotification:(id)object {
-    //[[ApplicationNotification notification] postNotificationFromInstructionView:object userInfo:nil];
+    [[ApplicationNotification notification] postNotificationFromAlternativeView:object userInfo:nil];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -180,9 +182,15 @@
 -(BOOL)save{
     
     //do validation, or keep save button disabled
-//    _dirtyOption. = self.txtQuizName.text;
+    _dirtyOption.assetName = [self.txtOptionName.text isEqualToString:@""]?self.txtOptionName.placeholder:self.txtOptionName.text;
     if(_dirtyOption.videoUrl==nil) _dirtyOption.videoUrl = @"";
     if(_dirtyOption.assetUrl==nil) _dirtyOption.assetUrl=@"";
+    if(userResponse==0)
+        userResponse=3;         //repeat quiz
+    else if(userResponse==1)
+        userResponse=4;         //goto next quiz;
+    
+    _dirtyOption.response=userResponse;
     
     NSInteger res = [[Data sharedData] saveQuizOption:_dirtyOption];
     _dirtyOption.quizOptionId=res;
@@ -191,13 +199,13 @@
     return TRUE;
 }
 
--(void)load:(QuizPage *)quiz{
+-(void)load:(QuizOption *)option{
     
-//    self.thisQuiz = quiz;
-//    _dirtyQuiz=[self.thisQuiz copy];
-//    
-//    [self.tblVideoFrom reloadData];
-//    [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisQuiz afterDelay:0.1];
+    self.quizOption = option;
+    _dirtyOption=[self.quizOption copy];
+    
+    [self.tblImageFrom reloadData];
+    [self performSelector:@selector(sendSelectionNotification:) withObject:self.quizOption afterDelay:0.1];
 }
 
 
@@ -233,7 +241,7 @@
 {
     if(indexPath.section==0){
 
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         [cell setSelectionStyle:UITableViewCellEditingStyleNone];
         
@@ -251,12 +259,12 @@
         }
         if(self.quizOption.quizOptionId!=0){
             
-            self.txtOptionName.text = self.quizOption.assetUrl;
-            //reset image object, if already created
+            self.txtOptionName.text = self.quizOption.assetName;
             [self.imgCurrent removeFromSuperview];
             [self.imgVideoCurrent removeFromSuperview];
             self.imgCurrent = nil;
             self.imgVideoCurrent=nil;
+            userResponse=self.quizOption.response;
             
             [self makeRoundRectView:self.btnDelete layerRadius:5];
         }
@@ -271,7 +279,7 @@
     else if(indexPath.section==1){
         
         //dont want to reuse cell as we have cell image getting added on a different queue
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
 
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -298,7 +306,7 @@
     }
     else if(indexPath.section==2){
         
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
 
         if(!self.isDetailController)
@@ -328,11 +336,13 @@
     }
     
     else{
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-        
-        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
         cell.textLabel.text = [responseFromArray objectAtIndex:indexPath.row];
+        
+        if(userResponse==indexPath.row)
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         
         return  cell;
     }
@@ -374,6 +384,13 @@
     else if(indexPath.section==2 && indexPath.row>0){
 
         [self showVideoPicker:indexPath.row==1? UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary selectedCell:cell];
+    }
+    else if(indexPath.section==3){
+        userResponse=indexPath.row;
+        for (NSInteger j=0; j<responseFromArray.count ; j++) {
+            [[self.tblImageFrom cellForRowAtIndexPath:[NSIndexPath indexPathForRow:j inSection:3]] setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        [[self.tblImageFrom cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
     }
 }
 

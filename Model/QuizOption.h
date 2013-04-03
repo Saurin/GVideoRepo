@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString* assetUrl;
 @property (nonatomic, strong) NSString* videoUrl;
 @property (nonatomic) NSInteger response;
+@property (nonatomic, strong) NSString *assetName;
 
 -(id)copy;
 -(BOOL)isEqual:(QuizOption *)object;

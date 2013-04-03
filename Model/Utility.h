@@ -9,4 +9,7 @@ typedef void (^UtilityImageHandler)(NSString *url, UIImage *image);
 -(void)getImageFromAssetURL:(NSString*)url completion:(UtilityImageHandler)completionBlock;
 -(void)getThumbnailFromVideoURL:(NSString*)url completion:(UtilityImageHandler)completionBlock;
 
+-(void)setUserSettings:(NSInteger)keyValue keyName:(NSString *)keyName;
+-(NSInteger)getUserSettings:(NSString *)keyName;
+
 @end

@@ -91,7 +91,7 @@ static char * const myIndexPathAssociationKey = "";
                     // Only set cell image if the cell currently being displayed is the one that actually required this image.
                     // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
                     
-                    [cell.imageView setImage:image];
+                    [cell showImage:image];
                     
                     //to force to display image
                     [cell setEditing:YES];

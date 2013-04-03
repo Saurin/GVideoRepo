@@ -2,6 +2,7 @@
 #import "QuizViewController.h"
 #import "QuizPage.h"
 #import "QuizOption.h"
+#import "Utility.h"
 
 #define ButtonCount 12
 #define VPadding 20
@@ -55,7 +56,6 @@
     [moviePlayer stop];
     moviePlayer.contentURL = [NSURL URLWithString:videoUrl];
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated {
     [moviePlayer stop];
@@ -146,7 +146,6 @@
     
 }
 
-
 -(void)createButtons {
     
     //set up video button
@@ -175,7 +174,14 @@
         theQuizPage = [quizzes objectAtIndex:quizPageIndex];
         theQuizPage.quizOptions=[[Data sharedData] getQuizOptionsForQuizId:theQuizPage.quizId];
         
-        NSMutableArray *options = [self randomizeButtons:theQuizPage.quizOptions];
+        NSMutableArray *options;
+        if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",300]]){
+            options = theQuizPage.quizOptions;
+        }
+        else{
+            options = [self randomizeButtons:theQuizPage.quizOptions];
+        }
+        
         for(NSInteger i=0;i<options.count;i++){
             
             QuizOption *quiz = [options objectAtIndex:i];
@@ -205,7 +211,12 @@
     [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
     [videoButton addSubview:player.view];
     
-    player.controlStyle=MPMovieControlStyleEmbedded;
+    if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",100]]){
+        player.controlStyle=MPMovieControlStyleEmbedded;
+    }
+    else{
+        player.controlStyle=MPMovieControlStyleNone;
+    }
     player.movieSourceType=MPMovieSourceTypeStreaming;
     player.shouldAutoplay=YES;
     player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
@@ -253,7 +264,12 @@
             
             [btn setAlpha:1];
 
-            if(whatNext!=0) return;         //ignore touch as response video getting played
+            if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",200]]){
+                //allow to touch button and get new video....
+            }
+            else{
+                if(whatNext!=0) return;         //ignore touch as response video getting played
+            }
             
             [moviePlayer stop];         //button touched so should end current video
             

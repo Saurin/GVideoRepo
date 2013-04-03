@@ -4,6 +4,7 @@
 #import "CrudOp.h"
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>
+@property (nonatomic, retain) NSString *localSettingsPath;
 
 @property (nonatomic, strong) UIWindow *window;
 /// Things for IB

@@ -2,6 +2,7 @@
 #import "MenuTableViewController.h"
 #import "DetailViewManager.h"
 #import "DetailViewController.h"
+#import "SettingsViewController.h"
 #import "SubjectListViewController.h"
 #import "PlayViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
@@ -133,8 +134,21 @@
             default:
                 break;
         }
-
-            
+    }
+    else if (section==1){
+        switch (row) {
+            case 1:
+                
+                detailViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
+                break;
+                
+            default:{
+                
+                DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
+                detailViewController = newDetailViewController;
+                break;
+            }
+        }
     }
     else{
         

@@ -274,7 +274,7 @@
 -(BOOL)save{
     
     //do validation, or keep save button disabled
-    _dirtyQuiz.quizName = self.txtQuizName.text;
+    _dirtyQuiz.quizName = [self.txtQuizName.text isEqualToString:@""]?self.txtQuizName.placeholder:self.txtQuizName.text;
     if(_dirtyQuiz.videoUrl==nil) _dirtyQuiz.videoUrl = @"";
     
     NSInteger res = [[Data sharedData] saveQuiz:_dirtyQuiz];

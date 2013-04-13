@@ -6,6 +6,7 @@
 #import "SubjectListViewController.h"
 #import "PlayViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "WebViewController.h"
 
 @implementation MenuTableViewController {
      NSMutableArray *options;
@@ -147,21 +148,33 @@
             default:{
                 
                 DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
-                newDetailViewController.menuAtIndexPath = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
+                newDetailViewController.menuAtIndexPath = indexPath;
                 detailViewController = newDetailViewController;
                 break;
             }
         }
     }
-    else{
+    else if(section==2){
         
-        DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
-        newDetailViewController.menuAtIndexPath = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
-        detailViewController = newDetailViewController;
+        switch (row) {
+            case 0:{
+                
+                [self contactUs];
+                return nil;
+                break;
+            }
+            default:{
+
+                WebViewController *newDetailViewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
+                [newDetailViewController setLoadFor:@"http://guidedvideo.com"];
+                detailViewController = newDetailViewController;
+                
+                break;
+            }
+        }
     }
     
     detailViewController.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
-    
     detailViewManager.detailViewController = detailViewController;
     
     return indexPath;
@@ -201,8 +214,50 @@
     view.layer.masksToBounds = YES;
 }
 
+-(void)contactUs {
+    
+    MFMailComposeViewController *emailer = [[MFMailComposeViewController alloc] init];
+    emailer.mailComposeDelegate = self;
+    
+    NSArray *toRecipients = [NSArray arrayWithObject:@"guidedvideo@guidedvideo.com"];
+    NSString *mailerTitle = @"Contact Us";
+    
+    NSString *emailBody = nil;
+    NSString *AppSite = @"United States";
+    
+    emailBody = [NSString stringWithFormat:@"\n\n\nDevice: %@ (%@)\n OS: %@ \n App Version: %@ \n GuidedVideo Site: %@", [Utility device], [Utility deviceModel], [Utility deviceOS], [Utility appVersion], AppSite];
+    
+    mailerTitle = [NSString stringWithFormat:@"%@ %@", mailerTitle, [Utility appVersion]];
+    
+    [emailer setSubject:@"GuidedVideo"];
+    [emailer setToRecipients:toRecipients];
+    [emailer setTitle:mailerTitle];
+    [emailer setMessageBody:emailBody isHTML:NO];
+    
+    [[emailer navigationBar] setTintColor:[UIColor blackColor]];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        emailer.modalPresentationStyle = UIModalPresentationPageSheet;
+    }
+    [self presentModalViewController:emailer animated:YES];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+	[self dismissModalViewControllerAnimated:YES];
+    
+    if (result == MFMailComposeResultFailed) {
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"Failed to send email" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    }
+    else if(result==MFMailComposeResultSent){
+        //show thanks message here....
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"Thank You. \nWe have received your information." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    }
+}
+
 - (void)viewDidUnload {
     [self setTableView:nil];
     [super viewDidUnload];
 }
+
 @end

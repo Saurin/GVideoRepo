@@ -11,6 +11,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 }
 
 
@@ -24,5 +25,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
+
+
 
 @end

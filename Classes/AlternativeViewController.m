@@ -343,6 +343,10 @@
 
         cell.textLabel.text = [responseFromArray objectAtIndex:indexPath.row];
         
+        if(userResponse==3)
+            userResponse=0;         //repeat quiz
+        else if(userResponse==4)
+            userResponse=1;         //next quiz
         if(userResponse==indexPath.row)
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         

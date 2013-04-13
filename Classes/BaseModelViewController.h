@@ -4,4 +4,6 @@
 
 @interface BaseModelViewController : BaseViewController
 
+-(void)addBrandText;
+    
 @end

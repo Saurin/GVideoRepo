@@ -18,6 +18,19 @@
 	// Do any additional setup after loading the view.
 }
 
+-(void)addBrandText {
+    
+    CGFloat viewHeight=self.view.frame.size.height;
+    CGFloat viewWidth=self.view.frame.size.width;
+
+    UILabel *lblBrand = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight-10, viewWidth, 10)];
+    [lblBrand setBackgroundColor:[UIColor clearColor]];
+    [lblBrand setFont:[UIFont boldSystemFontOfSize:10]];
+    [lblBrand setTextAlignment:NSTextAlignmentCenter];
+    [lblBrand setText:@"GuidedVideo.com - Shake device to go back"];
+    [self.view addSubview:lblBrand];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	
     CGRect screen = [[UIScreen mainScreen] bounds];

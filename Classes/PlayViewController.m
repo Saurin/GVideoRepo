@@ -14,13 +14,12 @@ static char * const myIndexPathAssociationKey = "";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 
     subjects = [[Data sharedData] getSubjects];
     
     [self.tableView setRowHeight:75];
-    [self.tableView reloadData];
 }
 
 
@@ -30,6 +29,8 @@ static char * const myIndexPathAssociationKey = "";
     // DetailViewManager is the delegate of our split view.
     DetailViewManager *detailViewManager = (DetailViewManager*)self.splitViewController.delegate;
     [detailViewManager.masterViewController.view setFrame:CGRectZero];
+    
+    [self addBrandText];
 }
 
 - (BOOL)canBecomeFirstResponder {

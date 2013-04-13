@@ -27,7 +27,8 @@
 
 -(void)viewDidLoad {
 
-    //self.mainView = (QuizView *)self.view;
+    [super viewDidLoad];
+    [self addBrandText];
     
     //get all quizzes for this subject
     quizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
@@ -75,7 +76,6 @@
         
     }
 
-    //    [mainView redraw];
     theQuizPage=nil;
     for(NSInteger i=1;i<=ButtonCount;i++){
         [[self.view viewWithTag:i] removeFromSuperview];

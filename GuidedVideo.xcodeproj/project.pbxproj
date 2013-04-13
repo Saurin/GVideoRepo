@@ -54,6 +54,9 @@
 		BF618FC516FD7EC5001042EF /* QuizEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF618FC316FD7EC5001042EF /* QuizEdit.xib */; };
 		BF7902A91711E3FC005E3EDD /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = BF7902A71711E3FB005E3EDD /* info.png */; };
 		BF7902AA1711E3FC005E3EDD /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF7902A81711E3FB005E3EDD /* info@2x.png */; };
+		BFA5F6F517192304002E43C2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA5F6F417192304002E43C2 /* MessageUI.framework */; };
+		BFA5F6F81719416A002E43C2 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA5F6F71719416A002E43C2 /* WebViewController.m */; };
+		BFA5F6FB171942CF002E43C2 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFA5F6F9171942CF002E43C2 /* WebView.xib */; };
 		BFAE9C8416FA8FAD00239133 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8316FA8FAD00239133 /* icon.png */; };
 		BFAE9C8616FA8FBA00239133 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8516FA8FBA00239133 /* icon@2x.png */; };
 		BFAE9C8916FA904C00239133 /* GuidedVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8716FA904C00239133 /* GuidedVideo.png */; };
@@ -157,6 +160,10 @@
 		BF618FC416FD7EC5001042EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QuizEdit.xib; sourceTree = "<group>"; };
 		BF7902A71711E3FB005E3EDD /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = info.png; path = images/info.png; sourceTree = "<group>"; };
 		BF7902A81711E3FB005E3EDD /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "info@2x.png"; path = "images/info@2x.png"; sourceTree = "<group>"; };
+		BFA5F6F417192304002E43C2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		BFA5F6F61719416A002E43C2 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		BFA5F6F71719416A002E43C2 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		BFA5F6FA171942CF002E43C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WebView.xib; sourceTree = "<group>"; };
 		BFAE9C8316FA8FAD00239133 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		BFAE9C8516FA8FBA00239133 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		BFAE9C8716FA904C00239133 /* GuidedVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GuidedVideo.png; path = images/GuidedVideo.png; sourceTree = "<group>"; };
@@ -198,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA5F6F517192304002E43C2 /* MessageUI.framework in Frameworks */,
 				BF36F1A216F9021A00CD16BA /* MobileCoreServices.framework in Frameworks */,
 				BF36F1A016F901F200CD16BA /* libiconv.dylib in Frameworks */,
 				BF36F19E16F9014A00CD16BA /* QuartzCore.framework in Frameworks */,
@@ -216,6 +224,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BFA5F6F61719416A002E43C2 /* WebViewController.h */,
+				BFA5F6F71719416A002E43C2 /* WebViewController.m */,
 				BF618FB616FD7933001042EF /* QuizView_iPad.h */,
 				BF618FB716FD7933001042EF /* QuizView_iPad.m */,
 				BF36F16416F9006700CD16BA /* CustomButton.h */,
@@ -317,6 +327,7 @@
 				BFF94AD11705353A00A4EEB9 /* PreviewView.xib */,
 				BFE8E15F1707C16A004F9EEB /* AlternativeListView.xib */,
 				BFE8E168170894F8004F9EEB /* AlternativeView.xib */,
+				BFA5F6F9171942CF002E43C2 /* WebView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -324,6 +335,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFA5F6F417192304002E43C2 /* MessageUI.framework */,
 				BF36F1A116F9021A00CD16BA /* MobileCoreServices.framework */,
 				BF36F19F16F901F200CD16BA /* libiconv.dylib */,
 				BF36F19916F9011E00CD16BA /* libsqlite3.0.dylib */,
@@ -476,6 +488,7 @@
 				BFDA4B82170CEC07007C2BF3 /* SettingsView.xib in Resources */,
 				BF7902A91711E3FC005E3EDD /* info.png in Resources */,
 				BF7902AA1711E3FC005E3EDD /* info@2x.png in Resources */,
+				BFA5F6FB171942CF002E43C2 /* WebView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,6 +532,7 @@
 				BFE8E1641707C1A8004F9EEB /* AlternativeListViewController.m in Sources */,
 				BFE8E167170894E0004F9EEB /* AlternativeViewController.m in Sources */,
 				BFDA4B7C170CEBC9007C2BF3 /* SettingsViewController.m in Sources */,
+				BFA5F6F81719416A002E43C2 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +609,14 @@
 				BF618FC416FD7EC5001042EF /* en */,
 			);
 			name = QuizEdit.xib;
+			sourceTree = "<group>";
+		};
+		BFA5F6F9171942CF002E43C2 /* WebView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFA5F6FA171942CF002E43C2 /* en */,
+			);
+			name = WebView.xib;
 			sourceTree = "<group>";
 		};
 		BFDA4B7D170CEC07007C2BF3 /* MenuView.xib */ = {

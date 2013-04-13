@@ -8,6 +8,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "ImageCache.h"
 #import "AppDelegate.h"
+#include <sys/utsname.h>
 
 @implementation Utility
 
@@ -111,6 +112,24 @@
     return [[NSUserDefaults standardUserDefaults] integerForKey:keyName];
 }
 
++ (NSString*)device{
+    return [[UIDevice currentDevice]model];
+}
+
++ (NSString*)deviceModel{
+    struct utsname utsDevice;
+    uname(&utsDevice);
+    NSString *platform = [NSString stringWithUTF8String:utsDevice.machine];
+    return platform;
+}
+
++(NSString*)deviceOS{
+    return [[UIDevice currentDevice]systemVersion];
+}
+
++(NSString*)appVersion{
+    return [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
+}
 
 //get all images from photo library
 -(void)getAllImages {

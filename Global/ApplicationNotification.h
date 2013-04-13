@@ -14,4 +14,5 @@ typedef NS_ENUM(NSInteger, ANReceiver) {
 -(void)postNotificationFromSubjectView:(id)object userInfo:(NSDictionary *)userInfo;
 -(void)postNotificationFromInstructionView:(id)object userInfo:(NSDictionary *)userInfo;
 -(void)postNotificationFromAlternativeView:(id)object userInfo:(NSDictionary *)userInfo;
+-(void)postNotificationChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation;
 @end

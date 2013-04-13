@@ -21,9 +21,7 @@
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
     
-    self.title = @"Alternative";
     _dirtyOption=[self.quizOption copy];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -54,6 +52,12 @@
     {
         [self.btnDelete setHidden:YES];
     }
+    
+    [self setTitle:self.quizOption.assetName];
+    if(self.isDetailController){
+        [self performSelector:@selector(sendSelectionNotification:) withObject:self.quizOption afterDelay:0.1];
+    }
+
 }
 
 -(void)viewWillLayoutSubviews {
@@ -69,8 +73,6 @@
 
     CGRect frame = self.btnDelete.frame;
     frame.origin.y=self.scrollView.contentSize.height-80;
-//    frame.size.width = self.btnDelete.frame.size.width;
-//    frame.origin.x=self.tblImageFrom.contentOffset.x;
     [self.btnDelete setFrame:frame];
 
 }

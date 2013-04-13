@@ -25,6 +25,8 @@ static char * const myIndexPathAssociationKey = "";
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
         
+        self.title = @"Alternatives";
+        
         //we want to give only 12 options per quiz....
         if([alternatives count]<12){
             QuizOption *option = [[QuizOption alloc] init];
@@ -58,13 +60,15 @@ static char * const myIndexPathAssociationKey = "";
     //ignore other notifications, we may receive
     
     if([note.name isEqualToString:@"AlternativeListViewController"]){
-        if([note.object isKindOfClass:[Subject class]]){
+        if([note.object isKindOfClass:[QuizOption class]]){
             
             NSInteger index = [alternatives indexOfObject:note.object];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+            if(index<alternatives.count){
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             
-            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+            }
         }
     }
 }

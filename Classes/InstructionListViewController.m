@@ -13,7 +13,7 @@ static char * const myIndexPathAssociationKey = "";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"InstructionListViewController" object:nil];
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
 }

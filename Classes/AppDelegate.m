@@ -1,5 +1,6 @@
 
 #import "AppDelegate.h"
+#import "ApplicationNotification.h"
 
 @implementation AppDelegate
 
@@ -45,5 +46,8 @@
 //	dealloc
 // -------------------------------------------------------------------------------
 
+-(void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
+    [[ApplicationNotification notification] postNotificationChangeStatusBarOrientation:oldStatusBarOrientation];
+}
 
 @end

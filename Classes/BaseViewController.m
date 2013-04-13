@@ -29,5 +29,4 @@
     view.layer.masksToBounds = YES;
 }
 
-
 @end

@@ -9,6 +9,8 @@
 // Holds a reference to the popover that will be displayed
 // when the navigation button is pressed.
 @property (nonatomic, strong) UIPopoverController *navigationPopoverController;
+
+@property (nonatomic, strong) UIToolbar *masterToolBar;
 @end
 
 
@@ -30,9 +32,9 @@
     UINavigationController *detailNavController = [[UINavigationController alloc] initWithRootViewController:_detailViewController];
     [detailNavController.navigationBar setBarStyle:UIBarStyleBlack];
     
-    
     NSArray *viewControllers = [[NSArray alloc] initWithObjects:navigationViewController, detailNavController, nil];
     self.splitViewController.viewControllers = viewControllers;
+    
 }
 
 - (void)setMasterViewController:(UIViewController<SubstitutableDetailViewController> *)masterViewController
@@ -42,13 +44,22 @@
  
     UINavigationController *masterNavController = [[UINavigationController alloc] initWithRootViewController:_masterViewController];
     [masterNavController.navigationBar setBarStyle:UIBarStyleBlack];
-
+    
     //add some animation here in future
     [viewControllers replaceObjectAtIndex:0 withObject:masterNavController];
     self.splitViewController.viewControllers = viewControllers;
+    
+
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    space.width=10;
+    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
+    [info setCustomView:btn];
+
+    [_masterViewController.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:space,info, nil]];
 
 }
-
 
 #pragma mark -
 #pragma mark UISplitViewDelegate
@@ -60,8 +71,12 @@
    shouldHideViewController:(UIViewController *)vc 
               inOrientation:(UIInterfaceOrientation)orientation
 {
-    return NO;  //UIInterfaceOrientationIsPortrait(orientation);
+
+    return NO;
 }
 
+-(IBAction)didInfoClick:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"" message:@"Info view goes here.." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+}
 
 @end

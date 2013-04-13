@@ -10,7 +10,7 @@
 //@property (nonatomic, retain) UIBarButtonItem *navigationPaneBarButtonItem;
 @end
 
-@interface DetailViewManager : NSObject <UISplitViewControllerDelegate>
+@interface DetailViewManager : NSObject <UISplitViewControllerDelegate, UIApplicationDelegate>
 
 /// Things for IB
 // The split view this class will be managing.

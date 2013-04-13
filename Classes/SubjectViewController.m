@@ -42,12 +42,18 @@
             [self.detailViewManager setMasterViewController:masterController];
         }
         [self.btnDelete setHidden:NO];
+        
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
         [self.btnDelete setHidden:YES];
     }
-    
+
+    [self setTitle:self.thisSubject.subjectName];
+
+    if(self.isDetailController){
+        [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
+    }
 }
 
 - (void)viewDidUnload {
@@ -56,13 +62,6 @@
     photoLibraryPopover=nil;
     self.tblImageFrom = nil;
     imageFromArray = nil;
-}
-
--(void)viewDidLayoutSubviews {
-    
-    if(self.isDetailController){
-        [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
-    }
 }
 
 -(void)sendSelectionNotification:(id)object {
@@ -223,7 +222,6 @@
         [detailViewController setThisSubject:_dirtySubject];
         [detailViewController setIsListDetailController:YES];
         
-
         [self.navigationController pushViewController:detailViewController animated:YES];
     }
 }
@@ -270,6 +268,8 @@
     _dirtySubject.subjectId=res;
     self.thisSubject=[_dirtySubject copy];
     
+    //user might have changed subjectname...
+    [self setTitle:self.thisSubject.subjectName];
     return TRUE;
 }
 

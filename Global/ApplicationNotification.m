@@ -45,4 +45,8 @@
     }
 }
 
+-(void)postNotificationChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"OrientationChanged" object:[@"" stringByAppendingFormat:@"%d", oldStatusBarOrientation]];
+}
+
 @end

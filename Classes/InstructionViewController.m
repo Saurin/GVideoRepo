@@ -52,6 +52,11 @@
         [self.btnDelete setHidden:YES];
     }
     
+    [self setTitle:self.thisQuiz.quizName];
+    if(self.isDetailController){
+        [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisQuiz afterDelay:0.1];
+    }
+
 }
 
 - (void)viewDidUnload {
@@ -60,13 +65,6 @@
     photoLibraryPopover=nil;
     self.tblVideoFrom = nil;
     videoFromArray = nil;
-}
-
--(void)viewDidLayoutSubviews {
-    
-    if(self.isDetailController){
-        [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisQuiz afterDelay:0.1];
-    }
 }
 
 -(void)sendSelectionNotification:(id)object {
@@ -280,6 +278,9 @@
     NSInteger res = [[Data sharedData] saveQuiz:_dirtyQuiz];
     _dirtyQuiz.quizId=res;
     self.thisQuiz = [_dirtyQuiz copy];
+    
+    //user might have changed name...
+    [self setTitle:self.thisQuiz.quizName];
     
     return TRUE;
 }

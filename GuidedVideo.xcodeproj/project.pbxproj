@@ -52,6 +52,8 @@
 		BF618FBF16FD7C70001042EF /* QuizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF618FBD16FD7C70001042EF /* QuizView.xib */; };
 		BF618FC216FD7E9D001042EF /* QuizEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF618FC116FD7E9D001042EF /* QuizEditViewController.m */; };
 		BF618FC516FD7EC5001042EF /* QuizEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF618FC316FD7EC5001042EF /* QuizEdit.xib */; };
+		BF7902A91711E3FC005E3EDD /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = BF7902A71711E3FB005E3EDD /* info.png */; };
+		BF7902AA1711E3FC005E3EDD /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF7902A81711E3FB005E3EDD /* info@2x.png */; };
 		BFAE9C8416FA8FAD00239133 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8316FA8FAD00239133 /* icon.png */; };
 		BFAE9C8616FA8FBA00239133 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8516FA8FBA00239133 /* icon@2x.png */; };
 		BFAE9C8916FA904C00239133 /* GuidedVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8716FA904C00239133 /* GuidedVideo.png */; };
@@ -153,6 +155,8 @@
 		BF618FC016FD7E9D001042EF /* QuizEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizEditViewController.h; sourceTree = "<group>"; };
 		BF618FC116FD7E9D001042EF /* QuizEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizEditViewController.m; sourceTree = "<group>"; };
 		BF618FC416FD7EC5001042EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QuizEdit.xib; sourceTree = "<group>"; };
+		BF7902A71711E3FB005E3EDD /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = info.png; path = images/info.png; sourceTree = "<group>"; };
+		BF7902A81711E3FB005E3EDD /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "info@2x.png"; path = "images/info@2x.png"; sourceTree = "<group>"; };
 		BFAE9C8316FA8FAD00239133 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		BFAE9C8516FA8FBA00239133 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		BFAE9C8716FA904C00239133 /* GuidedVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GuidedVideo.png; path = images/GuidedVideo.png; sourceTree = "<group>"; };
@@ -185,8 +189,8 @@
 		D0B85E8915EE80E6006637B7 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		D0C6E47515EC37400000A627 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
 		D0C6E47615EC37400000A627 /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
-		D0EC68F715F170BA0089CF6F /* DetailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewManager.h; sourceTree = "<group>"; };
-		D0EC68F815F170BA0089CF6F /* DetailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewManager.m; sourceTree = "<group>"; };
+		D0EC68F715F170BA0089CF6F /* DetailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewManager.h; path = Classes/DetailViewManager.h; sourceTree = "<group>"; };
+		D0EC68F815F170BA0089CF6F /* DetailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewManager.m; path = Classes/DetailViewManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,8 +220,6 @@
 				BF618FB716FD7933001042EF /* QuizView_iPad.m */,
 				BF36F16416F9006700CD16BA /* CustomButton.h */,
 				BF36F16516F9006700CD16BA /* CustomButton.m */,
-				D0EC68F715F170BA0089CF6F /* DetailViewManager.h */,
-				D0EC68F815F170BA0089CF6F /* DetailViewManager.m */,
 				D0C6E47515EC37400000A627 /* MenuTableViewController.h */,
 				D0C6E47615EC37400000A627 /* MenuTableViewController.m */,
 				28AA66D4115C16800003B21C /* DetailViewController.h */,
@@ -287,6 +289,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF7902A71711E3FB005E3EDD /* info.png */,
+				BF7902A81711E3FB005E3EDD /* info@2x.png */,
 				BFC9472316FCF4EC009179E2 /* redbar.png */,
 				BFC9472416FCF4EC009179E2 /* redbar@2x.png */,
 				BF166C7216FB47E1003C97F5 /* dummy.jpg */,
@@ -383,6 +387,8 @@
 				BF1237C316F93BEA008A755D /* BaseViewController.m */,
 				BF618FAD16FD7214001042EF /* BaseModelViewController.h */,
 				BF618FAE16FD7214001042EF /* BaseModelViewController.m */,
+				D0EC68F715F170BA0089CF6F /* DetailViewManager.h */,
+				D0EC68F815F170BA0089CF6F /* DetailViewManager.m */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -468,6 +474,8 @@
 				BFE8E16A170894F8004F9EEB /* AlternativeView.xib in Resources */,
 				BFDA4B81170CEC07007C2BF3 /* MenuView.xib in Resources */,
 				BFDA4B82170CEC07007C2BF3 /* SettingsView.xib in Resources */,
+				BF7902A91711E3FC005E3EDD /* info.png in Resources */,
+				BF7902AA1711E3FC005E3EDD /* info@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +653,7 @@
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
-				PROVISIONING_PROFILE = "C145FB73-CDF8-4805-B623-C111C5DC5206";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -661,7 +669,7 @@
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
-				PROVISIONING_PROFILE = "C145FB73-CDF8-4805-B623-C111C5DC5206";
+				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
 			};

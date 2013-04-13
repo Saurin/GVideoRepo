@@ -15,33 +15,6 @@
 
 -(void)viewDidLoad
 {
-//    CustomButton *btn = [[CustomButton alloc] initWithFrame:CGRectMake(10, 10, 100, 60)];
-//    btn.tag =1;
-//    [self.view addSubview:btn];
-//    [btn setHidden:NO];
-//    [btn setEditable:YES];
-//    btn.delegate=self;
-//    btn.presentingController=self;
-//
-//  
-//    Subject *thisSubject = [[Subject alloc] init];
-//    thisSubject.subjectId=0;
-//    thisSubject.subjectName=@"Math";
-//    thisSubject.assetUrl=@"assets-library://asset/asset.JPG?id=168F7973-EFFA-49AF-B4D5-BB616E4F7451&ext=JPG";
-//    [[Data sharedData] saveSubject:thisSubject];
-//
-//    thisSubject.subjectId=0;
-//    thisSubject.subjectName=@"Science";
-//    thisSubject.assetUrl=@"assets-library://asset/asset.JPG?id=B060981F-FAFF-4A69-8154-4BC64C247801&ext=JPG";
-//    [[Data sharedData] saveSubject:thisSubject];
-//
-//    thisSubject.subjectId=0;
-//    thisSubject.subjectName=@"Family";
-//    thisSubject.assetUrl=@"assets-library://asset/asset.JPG?id=CC31A95B-8C4C-420A-8ADE-250FEF29CB78&ext=JPG";
-//    [[Data sharedData] saveSubject:thisSubject];
-//
-//    NSMutableArray *subjects = [[Data sharedData] getSubjects];
-    
     options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure Me",@"Play with Me",nil]
                ,[NSMutableArray arrayWithObjects:@"Tutorial",@"Settings",@"Feedback",nil]
                ,[NSMutableArray arrayWithObjects:@"Contact Us",@"About Us",nil]
@@ -49,7 +22,6 @@
     
     
     self.title = @"Guided Video";
-    
     self.clearsSelectionOnViewWillAppear = NO;
 }
 
@@ -58,7 +30,13 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
     return YES;
+}
+
+-(BOOL)shouldAutorotate {
+    [super shouldAutorotate];
+    return  YES;
 }
 
 #pragma mark -
@@ -123,12 +101,36 @@
                 break;
             }
             case 1:{
-
-                PlayViewController *newDetailViewController = [[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil];
-                [self.navigationController presentModalViewController:newDetailViewController animated:YES];
                 
-                return nil;             //we dont want play me shown selected
+                if([[[Utility alloc] init] getUserSettings:@"Configure"]==0){
+                
+                    [OHAlertView showAlertWithTitle:@"" message:@"Shake your device to come out of Play mode. You should turn on Guided Access, if not yet. Do you want continue and quit edit mode?" cancelButton:@"Don't Show me again" otherButtons:[NSArray arrayWithObjects:@"OK",@"Cancel", nil] onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                        switch (buttonIndex) {
+                           
+                            case 0:
+                                [[[Utility alloc] init] setUserSettings:1 keyName:@"Configure"];
+                                [self.navigationController presentModalViewController:[[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil] animated:YES];
 
+                                break;
+                            
+                            case 1:{
+
+                                [self.navigationController presentModalViewController:[[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil] animated:YES];
+                                
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+                    }];
+                }
+                else{
+
+                    [self.navigationController presentModalViewController:[[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil] animated:YES];
+
+                }
+                
+                return nil;
                 break;
             }
             default:
@@ -145,6 +147,7 @@
             default:{
                 
                 DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
+                newDetailViewController.menuAtIndexPath = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
                 detailViewController = newDetailViewController;
                 break;
             }
@@ -153,6 +156,7 @@
     else{
         
         DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
+        newDetailViewController.menuAtIndexPath = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
         detailViewController = newDetailViewController;
     }
     

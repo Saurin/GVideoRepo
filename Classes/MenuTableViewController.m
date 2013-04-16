@@ -127,7 +127,8 @@
                 }
                 else{
 
-                    [self.navigationController presentModalViewController:[[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil] animated:YES];
+                    PlayViewController *playVC = [[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil];
+                    [self.navigationController presentModalViewController:playVC animated:YES];
 
                 }
                 

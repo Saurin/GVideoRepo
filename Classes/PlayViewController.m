@@ -29,7 +29,10 @@ static char * const myIndexPathAssociationKey = "";
     // DetailViewManager is the delegate of our split view.
     DetailViewManager *detailViewManager = (DetailViewManager*)self.splitViewController.delegate;
     [detailViewManager.masterViewController.view setFrame:CGRectZero];
-    
+}
+
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     [self addBrandText];
 }
 
@@ -109,6 +112,7 @@ static char * const myIndexPathAssociationKey = "";
 {
     QuizViewController *quizVC = [[QuizViewController alloc] initWithNibName:@"QuizView" bundle:nil];
     quizVC.subject = [subjects objectAtIndex:indexPath.row];
+    quizVC.lockOrientation=YES;
     [self presentModalViewController:quizVC animated:YES];
 }
 

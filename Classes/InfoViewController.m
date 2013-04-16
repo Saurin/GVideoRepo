@@ -13,12 +13,19 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
 
-    [[[UIAlertView alloc] initWithTitle:[[self.sender class] description] message:@"Info view goes here.." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+    [[[OHAlertView alloc] initWithTitle:[[self.sender class] description] message:@"Info view goes here..." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] showWithTimeout:2 timeoutButtonIndex:0];
 
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    [self.view addSubview:toolbar];
+    [toolbar setBarStyle:UIBarStyleBlackOpaque];
+    
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(didDoneClick:)];
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    toolbar.items=[NSArray arrayWithObjects:space,done, nil];
 }
 
 - (void)didReceiveMemoryWarning

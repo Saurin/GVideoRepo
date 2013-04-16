@@ -4,6 +4,9 @@
 
 @interface BaseModelViewController : BaseViewController
 
+@property BOOL lockOrientation;
+
 -(void)addBrandText;
+
     
 @end

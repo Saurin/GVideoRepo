@@ -31,9 +31,13 @@
 }
 
 -(IBAction)didInfoClick:(id)sender {
+    
+    
     InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:nil];
     info.sender = sender;
-    [self.navigationController presentModalViewController:info animated:YES];
+
+    info.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:info animated:YES completion:nil];
 }
 
 @end

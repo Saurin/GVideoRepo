@@ -166,7 +166,7 @@
             default:{
 
                 WebViewController *newDetailViewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
-                [newDetailViewController setLoadFor:@"http://guidedvideo.com"];
+                [newDetailViewController setLoadFor:@"http://www.guidedvieo.com"];
                 detailViewController = newDetailViewController;
                 
                 break;

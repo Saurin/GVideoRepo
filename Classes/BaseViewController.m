@@ -1,5 +1,6 @@
 
 #import "BaseViewController.h"
+#import "InfoViewController.h"
 
 @implementation BaseViewController
 
@@ -27,6 +28,12 @@
 -(void)makeRoundRectView:(UIView *)view layerRadius:(NSInteger)radius {
     view.layer.cornerRadius = radius;
     view.layer.masksToBounds = YES;
+}
+
+-(IBAction)didInfoClick:(id)sender {
+    InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:nil];
+    info.sender = sender;
+    [self.navigationController presentModalViewController:info animated:YES];
 }
 
 @end

@@ -11,7 +11,7 @@
 #import "DetailViewManager.h"
 #import "ApplicationNotification.h"
 
-@interface BaseViewController : UIViewController 
+@interface BaseViewController : UIViewController <SubstitutableDetailViewController>
 
 /// SubstitutableDetailViewController
 @property (nonatomic, strong) UIBarButtonItem *navigationPaneBarButtonItem;

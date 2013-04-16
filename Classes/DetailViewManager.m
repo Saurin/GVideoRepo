@@ -76,7 +76,8 @@
 }
 
 -(IBAction)didInfoClick:(id)sender {
-    [[[UIAlertView alloc] initWithTitle:@"" message:@"Info view goes here.." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+
+    [self.detailViewController didInfoClick:self.masterViewController];
 }
 
 @end

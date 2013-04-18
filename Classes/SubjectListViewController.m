@@ -15,6 +15,7 @@ static char * const myIndexPathAssociationKey = "";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"SubjectListViewController" object:nil];
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
+    [self setOtherRightBarButtons:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated

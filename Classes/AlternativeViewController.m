@@ -36,7 +36,7 @@
         UIBarButtonItem *saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveClick:)];
         
         [saveQuiz setTintColor:[UIColor blueColor]];
-        [self.navigationItem setRightBarButtonItem:saveQuiz];
+        [self setOtherRightBarButtons:[NSArray arrayWithObject:saveQuiz]];
         
         //change it to AlternativeListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[AlternativeListViewController class]]){

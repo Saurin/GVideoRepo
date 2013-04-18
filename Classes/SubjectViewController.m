@@ -34,7 +34,7 @@
         UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
         
         [saveSubject setTintColor:[UIColor blueColor]];
-        [self.navigationItem setRightBarButtonItem:saveSubject];
+        [self setOtherRightBarButtons:[NSArray arrayWithObject:saveSubject]];
         
         //if masterviewcontroller is not SubjectListViewController, change it to SubjectListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectListViewController class]]){

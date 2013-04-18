@@ -37,7 +37,7 @@
         UIBarButtonItem *saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveQuizAndNextClick:)];
         
         [saveQuiz setTintColor:[UIColor blueColor]];
-        [self.navigationItem setRightBarButtonItem:saveQuiz];
+        [self setOtherRightBarButtons:[NSArray arrayWithObject:saveQuiz]];
         
         //if masterviewcontroller is not InsturctionListViewController, change it to InsturctionListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[InstructionListViewController class]]){

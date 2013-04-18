@@ -49,17 +49,9 @@
     [viewControllers replaceObjectAtIndex:0 withObject:masterNavController];
     self.splitViewController.viewControllers = viewControllers;
     
-
-    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    space.width=10;
-    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
-    [info setCustomView:btn];
-
-    [_masterViewController.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:space,info, nil]];
-
 }
+
+
 
 #pragma mark -
 #pragma mark UISplitViewDelegate
@@ -73,11 +65,6 @@
 {
 
     return NO;
-}
-
--(IBAction)didInfoClick:(id)sender {
-
-    [self.detailViewController didInfoClick:self.masterViewController];
 }
 
 @end

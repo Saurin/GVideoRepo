@@ -26,7 +26,7 @@
     CGFloat viewHeight=self.view.frame.size.height;
     CGFloat viewWidth=self.view.frame.size.width;
 
-    lblBrand = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight-10, viewWidth, 10)];
+    lblBrand = [[UILabel alloc] initWithFrame:CGRectMake(0, viewHeight-15, viewWidth, 10)];
     NSLog(@"%f %f %f %f",lblBrand.frame.origin.x,lblBrand.frame.origin.y,lblBrand.frame.size.height,lblBrand.frame.size.width);
     [lblBrand setBackgroundColor:[UIColor clearColor]];
     [lblBrand setFont:[UIFont boldSystemFontOfSize:10]];

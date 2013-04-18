@@ -17,7 +17,7 @@
 -(void)viewDidLoad
 {
     options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure Me",@"Play with Me",nil]
-               ,[NSMutableArray arrayWithObjects:@"Tutorial",@"Settings",@"Feedback",nil]
+               ,[NSMutableArray arrayWithObjects:@"Settings",@"Feedback",nil]
                ,[NSMutableArray arrayWithObjects:@"Contact Us",@"About Us",nil]
                , nil];
     
@@ -217,6 +217,12 @@
 
 -(void)contactUs {
     
+    if(![MFMailComposeViewController canSendMail]){
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"Either no email account configured or all of them are disabled. \nPlease goto Settings app and configure it." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+        
+        return;
+    }
+    
     MFMailComposeViewController *emailer = [[MFMailComposeViewController alloc] init];
     emailer.mailComposeDelegate = self;
     
@@ -252,7 +258,7 @@
     }
     else if(result==MFMailComposeResultSent){
         //show thanks message here....
-        [[[UIAlertView alloc] initWithTitle:@"" message:@"Thank You. \nWe have received your information." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+        //[[[UIAlertView alloc] initWithTitle:@"" message:@"Thank You. \nWe have received your information." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
     }
 }
 

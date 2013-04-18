@@ -8,7 +8,6 @@
  */
 @protocol SubstitutableDetailViewController
 //@property (nonatomic, retain) UIBarButtonItem *navigationPaneBarButtonItem;
--(IBAction)didInfoClick:(id)sender;
 @end
 
 @interface DetailViewManager : NSObject <UISplitViewControllerDelegate, UIApplicationDelegate>

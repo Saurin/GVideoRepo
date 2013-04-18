@@ -33,11 +33,35 @@
 -(IBAction)didInfoClick:(id)sender {
     
     
+    
     InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:nil];
-    info.sender = sender;
+    info.sender = [[self.navigationController.viewControllers lastObject] class];
 
     info.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:info animated:YES completion:nil];
+}
+
+-(void)setOtherRightBarButtons:(NSArray *)items {
+    
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    space.width=10;
+    
+    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
+    [info setCustomView:btn];
+    
+    NSMutableArray *allItems;
+    if (items!=nil) {
+        allItems = [NSMutableArray arrayWithArray:items];
+        [allItems addObject:space];
+        [allItems addObject:info];
+    }
+    else{
+        allItems = [NSMutableArray arrayWithObjects:space,info,nil];
+    }
+    
+    [self.navigationItem setRightBarButtonItems:allItems];
 }
 
 @end

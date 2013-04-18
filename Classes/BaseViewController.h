@@ -19,4 +19,7 @@
 
 -(void)makeRoundRectView:(UIView *)view layerRadius:(NSInteger)radius;
 
+//allow to set navigation buttons on right side
+-(void)setOtherRightBarButtons:(NSArray *)items;
+
 @end

@@ -17,6 +17,8 @@
 		7E9552EE11766B410003D25C /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552E811766B410003D25C /* DetailView.xib */; };
 		7E9552EF11766B410003D25C /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552EA11766B410003D25C /* MainWindow.xib */; };
 		7E9552F011766B410003D25C /* SubjectListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552EC11766B410003D25C /* SubjectListView.xib */; };
+		BF028F4C1720A83F00DCAE92 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = BF028F4B1720A83F00DCAE92 /* save.png */; };
+		BF028F4E1720A95500DCAE92 /* get_info.png in Resources */ = {isa = PBXBuildFile; fileRef = BF028F4D1720A95500DCAE92 /* get_info.png */; };
 		BF1237C116F93B20008A755D /* SubjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C016F93B20008A755D /* SubjectListViewController.m */; };
 		BF1237C416F93BEB008A755D /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C316F93BEA008A755D /* BaseViewController.m */; };
 		BF1237CA16F962DB008A755D /* SubjectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1237C816F962DB008A755D /* SubjectView.xib */; };
@@ -105,6 +107,8 @@
 		7E9552EB11766B410003D25C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		7E9552ED11766B410003D25C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SubjectListView.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GuidedVideo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GuidedVideo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		BF028F4B1720A83F00DCAE92 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = save.png; path = images/save.png; sourceTree = "<group>"; };
+		BF028F4D1720A95500DCAE92 /* get_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = get_info.png; path = images/get_info.png; sourceTree = "<group>"; };
 		BF1237BF16F93B20008A755D /* SubjectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectListViewController.h; sourceTree = "<group>"; };
 		BF1237C016F93B20008A755D /* SubjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectListViewController.m; sourceTree = "<group>"; };
 		BF1237C216F93BEA008A755D /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = Classes/BaseViewController.h; sourceTree = "<group>"; };
@@ -310,6 +314,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF028F4D1720A95500DCAE92 /* get_info.png */,
+				BF028F4B1720A83F00DCAE92 /* save.png */,
 				BFA5F6FC171CDD38002E43C2 /* backIcon.png */,
 				BFA5F6FD171CDD38002E43C2 /* forwardIcon.png */,
 				BF7902A71711E3FB005E3EDD /* info.png */,
@@ -506,6 +512,8 @@
 				BFA5F6FE171CDD38002E43C2 /* backIcon.png in Resources */,
 				BFA5F6FF171CDD38002E43C2 /* forwardIcon.png in Resources */,
 				BFA5F702171CE0F7002E43C2 /* InfoView.xib in Resources */,
+				BF028F4C1720A83F00DCAE92 /* save.png in Resources */,
+				BF028F4E1720A95500DCAE92 /* get_info.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

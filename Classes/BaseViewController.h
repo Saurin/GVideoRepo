@@ -21,5 +21,5 @@
 
 //allow to set navigation buttons on right side
 -(void)setOtherRightBarButtons:(NSArray *)items;
-
+-(void)setNoRightBarButton;
 @end

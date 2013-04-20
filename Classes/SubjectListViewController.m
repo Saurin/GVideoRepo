@@ -15,6 +15,7 @@ static char * const myIndexPathAssociationKey = "";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"SubjectListViewController" object:nil];
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
+    [self setOtherRightBarButtons:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -23,7 +24,6 @@ static char * const myIndexPathAssociationKey = "";
     
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
-        [self setOtherRightBarButtons:nil];
         
         //we want to give only 12 subjects as free....
         if([subjects count]<12){
@@ -41,7 +41,6 @@ static char * const myIndexPathAssociationKey = "";
     }
     else {
         self.title = @"Subjects";
-        [self setNoRightBarButton];
     }
     
     [self.tableView setRowHeight:75];

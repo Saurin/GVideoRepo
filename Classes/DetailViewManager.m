@@ -48,6 +48,7 @@
     //add some animation here in future
     [viewControllers replaceObjectAtIndex:0 withObject:masterNavController];
     self.splitViewController.viewControllers = viewControllers;
+    
 }
 
 

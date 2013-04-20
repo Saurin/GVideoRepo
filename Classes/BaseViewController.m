@@ -35,31 +35,21 @@
     
     
     InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:nil];
-    info.sender = (UIViewController *)[self.navigationController.viewControllers lastObject];
+    info.sender = [[self.navigationController.viewControllers lastObject] class];
 
     info.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:info animated:YES completion:nil];
 }
 
 -(void)setOtherRightBarButtons:(NSArray *)items {
-
+    
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     space.width=10;
     
-    //UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
-    //UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    //[btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
-    //[info setCustomView:btn];
-
-    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"info.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(didInfoClick:)];
-        
-
-//    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [btn setFrame:CGRectMake(0, 0, 24, 24)];
-//    [btn setImage:[UIImage imageNamed:@"get_info.png"] forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
-//    [info setCustomView:btn];
+    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
+    [info setCustomView:btn];
     
     NSMutableArray *allItems;
     if (items!=nil) {
@@ -72,11 +62,6 @@
     }
     
     [self.navigationItem setRightBarButtonItems:allItems];
-}
-
--(void)setNoRightBarButton {
-    UIBarButtonItem *noButton = [[UIBarButtonItem alloc] init];
-    [self.navigationItem setRightBarButtonItem:noButton];
 }
 
 @end

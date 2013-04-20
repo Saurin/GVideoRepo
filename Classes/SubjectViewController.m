@@ -31,21 +31,22 @@
 
         _dirtySubject=[self.thisSubject copy];
         
+        UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
+        
+        [saveSubject setTintColor:[UIColor blueColor]];
+        [self setOtherRightBarButtons:[NSArray arrayWithObject:saveSubject]];
+        
         //if masterviewcontroller is not SubjectListViewController, change it to SubjectListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectListViewController class]]){
             SubjectListViewController *masterController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
             [self.detailViewManager setMasterViewController:masterController];
         }
+        [self.btnDelete setHidden:NO];
         
-        [self makeRoundRectView:self.btnSave layerRadius:5];
-        //show delete button only when user is editing existing subject
-        if(self.thisSubject.subjectId!=0)
-            [self showDeleteButton:YES];
+        [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
-        //[self showDeleteButton:NO];
-        //[self setNoRightBarButton];
-        [self.btnSave setHidden:YES];
+        [self.btnDelete setHidden:YES];
     }
 
     [self setTitle:self.thisSubject.subjectName];
@@ -61,16 +62,6 @@
     photoLibraryPopover=nil;
     self.tblImageFrom = nil;
     imageFromArray = nil;
-}
-
--(void)showDeleteButton:(BOOL)show {
-    if(show){
-        self.btnDelete = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(didSubjectDeleteClick:)];
-        [self setOtherRightBarButtons:[NSArray arrayWithObjects:self.btnDelete,nil]];
-    }
-    else{
-        [self setOtherRightBarButtons:nil];
-    }
 }
 
 -(void)sendSelectionNotification:(id)object {
@@ -143,11 +134,11 @@
                 [self.imgCurrent removeFromSuperview];
                 self.imgCurrent = nil;
                 
-                [self makeRoundRectView:self.btnSave layerRadius:5];
+                [self makeRoundRectView:self.btnDelete layerRadius:5];
             }
             //hide delete button while adding a new one
             else{
-                [self showDeleteButton:NO];
+                [self.btnDelete setHidden:YES];
             }
         }
     }

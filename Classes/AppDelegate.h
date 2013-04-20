@@ -7,6 +7,8 @@
 @property (nonatomic, retain) NSString *localSettingsPath;
 
 @property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) NSMutableArray *helpArray;
+
 /// Things for IB
 @property (nonatomic, strong) IBOutlet UISplitViewController *splitViewController;
 // DetailViewManager is assigned as the Split View Controller's delegate.

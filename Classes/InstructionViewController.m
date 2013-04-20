@@ -45,7 +45,8 @@
             [masterController setThisSubject:[[Data sharedData] getSubjectAtSubjectId:self.thisQuiz.subjectId]];
             [self.detailViewManager setMasterViewController:masterController];
         }
-        [self.btnDelete setHidden:NO];
+        if(self.thisQuiz.quizId!=0)
+            [self.btnDelete setHidden:NO];
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{

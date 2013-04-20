@@ -15,7 +15,6 @@ static char * const myIndexPathAssociationKey = "";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"SubjectListViewController" object:nil];
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
-    [self setOtherRightBarButtons:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -24,6 +23,7 @@ static char * const myIndexPathAssociationKey = "";
     
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
+        [self setOtherRightBarButtons:nil];
         
         //we want to give only 12 subjects as free....
         if([subjects count]<12){
@@ -32,7 +32,7 @@ static char * const myIndexPathAssociationKey = "";
             sub.subjectName=@"Add a new Subject...";
             [subjects addObject:sub];
         }
-    
+        
         //if masterviewcontroller is not menu, change it to MenuTableViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[MenuTableViewController class]]){
             MenuTableViewController *menuController = [[MenuTableViewController alloc] initWithNibName:@"MenuView" bundle:nil];
@@ -58,7 +58,7 @@ static char * const myIndexPathAssociationKey = "";
     
     if([note.name isEqualToString:@"SubjectListViewController"]){
         if([note.object isKindOfClass:[Subject class]]){
-
+            
             NSInteger index = [subjects indexOfObject:note.object];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             
@@ -83,11 +83,11 @@ static char * const myIndexPathAssociationKey = "";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Subject *thisSubject = [subjects objectAtIndex:indexPath.row];
-
+    
     //No image, regular UITableViewCell for Add Subject cell...
     if(self.isListDetailController && thisSubject.subjectId==0){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-
+        
         cell.textLabel.text = thisSubject.subjectName;
         cell.tag = thisSubject.subjectId;
         
@@ -95,7 +95,7 @@ static char * const myIndexPathAssociationKey = "";
         
     }
     else{
-
+        
         //dont want to reuse cell as we have cell image getting added on a different queue
         ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
@@ -119,22 +119,22 @@ static char * const myIndexPathAssociationKey = "";
         // Can change priority by replacing HIGH with DEFAULT or LOW if desired.
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_async(queue, ^{
-
+            
             [[Utility alloc] getImageFromAssetURL:thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
-
+                
                 // Code to actually update the cell once the image is obtained must be run on the main queue.
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSIndexPath *cellIndexPath = (NSIndexPath *)objc_getAssociatedObject(cell, myIndexPathAssociationKey);
                     if ([indexPath isEqual:cellIndexPath]) {
                         // Only set cell image if the cell currently being displayed is the one that actually required this image.
                         // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
-
+                        
                         [cell showImage:image];
                     }
                 });
             }];
         });
-
+        
         return cell;
     }
 }

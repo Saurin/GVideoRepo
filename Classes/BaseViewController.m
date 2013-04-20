@@ -2,7 +2,9 @@
 #import "BaseViewController.h"
 #import "InfoViewController.h"
 
-@implementation BaseViewController
+@implementation BaseViewController {
+    UIButton *btnInfo;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -19,6 +21,13 @@
 	// Do any additional setup after loading the view.
 }
 
+-(void)viewDidLayoutSubviews {
+    
+    if(btnInfo!=nil){
+        [btnInfo setFrame:CGRectMake(self.view.frame.size.width-30, 0, 30, 30)];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -32,10 +41,8 @@
 
 -(IBAction)didInfoClick:(id)sender {
     
-    
-    
     InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:nil];
-    info.sender = [[self.navigationController.viewControllers lastObject] class];
+    info.sender = [[((UIViewController *)[self.navigationController.viewControllers lastObject]) class] description];
 
     info.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:info animated:YES completion:nil];
@@ -43,22 +50,25 @@
 
 -(void)setOtherRightBarButtons:(NSArray *)items {
     
+    if(btnInfo!=nil){
+        [btnInfo removeFromSuperview];
+    }
+    btnInfo = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    [btnInfo addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
+    [btnInfo setFrame:CGRectMake(self.view.frame.size.width-30, 0, 30, 30)];
+    [self.view addSubview:btnInfo];
+
+    
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     space.width=10;
-    
-    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [btn addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
-    [info setCustomView:btn];
     
     NSMutableArray *allItems;
     if (items!=nil) {
         allItems = [NSMutableArray arrayWithArray:items];
         [allItems addObject:space];
-        [allItems addObject:info];
     }
     else{
-        allItems = [NSMutableArray arrayWithObjects:space,info,nil];
+        allItems = [NSMutableArray arrayWithObjects:space,nil];
     }
     
     [self.navigationItem setRightBarButtonItems:allItems];

@@ -45,7 +45,8 @@
             [self.detailViewManager setMasterViewController:masterController];
         }
         
-        [self.btnDelete setHidden:NO];
+        if(self.quizOption.quizOptionId!=0)
+            [self.btnDelete setHidden:NO];
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else

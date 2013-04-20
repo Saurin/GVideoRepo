@@ -1,9 +1,12 @@
 
 #import "BaseModelViewController.h"
+#import "AppDelegate.h"
+#import "Help.h"
 
 @interface InfoViewController : BaseModelViewController
 
-@property (nonatomic, strong) UIViewController *sender;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSString *sender;
 -(IBAction)didDoneClick:(id)sender;
 
 @end

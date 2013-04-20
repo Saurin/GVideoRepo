@@ -18,17 +18,17 @@
     [super viewDidLoad];
     imageFromArray = [NSMutableArray arrayWithObjects:@"Current Image",@"Camera",@"Photo Library", nil];
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
-
+    
     self.title = @"Subject";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    
     //add right bar button to save subject and move to instructions
     //only if VC is DetailViewController
     if(self.isDetailController){
-
+        
         _dirtySubject=[self.thisSubject copy];
         
         UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
@@ -41,16 +41,17 @@
             SubjectListViewController *masterController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
             [self.detailViewManager setMasterViewController:masterController];
         }
-        [self.btnDelete setHidden:NO];
-        
+
+        if(self.thisSubject.subjectId!=0)
+            [self.btnDelete setHidden:NO];
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
         [self.btnDelete setHidden:YES];
     }
-
+    
     [self setTitle:self.thisSubject.subjectName];
-
+    
     if(self.isDetailController){
         [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
     }
@@ -129,7 +130,7 @@
             if(self.thisSubject.subjectId!=0){
                 
                 self.txtSubject.text = self.thisSubject.subjectName;
-
+                
                 //reset image object, if already created
                 [self.imgCurrent removeFromSuperview];
                 self.imgCurrent = nil;
@@ -143,7 +144,7 @@
         }
     }
     else{
-
+        
         if(!self.isDetailController) [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         cell.textLabel.text = [imageFromArray objectAtIndex:indexPath.row];
@@ -153,7 +154,7 @@
             cell.detailTextLabel.text = self.thisSubject.assetUrl;
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             if(self.imgCurrent==Nil){
-
+                
                 [[Utility alloc] getImageFromAssetURL:self.thisSubject.assetUrl completion:^(NSString *url, UIImage *image) {
                     
                     self.imgCurrent = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
@@ -164,7 +165,7 @@
             }
         }
     }
-
+    
     return cell;
 }
 
@@ -188,7 +189,7 @@
 
 #pragma Save subject
 -(IBAction)didSubjectDeleteClick:(id)sender {
-
+    
     [[[OHAlertView alloc] initWithTitle:@""
                                 message:@"Do you want to delete this Subject? You can't recover it once deleted."
                            cancelButton:@"Cancel"
@@ -199,7 +200,7 @@
                                  [self.navigationController popViewControllerAnimated:YES];
                              }
                          }] show];
-
+    
 }
 
 -(IBAction)didSaveSubjectAndNextClick:(id)sender
@@ -210,13 +211,13 @@
     imagePicker=nil;
     
     if([self save]){
-
+        
         //Now change MasterViewController to show readonly suject
         SubjectViewController *masterViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
         [masterViewController setIsDetailController:NO];
         [masterViewController setThisSubject:_dirtySubject];
         [self.detailViewManager setMasterViewController:masterViewController];
-
+        
         //push it to Instruction List as DetailViewController
         InstructionListViewController *detailViewController = [[InstructionListViewController alloc] initWithNibName:@"InstructionListView" bundle:nil];
         [detailViewController setThisSubject:_dirtySubject];
@@ -227,28 +228,28 @@
 }
 
 -(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
-
+    
     //hide keyboard or dismiss popover
     [self.txtSubject resignFirstResponder];
     [photoLibraryPopover dismissPopoverAnimated:YES];
-
+    
     _dirtySubject.subjectName = self.txtSubject.text;
     if(![self.thisSubject isEqual:_dirtySubject]){
         
         [[[OHAlertView alloc] initWithTitle:@""
-                message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
-               cancelButton:@"No"
-               otherButtons:[NSArray arrayWithObject:@"Yes"]
-                 onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-                     if(buttonIndex==1){
-                         [self save];
-                         [self.delegate didSubjectChange:_dirtySubject];
-                         [self load:newSubject];
-                     }
-                     else{
-                         [self load:newSubject];
-                     }
-             }] show];
+                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
+                               cancelButton:@"No"
+                               otherButtons:[NSArray arrayWithObject:@"Yes"]
+                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                                 if(buttonIndex==1){
+                                     [self save];
+                                     [self.delegate didSubjectChange:_dirtySubject];
+                                     [self load:newSubject];
+                                 }
+                                 else{
+                                     [self load:newSubject];
+                                 }
+                             }] show];
     }
     //we have no changes detected, load new subject
     else{
@@ -261,7 +262,7 @@
 -(BOOL)save{
     
     //do validation, or keep save button disabled
-    _dirtySubject.subjectName = [self.txtSubject.text isEqualToString:@""]?self.txtSubject.placeholder  :self.txtSubject.text;
+    _dirtySubject.subjectName = [self.txtSubject.text isEqualToString:@""]?self.txtSubject.placeholder:self.txtSubject.text;
     if(_dirtySubject.assetUrl==nil) _dirtySubject.assetUrl = @"";
     
     NSInteger res = [[Data sharedData] saveSubject:_dirtySubject];
@@ -328,7 +329,7 @@
 {
     NSString *assetURL = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] description];
     UIImage *pickedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-
+    
     // If there is no imageUrl, this was taken from the camera and needs to be saved.
     if (assetURL == nil)
     {
@@ -350,7 +351,7 @@
     {
         _dirtySubject.assetUrl = assetURL;
         [self showSelectedImageWithURL:assetURL];
-
+        
         //close popover and picker
         [photoLibraryPopover dismissPopoverAnimated:YES];
         [picker dismissViewControllerAnimated:YES completion:^{

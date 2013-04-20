@@ -17,6 +17,8 @@
 		7E9552EE11766B410003D25C /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552E811766B410003D25C /* DetailView.xib */; };
 		7E9552EF11766B410003D25C /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552EA11766B410003D25C /* MainWindow.xib */; };
 		7E9552F011766B410003D25C /* SubjectListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552EC11766B410003D25C /* SubjectListView.xib */; };
+		BF028F541723125400DCAE92 /* Help.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF028F531723125400DCAE92 /* Help.plist */; };
+		BF028F5717232CE800DCAE92 /* Help.m in Sources */ = {isa = PBXBuildFile; fileRef = BF028F5617232CE800DCAE92 /* Help.m */; };
 		BF1237C116F93B20008A755D /* SubjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C016F93B20008A755D /* SubjectListViewController.m */; };
 		BF1237C416F93BEB008A755D /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C316F93BEA008A755D /* BaseViewController.m */; };
 		BF1237CA16F962DB008A755D /* SubjectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1237C816F962DB008A755D /* SubjectView.xib */; };
@@ -105,6 +107,9 @@
 		7E9552EB11766B410003D25C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		7E9552ED11766B410003D25C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SubjectListView.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GuidedVideo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GuidedVideo-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		BF028F531723125400DCAE92 /* Help.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Help.plist; sourceTree = "<group>"; };
+		BF028F5517232CE800DCAE92 /* Help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Help.h; sourceTree = "<group>"; };
+		BF028F5617232CE800DCAE92 /* Help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Help.m; sourceTree = "<group>"; };
 		BF1237BF16F93B20008A755D /* SubjectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectListViewController.h; sourceTree = "<group>"; };
 		BF1237C016F93B20008A755D /* SubjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectListViewController.m; sourceTree = "<group>"; };
 		BF1237C216F93BEA008A755D /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = Classes/BaseViewController.h; sourceTree = "<group>"; };
@@ -342,6 +347,7 @@
 				BFE8E168170894F8004F9EEB /* AlternativeView.xib */,
 				BFA5F6F9171942CF002E43C2 /* WebView.xib */,
 				BFA5F700171CE0F7002E43C2 /* InfoView.xib */,
+				BF028F531723125400DCAE92 /* Help.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -385,6 +391,8 @@
 				BF36F17F16F9008F00CD16BA /* QuizPage.m */,
 				BF36F18016F9008F00CD16BA /* Subject.h */,
 				BF36F18116F9008F00CD16BA /* Subject.m */,
+				BF028F5517232CE800DCAE92 /* Help.h */,
+				BF028F5617232CE800DCAE92 /* Help.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -506,6 +514,7 @@
 				BFA5F6FE171CDD38002E43C2 /* backIcon.png in Resources */,
 				BFA5F6FF171CDD38002E43C2 /* forwardIcon.png in Resources */,
 				BFA5F702171CE0F7002E43C2 /* InfoView.xib in Resources */,
+				BF028F541723125400DCAE92 /* Help.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +560,7 @@
 				BFDA4B7C170CEBC9007C2BF3 /* SettingsViewController.m in Sources */,
 				BFA5F6F81719416A002E43C2 /* WebViewController.m in Sources */,
 				BFA5F705171CE12E002E43C2 /* InfoViewController.m in Sources */,
+				BF028F5717232CE800DCAE92 /* Help.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,6 @@ static char * const myIndexPathAssociationKey = "";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"InstructionListViewController" object:nil];
     
     self.detailViewManager = (DetailViewManager *)self.splitViewController.delegate;
-    [self setOtherRightBarButtons:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -25,7 +24,7 @@ static char * const myIndexPathAssociationKey = "";
     
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
-        
+        [self setOtherRightBarButtons:nil];
         self.title = @"Instructions";
         
         //we want to give only 5 instructions as free....

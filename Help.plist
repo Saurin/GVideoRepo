@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Controllers</key>
+	<array>
+		<dict>
+			<key>Purpose</key>
+			<string>Use this section to define a Subject</string>
+			<key>Section</key>
+			<string>Configure Subject</string>
+			<key>Name</key>
+			<string>SubjectViewController</string>
+			<key>Action</key>
+			<string>Enter text describing the Subject.  This text is optional and will be seen in the Play mode.
+Pick an image for the Subject.  This image is what will be seen in Play mode.  The image may picked from the device’s photo library or may be created using the device’s camera.</string>
+			<key>Exit</key>
+			<string>Tap Next to save changes to the Subject and go to the next section.
+Tap the back button to return to the prior section without saving any changes to the Subject.
+Tap Delete Subject to delete the Subject and return to the prior section.</string>
+		</dict>
+		<dict>
+			<key>Purpose</key>
+			<string>Use this section to choose whether to create a new Subject or revise an existing ISubject.</string>
+			<key>Section</key>
+			<string>Configure [aka Select Subject]</string>
+			<key>Name</key>
+			<string>SubjectListViewController</string>
+			<key>Action</key>
+			<string>Tap an existing Subject to revise it.
+Tap to ‘Add a new Subject...’</string>
+			<key>Exit</key>
+			<string>To exit, tap any button in the left pane.</string>
+		</dict>
+	</array>
+</dict>
+</plist>

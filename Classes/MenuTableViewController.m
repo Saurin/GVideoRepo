@@ -16,9 +16,9 @@
 
 -(void)viewDidLoad
 {
-    options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure Me",@"Play with Me",nil]
-               ,[NSMutableArray arrayWithObjects:@"Settings",@"Feedback",nil]
-               ,[NSMutableArray arrayWithObjects:@"Contact Us",@"About Us",nil]
+    options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure",@"Play",nil]
+               ,[NSMutableArray arrayWithObjects:@"Settings",@"Review",nil]
+               ,[NSMutableArray arrayWithObjects:@"Contact",@"About",nil]
                , nil];
     
     
@@ -141,7 +141,7 @@
     }
     else if (section==1){
         switch (row) {
-            case 1:
+            case 0:
                 
                 detailViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
                 break;

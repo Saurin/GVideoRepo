@@ -1,6 +1,7 @@
 
 #import "AppDelegate.h"
 #import "ApplicationNotification.h"
+#import "Help.h"
 
 @implementation AppDelegate
 
@@ -24,6 +25,9 @@
     //detect and make DB changes here....
     [self makeDBChanges];
     
+    //get info array for help
+    [self getInfo];
+    
 	return YES;
 }
 
@@ -40,6 +44,19 @@
         [[CrudOp sharedDB] UpdateTable:DBTableQuiz set:@"AssetName=''" where:@"1=1"];
     }
     
+}
+
+-(void)getInfo {
+
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Help" ofType:@"plist"];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSMutableArray *controllers=[[NSMutableArray alloc] initWithArray:[dictionary valueForKey:@"Controllers"]];
+
+    self.helpArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in controllers)
+    {
+        [self.helpArray addObject:[[Help alloc] initWithName:[dict valueForKey:@"Name"] purpose:[dict valueForKey:@"Purpose"] section:[dict valueForKey:@"Section"] action:[dict valueForKey:@"Action"] exit:[dict valueForKey:@"Exit"]]];
+    }
 }
 
 // -------------------------------------------------------------------------------

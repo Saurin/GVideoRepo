@@ -54,7 +54,7 @@
         [btnInfo removeFromSuperview];
     }
     btnInfo = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    [btnInfo addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchDown];
+    [btnInfo addTarget:self action:@selector(didInfoClick:) forControlEvents:UIControlEventTouchUpInside];
     [btnInfo setFrame:CGRectMake(self.view.frame.size.width-30, 0, 30, 30)];
     [self.view addSubview:btnInfo];
 

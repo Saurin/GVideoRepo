@@ -21,11 +21,11 @@
 }
 
 - (NSMutableArray *)getHelpTitle {
-    return [NSMutableArray arrayWithObjects:@"Purpose",@"Section",@"Action",@"Exit", nil];
+    return [NSMutableArray arrayWithObjects:@"Section",@"Purpose",@"Action",@"Exit", nil];
 }
 
 - (NSMutableArray *)getHelpTopic {
-    return [NSMutableArray arrayWithObjects:self.purpose,self.section,self.action,self.exit, nil];
+    return [NSMutableArray arrayWithObjects:self.section,self.purpose,self.action,self.exit, nil];
 }
 
 @end

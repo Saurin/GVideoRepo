@@ -245,14 +245,15 @@
     if(indexPath.section==0){
 
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
-        [cell setSelectionStyle:UITableViewCellEditingStyleNone];
         
         //add a textbox for alternate description
         CGRect frame = cell.contentView.frame;
         frame.origin.x = 5;
+        frame.size.width-=5;
         
         self.txtOptionName = [[UITextField alloc] initWithFrame:frame];
+        [self.txtOptionName setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin ];
+
         self.txtOptionName.placeholder = @"Add a new alternative";
         [self.txtOptionName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [cell.contentView addSubview:self.txtOptionName];

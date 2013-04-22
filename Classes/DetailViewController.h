@@ -4,6 +4,5 @@
 
 @interface DetailViewController : BaseViewController <SubstitutableDetailViewController>
 
-@property (nonatomic) NSIndexPath *menuAtIndexPath;
-
+@property (nonatomic) NSString *sender;
 @end

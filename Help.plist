@@ -5,6 +5,88 @@
 	<key>Controllers</key>
 	<array>
 		<dict>
+			<key>Name</key>
+			<string>Review</string>
+			<key>Action</key>
+			<string>Tap here to rate and review this app.</string>
+			<key>Purpose</key>
+			<string>Feel good as a result of helping others benefit from this app.  Your rating and review of this app helps others discover it.</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>About</string>
+			<key>Section</key>
+			<string></string>
+			<key>Purpose</key>
+			<string>Guided Video LLC was founded by parents who work together to develop apps for their own families, which include very young children and children with special needs.
+
+We test this app using our own families, friends, educators, and special needs professionals.  But even so, every child is different, including yours.  So, we really do want to learn your comments and constructive criticism.  Please do not hesitate to tap the Contact button.  We truly want to hear from you, even if it’s only a single word of feedback.  You’ll inspire us to keep making the app better for the sake of all children.
+
+Another way you can help is to rate and review this app.  Your rating and review of this app helps others discover it.  Feel good about helping others by tapping the Review button now.</string>
+			<key>Action</key>
+			<string>Tap here to rate and review this app.</string>
+			<key>Exit</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>AlternativeViewController</string>
+			<key>Purpose</key>
+			<string>Use this section to define an Alternative Button</string>
+			<key>Section</key>
+			<string>Configure Alternative Button</string>
+			<key>Exit</key>
+			<string>Tap Save to save changes to the Alternative Button and return to the prior section.
+Tap the back button to return to the prior section without saving any changes to the Alternative Button.
+Tap Delete Alternative to delete the Alternative Button and return to the prior section.</string>
+			<key>Action</key>
+			<string>Enter text describing the Alternative Button.  This text is optional and appears only in Configuration mode.
+Pick an image for the Alternative Button.  This image is what will be seen in Play mode.  The image may picked from the device’s photo library or may be created using the device’s camera.
+Pick an Alternative Video for the Alternative Button.  This video will play when the Alternative Button is tapped.  The video may picked from the device’s photo library or may be created using the device’s camera.
+Choose the Subsequent Action. The choices are to play either the original Instruction Video or the next Instruction Video.  If the choice is Next Instruction and there is no subsequent instruction, then when in Play mode the Guided Video app treats this as the end of the Subject.</string>
+		</dict>
+		<dict>
+			<key>Purpose</key>
+			<string>Use this section to choose whether to create a new Alternative Button or revise an existing Alternative Button.</string>
+			<key>Section</key>
+			<string>Select Alternative Button</string>
+			<key>Name</key>
+			<string>AlternativeListViewController</string>
+			<key>Exit</key>
+			<string>Tap the back button to return to the prior section.</string>
+			<key>Action</key>
+			<string>Tap an existing alternative to revise it.
+Tap to ‘Add a new Alternative...&apos;</string>
+		</dict>
+		<dict>
+			<key>Purpose</key>
+			<string>Use this section to define an Instruction Video</string>
+			<key>Section</key>
+			<string>Configure Instruction Video</string>
+			<key>Name</key>
+			<string>InstructionViewController</string>
+			<key>Exit</key>
+			<string>Tap Next to save changes to the Instruction Video and go to the next section.
+Tap the back button to return to the prior section without saving any changes to the Alternative Button.
+Tap Delete Alternative to delete the Alternative Button and return to the prior section.</string>
+			<key>Action</key>
+			<string>Enter text describing the Instructional Video.  This text is optional and appears only in Configuration mode.
+Pick an Instructional Video.  The video may picked from the device’s photo library or may be created using the device’s camera.</string>
+		</dict>
+		<dict>
+			<key>Purpose</key>
+			<string>Use this section to choose whether to create a new Instruction Video or revise an existing Instruction Video.</string>
+			<key>Section</key>
+			<string>Select Instruction Video</string>
+			<key>Name</key>
+			<string>InstructionListViewController</string>
+			<key>Action</key>
+			<string>Tap an existing instruction to revise it.
+Tap to ‘Add a new Instruction...’</string>
+			<key>Exit</key>
+			<string>Tap the back button to return to the prior section.</string>
+		</dict>
+		<dict>
 			<key>Purpose</key>
 			<string>Use this section to define a Subject</string>
 			<key>Section</key>

@@ -124,8 +124,11 @@
         //add a textbox for subject description
         CGRect frame = cell.contentView.frame;
         frame.origin.x = 5;
+        frame.size.width-=5;
         
         self.txtQuizName = [[UITextField alloc] initWithFrame:frame];
+        [self.txtQuizName setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin ];
+
         self.txtQuizName.placeholder = @"A new Instructional Video";
         [self.txtQuizName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [cell.contentView addSubview:self.txtQuizName];

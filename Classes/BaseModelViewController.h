@@ -2,7 +2,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@interface BaseModelViewController : BaseViewController
+@interface BaseModelViewController : UIViewController   
 
 @property BOOL lockOrientation;
 

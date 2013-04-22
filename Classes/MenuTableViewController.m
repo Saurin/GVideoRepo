@@ -149,7 +149,7 @@
             default:{
                 
                 DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
-                newDetailViewController.menuAtIndexPath = indexPath;
+                newDetailViewController.sender = @"Review";
                 detailViewController = newDetailViewController;
                 break;
             }
@@ -166,10 +166,9 @@
             }
             default:{
 
-                WebViewController *newDetailViewController = [[WebViewController alloc] initWithNibName:@"WebView" bundle:nil];
-                [newDetailViewController setLoadFor:@"http://www.guidedvieo.com"];
+                DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
+                newDetailViewController.sender = @"About";
                 detailViewController = newDetailViewController;
-                
                 break;
             }
         }

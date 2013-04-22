@@ -105,7 +105,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     
     if(indexPath.section==0){
@@ -113,10 +113,13 @@
         [cell setSelectionStyle:UITableViewCellEditingStyleNone];
         
         //add a textbox for subject description
-        CGRect frame = cell.contentView.frame;
+        CGRect frame = cell.bounds;
         frame.origin.x = 5;
+        frame.size.width-=5;
         
         self.txtSubject = [[UITextField alloc] initWithFrame:frame];
+        [self.txtSubject setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin ];
+        
         self.txtSubject.placeholder = @"A new Subject";
         [self.txtSubject setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [cell.contentView addSubview:self.txtSubject];

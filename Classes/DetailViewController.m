@@ -50,7 +50,11 @@
 
     //add button to take to review screen
     frame.origin.y+=lbl.frame.size.height+lbl.frame.origin.y+20;
-    [self addActionButtonAt:frame];
+    UIButton *btn=[self addActionButtonAt:frame];
+    
+    //add additional label here
+    frame.origin.y=btn.frame.size.height+btn.frame.origin.y+30;
+    [self addLabelAt:frame withText:help.purpose2];
 }
 
 -(void)configureReview {

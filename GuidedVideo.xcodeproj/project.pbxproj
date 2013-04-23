@@ -56,6 +56,7 @@
 		BF618FC516FD7EC5001042EF /* QuizEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF618FC316FD7EC5001042EF /* QuizEdit.xib */; };
 		BF7902A91711E3FC005E3EDD /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = BF7902A71711E3FB005E3EDD /* info.png */; };
 		BF7902AA1711E3FC005E3EDD /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF7902A81711E3FB005E3EDD /* info@2x.png */; };
+		BF8C55651725FF37004851C5 /* GuidedVideoInstructions.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8C55641725FF37004851C5 /* GuidedVideoInstructions.png */; };
 		BFA5F6F517192304002E43C2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA5F6F417192304002E43C2 /* MessageUI.framework */; };
 		BFA5F6F81719416A002E43C2 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA5F6F71719416A002E43C2 /* WebViewController.m */; };
 		BFA5F6FB171942CF002E43C2 /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFA5F6F9171942CF002E43C2 /* WebView.xib */; };
@@ -169,6 +170,7 @@
 		BF618FC416FD7EC5001042EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QuizEdit.xib; sourceTree = "<group>"; };
 		BF7902A71711E3FB005E3EDD /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = info.png; path = images/info.png; sourceTree = "<group>"; };
 		BF7902A81711E3FB005E3EDD /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "info@2x.png"; path = "images/info@2x.png"; sourceTree = "<group>"; };
+		BF8C55641725FF37004851C5 /* GuidedVideoInstructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GuidedVideoInstructions.png; path = images/GuidedVideoInstructions.png; sourceTree = "<group>"; };
 		BFA5F6F417192304002E43C2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		BFA5F6F61719416A002E43C2 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		BFA5F6F71719416A002E43C2 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF8C55641725FF37004851C5 /* GuidedVideoInstructions.png */,
 				BFA5F6FC171CDD38002E43C2 /* backIcon.png */,
 				BFA5F6FD171CDD38002E43C2 /* forwardIcon.png */,
 				BF7902A71711E3FB005E3EDD /* info.png */,
@@ -515,6 +518,7 @@
 				BFA5F6FF171CDD38002E43C2 /* forwardIcon.png in Resources */,
 				BFA5F702171CE0F7002E43C2 /* InfoView.xib in Resources */,
 				BF028F541723125400DCAE92 /* Help.plist in Resources */,
+				BF8C55651725FF37004851C5 /* GuidedVideoInstructions.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

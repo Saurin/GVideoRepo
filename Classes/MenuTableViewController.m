@@ -217,7 +217,7 @@
 -(void)contactUs {
     
     if(![MFMailComposeViewController canSendMail]){
-        [[[UIAlertView alloc] initWithTitle:@"" message:@"Either no email account configured or all of them are disabled. \nPlease goto Settings app and configure it." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"This device is not configured for email. To contact the Guided Video LLC, go to  www.GuidedVideo.com." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
         
         return;
     }

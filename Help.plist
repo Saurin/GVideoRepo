@@ -7,30 +7,53 @@
 		<dict>
 			<key>Name</key>
 			<string>Review</string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Action</key>
 			<string>Tap here to rate and review this app.</string>
 			<key>Purpose</key>
 			<string>Feel good as a result of helping others benefit from this app.  Your rating and review of this app helps others discover it.</string>
+			<key>Section</key>
+			<string></string>
+			<key>NomenclatureImage</key>
+			<string></string>
+			<key>Exit</key>
+			<string></string>
+			<key>Nomenclature</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Name</key>
 			<string>About</string>
-			<key>Section</key>
-			<string></string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Purpose</key>
 			<string>Guided Video LLC was founded by parents who work together to develop apps for their own families, which include very young children and children with special needs.
 
 We test this app using our own families, friends, educators, and special needs professionals.  But even so, every child is different, including yours.  So, we really do want to learn your comments and constructive criticism.  Please do not hesitate to tap the Contact button.  We truly want to hear from you, even if it’s only a single word of feedback.  You’ll inspire us to keep making the app better for the sake of all children.
 
 Another way you can help is to rate and review this app.  Your rating and review of this app helps others discover it.  Feel good about helping others by tapping the Review button now.</string>
+			<key>Purpose2</key>
+			<string>Privacy is an issue Guided Video LLC takes very seriously.  The GUIDED VIDEO app never transfers your photos and videos from your device.  Don’t worry we hate SPAM, too.  To learn more about how Guided Video LLC works with these matters, tap here to read its privacy policy.</string>
 			<key>Action</key>
 			<string>Tap here to rate and review this app.</string>
+			<key>Section</key>
+			<string></string>
 			<key>Exit</key>
+			<string></string>
+			<key>NomenclatureImage</key>
+			<string></string>
+			<key>Nomenclature</key>
 			<string></string>
 		</dict>
 		<dict>
 			<key>Name</key>
 			<string>AlternativeViewController</string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Purpose</key>
 			<string>Use this section to define an Alternative Button</string>
 			<key>Section</key>
@@ -44,19 +67,40 @@ Tap Delete Alternative to delete the Alternative Button and return to the prior 
 Pick an image for the Alternative Button.  This image is what will be seen in Play mode.  The image may picked from the device’s photo library or may be created using the device’s camera.
 Pick an Alternative Video for the Alternative Button.  This video will play when the Alternative Button is tapped.  The video may picked from the device’s photo library or may be created using the device’s camera.
 Choose the Subsequent Action. The choices are to play either the original Instruction Video or the next Instruction Video.  If the choice is Next Instruction and there is no subsequent instruction, then when in Play mode the Guided Video app treats this as the end of the Subject.</string>
+			<key>NomenclatureImage</key>
+			<string></string>
+			<key>Nomenclature</key>
+			<string>An Alternative Button is available to be tapped after an Instruction Video begins playing.  An Alternative Button is labelled with an image.  When an Alternative Button is tapped, an Alternative Video is played.  After the Alternative Video has played, either the original Instruction Video repeats or the next Instruction Video plays.  When there is no Instruction Video to be played next, a table appears containing the Subjects available to be selected.
+An Instruction Video plays automatically. An Instruction Video may repeat depending on the configuration of the Alternative Button that is subsequently tapped.
+A Subject is a group of one or more Instruction Videos. A Subject is labelled with both an image and with characters of text.
+A Subject is shown in black in the diagram nearby.
+An Instruction Video or Alternative Video is shown in blue in the diagram nearby.
+Alternative Buttons are shown in red in the diagram nearby.</string>
 		</dict>
 		<dict>
 			<key>Purpose</key>
 			<string>Use this section to choose whether to create a new Alternative Button or revise an existing Alternative Button.</string>
 			<key>Section</key>
 			<string>Select Alternative Button</string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Name</key>
 			<string>AlternativeListViewController</string>
+			<key>NomenclatureImage</key>
+			<string></string>
 			<key>Exit</key>
 			<string>Tap the back button to return to the prior section.</string>
 			<key>Action</key>
 			<string>Tap an existing alternative to revise it.
 Tap to ‘Add a new Alternative...&apos;</string>
+			<key>Nomenclature</key>
+			<string>An Alternative Button is available to be tapped after an Instruction Video begins playing.  An Alternative Button is labelled with an image.  When an Alternative Button is tapped, an Alternative Video is played.  After the Alternative Video has played, either the original Instruction Video repeats or the next Instruction Video plays.  When there is no Instruction Video to be played next, a table appears containing the Subjects available to be selected.
+An Instruction Video plays automatically. An Instruction Video may repeat depending on the configuration of the Alternative Button that is subsequently tapped.
+A Subject is a group of one or more Instruction Videos. A Subject is labelled with both an image and with characters of text.
+A Subject is shown in black in the diagram nearby.
+An Instruction Video or Alternative Video is shown in blue in the diagram nearby.
+Alternative Buttons are shown in red in the diagram nearby.</string>
 		</dict>
 		<dict>
 			<key>Purpose</key>
@@ -72,6 +116,18 @@ Tap Delete Alternative to delete the Alternative Button and return to the prior 
 			<key>Action</key>
 			<string>Enter text describing the Instructional Video.  This text is optional and appears only in Configuration mode.
 Pick an Instructional Video.  The video may picked from the device’s photo library or may be created using the device’s camera.</string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
+			<key>NomenclatureImage</key>
+			<string></string>
+			<key>Nomenclature</key>
+			<string>An Alternative Button is available to be tapped after an Instruction Video begins playing.  An Alternative Button is labelled with an image.  When an Alternative Button is tapped, an Alternative Video is played.  After the Alternative Video has played, either the original Instruction Video repeats or the next Instruction Video plays.  When there is no Instruction Video to be played next, a table appears containing the Subjects available to be selected.
+An Instruction Video plays automatically. An Instruction Video may repeat depending on the configuration of the Alternative Button that is subsequently tapped.
+A Subject is a group of one or more Instruction Videos. A Subject is labelled with both an image and with characters of text.
+A Subject is shown in black in the diagram nearby.
+An Instruction Video or Alternative Video is shown in blue in the diagram nearby.
+Alternative Buttons are shown in red in the diagram nearby.</string>
 		</dict>
 		<dict>
 			<key>Purpose</key>
@@ -83,36 +139,65 @@ Pick an Instructional Video.  The video may picked from the device’s photo lib
 			<key>Action</key>
 			<string>Tap an existing instruction to revise it.
 Tap to ‘Add a new Instruction...’</string>
+			<key>NomenclatureImage</key>
+			<string></string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Exit</key>
 			<string>Tap the back button to return to the prior section.</string>
 		</dict>
 		<dict>
 			<key>Purpose</key>
-			<string>Use this section to define a Subject</string>
+			<string>Use this section to define a SUBJECT</string>
+			<key>Nomenclature</key>
+			<string>An Alternative Button is available to be tapped after an Instruction Video begins playing.  An Alternative Button is labelled with an image.  When an Alternative Button is tapped, an Alternative Video is played.  After the Alternative Video has played, either the original Instruction Video repeats or the next Instruction Video plays.  When there is no Instruction Video to be played next, a table appears containing the Subjects available to be selected.
+An Instruction Video plays automatically. An Instruction Video may repeat depending on the configuration of the Alternative Button that is subsequently tapped.
+A Subject is a group of one or more Instruction Videos. A Subject is labelled with both an image and with characters of text.
+A Subject is shown in black in the diagram nearby.
+An Instruction Video or Alternative Video is shown in blue in the diagram nearby.
+Alternative Buttons are shown in red in the diagram nearby.</string>
 			<key>Section</key>
 			<string>Configure Subject</string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Name</key>
 			<string>SubjectViewController</string>
 			<key>Action</key>
-			<string>Enter text describing the Subject.  This text is optional and will be seen in the Play mode.
-Pick an image for the Subject.  This image is what will be seen in Play mode.  The image may picked from the device’s photo library or may be created using the device’s camera.</string>
+			<string>Enter text describing the SUBJECT.  This text is optional and will be seen in the Play mode.
+Pick an image for the SUBJECT.  This image is what will be seen in Play mode.  The image may picked from the device’s photo library or may be created using the device’s camera.</string>
+			<key>NomenclatureImage</key>
+			<string></string>
 			<key>Exit</key>
-			<string>Tap Next to save changes to the Subject and go to the next section.
-Tap the back button to return to the prior section without saving any changes to the Subject.
-Tap Delete Subject to delete the Subject and return to the prior section.</string>
+			<string>Tap NEXT to save changes to the SUBJECT and go to the next section.
+Tap the back button to return to the prior section without saving any changes to the SUBJECT.
+Tap DELETE SUBJECT to delete the Subject and return to the prior section.</string>
 		</dict>
 		<dict>
 			<key>Purpose</key>
-			<string>Use this section to choose whether to create a new Subject or revise an existing ISubject.</string>
+			<string>Use this section to choose whether to create a new Subject or revise an existing SUBJECT.</string>
+			<key>NomenclatureImage</key>
+			<string></string>
+			<key>GuidedAccess</key>
+			<string>Guided Video app is designed to work with this device’s built-in Guided Access function.  Tap Settings &gt; General &gt; Accessibility &gt; Guided Access [insert link to launch the Settings App] to turn off motion.  When motion is turned off, the Guided Video app cannot be shaken to exit from Play mode.
+</string>
 			<key>Section</key>
 			<string>Configure [aka Select Subject]</string>
 			<key>Name</key>
 			<string>SubjectListViewController</string>
 			<key>Action</key>
-			<string>Tap an existing Subject to revise it.
-Tap to ‘Add a new Subject...’</string>
+			<string>Tap an existing SUBJECT to revise it.
+Tap to ‘ADD A NEW SUBJECT...’</string>
 			<key>Exit</key>
 			<string>To exit, tap any button in the left pane.</string>
+			<key>Nomenclature</key>
+			<string>An Alternative Button is available to be tapped after an Instruction Video begins playing.  An Alternative Button is labelled with an image.  When an Alternative Button is tapped, an Alternative Video is played.  After the Alternative Video has played, either the original Instruction Video repeats or the next Instruction Video plays.  When there is no Instruction Video to be played next, a table appears containing the Subjects available to be selected.
+An Instruction Video plays automatically. An Instruction Video may repeat depending on the configuration of the Alternative Button that is subsequently tapped.
+A Subject is a group of one or more Instruction Videos. A Subject is labelled with both an image and with characters of text.
+A Subject is shown in black in the diagram nearby.
+An Instruction Video or Alternative Video is shown in blue in the diagram nearby.
+Alternative Buttons are shown in red in the diagram nearby.</string>
 		</dict>
 	</array>
 </dict>

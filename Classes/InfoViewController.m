@@ -32,7 +32,7 @@
         help=(Help *)[[helpArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name=%@",self.sender]] objectAtIndex:0];
     }
     @catch (NSException *exception) {
-        help = [[Help alloc] initWithName:@"" purpose:@"" section:@"" action:@"" exit:@""];
+        help = [[Help alloc] initWithName:@"" purpose:@"" section:@"" action:@"" exit:@"" nomenclature:@""];
     }
 
     self.tableView.separatorColor=[UIColor clearColor];
@@ -69,8 +69,17 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
     
     cell.textLabel.text = [help.getHelpTitle objectAtIndex:indexPath.row];
-    cell.detailTextLabel.numberOfLines=0;
-    cell.detailTextLabel.text = [help.getHelpTopic objectAtIndex:indexPath.row];
+    if([cell.textLabel.text isEqualToString:@"NomenclatureImage"]){
+        cell.textLabel.text=@"";
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 366, 291)];
+        imgView.image = [UIImage imageNamed:@"GuidedVideoInstructions.png"];
+        [cell.contentView addSubview:imgView];
+    }
+    else{
+
+        cell.detailTextLabel.numberOfLines=0;
+        cell.detailTextLabel.text = [help.getHelpTopic objectAtIndex:indexPath.row];
+    }
     
     return cell;
 }
@@ -81,6 +90,10 @@
     CGSize constraintSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
 
     NSString *cellText = [help.getHelpTitle objectAtIndex:indexPath.row];
+    if([cellText isEqualToString:@"NomenclatureImage"]){
+        return 330;
+    }
+    
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
     cellText = [help.getHelpTopic objectAtIndex:indexPath.row];

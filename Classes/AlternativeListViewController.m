@@ -93,7 +93,7 @@ static char * const myIndexPathAssociationKey = "";
     if(self.isListDetailController && thisOption.quizOptionId==0){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         
-        cell.textLabel.text = @"Add a new Alternatives...";
+        cell.textLabel.text = @"Add a new Alternative...";
         cell.tag = thisOption.quizOptionId;
         
         return cell;

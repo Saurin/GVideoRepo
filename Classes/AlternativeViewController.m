@@ -185,7 +185,8 @@
 -(BOOL)save{
     
     //do validation, or keep save button disabled
-    _dirtyOption.assetName = [self.txtOptionName.text isEqualToString:@""]?self.txtOptionName.placeholder:self.txtOptionName.text;
+    self.txtOptionName.text=self.txtOptionName.text==nil?self.txtOptionName.placeholder:self.txtOptionName.text;
+    _dirtyOption.assetName = self.txtOptionName.text;
     if(_dirtyOption.videoUrl==nil) _dirtyOption.videoUrl = @"";
     if(_dirtyOption.assetUrl==nil) _dirtyOption.assetUrl=@"";
     if(userResponse==0)
@@ -254,7 +255,7 @@
         self.txtOptionName = [[UITextField alloc] initWithFrame:frame];
         [self.txtOptionName setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin ];
 
-        self.txtOptionName.placeholder = @"Add a new alternative";
+        self.txtOptionName.placeholder = @"Add a new Alternative";
         [self.txtOptionName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [cell.contentView addSubview:self.txtOptionName];
         

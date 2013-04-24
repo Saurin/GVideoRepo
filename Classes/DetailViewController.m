@@ -76,7 +76,15 @@
 }
 
 -(IBAction)reviewClick:(id)sender {
+    UIButton *btn = sender;
+    [btn setAlpha:1];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/mugshots-parking-lots-free/id526819560?mt=8"]];
+}
+
+-(IBAction)reviewDownClick:(id)sender {
+    UIButton *btn = sender;
+    [btn setAlpha:0.5];
+    
 }
 
 - (CGFloat)heightForLabel:(UILabel *)label
@@ -111,6 +119,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn addTarget:self action:@selector(reviewClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(reviewDownClick:) forControlEvents:UIControlEventTouchDown];
     [btn setBackgroundColor:[UIColor clearColor]];
     [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [btn setAutoresizingMask:UIViewAutoresizingFlexibleWidth];

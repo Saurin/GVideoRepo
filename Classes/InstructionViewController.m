@@ -129,7 +129,7 @@
         self.txtQuizName = [[UITextField alloc] initWithFrame:frame];
         [self.txtQuizName setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin ];
 
-        self.txtQuizName.placeholder = @"A new Instructional Video";
+        self.txtQuizName.placeholder = @"A new Instruction Video";
         [self.txtQuizName setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [cell.contentView addSubview:self.txtQuizName];
         
@@ -276,7 +276,8 @@
 -(BOOL)save{
     
     //do validation, or keep save button disabled
-    _dirtyQuiz.quizName = [self.txtQuizName.text isEqualToString:@""]?self.txtQuizName.placeholder:self.txtQuizName.text;
+    self.txtQuizName.text=self.txtQuizName.text==nil?self.txtQuizName.placeholder:self.txtQuizName.text;
+    _dirtyQuiz.quizName = self.txtQuizName.text;
     if(_dirtyQuiz.videoUrl==nil) _dirtyQuiz.videoUrl = @"";
     
     NSInteger res = [[Data sharedData] saveQuiz:_dirtyQuiz];

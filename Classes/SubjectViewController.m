@@ -265,7 +265,8 @@
 -(BOOL)save{
     
     //do validation, or keep save button disabled
-    _dirtySubject.subjectName = [self.txtSubject.text isEqualToString:@""]?self.txtSubject.placeholder:self.txtSubject.text;
+    self.txtSubject.text=self.txtSubject.text==nil?self.txtSubject.placeholder:self.txtSubject.text;
+    _dirtySubject.subjectName = self.txtSubject.text;
     if(_dirtySubject.assetUrl==nil) _dirtySubject.assetUrl = @"";
     
     NSInteger res = [[Data sharedData] saveSubject:_dirtySubject];

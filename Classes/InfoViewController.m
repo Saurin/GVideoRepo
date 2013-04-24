@@ -79,6 +79,7 @@
 
         cell.detailTextLabel.numberOfLines=0;
         cell.detailTextLabel.text = [help.getHelpTopic objectAtIndex:indexPath.row];
+
     }
     
     return cell;

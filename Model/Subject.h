@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString * assetUrl;
 @property (nonatomic, strong) NSMutableArray *quizPages;
 
+-(id)initWithName:(NSString *)name assetURL:(NSString *)assetURL;
 -(id)copy;
 -(BOOL)isEqual:(Subject *)object;
 @end

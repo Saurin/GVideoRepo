@@ -28,6 +28,19 @@
     return nil;
 }
 
+-(id)initWithName:(NSString *)name assetURL:(NSString *)assetURL {
+    self = [super init];
+    if (self) {
+        
+        subjectName=name;
+        assetUrl=assetURL;
+        
+        return self;
+    }
+    return nil;
+    
+}
+
 -(id)copy
 {
     Subject *object = [[Subject alloc] init];

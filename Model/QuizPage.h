@@ -10,6 +10,7 @@
 @property (nonatomic, strong) NSString * videoUrl;
 @property (nonatomic, strong) UIImage *imgThumb;
 
+- (id)initWithSubjectId:(NSInteger)subId name:(NSString *)name videoURL:(NSString *)videoURL;
 -(id)copy;
 -(BOOL)isEqual:(QuizPage *)object;
 

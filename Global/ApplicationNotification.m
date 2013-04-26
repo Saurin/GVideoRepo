@@ -49,4 +49,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"OrientationChanged" object:[@"" stringByAppendingFormat:@"%d", oldStatusBarOrientation]];
 }
 
+-(void)postNotificationToLoadDefaults {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadDefaults" object:nil];
+}
+
 @end

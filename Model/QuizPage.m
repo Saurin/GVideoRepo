@@ -18,6 +18,21 @@
     return nil;
 }
 
+- (id)initWithSubjectId:(NSInteger)subId name:(NSString *)name videoURL:(NSString *)videoURL
+{
+    self = [super init];
+    if (self) {
+        
+        subjectId=subId;
+        quizName=name;
+        videoUrl=videoURL;
+        
+        return self;
+        
+    }
+    return nil;
+}
+
 -(id)copy
 {
     QuizPage *object = [[QuizPage alloc] init];

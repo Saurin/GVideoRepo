@@ -7,6 +7,7 @@
 #import "PlayViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "WebViewController.h"
+#import "InitialViewController.h"
 
 @implementation MenuTableViewController {
      NSMutableArray *options;
@@ -24,6 +25,8 @@
     
     self.title = @"Guided Video";
     self.clearsSelectionOnViewWillAppear = NO;
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@"LoadDefaults" object:nil];   
+    
 }
 
 #pragma mark -
@@ -38,6 +41,21 @@
 -(BOOL)shouldAutorotate {
     [super shouldAutorotate];
     return  YES;
+}
+
+- (void)handleNotification:(NSNotification*)note {
+    //ignore other notifications, we may receive
+    
+    if([note.name isEqualToString:@"LoadDefaults"]){
+        [self performSelector:@selector(loadDefault) withObject:nil afterDelay:0.1];
+    }
+}
+
+-(void)loadDefault {
+    //this is to be done only once
+    InitialViewController *info = [[InitialViewController alloc] initWithNibName:@"InitialView" bundle:nil];
+    info.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:info animated:YES completion:nil];
 }
 
 #pragma mark -

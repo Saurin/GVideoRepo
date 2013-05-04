@@ -91,6 +91,16 @@
         
         sql = [sqltemp UTF8String];
     }
+    else if(table==DBTableParameter){
+
+        NSString *sqltemp = @"Select Id, Key, Value, Description From Parameter";
+        if(![filter isEqualToString:@""]){
+            sqltemp = [sqltemp stringByAppendingFormat:@" where %@",filter];
+        }
+        sqltemp = [sqltemp stringByAppendingFormat:@"%@",@" order by 1 asc"];
+        
+        sql = [sqltemp UTF8String];
+    }
     
     //Open db
     NSString *cruddatabase = [self.GetDocumentDirectory stringByAppendingPathComponent:@"DB.sqlite"];
@@ -155,7 +165,20 @@
             [myMutuableArray addObject:option];
         }
     }
-    
+    else if(table==DBTableParameter){
+
+        while(sqlite3_step(stmt)== SQLITE_ROW)
+        {
+            NSMutableArray *parameter = [[NSMutableArray alloc] initWithObjects:
+                     [NSNumber numberWithInt:sqlite3_column_int(stmt, 0)]                           //id
+                    ,[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 1)]           //key
+                    ,[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 2)]           //value
+                    ,[NSString stringWithUTF8String:(char *)sqlite3_column_text(stmt, 3)]           //description
+                    ,nil];
+            
+            [myMutuableArray addObject:parameter];
+        }
+    }
     
     sqlite3_finalize(stmt);
     sqlite3_close(cruddb);
@@ -199,6 +222,11 @@
             sqltemp = @"Insert into QuizAsset(QuizId, AssetUrl, VideoUrl, Response, AssetName) Values(";
             sqltemp = [sqltemp stringByAppendingFormat:@"%d,'%@','%@',%d,'%@')",option.quizId, option.assetUrl, option.videoUrl, option.response, option.assetName];
         }
+    }
+    else if(table==DBTableParameter){
+        
+        sqltemp = @"Insert into Parameter(Key, Value, Description) Values (";
+        sqltemp = [sqltemp stringByAppendingFormat:@"'%@','%@','%@')",[obj objectAtIndex:0],[obj objectAtIndex:1],[obj objectAtIndex:2]];
     }
     
     sql = [sqltemp UTF8String];

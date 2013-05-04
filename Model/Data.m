@@ -140,5 +140,12 @@
     [[CrudOp sharedDB] DeleteRecordFromTable:DBTableQuizOption withId:index];
 }
 
+-(NSMutableArray *)getParameter:(NSString *)name{
+    return [[CrudOp sharedDB] GetRecords:DBTableParameter where:[NSString stringWithFormat:@"Key='%@'",name]];
+}
+
+-(void)insertParameter:(NSString *)name withValue:(NSString *)value description:(NSString *)desc {
+    [[CrudOp sharedDB] InsertRecordInTable:DBTableParameter withObject:[NSMutableArray arrayWithObjects:name,value,desc, nil]];
+}
 
 @end

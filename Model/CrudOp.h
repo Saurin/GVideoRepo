@@ -9,7 +9,8 @@
 typedef NS_ENUM(NSInteger, TableName) {
     DBTableSubject = 0,
     DBTableQuiz=1,
-    DBTableQuizOption
+    DBTableQuizOption=2,
+    DBTableParameter
 };
 
 @interface CrudOp : NSObject <UIAlertViewDelegate> {

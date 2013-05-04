@@ -1,19 +1,19 @@
 
-#import "QuizViewController.h"
+#import "PlayingViewController.h"
 #import "QuizPage.h"
 #import "QuizOption.h"
 #import "Utility.h"
 
 #define ButtonCount 12
+#define VPadding 20
+#define HPadding 40
 
 
-@implementation QuizViewController {
+@implementation PlayingViewController {
     
     NSInteger quizPageIndex;
 
     double buttonHeight,buttonWidth,viewHeight, viewWidth;
-    double vPadding, hPadding;
-
     
     NSMutableArray *quizzes;                        //all available quizzes for this topic
     QuizPage *theQuizPage;                          //current quiz page
@@ -66,13 +66,13 @@
 -(void)loadButtons {
 
     if(buttonHeight==0){
+        NSInteger buttonCount = ButtonCount/4+1;
+        
         viewHeight=self.view.frame.size.height;
         viewWidth=self.view.frame.size.width;
         
-        buttonHeight = 167;     //(viewHeight-vPadding*(buttonCount+1))/buttonCount;
-        buttonWidth = 222.6;    //(viewWidth-hPadding*(buttonCount+1))/buttonCount;
-        vPadding=(viewHeight-buttonHeight*4)/5;
-        hPadding=(viewWidth-buttonWidth*4)/5;
+        buttonHeight = (viewHeight-VPadding*(buttonCount+1))/buttonCount;
+        buttonWidth = (viewWidth-HPadding*(buttonCount+1))/buttonCount;
         
         NSLog(@"Image buttons %f %f", buttonWidth, buttonHeight);
     }
@@ -90,7 +90,7 @@
     //bottom row
     for(NSInteger i=0;i<4;i++){
         
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*hPadding, viewHeight-buttonHeight-vPadding, buttonWidth, buttonHeight);
+        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, viewHeight-buttonHeight-VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
@@ -103,7 +103,7 @@
     //right column
     for(NSInteger i=2;i>0;i--){
         
-        CGRect frame = CGRectMake(viewWidth-buttonWidth-hPadding,(i*buttonHeight)+(i+1)*vPadding, buttonWidth, buttonHeight);
+        CGRect frame = CGRectMake(viewWidth-buttonWidth-HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
@@ -116,7 +116,7 @@
     //top row
     for(NSInteger i=3;i>=0;i--){
         
-        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*hPadding, vPadding, buttonWidth, buttonHeight);
+        CGRect frame = CGRectMake((i*buttonWidth)+(i+1)*HPadding, VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
@@ -128,7 +128,7 @@
     //left column
     for(NSInteger i=1;i<=2;i++){
         
-        CGRect frame = CGRectMake(hPadding,(i*buttonHeight)+(i+1)*vPadding, buttonWidth, buttonHeight);
+        CGRect frame = CGRectMake(HPadding,(i*buttonHeight)+(i+1)*VPadding, buttonWidth, buttonHeight);
         
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
@@ -137,8 +137,8 @@
         [btn setEditable:NO];
     }
     
-    NSInteger height = 350.25;      //viewHeight-buttonHeight*2-vPadding*4;
-    NSInteger width = 467;          //viewWidth-buttonWidth*2-hPadding*4;
+    NSInteger height = viewHeight-buttonHeight*2-VPadding*4;
+    NSInteger width = viewWidth-buttonWidth*2-HPadding*4;
     
     CGRect frame = CGRectMake((viewWidth-width)/2, (viewHeight-height)/2, width, height);
     CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];

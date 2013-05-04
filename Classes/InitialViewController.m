@@ -35,15 +35,13 @@
 
 -(void)loadDefaults {
     
-    NSError *err=nil;
-    NSFileManager *fileMgr = [NSFileManager defaultManager];
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Samples"];
-    NSString *copypath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"Samples"];
-    
-    if([fileMgr fileExistsAtPath:copypath]) {
+    NSMutableArray *array = [[Data sharedData] getParameter:@"SampleSubjectLoaded"];
+    if (array!=nil && array.count>0){              //already sample established
+
         [HUD hide:YES];
         [OHAlertView showAlertWithTitle:@"" message:@"Sample subject loaded." cancelButton:nil okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-            
+
             [self dismissViewControllerAnimated:YES completion:^{
                 //do nothing
             }];
@@ -51,28 +49,12 @@
     }
     else
     {
-    
-        [fileMgr removeItemAtPath:copypath error:&err];
-        if(![fileMgr copyItemAtPath:path toPath:copypath error:&err])
-        {
-            [HUD hide:YES];
-            [OHAlertView showAlertWithTitle:@"" message:@"Unable to load Sample Subject." cancelButton:nil okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-
-                [self dismissViewControllerAnimated:YES completion:^{
-                    //do nothing
-                }];
-            }];
-            
-            return;
-        }
-        
-        
         //add save assets and add into DB
+
         //add subject
-        NSString *url = [copypath stringByAppendingPathComponent:@"image-0.jpg"];
-        UIImage *image = [UIImage imageWithContentsOfFile:url];
+        UIImage *image = [UIImage imageNamed:@"image_0.png"];
         ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
-        [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL * assertURL, NSError * error){
+        [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL * imageURL, NSError * error){
 
             if(error!=nil){
                 [OHAlertView showAlertWithTitle:@"" message:@"Unable to load Sample Subject." cancelButton:nil okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
@@ -84,13 +66,14 @@
                 return;
             }
             
-            Subject *subject = [[Subject alloc] initWithName:@"Sample Subject" assetURL:[assertURL absoluteString]];
+            Subject *subject = [[Subject alloc] initWithName:@"Sample Subject" assetURL:[imageURL absoluteString]];
             NSInteger subId = [[Data sharedData] saveSubject:subject];
             
             //now create instruction
-            NSString *videoURL = [copypath stringByAppendingPathComponent:@"dog.mov"];
-            [library writeVideoAtPathToSavedPhotosAlbum:[NSURL URLWithString:videoURL] completionBlock:^(NSURL *assetURL, NSError *error1) {
-
+            NSString *urlStr = [path stringByAppendingPathComponent:@"dog.mov"];
+            NSURL *videoURL = [NSURL fileURLWithPath:urlStr];
+            [library writeVideoAtPathToSavedPhotosAlbum:videoURL completionBlock:^(NSURL *assetURL, NSError *error1){
+               
                 if(error1!=nil){
                     [OHAlertView showAlertWithTitle:@"" message:@"Unable to load Sample Subject." cancelButton:nil okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
                         
@@ -100,9 +83,13 @@
                     }];
                     return;
                 }
-
-                QuizPage *quiz = [[QuizPage alloc] initWithSubjectId:subId name:@"Touch the picture of dog" videoURL:[assertURL absoluteString]];
+                
+                QuizPage *quiz = [[QuizPage alloc] initWithSubjectId:subId name:@"Touch the picture of dog" videoURL:[assetURL absoluteString]];
                 NSInteger quizId = [[Data sharedData] saveQuiz:quiz];
+                
+                
+                //Store flag that sample subject saved successfully
+                [[Data sharedData] insertParameter:@"SampleSubjectLoaded" withValue:@"1" description:@"Flags that sample subject is loaded"];
                 
                 [HUD hide:YES];
                 [self dismissViewControllerAnimated:YES completion:^{

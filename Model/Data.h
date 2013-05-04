@@ -24,4 +24,6 @@
 -(NSInteger)saveQuizOption:(QuizOption *)quizOption;
 -(void)deleteQuizOptionWithId:(NSInteger)index;
 
+-(NSMutableArray *)getParameter:(NSString *)name;
+-(void)insertParameter:(NSString *)name withValue:(NSString *)value description:(NSString *)desc;
 @end

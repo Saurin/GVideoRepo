@@ -19,6 +19,20 @@
     return nil;
 }
 
+- (id)initWithQuizId:(NSInteger)quizId optionName:(NSString *)name optionImageUrl:(NSString *)imgURL
+{
+    self = [super init];
+    if (self) {
+        
+        self.quizId=quizId;
+        self.assetName = name;
+        self.assetUrl = imgURL;
+        return self;
+    }
+    return nil;
+}
+
+
 -(id)copy
 {
     QuizOption *object = [[QuizOption alloc] init];

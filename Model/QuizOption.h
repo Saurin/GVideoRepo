@@ -17,6 +17,7 @@
 @property (nonatomic) NSInteger response;
 @property (nonatomic, strong) NSString *assetName;
 
+- (id)initWithQuizId:(NSInteger)quizId optionName:(NSString *)name optionImageUrl:(NSString *)imgURL;
 -(id)copy;
 -(BOOL)isEqual:(QuizOption *)object;
 

@@ -28,27 +28,11 @@
     //get info array for help
     [self getInfo];
 
-    [[ApplicationNotification notification] postNotificationToLoadDefaults];
-
 	return YES;
 }
 
 -(void)makeDBChanges{
 
-    
-//      AS OF NOW - 04/24/2013, WE DONT NEED IT.
-//      THIS NEW RELEASE HAS NEW DB, INCLUDING BELOW COLUMNS AND SAMPLE SUBJECT
-    
-//    if(![[CrudOp sharedDB] isColumnExist:@"QuizName" inTable:DBTableQuiz]) {
-//        [[CrudOp sharedDB] addColumn:@"QuizName" dataType:@"varchar" inTable:DBTableQuiz];
-//        [[CrudOp sharedDB] UpdateTable:DBTableQuiz set:@"QuizName=''" where:@"1=1"];
-//    }
-//    
-//    if(![[CrudOp sharedDB] isColumnExist:@"AssetName" inTable:DBTableQuizOption]) {
-//        [[CrudOp sharedDB] addColumn:@"AssetName" dataType:@"varchar" inTable:DBTableQuizOption];
-//        [[CrudOp sharedDB] UpdateTable:DBTableQuiz set:@"AssetName=''" where:@"1=1"];
-//    }
-    
 }
 
 -(void)getInfo {
@@ -66,10 +50,6 @@
         [self.helpArray addObject:help];
     }
 }
-
-// -------------------------------------------------------------------------------
-//	dealloc
-// -------------------------------------------------------------------------------
 
 -(void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
     [[ApplicationNotification notification] postNotificationChangeStatusBarOrientation:oldStatusBarOrientation];

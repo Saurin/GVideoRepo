@@ -57,21 +57,25 @@ static char * const myIndexPathAssociationKey = "";
 
 -(void)getVideoThumbnails:(NSInteger)index {
     __block NSInteger idx=index;
-    
-    NSLog(@"%d",index);
 
-    if(((QuizPage *)[instructions objectAtIndex:index]).quizId!=0){    //we need no image for "Add a new..."
-        [[[Utility alloc] init] getThumbnailFromVideoURL:((QuizPage *)[instructions objectAtIndex:index]).videoUrl completion:^(NSString *url, UIImage *image) {
-            
-            ((QuizPage *)[instructions objectAtIndex:idx]).imgThumb = image;
-            if(idx+1<instructions.count)
-                [self getVideoThumbnails:idx+1];
-            
-            return;
-        }];
+    @try {
+        if(((QuizPage *)[instructions objectAtIndex:index]).quizId!=0){    //we need no image for "Add a new..."
+            [[[Utility alloc] init] getThumbnailFromVideoURL:((QuizPage *)[instructions objectAtIndex:index]).videoUrl completion:^(NSString *url, UIImage *image) {
+                
+                ((QuizPage *)[instructions objectAtIndex:idx]).imgThumb = image;
+                if(idx+1<instructions.count)
+                    [self getVideoThumbnails:idx+1];
+                
+                return;
+            }];
+        }
+        
+        [self.tableView reloadData];
+
     }
-    
-    [self.tableView reloadData];
+    @catch (NSException *exception) {
+        NSLog(@"%@",exception.description);
+    }
 }
 
 - (void)didReceiveMemoryWarning

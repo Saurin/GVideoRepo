@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, CustomButtonType) {
 
 @property(nonatomic,strong) UILabel *lblText;
 @property(nonatomic,strong)UIImageView *imageView;
+@property (nonatomic)BOOL fakeButton;
 @property (nonatomic)BOOL bEmptyButton;
 @property (nonatomic)BOOL editable;
 

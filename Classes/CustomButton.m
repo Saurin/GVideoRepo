@@ -26,7 +26,7 @@
     UIPopoverController *photoLibraryPopover;
 }
 
-@synthesize bEmptyButton, lblText, imageView, editable=_editable, delegate, presentingController, buttonType;
+@synthesize bEmptyButton, lblText, imageView, editable=_editable, delegate, presentingController, buttonType, fakeButton=_fakeButton;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -89,6 +89,14 @@
     }
     else{
         [self addGestureRecognizer];
+    }
+}
+
+-(void)setFakeButton:(BOOL)fakeButton {
+    _fakeButton = fakeButton;
+    if(fakeButton){
+        self.backgroundColor = [UIColor clearColor];
+        [self setUserInteractionEnabled:NO];
     }
 }
 

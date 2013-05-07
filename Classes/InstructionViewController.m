@@ -165,13 +165,19 @@
 
             if(self.imgCurrentVideo==Nil){
             
-                [[Utility alloc] getThumbnailFromVideoURL:self.thisQuiz.videoUrl completion:^(NSString *url, UIImage *image) {
-                    
-                    self.imgCurrentVideo = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
-                    [self.imgCurrentVideo setImage:image];
-                    [self makeRoundRectView:self.imgCurrentVideo layerRadius:10];
-                    cell.accessoryView=self.imgCurrentVideo;
-                }];
+                @try {
+                    [[Utility alloc] getThumbnailFromVideoURL:self.thisQuiz.videoUrl completion:^(NSString *url, UIImage *image) {
+                        
+                        self.imgCurrentVideo = [[UIImageView alloc] initWithFrame:CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
+                        [self.imgCurrentVideo setImage:image];
+                        [self makeRoundRectView:self.imgCurrentVideo layerRadius:10];
+                        cell.accessoryView=self.imgCurrentVideo;
+                    }];
+
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"%@",exception.description);
+                }
             }
         }
     }

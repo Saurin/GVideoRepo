@@ -105,6 +105,25 @@
     return YES;
 }
 
+- (BOOL)isQuizProgrammed:(NSInteger)index {
+    
+    NSMutableArray *quizOptions = [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[@"" stringByAppendingFormat:@"QuizId=%d",index]];
+    
+    //every quiz option should have
+    if(quizOptions==nil || quizOptions.count==0)
+        return FALSE;
+    
+    //each option added for quiz should have photo & video
+    for(NSInteger j=0;j<quizOptions.count;j++){
+        QuizOption *option = [quizOptions objectAtIndex:j];
+        if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""])
+            return FALSE;
+    }
+    
+    return YES;
+}
+
+
 -(NSInteger)saveQuiz:(QuizPage *)quizPage {
     
     if(quizPage.quizId==0){
@@ -147,5 +166,6 @@
 -(void)insertParameter:(NSString *)name withValue:(NSString *)value description:(NSString *)desc {
     [[CrudOp sharedDB] InsertRecordInTable:DBTableParameter withObject:[NSMutableArray arrayWithObjects:name,value,desc, nil]];
 }
+
 
 @end

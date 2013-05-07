@@ -14,8 +14,15 @@ static char * const myIndexPathAssociationKey = "";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    subjects = [[Data sharedData] getSubjects];
+    subjects = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *dirtySubjects = [[Data sharedData] getSubjects];
+    //dont show incomplete subjects
+    for (NSInteger i=0; i<dirtySubjects.count; i++) {
+        Subject *dirtySubject = [dirtySubjects objectAtIndex:i];
+        if([[Data sharedData] isSubjectProgrammed:dirtySubject.subjectId])
+           [subjects addObject:dirtySubject];
+    }
     
     [self.tableView setRowHeight:75];
 }
@@ -34,7 +41,9 @@ static char * const myIndexPathAssociationKey = "";
 {
 	if (motion == UIEventSubtypeMotionShake)
 	{
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:^{
+            //do nothing
+        }];
 	}
 }
 
@@ -103,7 +112,9 @@ static char * const myIndexPathAssociationKey = "";
     QuizViewController *quizVC = [[QuizViewController alloc] initWithNibName:@"QuizView" bundle:nil];
     quizVC.subject = [subjects objectAtIndex:indexPath.row];
     quizVC.lockOrientation=YES;
-    [self presentModalViewController:quizVC animated:YES];
+    [self presentViewController:quizVC animated:YES completion:^{
+        //do nothing
+    }];
 }
 
 

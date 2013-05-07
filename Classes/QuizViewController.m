@@ -29,9 +29,16 @@
 
     [super viewDidLoad];
     [self addBrandText];
+    quizzes = [[NSMutableArray alloc] init];
     
     //get all quizzes for this subject
-    quizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
+    NSMutableArray *dirtyQuizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
+    for (NSInteger i=0; i<dirtyQuizzes.count; i++) {
+        QuizPage *page = [dirtyQuizzes objectAtIndex:i];
+        if([[Data sharedData] isQuizProgrammed:page.quizId]){
+            [quizzes addObject:page];
+        }
+    }
     
     quizPageIndex=0;
     theQuizPage=nil;
@@ -48,7 +55,10 @@
 {
 	if (motion == UIEventSubtypeMotionShake)
 	{
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:^{
+            //do nothing
+        }];
+
 	}
 }
 
@@ -69,12 +79,10 @@
         viewHeight=self.view.frame.size.height;
         viewWidth=self.view.frame.size.width;
         
-        buttonHeight = 167;     //(viewHeight-vPadding*(buttonCount+1))/buttonCount;
-        buttonWidth = 222.6;    //(viewWidth-hPadding*(buttonCount+1))/buttonCount;
+        buttonHeight = 167;     
+        buttonWidth = 222.6;    
         vPadding=(viewHeight-buttonHeight*4)/5;
         hPadding=(viewWidth-buttonWidth*4)/5;
-        
-        NSLog(@"Image buttons %f %f", buttonWidth, buttonHeight);
     }
 
     theQuizPage=nil;
@@ -95,7 +103,6 @@
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
         [self.view addSubview:btn];
-        [btn setHidden:YES];
         [btn setEditable:NO];
         
     }
@@ -108,7 +115,6 @@
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
         [self.view addSubview:btn];
-        [btn setHidden:YES];
         [btn setEditable:NO];
     }
     
@@ -121,7 +127,6 @@
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
         [self.view addSubview:btn];
-        [btn setHidden:YES];
         [btn setEditable:NO];
     }
     
@@ -133,18 +138,16 @@
         CustomButton *btn = [[CustomButton alloc] initWithFrame:frame];
         btn.tag=tag++;
         [self.view addSubview:btn];
-        [btn setHidden:YES];
         [btn setEditable:NO];
     }
     
-    NSInteger height = 350.25;      //viewHeight-buttonHeight*2-vPadding*4;
-    NSInteger width = 467;          //viewWidth-buttonWidth*2-hPadding*4;
+    NSInteger height = 350.25;      
+    NSInteger width = 467;          
     
     CGRect frame = CGRectMake((viewWidth-width)/2, (viewHeight-height)/2, width, height);
     CustomButton *videoButton = [[CustomButton alloc] initWithFrame:frame];
     videoButton.tag=101;
     [self.view addSubview:videoButton];
-    NSLog(@"Video button %f %f %f %f", frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
 }
 
 -(void)createButtons {
@@ -175,26 +178,34 @@
         theQuizPage = [quizzes objectAtIndex:quizPageIndex];
         theQuizPage.quizOptions=[[Data sharedData] getQuizOptionsForQuizId:theQuizPage.quizId];
         
-        NSMutableArray *options;
-        if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",300]]){
-            options = theQuizPage.quizOptions;
+        NSMutableArray *options=theQuizPage.quizOptions;
+        //now fill remaining buttons with empty values so that buttons get spread across screen
+        NSInteger cnt=options.count;
+        while (cnt<12) {
+            [options addObject:[QuizOption alloc]];
+            cnt++;
         }
-        else{
-            options = [self randomizeButtons:theQuizPage.quizOptions];
+        if(![[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",300]]){
+            options = [self randomizeButtons:options];
         }
         
-        for(NSInteger i=0;i<options.count;i++){
-            
-            QuizOption *quiz = [options objectAtIndex:i];
-            
-            CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
-            [btn createQuizButtonAtIndex:i+1 withQuiz:quiz];
-            
-            if(![quiz.assetUrl isEqualToString:@""]){
-                [btn addImageUsingAssetURL:quiz.assetUrl];
+        for(NSInteger i=0;i<ButtonCount;i++){
+            QuizOption *option = [options objectAtIndex:i];
+            if(option.quizId!=0){
+                QuizOption *quiz = [options objectAtIndex:i];
+                
+                CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
+                [btn createQuizButtonAtIndex:i+1 withQuiz:quiz];
+                
+                if(![quiz.assetUrl isEqualToString:@""]){
+                    [btn addImageUsingAssetURL:quiz.assetUrl];
+                }
             }
-            
-            [btn setHidden:NO];
+            else{
+                
+                CustomButton *btn = (CustomButton *)[self.view viewWithTag:i+1];
+                [btn setFakeButton:YES];
+            }
         }
     }
     
@@ -314,7 +325,6 @@
     
     if(whatNext==3){            //response video just played, pause it and play question video
 
-        //[self changeVideo:theQuizPage.videoUrl];
         moviePlayer.controlStyle=MPMovieControlStyleEmbedded;
 
         whatNext=-1;                //we are preparing for next video, so lets not allow any touch
@@ -322,20 +332,24 @@
         [self loadButtons];
         [self createButtons];
 
-
         return;
     }
     
     if(whatNext==4){       //response video just played and need to take to next quiz
-        //[self performSelector:@selector(nextQuiz) withObject:nil afterDelay:1];
-
-        quizPageIndex++;
-        
         whatNext=-1;                //we are preparing for next video, so lets not allow any touch
-        theQuizPage=nil;
-        [self loadButtons];
-        [self createButtons];
-                
+
+        if(quizPageIndex+1<quizzes.count){
+            quizPageIndex++;
+            
+            theQuizPage=nil;
+            [self loadButtons];
+            [self createButtons];
+        }
+        else{           //no more quizzes left, take user back to list page
+            [self dismissViewControllerAnimated:YES completion:^{
+                //do nothing
+            }];
+        }
         return;
     }
 }

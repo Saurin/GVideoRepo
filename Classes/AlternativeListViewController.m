@@ -114,6 +114,13 @@ static char * const myIndexPathAssociationKey = "";
         
         cell.textLabel.text = thisOption.assetName;
         cell.tag = thisOption.quizOptionId;
+        if(![[Data sharedData] isQuizOptionProgrammed:thisOption.quizOptionId]){
+            [cell showIncompleteMessage:YES];
+        }
+        else{
+            [cell showIncompleteMessage:NO];
+        }
+
         
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied

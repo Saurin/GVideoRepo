@@ -3,9 +3,7 @@
 #import "Data.h"
 #import <Foundation/NSJSONSerialization.h>
 
-@implementation Data {
-    NSArray *subjects;
-}
+@implementation Data
 
 + (Data *)sharedData {
     static Data *shardData = nil;
@@ -78,9 +76,14 @@
 }
 
 - (BOOL)isSubjectProgrammed:(NSInteger)index {
+
+    NSMutableArray *subjects = [[CrudOp sharedDB] GetRecords:DBTableSubject where:[@"" stringByAppendingFormat:@"SubjectId=%d",index]];
+    Subject * sub = [subjects objectAtIndex:0];
+    if(sub.assetUrl==nil || [sub.assetUrl isEqualToString:@""])
+        return FALSE;
+    
     
     NSMutableArray *quizzes = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[@"" stringByAppendingFormat:@"SubjectId=%d",index]];
-    
     //atleast should have one quiz defined
     if(quizzes==nil || quizzes.count==0)
         return FALSE;
@@ -97,7 +100,7 @@
         //each option added for quiz should have photo & video
         for(NSInteger j=0;j<quizOptions.count;j++){
             QuizOption *option = [quizOptions objectAtIndex:j];
-            if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""])
+            if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""] || option.assetUrl==nil)
                 return FALSE;
         }
     }
@@ -107,8 +110,13 @@
 
 - (BOOL)isQuizProgrammed:(NSInteger)index {
     
-    NSMutableArray *quizOptions = [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[@"" stringByAppendingFormat:@"QuizId=%d",index]];
+    //add video validation
+    NSMutableArray *quizzes = [[CrudOp sharedDB] GetRecords:DBTableQuiz where:[@"" stringByAppendingFormat:@"QuizId=%d",index]];
+    QuizPage *quiz = [quizzes objectAtIndex:0];
+    if(quiz.videoUrl==nil || [quiz.videoUrl isEqualToString:@""])
+        return FALSE;
     
+    NSMutableArray *quizOptions = [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[@"" stringByAppendingFormat:@"QuizId=%d",index]];
     //every quiz option should have
     if(quizOptions==nil || quizOptions.count==0)
         return FALSE;
@@ -116,7 +124,21 @@
     //each option added for quiz should have photo & video
     for(NSInteger j=0;j<quizOptions.count;j++){
         QuizOption *option = [quizOptions objectAtIndex:j];
-        if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""])
+        if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""] || option.assetUrl==nil)
+            return FALSE;
+    }
+    
+    return YES;
+}
+
+- (BOOL)isQuizOptionProgrammed:(NSInteger)index {
+    
+    NSMutableArray *quizOptions = [[CrudOp sharedDB] GetRecords:DBTableQuizOption where:[@"" stringByAppendingFormat:@"Id=%d",index]];
+    
+    //each option added for quiz should have photo & video
+    for(NSInteger j=0;j<quizOptions.count;j++){
+        QuizOption *option = [quizOptions objectAtIndex:j];
+        if([option.videoUrl isEqualToString:@""] || option.videoUrl==nil || [option.assetUrl isEqualToString:@""] || option.assetUrl==nil)
             return FALSE;
     }
     

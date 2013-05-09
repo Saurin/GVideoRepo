@@ -109,6 +109,12 @@ static char * const myIndexPathAssociationKey = "";
         
         cell.textLabel.text = thisSubject.subjectName;
         cell.tag = thisSubject.subjectId;
+        if(![[Data sharedData] isSubjectProgrammed:thisSubject.subjectId]){
+            [cell showIncompleteMessage:YES];
+        }
+        else{
+            [cell showIncompleteMessage:NO];
+        }
         
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied

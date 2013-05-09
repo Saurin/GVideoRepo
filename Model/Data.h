@@ -18,6 +18,7 @@
 - (void)deleteSubjectWithSubjectId:(NSInteger)index;
 - (BOOL)isSubjectProgrammed:(NSInteger)index;
 - (BOOL)isQuizProgrammed:(NSInteger)index;
+- (BOOL)isQuizOptionProgrammed:(NSInteger)index;
 
 -(NSInteger)saveQuiz:(QuizPage *)quizPage;
 -(void)deleteQuizWithQuizId:(NSInteger)index;

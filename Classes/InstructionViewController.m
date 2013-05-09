@@ -307,19 +307,28 @@
 
 -(void)showVideoAtCell:(UITableViewCell *)cell {
     
-    NSURL *url = [NSURL URLWithString:self.thisQuiz.videoUrl];
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [player prepareToPlay];
+//    NSURL *url = [NSURL URLWithString:self.thisQuiz.videoUrl];
+//    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+//    [player prepareToPlay];
+//    
+//    [player.view setFrame:CGRectMake(0, 0, 450, 300)];
+//    [player.view setAlpha:1];
+//    [self.view addSubview:player.view];
+//    
+//    player.controlStyle=MPMovieControlStyleEmbedded;
+//    player.movieSourceType=MPMovieSourceTypeStreaming;
+//    player.shouldAutoplay=NO;
+//    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
+//    moviePlayer=player;
     
-    [player.view setFrame:CGRectMake(0, 0, 450, 300)];
-    [player.view setAlpha:1];
-    [self.view addSubview:player.view];
+    PreviewViewController *preview = [[PreviewViewController alloc] init];
+    [preview setVideoUrl:self.thisQuiz.videoUrl];
+    [preview.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.width*3/4)];
+    photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:preview];
+    photoLibraryPopover.delegate=self;
+    [photoLibraryPopover setPopoverContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.width*3/4)];
+    [photoLibraryPopover presentPopoverFromRect:cell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
-    player.controlStyle=MPMovieControlStyleEmbedded;
-    player.movieSourceType=MPMovieSourceTypeStreaming;
-    player.shouldAutoplay=NO;
-    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
-    moviePlayer=player;
     
 }
 

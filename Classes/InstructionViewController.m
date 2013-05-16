@@ -361,29 +361,66 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
+    ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
     NSString *assetURL = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] description];
     NSString *moviePath = [[info objectForKey:UIImagePickerControllerMediaURL] path];
-    
+
     if(assetURL==nil){
-        //you taking new one
-        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
-            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
-        }
+        //new video
+    }
+    else{
+        // getting a thumbnail for a video is tricky business, basically we are taking
+		// a screenshot of the picker itself which is displaying the video right before it
+		// gets closed. UIGraphicsBeginImageContext is not thread safe, so we need to do this
+		// on the main thread.
+		// see: http://www.iphonedevsdk.com/forum/iphone-sdk-development/24025-uiimagepickercontroller-videorecording-iphone-3gs.html
+		CGSize thumbSize = CGSizeMake(picker.view.bounds.size.width, picker.view.bounds.size.height - 55);
+		UIGraphicsBeginImageContext(thumbSize);
+		[[picker.view layer] renderInContext:UIGraphicsGetCurrentContext()];
+		self.imgCurrentVideo.image = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
     }
     
-
-    NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
-    _dirtyQuiz.videoUrl = videoUrl.absoluteString;
-    
-    [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
-        [self.imgCurrentVideo setImage:image];
-    }];
-
     [photoLibraryPopover dismissPopoverAnimated:YES];
-    
+
     [picker dismissViewControllerAnimated:YES completion:^{
     }];
     videoPicker=nil;
+
+    NSURL *videoURL = [NSURL fileURLWithPath:moviePath];
+    [library writeVideoAtPathToSavedPhotosAlbum:videoURL completionBlock:^(NSURL *savedURL, NSError *error1){
+        
+        if(error1!=nil){
+            [OHAlertView showAlertWithTitle:@"" message:@"Unable to save video." cancelButton:nil okButton:@"OK"
+                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+            }];
+            return;
+        }
+        
+         _dirtyQuiz.videoUrl = savedURL.absoluteString;
+    }];
+
+    
+//    if(assetURL==nil){
+//        //you taking new one
+//        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
+//            UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
+//        }
+//    }
+//    
+//
+//    NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
+//    _dirtyQuiz.videoUrl = videoUrl.absoluteString;
+//    
+//    [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
+//        [self.imgCurrentVideo setImage:image];
+//    }];
+//
+//    [photoLibraryPopover dismissPopoverAnimated:YES];
+//    
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//    }];
+//    videoPicker=nil;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

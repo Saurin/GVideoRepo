@@ -150,35 +150,35 @@
     }
 }
 
--(BOOL)didQuizSelectionChange:(QuizPage *)newQuiz {
-    
+-(BOOL)didOptionSelectionChange:(QuizOption *)newOption {
+
     //hide keyboard or dismiss popover
-//    [self.txtOptionName resignFirstResponder];
-//    [photoLibraryPopover dismissPopoverAnimated:YES];
-//    
-//    _dirtyQuiz.quizName = self.txtQuizName.text;
-//    if(![self.thisQuiz isEqual:_dirtyQuiz]){
-//        
-//        [[[OHAlertView alloc] initWithTitle:@""
-//                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
-//                               cancelButton:@"No"
-//                               otherButtons:[NSArray arrayWithObject:@"Yes"]
-//                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-//                                 if(buttonIndex==1){
-//                                     [self save];
-//                                     [self.delegate didQuizChange:_dirtyQuiz];
-//                                     [self load:newQuiz];
-//                                 }
-//                                 else{
-//                                     [self load:newQuiz];
-//                                 }
-//                             }] show];
-//    }
-//    //we have no changes detected, load new subject
-//    else{
-//        [self load:newQuiz];
-//    }
-//    
+    [self.txtOptionName resignFirstResponder];
+    [photoLibraryPopover dismissPopoverAnimated:YES];
+    
+    _dirtyOption.assetName = self.txtOptionName.text;
+    if(![self.quizOption isEqual:_dirtyOption]){
+        
+        [[[OHAlertView alloc] initWithTitle:@""
+                                    message:@"Do you want to save the changes you made? Your changes will be lost if don't save them."
+                               cancelButton:@"No"
+                               otherButtons:[NSArray arrayWithObject:@"Yes"]
+                             onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                                 if(buttonIndex==1){
+                                     [self save];
+                                     [self.delegate didOptionChange:_dirtyOption];
+                                     [self load:newOption];
+                                 }
+                                 else{
+                                     [self load:newOption];
+                                 }
+                             }] show];
+    }
+    //we have no changes detected, load new subject
+    else{
+        [self load:newOption];
+    }
+    
     return YES;
 }
 
@@ -501,19 +501,12 @@
         if(assetURL==nil){
             //new video
         }
-        else{
-            // getting a thumbnail for a video is tricky business, basically we are taking
-            // a screenshot of the picker itself which is displaying the video right before it
-            // gets closed. UIGraphicsBeginImageContext is not thread safe, so we need to do this
-            // on the main thread.
-            // see: http://www.iphonedevsdk.com/forum/iphone-sdk-development/24025-uiimagepickercontroller-videorecording-iphone-3gs.html
-            CGSize thumbSize = CGSizeMake(picker.view.bounds.size.width, picker.view.bounds.size.height - 55);
-            UIGraphicsBeginImageContext(thumbSize);
-            [[picker.view layer] renderInContext:UIGraphicsGetCurrentContext()];
-            self.imgVideoCurrent.image = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-        }
-        
+
+        NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
+        [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
+            [self.imgVideoCurrent setImage:image];
+        }];
+
         [photoLibraryPopover dismissPopoverAnimated:YES];
         
         [picker dismissViewControllerAnimated:YES completion:^{
@@ -532,27 +525,6 @@
             
             _dirtyOption.videoUrl = savedURL.absoluteString;
         }];
-
-//        if(assetURL==nil){
-//            //you taking new one
-//            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (moviePath)) {
-//                UISaveVideoAtPathToSavedPhotosAlbum (moviePath, nil, nil, nil);
-//            }
-//        }
-//        
-//        
-//        NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
-//        _dirtyOption.videoUrl = videoUrl.absoluteString;
-//        
-//        [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
-//            [self.imgVideoCurrent setImage:image];
-//        }];
-//        
-//        [photoLibraryPopover dismissPopoverAnimated:YES];
-//        
-//        [picker dismissViewControllerAnimated:YES completion:^{
-//        }];
-//        videoPicker=nil;
     }
 }
 

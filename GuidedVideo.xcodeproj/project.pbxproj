@@ -21,6 +21,9 @@
 		7E9552F011766B410003D25C /* SubjectListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9552EC11766B410003D25C /* SubjectListView.xib */; };
 		BF028F541723125400DCAE92 /* Help.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF028F531723125400DCAE92 /* Help.plist */; };
 		BF028F5717232CE800DCAE92 /* Help.m in Sources */ = {isa = PBXBuildFile; fileRef = BF028F5617232CE800DCAE92 /* Help.m */; };
+		BF0389331756F41D0090445E /* NSString+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0389321756F41D0090445E /* NSString+HexColor.m */; };
+		BF0389351756F5E90090445E /* guidedvideo_watermark.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0389341756F5E90090445E /* guidedvideo_watermark.png */; };
+		BF0389371756F6FB0090445E /* incomplete.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0389361756F6FB0090445E /* incomplete.png */; };
 		BF1237C116F93B20008A755D /* SubjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C016F93B20008A755D /* SubjectListViewController.m */; };
 		BF1237C416F93BEB008A755D /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1237C316F93BEA008A755D /* BaseViewController.m */; };
 		BF1237CA16F962DB008A755D /* SubjectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1237C816F962DB008A755D /* SubjectView.xib */; };
@@ -116,6 +119,10 @@
 		BF028F531723125400DCAE92 /* Help.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Help.plist; sourceTree = "<group>"; };
 		BF028F5517232CE800DCAE92 /* Help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Help.h; sourceTree = "<group>"; };
 		BF028F5617232CE800DCAE92 /* Help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Help.m; sourceTree = "<group>"; };
+		BF0389311756F41D0090445E /* NSString+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HexColor.h"; sourceTree = "<group>"; };
+		BF0389321756F41D0090445E /* NSString+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HexColor.m"; sourceTree = "<group>"; };
+		BF0389341756F5E90090445E /* guidedvideo_watermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = guidedvideo_watermark.png; path = images/guidedvideo_watermark.png; sourceTree = "<group>"; };
+		BF0389361756F6FB0090445E /* incomplete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = incomplete.png; path = images/incomplete.png; sourceTree = "<group>"; };
 		BF1237BF16F93B20008A755D /* SubjectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectListViewController.h; sourceTree = "<group>"; };
 		BF1237C016F93B20008A755D /* SubjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectListViewController.m; sourceTree = "<group>"; };
 		BF1237C216F93BEA008A755D /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = Classes/BaseViewController.h; sourceTree = "<group>"; };
@@ -390,6 +397,8 @@
 		BF8C55671728A26E004851C5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BF0389361756F6FB0090445E /* incomplete.png */,
+				BF0389341756F5E90090445E /* guidedvideo_watermark.png */,
 				BF8C55641725FF37004851C5 /* GuidedVideoInstructions.png */,
 				BFA5F6FC171CDD38002E43C2 /* backIcon.png */,
 				BFA5F6FD171CDD38002E43C2 /* forwardIcon.png */,
@@ -458,6 +467,8 @@
 				BF618FAE16FD7214001042EF /* BaseModelViewController.m */,
 				D0EC68F715F170BA0089CF6F /* DetailViewManager.h */,
 				D0EC68F815F170BA0089CF6F /* DetailViewManager.m */,
+				BF0389311756F41D0090445E /* NSString+HexColor.h */,
+				BF0389321756F41D0090445E /* NSString+HexColor.m */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -552,6 +563,8 @@
 				BF028F541723125400DCAE92 /* Help.plist in Resources */,
 				BF8C55651725FF37004851C5 /* GuidedVideoInstructions.png in Resources */,
 				7085C182172AFDD100876386 /* InitialView.xib in Resources */,
+				BF0389351756F5E90090445E /* guidedvideo_watermark.png in Resources */,
+				BF0389371756F6FB0090445E /* incomplete.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +612,7 @@
 				BFA5F705171CE12E002E43C2 /* InfoViewController.m in Sources */,
 				BF028F5717232CE800DCAE92 /* Help.m in Sources */,
 				7085C185172AFE3500876386 /* InitialViewController.m in Sources */,
+				BF0389331756F41D0090445E /* NSString+HexColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,7 +763,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Saurin Travadi (6LWCL9ECCS)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -757,7 +771,7 @@
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7E7AD5BC-43B6-45D4-B5E3-252498EAFB69";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -767,13 +781,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Saurin Travadi (6LWCL9ECCS)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7E7AD5BC-43B6-45D4-B5E3-252498EAFB69";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
 			};

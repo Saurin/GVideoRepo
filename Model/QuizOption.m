@@ -14,6 +14,11 @@
 {
     self = [super init];
     if (self) {
+        
+        self.assetName = @"";
+        self.assetUrl = @"";
+        self.videoUrl=@"";
+        
         return self;
     }
     return nil;
@@ -27,6 +32,8 @@
         self.quizId=quizId;
         self.assetName = name;
         self.assetUrl = imgURL;
+        self.videoUrl=@"";
+        
         return self;
     }
     return nil;

@@ -35,9 +35,8 @@
     NSMutableArray *dirtyQuizzes = [[Data sharedData] getSubjectAtSubjectId:subject.subjectId].quizPages;
     for (NSInteger i=0; i<dirtyQuizzes.count; i++) {
         QuizPage *page = [dirtyQuizzes objectAtIndex:i];
-        if([[Data sharedData] isQuizProgrammed:page.quizId]){
+        if([[Data sharedData] isQuizProgrammed:page.quizId])
             [quizzes addObject:page];
-        }
     }
     
     quizPageIndex=0;

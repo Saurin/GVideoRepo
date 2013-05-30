@@ -1,6 +1,7 @@
 
 #import "BaseViewController.h"
 #import "InfoViewController.h"
+#import "NSString+HexColor.h"
 
 @implementation BaseViewController {
     UIButton *btnInfo;
@@ -19,6 +20,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    UIColor *color = [@"#32445E" getHexColor];
+    [[UINavigationBar appearance] setTintColor:color];
 }
 
 -(void)viewDidLayoutSubviews {

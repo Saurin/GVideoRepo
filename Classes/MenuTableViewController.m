@@ -27,6 +27,7 @@
     
     self.title = @"Guided Video";
     self.clearsSelectionOnViewWillAppear = NO;
+
 }
 
 #pragma mark -
@@ -106,34 +107,24 @@
                 break;
             }
             case 1:{
+
+                PlayViewController *play = [[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil];
                 
-                if([[[Utility alloc] init] getUserSettings:@"Configure"]==0){
+                if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",300]]==YES){
                 
                     [OHAlertView showAlertWithTitle:@"" message:@"Shake your device to come out of Play mode. You should turn on Guided Access, if not yet. Do you want continue and quit edit mode?" cancelButton:@"Don't Show me again" otherButtons:[NSArray arrayWithObjects:@"OK",@"Cancel", nil] onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-                        switch (buttonIndex) {
-                           
-                            case 0:
-                                [[[Utility alloc] init] setUserSettings:1 keyName:@"Configure"];
-                                [self.navigationController presentModalViewController:[[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil] animated:YES];
-
-                                break;
-                            
-                            case 1:{
-
-                                [self.navigationController presentModalViewController:[[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil] animated:YES];
-                                
-                                break;
-                            }
-                            default:
-                                break;
+                        
+                        if (buttonIndex==0) {
+                            [[[Utility alloc] init] setUserSettings:NO keyName:[NSString stringWithFormat:@"Settings%d",300]];
+                            [self.navigationController presentViewController:play animated:YES completion:^{}];
+                        }
+                        else if(buttonIndex==1){
+                            [self.navigationController presentViewController:play animated:YES completion:^{}];
                         }
                     }];
                 }
                 else{
-
-                    PlayViewController *playVC = [[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil];
-                    [self.navigationController presentModalViewController:playVC animated:YES];
-
+                    [self.navigationController presentViewController:play animated:YES completion:^{}];
                 }
                 
                 return nil;
@@ -190,7 +181,7 @@
     if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
        && section==[options count]-1){
         
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GuidedVideo.png"]];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"guidedvideo_watermark.png"]];
         [imageView setContentMode:UIViewContentModeCenter];
         [self makeRoundRectView:imageView];
         imageView.frame=CGRectMake((self.view.bounds.size.width-imageView.frame.size.width)/2, 30, imageView.frame.size.width, imageView.frame.size.height);

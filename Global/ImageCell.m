@@ -5,6 +5,7 @@
 @implementation ImageCell {
     UIImageView *imgCurrent;
     UIActivityIndicatorView *activity;
+    UIImageView *imgView;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -40,6 +41,11 @@
     self.textLabel.bounds = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     self.textLabel.frame = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     
+    if(imgView==nil)
+        imgView = [[UIImageView alloc] init];
+    
+    [imgView setFrame:CGRectMake(self.contentView.frame.size.width-50, 25, 40, 30)];
+    [self.contentView addSubview:imgView];
 }
 
 -(void)makeRoundRectView:(UIView *)view {
@@ -55,23 +61,20 @@
 
 -(void)showIncompleteMessage:(BOOL)show {
     if(show){
-        CGFloat height = self.bounds.size.height+10;
-        _incompleteLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, height, 180, 20)];
-        _incompleteLabel.text = @"[Incomplete]";
-        [_incompleteLabel setBackgroundColor:[UIColor clearColor]];
-        _incompleteLabel.textColor = [UIColor redColor];
-        _incompleteLabel.font = [UIFont systemFontOfSize:11];
-        [self.contentView addSubview:_incompleteLabel];
+        
+        [imgView setImage:[UIImage imageNamed:@"incomplete.png"]];
+
     }
     else{
-        [self.incompleteLabel removeFromSuperview];
+        
+        [imgView removeFromSuperview];
     }
 }
 
 -(void)dealloc {
     imgCurrent=nil;
     activity=nil;
-    _incompleteLabel=nil;
+    imgView=nil;
 }
 
 @end

@@ -34,9 +34,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self setBackgroundColor:[UIColor blackColor]];
+        [self setBackgroundColor:[UIColor clearColor]];
         [imageView setHidden:YES];
-        
     }
     return self;
 }
@@ -61,7 +60,7 @@
     lblText=[[UILabel alloc] init];
     bEmptyButton=NO;
     
-    [self setBackgroundColor:[UIColor blackColor]];
+    [self setBackgroundColor:[UIColor clearColor]];
 
     [lblText setBackgroundColor:[UIColor clearColor]];
     [lblText setTextColor:[UIColor whiteColor]];

@@ -163,10 +163,10 @@ static char * const myIndexPathAssociationKey = "";
         //this should be current detail view, user is seeing.
         
         BaseViewController *someController = (InstructionViewController *)self.detailViewManager.detailViewController;
-        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[InstructionViewController class]]){
+        if([[someController.navigationController.viewControllers lastObject] isKindOfClass:[AlternativeViewController class]]){
             
-            InstructionViewController *instructionViewController = [someController.navigationController.viewControllers lastObject];
-            [instructionViewController didQuizSelectionChange:[alternatives objectAtIndex:indexPath.row]];
+            AlternativeViewController *alternativeViewController = [someController.navigationController.viewControllers lastObject];
+            [alternativeViewController didOptionSelectionChange:[alternatives objectAtIndex:indexPath.row]];
         }
         
         return nil;
@@ -191,11 +191,9 @@ static char * const myIndexPathAssociationKey = "";
     }
 }
 
-#pragma Subject Change notification
--(void)didSubjectChange:(Subject *)newSubject {
+
+-(void)didOptionChange:(QuizOption *)newOption  {
     
-    //new subject received, lets just refresh our table view
-    //here we assume, this notification will only be received when SubjectList is a masterviewcontroller
     alternatives = [[Data sharedData] getQuizOptionsForQuizId:self.quizPage.quizId];
     [self.tableView reloadData];
 }

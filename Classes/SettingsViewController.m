@@ -14,7 +14,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    subjects = [NSMutableArray arrayWithObjects:@"Show Video Controls",@"Allow Touch while Video is playing",@"Randomize Alternatives", nil];
+    subjects = [NSMutableArray arrayWithObjects:@"Show Video Controls",@"Allow Touch while Video is playing",@"Randomize Alternatives",@"Show Play mode message", nil];
     
     [self.tableView setRowHeight:75];
     [self.tableView reloadData];

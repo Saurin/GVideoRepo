@@ -109,12 +109,6 @@ static char * const myIndexPathAssociationKey = "";
         
         cell.textLabel.text = thisSubject.subjectName;
         cell.tag = thisSubject.subjectId;
-        if(![[Data sharedData] isSubjectProgrammed:thisSubject.subjectId]){
-            [cell showIncompleteMessage:YES];
-        }
-        else{
-            [cell showIncompleteMessage:NO];
-        }
         
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied
@@ -135,7 +129,15 @@ static char * const myIndexPathAssociationKey = "";
                         // Only set cell image if the cell currently being displayed is the one that actually required this image.
                         // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
                         
+                        Subject *sub = [subjects objectAtIndex:indexPath.row];
                         [cell showImage:image];
+                        if(![[Data sharedData] isSubjectProgrammed:sub.subjectId]){
+                            [cell showIncompleteMessage:YES];
+                        }
+                        else{
+                            [cell showIncompleteMessage:NO];
+                        }
+
                     }
                 });
             }];

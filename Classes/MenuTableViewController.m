@@ -4,6 +4,7 @@
 #import "DetailViewController.h"
 #import "SettingsViewController.h"
 #import "SubjectListViewController.h"
+#import "ContentListViewController.h"
 #import "PlayViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "WebViewController.h"
@@ -20,7 +21,7 @@
 -(void)viewDidLoad
 {
     options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure",@"Play",nil]
-               ,[NSMutableArray arrayWithObjects:@"Settings",@"Review",nil]
+               ,[NSMutableArray arrayWithObjects:@"Settings",@"Artwork", @"Review",nil]
                ,[NSMutableArray arrayWithObjects:@"Contact",@"About",nil]
                , nil];
     
@@ -139,6 +140,11 @@
             case 0:
                 
                 detailViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
+                break;
+            
+            case 1:
+                
+                detailViewController = [[ContentListViewController alloc] initWithNibName:@"ContentListView" bundle:nil];
                 break;
                 
             default:{

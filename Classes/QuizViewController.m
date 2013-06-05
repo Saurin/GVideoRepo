@@ -184,7 +184,7 @@
             [options addObject:[QuizOption alloc]];
             cnt++;
         }
-        if(![[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",300]]){
+        if(![[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",200]]){
             options = [self randomizeButtons:options];
         }
         
@@ -222,7 +222,7 @@
     [player.view setFrame:CGRectMake(0, 0, videoButton.frame.size.width, videoButton.frame.size.height)];
     [videoButton addSubview:player.view];
     
-    if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",100]]){
+    if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",0]]){
         player.controlStyle=MPMovieControlStyleEmbedded;
     }
     else{
@@ -275,7 +275,7 @@
             
             [btn setAlpha:1];
 
-            if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",200]]){
+            if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",100]]){
                 //allow to touch button and get new video....
             }
             else{

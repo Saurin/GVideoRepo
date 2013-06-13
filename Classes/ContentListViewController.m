@@ -9,6 +9,7 @@
 #import "ContentListViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MBProgressHUD.h"
+#import "AFHTTPRequestOperation.h"
 #import "JSON.h"
 #import "Content.h"
 
@@ -156,16 +157,26 @@ CGFloat kMovieViewOffsetY = 20.0;
         [player view].backgroundColor = [UIColor blackColor];
         [self.view addSubview: [player view]];
         
-        ALAssetsLibrary * library = [[ALAssetsLibrary alloc] init];
-        [library writeVideoAtPathToSavedPhotosAlbum:movieURL completionBlock:^(NSURL *assetURL, NSError *error1){
-            
-            if(error1!=nil){
-                [OHAlertView showAlertWithTitle:@"" message:@"Unable to save video." cancelButton:nil okButton:@"OK" onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
-                    
-                    [HUD hide:YES];
-                }];
-            }
+        
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:movieURL];
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"video-%d.mov",arc4random() % 1000]];
+        NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"mergeVideo-%d.mov",arc4random() % 1000]];
+
+        
+        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil);
+            NSLog(@"Successfully downloaded file to %@", path);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
         }];
+        
+        [operation start];
+        
     }
 }
 

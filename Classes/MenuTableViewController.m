@@ -9,27 +9,31 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "WebViewController.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 @implementation MenuTableViewController {
     NSMutableArray *options;
     BaseViewController <SubstitutableDetailViewController> *detailViewController;
     
     MBProgressHUD *HUD;
+    BOOL showOverlay;
 }
 
 
 -(void)viewDidLoad
 {
     options = [NSMutableArray arrayWithObjects:[NSMutableArray arrayWithObjects:@"Configure",@"Play",nil]
-               ,[NSMutableArray arrayWithObjects:@"Settings",@"Artwork", @"Review",nil]
+               ,[NSMutableArray arrayWithObjects:@"Settings",@"Review",nil]
                ,[NSMutableArray arrayWithObjects:@"Contact",@"About",nil]
                , nil];
     
     
     self.title = @"Guided Video";
     self.clearsSelectionOnViewWillAppear = NO;
+    
 
 }
+
 
 #pragma mark -
 #pragma mark Rotation support
@@ -44,7 +48,6 @@
     [super shouldAutorotate];
     return  YES;
 }
-
 
 #pragma mark -
 #pragma mark Table view data source
@@ -142,17 +145,19 @@
                 detailViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsView" bundle:nil];
                 break;
             
-            case 1:
-                
-                detailViewController = [[ContentListViewController alloc] initWithNibName:@"ContentListView" bundle:nil];
-                break;
-                
-            default:{
+            case 1: {
                 
                 DetailViewController *newDetailViewController = [[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil];
                 newDetailViewController.sender = @"Review";
                 detailViewController = newDetailViewController;
                 break;
+            }
+            
+            default:{
+
+                detailViewController = [[ContentListViewController alloc] initWithNibName:@"ContentListView" bundle:nil];
+                break;
+                
             }
         }
     }

@@ -3,7 +3,9 @@
 #import "ApplicationNotification.h"
 #import "Help.h"
 
-@implementation AppDelegate
+@implementation AppDelegate{
+    BOOL tutorialOn;
+}
 
 #pragma mark -
 
@@ -13,6 +15,7 @@
 	// Initialize the app window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.splitViewController;
+
     [self.window makeKeyAndVisible];
     
     // The new popover look for split views was added in iOS 5.1.
@@ -21,6 +24,8 @@
     if ([self.splitViewController respondsToSelector:@selector(setPresentsWithGesture:)])
         [self.splitViewController setPresentsWithGesture:YES];
     
+    //show overlay, if needed
+    [self showTutorialOverlay];
     
     //detect and make DB changes here....
     [self makeDBChanges];
@@ -30,6 +35,20 @@
 
 	return YES;
 }
+
+-(void) showTutorialOverlay{
+    //check if need to display
+    self.window.rootViewController = self.tutorialViewController;
+    [self.tutorialScrollView setContentSize:CGSizeMake(self.window.frame.size.height*3, self.window.frame.size.width)];
+    for (NSInteger i=0; i<3; i++) {
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(self.window.frame.size.height*i, 0, self.window.frame.size.height, self.window.frame.size.width)];
+        imgView.image=[UIImage imageNamed:[@"" stringByAppendingFormat:@"overlay%d.png",i]];
+        [imgView setContentMode:UIViewContentModeScaleToFill];
+        [self.tutorialScrollView addSubview:imgView];
+    }
+    [self.window.rootViewController.view sendSubviewToBack:self.tutorialScrollView];
+}
+
 
 -(void)makeDBChanges{
 
@@ -51,8 +70,23 @@
     }
 }
 
+-(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if([window.rootViewController isKindOfClass:[self.splitViewController class]]){
+        //allow rotation
+        return UIInterfaceOrientationMaskAll;
+    }
+    else{
+        return UIInterfaceOrientationMaskLandscape;
+    }
+}
+
 -(void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
+    
     [[ApplicationNotification notification] postNotificationChangeStatusBarOrientation:oldStatusBarOrientation];
+}
+
+-(IBAction)didCloseTutorialClick:(id)sender {
+    self.window.rootViewController = self.splitViewController;
 }
 
 @end

@@ -8,6 +8,7 @@
     
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
     UIImagePickerController *imagePicker;
+    UIBarButtonItem *saveSubject;
 }
 
 #pragma mark -
@@ -31,10 +32,10 @@
         
         _dirtySubject=[self.thisSubject copy];
         
-        UIBarButtonItem *saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
-        
-        [saveSubject setTintColor:[UIColor blueColor]];
+        saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
         [self setOtherRightBarButtons:[NSArray arrayWithObject:saveSubject]];
+
+        [self setNextButton];
         
         //if masterviewcontroller is not SubjectListViewController, change it to SubjectListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectListViewController class]]){
@@ -190,7 +191,13 @@
     }
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    _dirtySubject.subjectName = textField.text;
+    [self setNextButton];
+}
+
 #pragma Save subject
+
 -(IBAction)didSubjectDeleteClick:(id)sender {
     
     [[[OHAlertView alloc] initWithTitle:@""
@@ -232,6 +239,10 @@
 
 -(BOOL)didSubjectSelectionChange:(Subject *)newSubject {
     
+    //as of 06/12/2013, decided to disable NEXT button if not all values selected....
+    //so disabling selection change for ever.....
+    return NO;
+    
     //hide keyboard or dismiss popover
     [self.txtSubject resignFirstResponder];
     [photoLibraryPopover dismissPopoverAnimated:YES];
@@ -262,6 +273,18 @@
     return YES;
 }
 
+-(void)setNextButton{
+    
+    if(![_dirtySubject.subjectName isEqualToString:@""] && ![_dirtySubject.assetUrl isEqualToString:@""]){
+        [saveSubject setEnabled:YES];
+        [saveSubject setTintColor:[UIColor blueColor]];
+    }
+    else{
+        [saveSubject setEnabled:YES];
+        [saveSubject setTintColor:[UIColor blueColor]];
+    }
+}
+
 -(BOOL)save{
     
     //do validation, or keep save button disabled
@@ -280,11 +303,14 @@
 
 -(void)load:(Subject *)subject{
     
+
     self.thisSubject = [subject copy];
     _dirtySubject=[self.thisSubject copy];
     
     [self.tblImageFrom reloadData];
     [self performSelector:@selector(sendSelectionNotification:) withObject:self.thisSubject afterDelay:0.1];
+    self.title = self.thisSubject.subjectName;
+    [self.btnDelete setHidden:NO];
 }
 
 -(void)showSelectedImageWithURL:(NSString *)assetUrl {
@@ -300,6 +326,8 @@
         [self makeRoundRectView:self.imgCurrent layerRadius:10];
         cell.accessoryView=self.imgCurrent;
     }];
+    
+    [self setNextButton];
 }
 
 #pragma Camera and Photo library

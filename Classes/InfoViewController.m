@@ -1,6 +1,7 @@
 
 
 #import "InfoViewController.h"
+#import "NSString+HexColor.h"
 
 @implementation InfoViewController {
     Help *help;
@@ -19,9 +20,12 @@
 {
     [super viewWillAppear:animated];
 
+    
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     [self.view addSubview:toolbar];
-    [toolbar setBarStyle:UIBarStyleBlackOpaque];
+    UIColor *color = [@"#32445E" getHexColor];
+    [[UIToolbar appearance] setTintColor:color];
+
     
     UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(didDoneClick:)];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];

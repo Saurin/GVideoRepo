@@ -14,7 +14,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    subjects = [NSMutableArray arrayWithObjects:@"Show Video Controls",@"Allow Touch while Video is playing",@"Randomize Alternatives",@"Show Play mode message", nil];
+    subjects = [NSMutableArray arrayWithObjects:@"Show Video Controls",@"Allow Touch while Instructional Video is playing",@"Randomize Alternatives",@"Show Me How to get out of Play Mode", nil];
     
     [self.tableView setRowHeight:75];
     [self.tableView reloadData];
@@ -38,10 +38,24 @@
     return [subjects count];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //hide randomize option, as randomization is always needed
+    if(indexPath.row==2){
+        [[[Utility alloc] init] setUserSettings:YES keyName:[NSString stringWithFormat:@"Settings%d",200]];
+        return 0;
+    }
+    return 70;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    //hide randomize option, as randomization is always needed
+    if(indexPath.row==2)
+        return cell;
+    
     
     cell.textLabel.text = [subjects objectAtIndex:indexPath.row];
     

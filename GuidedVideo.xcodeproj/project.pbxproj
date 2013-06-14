@@ -91,6 +91,10 @@
 		BFA80B971766D2B0004CC7DD /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80B961766D2B0004CC7DD /* download.png */; };
 		BFA80BA517694C17004CC7DD /* overlay0.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80BA417694C17004CC7DD /* overlay0.png */; };
 		BFA80BA717694CB5004CC7DD /* overlay2.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80BA617694CB4004CC7DD /* overlay2.png */; };
+		BFA80BAC176A7F37004CC7DD /* overlay_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80BA8176A7F36004CC7DD /* overlay_1.png */; };
+		BFA80BAD176A7F37004CC7DD /* overlay_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80BA9176A7F36004CC7DD /* overlay_2.png */; };
+		BFA80BAE176A7F37004CC7DD /* overlay_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80BAA176A7F36004CC7DD /* overlay_3.png */; };
+		BFA80BAF176A7F37004CC7DD /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = BFA80BAB176A7F36004CC7DD /* overlay.png */; };
 		BFAE9C8416FA8FAD00239133 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8316FA8FAD00239133 /* icon.png */; };
 		BFAE9C8616FA8FBA00239133 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8516FA8FBA00239133 /* icon@2x.png */; };
 		BFAE9C8916FA904C00239133 /* GuidedVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8716FA904C00239133 /* GuidedVideo.png */; };
@@ -255,6 +259,10 @@
 		BFA80B961766D2B0004CC7DD /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = images/download.png; sourceTree = "<group>"; };
 		BFA80BA417694C17004CC7DD /* overlay0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay0.png; path = images/overlay0.png; sourceTree = "<group>"; };
 		BFA80BA617694CB4004CC7DD /* overlay2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay2.png; path = images/overlay2.png; sourceTree = "<group>"; };
+		BFA80BA8176A7F36004CC7DD /* overlay_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay_1.png; path = images/overlay_1.png; sourceTree = "<group>"; };
+		BFA80BA9176A7F36004CC7DD /* overlay_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay_2.png; path = images/overlay_2.png; sourceTree = "<group>"; };
+		BFA80BAA176A7F36004CC7DD /* overlay_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay_3.png; path = images/overlay_3.png; sourceTree = "<group>"; };
+		BFA80BAB176A7F36004CC7DD /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = overlay.png; path = images/overlay.png; sourceTree = "<group>"; };
 		BFAE9C8316FA8FAD00239133 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		BFAE9C8516FA8FBA00239133 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		BFAE9C8716FA904C00239133 /* GuidedVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GuidedVideo.png; path = images/GuidedVideo.png; sourceTree = "<group>"; };
@@ -464,6 +472,10 @@
 		BF8C55671728A26E004851C5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BFA80BA8176A7F36004CC7DD /* overlay_1.png */,
+				BFA80BA9176A7F36004CC7DD /* overlay_2.png */,
+				BFA80BAA176A7F36004CC7DD /* overlay_3.png */,
+				BFA80BAB176A7F36004CC7DD /* overlay.png */,
 				BFA80BA617694CB4004CC7DD /* overlay2.png */,
 				BFA80BA417694C17004CC7DD /* overlay0.png */,
 				BFA80B961766D2B0004CC7DD /* download.png */,
@@ -690,6 +702,10 @@
 				BFA80B971766D2B0004CC7DD /* download.png in Resources */,
 				BFA80BA517694C17004CC7DD /* overlay0.png in Resources */,
 				BFA80BA717694CB5004CC7DD /* overlay2.png in Resources */,
+				BFA80BAC176A7F37004CC7DD /* overlay_1.png in Resources */,
+				BFA80BAD176A7F37004CC7DD /* overlay_2.png in Resources */,
+				BFA80BAE176A7F37004CC7DD /* overlay_3.png in Resources */,
+				BFA80BAF176A7F37004CC7DD /* overlay.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

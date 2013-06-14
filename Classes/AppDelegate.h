@@ -12,7 +12,6 @@
 /// Things for IB
 @property (nonatomic, strong) IBOutlet UISplitViewController *splitViewController;
 @property (nonatomic, strong) IBOutlet UIViewController *tutorialViewController;
-@property (nonatomic, strong) IBOutlet UIScrollView *tutorialScrollView;
 
 // DetailViewManager is assigned as the Split View Controller's delegate.
 // However, UISplitViewController maintains only a weak reference to its

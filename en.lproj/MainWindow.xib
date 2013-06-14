@@ -13,12 +13,10 @@
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<string>IBProxyObject</string>
-			<string>IBUIButton</string>
 			<string>IBUICustomObject</string>
 			<string>IBUINavigationBar</string>
 			<string>IBUINavigationController</string>
 			<string>IBUINavigationItem</string>
-			<string>IBUIScrollView</string>
 			<string>IBUISplitViewController</string>
 			<string>IBUITableViewController</string>
 			<string>IBUIView</string>
@@ -123,68 +121,9 @@
 				<object class="IBUIView" key="IBUIView" id="877468987">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
-					<object class="NSMutableArray" key="NSSubviews">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="IBUIButton" id="754548507">
-							<reference key="NSNextResponder" ref="877468987"/>
-							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{200, 654}, {73, 44}}</string>
-							<reference key="NSSuperview" ref="877468987"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
-							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<bool key="IBUIOpaque">NO</bool>
-							<float key="IBUIAlpha">0.40000000596046448</float>
-							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-							<int key="IBUIContentHorizontalAlignment">0</int>
-							<int key="IBUIContentVerticalAlignment">0</int>
-							<int key="IBUIButtonType">1</int>
-							<object class="NSColor" key="IBUITintColor">
-								<int key="NSColorSpace">2</int>
-								<bytes key="NSRGB">MC44NTA5ODA0NjA2IDAuODU4ODIzNTk3NCAwLjg4MjM1MzAwNzgAA</bytes>
-							</object>
-							<object class="NSColor" key="IBUIHighlightedTitleColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MQA</bytes>
-							</object>
-							<object class="NSColor" key="IBUINormalTitleColor">
-								<int key="NSColorSpace">1</int>
-								<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
-							</object>
-							<object class="NSColor" key="IBUINormalTitleShadowColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC41AA</bytes>
-							</object>
-							<object class="IBUIFontDescription" key="IBUIFontDescription">
-								<int key="type">2</int>
-								<int key="size">2</int>
-							</object>
-							<object class="NSFont" key="IBUIFont">
-								<string key="NSName">Helvetica-Bold</string>
-								<double key="NSSize">18</double>
-								<int key="NSfFlags">16</int>
-							</object>
-						</object>
-						<object class="IBUIScrollView" id="1012812414">
-							<reference key="NSNextResponder" ref="877468987"/>
-							<int key="NSvFlags">274</int>
-							<string key="NSFrameSize">{1024, 748}</string>
-							<reference key="NSSuperview" ref="877468987"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="754548507"/>
-							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<bool key="IBUIClipsSubviews">YES</bool>
-							<bool key="IBUIMultipleTouchEnabled">YES</bool>
-							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-							<bool key="IBUIAlwaysBounceHorizontal">YES</bool>
-							<bool key="IBUIPagingEnabled">YES</bool>
-							<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
-						</object>
-					</object>
 					<string key="NSFrame">{{0, 20}, {1024, 748}}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="1012812414"/>
 					<string key="NSReuseIdentifierKey">_NS:9</string>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
@@ -244,14 +183,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tutorialScrollView</string>
-						<reference key="source" ref="250404236"/>
-						<reference key="destination" ref="1012812414"/>
-					</object>
-					<int key="connectionID">50</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="193536661"/>
 						<reference key="destination" ref="303015041"/>
@@ -273,23 +204,6 @@
 						<reference key="destination" ref="493747282"/>
 					</object>
 					<int key="connectionID">23</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">didCloseTutorialClick:</string>
-						<reference key="source" ref="754548507"/>
-						<reference key="destination" ref="250404236"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">47</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="1012812414"/>
-						<reference key="destination" ref="250404236"/>
-					</object>
-					<int key="connectionID">51</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -384,23 +298,8 @@
 						<reference key="object" ref="877468987"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="754548507"/>
-							<reference ref="1012812414"/>
 						</object>
 						<reference key="parent" ref="224847265"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">48</int>
-						<reference key="object" ref="1012812414"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-						</object>
-						<reference key="parent" ref="877468987"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">46</int>
-						<reference key="object" ref="754548507"/>
-						<reference key="parent" ref="877468987"/>
 					</object>
 				</object>
 			</object>
@@ -420,9 +319,6 @@
 					<string>36.IBPluginDependency</string>
 					<string>4.CustomClassName</string>
 					<string>4.IBPluginDependency</string>
-					<string>46.IBPluginDependency</string>
-					<string>46.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
-					<string>48.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.CustomClassName</string>
@@ -443,9 +339,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>AppDelegate</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -492,14 +385,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>detailViewManager</string>
 							<string>splitViewController</string>
-							<string>tutorialScrollView</string>
 							<string>tutorialViewController</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>DetailViewManager</string>
 							<string>UISplitViewController</string>
-							<string>UIScrollView</string>
 							<string>UIViewController</string>
 						</object>
 					</object>
@@ -509,7 +400,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>detailViewManager</string>
 							<string>splitViewController</string>
-							<string>tutorialScrollView</string>
 							<string>tutorialViewController</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -521,10 +411,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">splitViewController</string>
 								<string key="candidateClassName">UISplitViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">tutorialScrollView</string>
-								<string key="candidateClassName">UIScrollView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tutorialViewController</string>
@@ -623,10 +509,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1552" key="NS.object.0"/>
-		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
 			<integer value="3100" key="NS.object.0"/>

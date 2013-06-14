@@ -3,7 +3,7 @@
 #import "SettingsViewController.h"
 
 @implementation SettingsViewController {
-     NSMutableArray *subjects;
+     NSMutableArray *options;
 }
 
 - (void)viewDidLoad
@@ -14,7 +14,12 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    subjects = [NSMutableArray arrayWithObjects:@"Show Video Controls",@"Allow Touch while Instructional Video is playing",@"Randomize Alternatives",@"Show Me How to get out of Play Mode", nil];
+    options = [NSMutableArray arrayWithObjects:
+               [NSMutableArray arrayWithObjects:@"Show Video Controls",[NSString stringWithFormat:@"%d",kShowVideoControls], nil],
+               [NSMutableArray arrayWithObjects:@"Allow Touch while Instructional Video is playing",[NSString stringWithFormat:@"%d",kAllowTouchWhileVideoPlaying], nil],
+               [NSMutableArray arrayWithObjects:@"Show Me How to get out of Play Mode",[NSString stringWithFormat:@"%d",kShowPlayModeMessage], nil],
+               [NSMutableArray arrayWithObjects:@"Show Tutorial",[NSString stringWithFormat:@"%d",kShowTutorial], nil],
+               nil];
     
     [self.tableView setRowHeight:75];
     [self.tableView reloadData];
@@ -35,16 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [subjects count];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //hide randomize option, as randomization is always needed
-    if(indexPath.row==2){
-        [[[Utility alloc] init] setUserSettings:YES keyName:[NSString stringWithFormat:@"Settings%d",200]];
-        return 0;
-    }
-    return 70;
+    return [options count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,15 +48,12 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
-    //hide randomize option, as randomization is always needed
-    if(indexPath.row==2)
-        return cell;
-    
-    
-    cell.textLabel.text = [subjects objectAtIndex:indexPath.row];
+    NSMutableArray *array = [options objectAtIndex:indexPath.row];
+    cell.textLabel.text = [array objectAtIndex:0];
     
     UISwitch *switcher = [[UISwitch alloc] initWithFrame: CGRectMake(cell.bounds.size.width-80, cell.bounds.size.height/2-30, 75, 60)];
-    switcher.tag = indexPath.row*100;
+    NSLog(@"%d",[[array objectAtIndex:1] intValue]);
+    switcher.tag = [[array objectAtIndex:1] intValue];
     [switcher addTarget: self action: @selector(flip:) forControlEvents: UIControlEventValueChanged];
     cell.accessoryView=switcher;
     

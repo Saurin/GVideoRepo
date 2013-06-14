@@ -3,7 +3,7 @@
 #import "DetailViewManager.h"
 #import "CrudOp.h"
 
-@interface AppDelegate : NSObject <UIApplicationDelegate, UIScrollViewDelegate>
+@interface AppDelegate : NSObject <UIApplicationDelegate>
 @property (nonatomic, retain) NSString *localSettingsPath;
 
 @property (nonatomic, strong) UIWindow *window;
@@ -20,6 +20,6 @@
 @property (nonatomic, strong) IBOutlet DetailViewManager *detailViewManager;
 
 
--(IBAction)didCloseTutorialClick:(id)sender;
+-(void)CloseTutorial;
 @end
 

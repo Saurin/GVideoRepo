@@ -114,12 +114,12 @@
 
                 PlayViewController *play = [[PlayViewController alloc] initWithNibName:@"PlayView" bundle:nil];
                 
-                if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",300]]==YES){
+                if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",kShowPlayModeMessage]]==YES){
                 
                     [OHAlertView showAlertWithTitle:@"" message:@"Shake your device to come out of Play mode. You should turn on Guided Access, if not yet. Do you want continue and quit edit mode?" cancelButton:@"Don't Show me again" otherButtons:[NSArray arrayWithObjects:@"OK",@"Cancel", nil] onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
                         
                         if (buttonIndex==0) {
-                            [[[Utility alloc] init] setUserSettings:NO keyName:[NSString stringWithFormat:@"Settings%d",300]];
+                            [[[Utility alloc] init] setUserSettings:NO keyName:[NSString stringWithFormat:@"Settings%d",kShowPlayModeMessage]];
                             [self.navigationController presentViewController:play animated:YES completion:^{}];
                         }
                         else if(buttonIndex==1){

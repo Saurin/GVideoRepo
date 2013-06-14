@@ -6,3 +6,8 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
 #endif
+
+#define kShowVideoControls 0
+#define kAllowTouchWhileVideoPlaying 100
+#define kShowPlayModeMessage 300
+#define kShowTutorial 400

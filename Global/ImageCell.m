@@ -6,6 +6,7 @@
     UIImageView *imgCurrent;
     UIActivityIndicatorView *activity;
     UIImageView *imgView;
+    
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -41,9 +42,9 @@
     self.textLabel.bounds = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     self.textLabel.frame = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     
-    if(imgView==nil)
+    if(imgView==nil){
         imgView = [[UIImageView alloc] init];
-    
+    }
     [imgView setFrame:CGRectMake(self.contentView.frame.size.width-50, 25, 40, 30)];
     [self.contentView addSubview:imgView];
 }
@@ -69,6 +70,18 @@
         
         [imgView removeFromSuperview];
     }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+
+    CGPoint pt = [touch locationInView:imgView];
+
+    if (pt.x>=0 && pt.x<imgView.frame.size.width) {
+        [self.delegate imageCell:self didIncompleteButtonSelectAt:[touch locationInView:self]];
+        return;
+    }
+    [self.nextResponder touchesEnded:touches withEvent:event];
 }
 
 -(void)dealloc {

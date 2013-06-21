@@ -112,6 +112,13 @@
     return [[NSUserDefaults standardUserDefaults] integerForKey:keyName];
 }
 
+-(BOOL)userSettingsExists:(NSString *)keyName {
+    if([[NSUserDefaults standardUserDefaults] objectForKey:keyName] != nil) {
+        return YES;
+    }
+    return NO;
+}
+
 + (NSString*)device{
     return [[UIDevice currentDevice]model];
 }

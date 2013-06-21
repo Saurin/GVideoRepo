@@ -1,8 +1,9 @@
 
 
 #import "SubjectListViewController.h"
+#import "WebViewController.h"
 #import <objc/runtime.h>
-#import "ImageCell.h"
+
 
 static char * const myIndexPathAssociationKey = "";
 @implementation SubjectListViewController {
@@ -98,6 +99,7 @@ static char * const myIndexPathAssociationKey = "";
         
         //dont want to reuse cell as we have cell image getting added on a different queue
         ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        cell.delegate = self;
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         
         if(self.isListDetailController){
@@ -192,7 +194,6 @@ static char * const myIndexPathAssociationKey = "";
         
         SubjectViewController *subjectViewController = [[SubjectViewController alloc] initWithNibName:@"SubjectView" bundle:nil];
         [subjectViewController setThisSubject:[subjects objectAtIndex:indexPath.row]];
-        NSLog(@"%d",((Subject *)[subjects objectAtIndex:indexPath.row]).subjectId);
         [subjectViewController setDelegate:masterViewController];
         [subjectViewController setIsDetailController:YES];
         [self.navigationController pushViewController:subjectViewController animated:YES];
@@ -206,6 +207,35 @@ static char * const myIndexPathAssociationKey = "";
     //here we assume, this notification will only be received when SubjectList is a masterviewcontroller
     subjects = [[Data sharedData] getSubjects];
     [self.tableView reloadData];
+}
+
+-(void)imageCell:(ImageCell *)imageCell didIncompleteButtonSelectAt:(CGPoint)point {
+    
+    for (NSInteger cnt=0; cnt<subjects.count; cnt++) {
+
+        ImageCell *cell=(ImageCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0]];
+        if(cell==imageCell){
+            
+            if(self.isListDetailController){
+                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+            }
+            
+            Subject *sub=[subjects objectAtIndex:cnt];
+            [self showErrorMessageFor:sub];
+        }
+        else{
+            
+            if(self.isListDetailController){
+                [cell setHighlighted:NO animated:NO];
+                [cell setSelected:NO];
+                [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0] animated:NO];
+            }
+        }
+    }
+}
+
+-(void)showErrorMessageFor:(Subject *)subject {
+    [[[OHAlertView alloc] initWithTitle:[@"" stringByAppendingFormat:@"%@",subject.subjectName] message:@"Please correct the followings..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] showWithTimeout:5 timeoutButtonIndex:0];
 }
 
 @end

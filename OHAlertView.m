@@ -75,7 +75,7 @@
 {
     [self showWithTimeout:timeoutInSeconds
        timeoutButtonIndex:timeoutButtonIndex
-     timeoutMessageFormat:@"(Alert dismissed in %lus)"];
+     timeoutMessageFormat:@""];
 }
 
 -(void)showWithTimeout:(unsigned long)timeoutInSeconds

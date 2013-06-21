@@ -1,6 +1,7 @@
 
 #import "SubjectViewController.h"
 #import "SubjectListViewController.h"
+#import "NSString+HexColor.h"
 
 @implementation SubjectViewController {
     NSMutableArray *imageFromArray;
@@ -35,16 +36,19 @@
         saveSubject = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveSubjectAndNextClick:)];
         [self setOtherRightBarButtons:[NSArray arrayWithObject:saveSubject]];
 
-        [self setNextButton];
-        
         //if masterviewcontroller is not SubjectListViewController, change it to SubjectListViewController
         if(![self.detailViewManager.masterViewController isKindOfClass:[SubjectListViewController class]]){
             SubjectListViewController *masterController = [[SubjectListViewController alloc] initWithNibName:@"SubjectListView" bundle:nil];
             [self.detailViewManager setMasterViewController:masterController];
         }
 
-        if(self.thisSubject.subjectId!=0)
+        if(self.thisSubject.subjectId!=0){
             [self.btnDelete setHidden:NO];
+        }
+        else{
+            [self setEnabled:NO];
+        }
+        
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
@@ -275,14 +279,21 @@
 
 -(void)setNextButton{
     
-    if(![_dirtySubject.subjectName isEqualToString:@""] && ![_dirtySubject.assetUrl isEqualToString:@""]){
-        [saveSubject setEnabled:YES];
-        [saveSubject setTintColor:[UIColor blueColor]];
+    if(![_dirtySubject.subjectName isEqualToString:@""] && ![_dirtySubject.assetUrl isEqualToString:@""])
+    //if([self.txtSubject.text isEqualToString:@""] ||
+    //   [[self.tblImageFrom cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].detailTextLabel.text isEqualToString:@""]
+    //   )
+    {
+        [self setEnabled:YES];
     }
     else{
-        [saveSubject setEnabled:YES];
-        [saveSubject setTintColor:[UIColor blueColor]];
+        [self setEnabled:NO];
     }
+}
+
+-(void)setEnabled:(BOOL)enabled{
+    [saveSubject setEnabled:enabled];
+    [saveSubject setTintColor:enabled?[UIColor blueColor]:[UIColor grayColor]];
 }
 
 -(BOOL)save{

@@ -4,7 +4,7 @@
 #import "InstructionListViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface SubjectViewController : BaseViewController <SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
+@interface SubjectViewController : BaseViewController <SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property BOOL isDetailController;
 

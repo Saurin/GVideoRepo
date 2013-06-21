@@ -11,6 +11,7 @@ typedef void (^UtilityImageHandler)(NSString *url, UIImage *image);
 
 -(void)setUserSettings:(NSInteger)keyValue keyName:(NSString *)keyName;
 -(NSInteger)getUserSettings:(NSString *)keyName;
+-(BOOL)userSettingsExists:(NSString *)keyName;
 
 + (NSString*)device;
 + (NSString*)deviceModel;

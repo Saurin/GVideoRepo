@@ -24,7 +24,15 @@
         [self.splitViewController setPresentsWithGesture:YES];
     
     //show overlay, if needed
-    BOOL show  = [[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",kShowTutorial]];
+    BOOL show  = [[[Utility alloc] init] userSettingsExists:[NSString stringWithFormat:@"Settings%d",kShowTutorial]];
+    //if key doesn't exists, force show
+    if(!show){
+        [[[Utility alloc] init] setUserSettings:YES keyName:[NSString stringWithFormat:@"Settings%d",kShowTutorial]];
+        show=YES;
+    }
+    else{
+        show  = [[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",kShowTutorial]];
+    }
     if(show)
         [self showTutorialOverlay];
     

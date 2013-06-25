@@ -13,6 +13,7 @@
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
     UIImagePickerController *videoPicker;
     MPMoviePlayerController *moviePlayer;
+    UIBarButtonItem *saveQuiz;
 }
 
 - (void)viewDidLoad
@@ -34,9 +35,7 @@
         
         _dirtyQuiz= [self.thisQuiz copy];
         
-        UIBarButtonItem *saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveQuizAndNextClick:)];
-        
-        [saveQuiz setTintColor:[UIColor blueColor]];
+        saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveQuizAndNextClick:)];
         [self setOtherRightBarButtons:[NSArray arrayWithObject:saveQuiz]];
         
         //if masterviewcontroller is not InsturctionListViewController, change it to InsturctionListViewController
@@ -45,8 +44,13 @@
             [masterController setThisSubject:[[Data sharedData] getSubjectAtSubjectId:self.thisQuiz.subjectId]];
             [self.detailViewManager setMasterViewController:masterController];
         }
-        if(self.thisQuiz.quizId!=0)
+        if(self.thisQuiz.quizId!=0){
             [self.btnDelete setHidden:NO];
+        }
+        else{
+            [self setEnabled:NO];
+        }
+        
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else{
@@ -194,6 +198,11 @@
     return indexPath.section==1 && indexPath.row==0 ? 75 : 44;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    [self setNextButton];
+    return @"";
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -204,6 +213,11 @@
     else if(indexPath.section==1 && indexPath.row==0 && ![self.thisQuiz.videoUrl isEqualToString:@""]) {
         [self performSelector:@selector(showVideoAtCell:) withObject:cell afterDelay:0.2];
     }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    _dirtyQuiz.quizName = textField.text;
+    [self setNextButton];
 }
 
 #pragma Save Quiz
@@ -279,6 +293,23 @@
     return YES;
 }
 
+-(void)setNextButton{
+    
+    if(_dirtyQuiz.quizName==nil || [_dirtyQuiz.quizName isEqualToString:@""]
+       || _dirtyQuiz.videoUrl==nil || [_dirtyQuiz.videoUrl isEqualToString:@""]
+       ){
+        [self setEnabled:NO];
+    }
+    else{
+        [self setEnabled:YES];
+    }
+}
+
+-(void)setEnabled:(BOOL)enabled{
+    [saveQuiz setEnabled:enabled];
+    [saveQuiz setTintColor:enabled?[UIColor blueColor]:[UIColor grayColor]];
+}
+
 -(BOOL)save{
     
     //do validation, or keep save button disabled
@@ -321,13 +352,13 @@
 //    player.scalingMode=MPMovieScalingModeAspectFill & MPMovieScalingModeAspectFit;
 //    moviePlayer=player;
     
-    PreviewViewController *preview = [[PreviewViewController alloc] init];
-    [preview setVideoUrl:self.thisQuiz.videoUrl];
-    [preview.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.width*3/4)];
-    photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:preview];
-    photoLibraryPopover.delegate=self;
-    [photoLibraryPopover setPopoverContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.width*3/4)];
-    [photoLibraryPopover presentPopoverFromRect:cell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//    PreviewViewController *preview = [[PreviewViewController alloc] init];
+//    [preview setVideoUrl:self.thisQuiz.videoUrl];
+//    [preview.view setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.width*3/4)];
+//    photoLibraryPopover = [[UIPopoverController alloc] initWithContentViewController:preview];
+//    photoLibraryPopover.delegate=self;
+//    [photoLibraryPopover setPopoverContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.width*3/4)];
+//    [photoLibraryPopover presentPopoverFromRect:cell.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     
 }
@@ -372,6 +403,7 @@
     NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
     [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
         [self.imgCurrentVideo setImage:image];
+        [self setNextButton];
     }];
 
     

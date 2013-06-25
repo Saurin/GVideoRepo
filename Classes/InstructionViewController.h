@@ -3,7 +3,7 @@
 #import "SelectionChangeDelegate.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface InstructionViewController : BaseViewController<SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
+@interface InstructionViewController : BaseViewController<SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UITableViewDataSource,UIPopoverControllerDelegate>
 
 @property BOOL isDetailController;
 

@@ -112,6 +112,7 @@ static char * const myIndexPathAssociationKey = "";
         cell.textLabel.text = thisSubject.subjectName;
         cell.tag = thisSubject.subjectId;
         
+        
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied
         // to a cell that has been dequeued and reused for other content, during rapid scrolling.
@@ -215,27 +216,19 @@ static char * const myIndexPathAssociationKey = "";
 
         ImageCell *cell=(ImageCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0]];
         if(cell==imageCell){
-            
-            if(self.isListDetailController){
-                [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-            }
-            
             Subject *sub=[subjects objectAtIndex:cnt];
             [self showErrorMessageFor:sub];
-        }
-        else{
-            
-            if(self.isListDetailController){
-                [cell setHighlighted:NO animated:NO];
-                [cell setSelected:NO];
-                [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0] animated:NO];
-            }
+            break;
         }
     }
 }
 
 -(void)showErrorMessageFor:(Subject *)subject {
-    [[[OHAlertView alloc] initWithTitle:[@"" stringByAppendingFormat:@"%@",subject.subjectName] message:@"Please correct the followings..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] showWithTimeout:5 timeoutButtonIndex:0];
-}
+    
+    [[[Message alloc] initSubjectIncompleteMessageWithTitle:subject.subjectName
+                                          cancelButtonTitle:@"OK"] showWithTimeout:5
+                                                timeoutButtonIndex:0];
 
+}
+        
 @end

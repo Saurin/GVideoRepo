@@ -200,6 +200,12 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 300)];
         [view addSubview:imageView];
         
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.frame.size.height+30, self.view.bounds.size.width, 40)];
+        lbl.text = @"www.guidedvideo.com";
+        [lbl setBackgroundColor:[UIColor clearColor]];
+        [lbl setTextAlignment:NSTextAlignmentCenter];
+        [view addSubview:lbl];
+        
         //Now load default detail view, if not loaded
         if(detailViewController==nil){
             [self performSelector:@selector(loadDefaultDetailViewController) withObject:nil afterDelay:0.2];
@@ -251,12 +257,14 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         emailer.modalPresentationStyle = UIModalPresentationPageSheet;
     }
-    [self presentModalViewController:emailer animated:YES];
+    [self presentViewController:emailer animated:YES completion:^{
+    }];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:^{
+    }];
     
     if (result == MFMailComposeResultFailed) {
         [[[UIAlertView alloc] initWithTitle:@"" message:@"Failed to send email" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];

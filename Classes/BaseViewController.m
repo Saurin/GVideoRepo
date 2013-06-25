@@ -51,7 +51,8 @@
     
     InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:nil];
     info.sender = [[((UIViewController *)[self.navigationController.viewControllers lastObject]) class] description];
-
+    //info.lockOrientation=YES;
+    
     info.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:info animated:YES completion:nil];
 }

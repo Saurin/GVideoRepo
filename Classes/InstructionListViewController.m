@@ -2,7 +2,6 @@
 #import "InstructionListViewController.h"
 #import "SubjectViewController.h"
 #import <objc/runtime.h>
-#import "ImageCell.h"
 
 static char * const myIndexPathAssociationKey = "";
 @implementation InstructionListViewController{
@@ -130,6 +129,7 @@ static char * const myIndexPathAssociationKey = "";
         
         //dont want to reuse cell as we have cell image getting added on a different queue
         ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+        cell.delegate=self;
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
 
         if(self.isListDetailController){
@@ -141,12 +141,6 @@ static char * const myIndexPathAssociationKey = "";
         
         cell.textLabel.text = page.quizName;
         cell.tag = page.quizId;
-        if(![[Data sharedData] isQuizProgrammed:page.quizId]){
-            [cell showIncompleteMessage:YES];
-        }
-        else{
-            [cell showIncompleteMessage:NO];
-        }
         
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied
@@ -165,7 +159,14 @@ static char * const myIndexPathAssociationKey = "";
                     // Only set cell image if the cell currently being displayed is the one that actually required this image.
                     // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
                     
-                    [cell showImage:((QuizPage *)[instructions objectAtIndex:indexPath.row]).imgThumb];
+                    QuizPage *p = [instructions objectAtIndex:indexPath.row];
+                    [cell showImage:p.imgThumb];
+                    if(![[Data sharedData] isQuizProgrammed:p.quizId]){
+                        [cell showIncompleteMessage:YES];
+                    }
+                    else{
+                        [cell showIncompleteMessage:NO];
+                    }
                 }
             });
 
@@ -221,5 +222,26 @@ static char * const myIndexPathAssociationKey = "";
     instructions = [[Data sharedData] getSubjectAtSubjectId:self.thisSubject.subjectId].quizPages;
     [self getVideoThumbnails:0];    //this internally calls reload table
 }
+
+-(void)imageCell:(ImageCell *)imageCell didIncompleteButtonSelectAt:(CGPoint)point {
+    
+    for (NSInteger cnt=0; cnt<instructions.count; cnt++) {
+        
+        ImageCell *cell=(ImageCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0]];
+        if(cell==imageCell){
+            QuizPage *page=[instructions objectAtIndex:cnt];
+            [self showErrorMessageFor:page];
+            break;
+        }
+    }
+}
+
+-(void)showErrorMessageFor:(QuizPage *)page {
+    
+    [[[Message alloc] initInstructionIncompleteMessageWithTitle:page.quizName
+                                              cancelButtonTitle:@"OK"] showWithTimeout:5 timeoutButtonIndex:0];
+    
+}
+
 
 @end

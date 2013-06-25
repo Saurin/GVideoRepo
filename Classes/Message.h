@@ -1,13 +1,12 @@
-//
-//  Message.h
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 6/23/13.
-//
-//
+
 
 #import <UIKit/UIKit.h>
+#import "OHAlertView.h"
 
-@interface Message : UIAlertView
+@interface Message : OHAlertView
+
+-(id)initSubjectIncompleteMessageWithTitle:(NSString *)title cancelButtonTitle:(NSString *)text;
+-(id)initInstructionIncompleteMessageWithTitle:(NSString *)title cancelButtonTitle:(NSString *)text;
+-(id)initAlternativeIncompleteMessageWithTitle:(NSString *)title cancelButtonTitle:(NSString *)text;
 
 @end

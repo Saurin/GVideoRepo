@@ -182,6 +182,12 @@
     return section==0?@"Subject Description":@"Image for Subject";
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    //this event is handled to disabled next button
+    [self setNextButton];
+    return @"";
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.section==1 && indexPath.row==0 ? 75 : 44;
 }
@@ -280,9 +286,6 @@
 -(void)setNextButton{
     
     if(![_dirtySubject.subjectName isEqualToString:@""] && ![_dirtySubject.assetUrl isEqualToString:@""])
-    //if([self.txtSubject.text isEqualToString:@""] ||
-    //   [[self.tblImageFrom cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]].detailTextLabel.text isEqualToString:@""]
-    //   )
     {
         [self setEnabled:YES];
     }

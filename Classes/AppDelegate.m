@@ -70,16 +70,6 @@
     }
 }
 
--(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-    if([window.rootViewController isKindOfClass:[self.splitViewController class]]){
-        //allow rotation
-        return UIInterfaceOrientationMaskAll;
-    }
-    else{
-        return UIInterfaceOrientationMaskLandscape;
-    }
-}
-
 -(void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
     
     [[ApplicationNotification notification] postNotificationChangeStatusBarOrientation:oldStatusBarOrientation];

@@ -3,7 +3,6 @@
 #import "InstructionViewController.h"
 #import "AlternativeViewController.h"
 #import <objc/runtime.h>
-#import "ImageCell.h"
 
 static char * const myIndexPathAssociationKey = "";
 @implementation AlternativeListViewController{
@@ -103,6 +102,7 @@ static char * const myIndexPathAssociationKey = "";
         
         //dont want to reuse cell as we have cell image getting added on a different queue
         ImageCell *cell = [[ImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        cell.delegate = self;
         [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         
         if(self.isListDetailController){
@@ -114,13 +114,6 @@ static char * const myIndexPathAssociationKey = "";
         
         cell.textLabel.text = thisOption.assetName;
         cell.tag = thisOption.quizOptionId;
-        if(![[Data sharedData] isQuizOptionProgrammed:thisOption.quizOptionId]){
-            [cell showIncompleteMessage:YES];
-        }
-        else{
-            [cell showIncompleteMessage:NO];
-        }
-
         
         // Store a reference to the current cell that will enable the image to be associated with the correct
         // cell, when the image subsequently loaded asynchronously. Without this, the image may be mis-applied
@@ -142,6 +135,13 @@ static char * const myIndexPathAssociationKey = "";
                         // Prevents reused cells from receiving images back from rendering that were requested for that cell in a previous life.
                         
                         [cell showImage:image];
+                        QuizOption *opt = [alternatives objectAtIndex:indexPath.row];
+                        if(![[Data sharedData] isQuizOptionProgrammed:opt.quizOptionId]){
+                            [cell showIncompleteMessage:YES];
+                        }
+                        else{
+                            [cell showIncompleteMessage:NO];
+                        }
                     }
                 });
             }];
@@ -198,5 +198,25 @@ static char * const myIndexPathAssociationKey = "";
     [self.tableView reloadData];
 }
 
+-(void)imageCell:(ImageCell *)imageCell didIncompleteButtonSelectAt:(CGPoint)point {
+    
+    for (NSInteger cnt=0; cnt<alternatives.count; cnt++) {
+        
+        ImageCell *cell=(ImageCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:cnt inSection:0]];
+        if(cell==imageCell){
+            QuizOption *option=[alternatives objectAtIndex:cnt];
+            [self showErrorMessageFor:option];
+            break;
+        }
+    }
+}
+
+-(void)showErrorMessageFor:(QuizOption *)option {
+    
+    [[[Message alloc] initSubjectIncompleteMessageWithTitle:option.assetName
+                                          cancelButtonTitle:@"OK"] showWithTimeout:5
+                                                timeoutButtonIndex:0];
+    
+}
 
 @end

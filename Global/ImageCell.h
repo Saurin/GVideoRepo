@@ -14,6 +14,5 @@
 @end
 
 @protocol ImageCellDelegate <NSObject>
-- (void) incompleteButtonClicked:(id)sender;
 - (void)imageCell:(ImageCell *)imageCell didIncompleteButtonSelectAt:(CGPoint)point;
 @end

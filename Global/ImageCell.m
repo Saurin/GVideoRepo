@@ -5,7 +5,7 @@
 @implementation ImageCell {
     UIImageView *imgCurrent;
     UIActivityIndicatorView *activity;
-    UIImageView *imgView;
+    UIButton *btnView;
     
 }
 
@@ -42,11 +42,13 @@
     self.textLabel.bounds = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     self.textLabel.frame = CGRectMake(85, self.contentView.bounds.size.height/2-10, self.contentView.bounds.size.width-160, 20);
     
-    if(imgView==nil){
-        imgView = [[UIImageView alloc] init];
+    if(btnView==nil){
+        btnView = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btnView setBackgroundColor:[UIColor clearColor]];
+        [btnView addTarget:self action:@selector(didIncompleteClick:) forControlEvents:UIControlEventTouchUpInside];
     }
-    [imgView setFrame:CGRectMake(self.contentView.frame.size.width-50, 25, 40, 30)];
-    [self.contentView addSubview:imgView];
+    [btnView setFrame:CGRectMake(self.contentView.frame.size.width-80, 5, 60, 60)];
+    [self.contentView addSubview:btnView];
 }
 
 -(void)makeRoundRectView:(UIView *)view {
@@ -62,32 +64,21 @@
 
 -(void)showIncompleteMessage:(BOOL)show {
     if(show){
-        
-        [imgView setImage:[UIImage imageNamed:@"incomplete.png"]];
-
+        [btnView setImage:[UIImage imageNamed:@"incomplete.png"] forState:UIControlStateNormal];
     }
     else{
-        
-        [imgView removeFromSuperview];
+        [btnView removeFromSuperview];
     }
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-
-    CGPoint pt = [touch locationInView:imgView];
-
-    if (pt.x>=0 && pt.x<imgView.frame.size.width) {
-        [self.delegate imageCell:self didIncompleteButtonSelectAt:[touch locationInView:self]];
-        return;
-    }
-    [self.nextResponder touchesEnded:touches withEvent:event];
+-(IBAction)didIncompleteClick:(id)sender {
+    [self.delegate imageCell:self didIncompleteButtonSelectAt:btnView.frame.origin];
 }
 
 -(void)dealloc {
     imgCurrent=nil;
     activity=nil;
-    imgView=nil;
+    btnView=nil;
 }
 
 @end

@@ -1,10 +1,4 @@
-//
-//  Message.m
-//  GuidedVideo
-//
-//  Created by Saurin Travadi on 6/23/13.
-//
-//
+
 
 #import "Message.h"
 
@@ -14,18 +8,54 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+
+-(id)initSubjectIncompleteMessageWithTitle:(NSString *)title cancelButtonTitle:(NSString *)text {
+    
+    self = (Message *) [[OHAlertView alloc] initWithTitle:@"" message:@"Please correct the followings..." delegate:nil cancelButtonTitle:text otherButtonTitles:nil, nil];
+
+    if (self) {
+        
+        self.title = title;
+        self.message = @"  Missing:\n  Subject image;\n  Instruction; or\n  Alternative";
+        ((UILabel *)[self.subviews objectAtIndex:1]).textAlignment = NSTextAlignmentLeft;
+   }
+    
+    return self;
 }
-*/
+
+-(id)initInstructionIncompleteMessageWithTitle:(NSString *)title cancelButtonTitle:(NSString *)text {
+    
+    self = (Message *) [[OHAlertView alloc] initWithTitle:@"" message:@"Please correct the followings..." delegate:nil cancelButtonTitle:text otherButtonTitles:nil, nil];
+    
+    if (self) {
+        
+        self.title = title;
+        self.message = @"  Missing:\n  Instruction video; or\n  Alternative";
+        ((UILabel *)[self.subviews objectAtIndex:1]).textAlignment = NSTextAlignmentLeft;
+    }
+    
+    return self;
+    
+}
+
+-(id)initAlternativeIncompleteMessageWithTitle:(NSString *)title cancelButtonTitle:(NSString *)text {
+
+    self = (Message *) [[OHAlertView alloc] initWithTitle:@"" message:@"Please correct the followings..." delegate:nil cancelButtonTitle:text otherButtonTitles:nil, nil];
+    
+    if (self) {
+        
+        self.title = title;
+        self.message = @"  Missing:\n  Alternative image; or\n  Alternative video";
+        ((UILabel *)[self.subviews objectAtIndex:1]).textAlignment = NSTextAlignmentLeft;
+    }
+    
+    return self;
+    
+}
 
 @end

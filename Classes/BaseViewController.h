@@ -10,6 +10,7 @@
 #import "QuizOption.h"
 #import "DetailViewManager.h"
 #import "ApplicationNotification.h"
+#import "Message.h"
 
 @interface BaseViewController : UIViewController <SubstitutableDetailViewController>
 

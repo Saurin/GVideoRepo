@@ -4,7 +4,7 @@
 #import "SelectionChangeDelegate.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface AlternativeViewController : BaseViewController<SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
+@interface AlternativeViewController : BaseViewController<SubstitutableDetailViewController,UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UITableViewDataSource>
 
 
 @property BOOL isDetailController;

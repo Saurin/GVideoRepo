@@ -213,7 +213,7 @@ static char * const myIndexPathAssociationKey = "";
 
 -(void)showErrorMessageFor:(QuizOption *)option {
     
-    [[[Message alloc] initSubjectIncompleteMessageWithTitle:option.assetName
+    [[[Message alloc] initAlternativeIncompleteMessageWithTitle:option.assetName
                                           cancelButtonTitle:@"OK"] showWithTimeout:5
                                                 timeoutButtonIndex:0];
     

@@ -403,7 +403,6 @@
     NSURL *videoUrl=(NSURL*)[info objectForKey:UIImagePickerControllerMediaURL];
     [[Utility alloc] getThumbnailFromVideoURL:videoUrl.absoluteString completion:^(NSString *url, UIImage *image) {
         [self.imgCurrentVideo setImage:image];
-        [self setNextButton];
     }];
 
     
@@ -424,6 +423,7 @@
         }
         
          _dirtyQuiz.videoUrl = savedURL.absoluteString;
+        [self setNextButton];
     }];
 }
 

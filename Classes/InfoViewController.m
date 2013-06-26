@@ -65,12 +65,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [help.getHelpTopic count];
+    return [help.getHelpTopic count]+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+
+    if(indexPath.row+1>help.getHelpTopic.count){
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tutorial.png"]];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
+        
+        imageView.frame=CGRectMake(0,0, 900, 1814);
+        
+        [cell.contentView addSubview:imageView];
+        return cell;
+    }
+
     
     cell.textLabel.text = [help.getHelpTitle objectAtIndex:indexPath.row];
     if([cell.textLabel.text isEqualToString:@"NomenclatureImage"]){
@@ -94,10 +105,15 @@
     UIFont *cellFont = [UIFont systemFontOfSize:15];
     CGSize constraintSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
 
+    
+    if(indexPath.row+1>help.getHelpTopic.count)
+        return 1814;
+    
     NSString *cellText = [help.getHelpTitle objectAtIndex:indexPath.row];
     if([cellText isEqualToString:@"NomenclatureImage"]){
         return 330;
     }
+
     
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     

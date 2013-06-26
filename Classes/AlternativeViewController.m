@@ -10,6 +10,7 @@
     
     UIPopoverController *photoLibraryPopover;               //to pick image from photolibrary
     UIImagePickerController *videoPicker, *imagePicker;
+    UIBarButtonItem *saveQuiz;
 }
 
 - (void)viewDidLoad
@@ -33,9 +34,8 @@
         
         _dirtyOption= [self.quizOption copy];
         
-        UIBarButtonItem *saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveClick:)];
+        saveQuiz = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(didSaveClick:)];
         
-        [saveQuiz setTintColor:[UIColor blueColor]];
         [self setOtherRightBarButtons:[NSArray arrayWithObject:saveQuiz]];
         
         //change it to AlternativeListViewController
@@ -45,8 +45,12 @@
             [self.detailViewManager setMasterViewController:masterController];
         }
         
-        if(self.quizOption.quizOptionId!=0)
+        if(self.quizOption.quizOptionId!=0){
             [self.btnDelete setHidden:NO];
+        }
+        else{
+            [self setEnabled:NO];
+        }
         [self makeRoundRectView:self.btnDelete layerRadius:5];
     }
     else
@@ -180,6 +184,24 @@
     }
     
     return YES;
+}
+
+-(void)setNextButton{
+    
+    if(_dirtyOption.assetName==nil || [_dirtyOption.assetName isEqualToString:@""]
+       || _dirtyOption.assetUrl==nil || [_dirtyOption.assetUrl isEqualToString:@""]
+       || _dirtyOption.videoUrl==nil || [_dirtyOption.videoUrl isEqualToString:@""])
+    {
+        [self setEnabled:NO];
+    }
+    else{
+        [self setEnabled:YES];
+    }
+}
+
+-(void)setEnabled:(BOOL)enabled{
+    [saveQuiz setEnabled:enabled];
+    [saveQuiz setTintColor:enabled?[UIColor blueColor]:[UIColor grayColor]];
 }
 
 -(BOOL)save{
@@ -381,6 +403,11 @@
     return (indexPath.section==1 || indexPath.section==2) && indexPath.row==0 ? 75 : 44;
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    [self setNextButton];
+    return @"";
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -401,6 +428,11 @@
         }
         [[self.tblImageFrom cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
     }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    _dirtyOption.assetName = textField.text;
+    [self setNextButton];
 }
 
 #pragma Camera and Photo library
@@ -476,6 +508,7 @@
                 {
                     _dirtyOption.assetUrl = url.absoluteString;
                     [self showSelectedImageWithURL:url.absoluteString];
+                    [self setNextButton];
                 }
             }];
             [picker dismissViewControllerAnimated:YES completion:^{
@@ -485,6 +518,7 @@
         {
             _dirtyOption.assetUrl = assetURL;
             [self showSelectedImageWithURL:assetURL];
+            [self setNextButton];
             
             //close popover and picker
             [photoLibraryPopover dismissPopoverAnimated:YES];
@@ -524,6 +558,8 @@
             }
             
             _dirtyOption.videoUrl = savedURL.absoluteString;
+            [self setNextButton];
+            
         }];
     }
 }

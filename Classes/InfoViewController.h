@@ -3,7 +3,7 @@
 #import "AppDelegate.h"
 #import "Help.h"
 
-@interface InfoViewController : BaseModelViewController
+@interface InfoViewController : BaseModelViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSString *sender;

@@ -44,6 +44,7 @@
 
         if(self.thisSubject.subjectId!=0){
             [self.btnDelete setHidden:NO];
+            [saveSubject setTintColor:[UIColor blueColor]];
         }
         else{
             [self setEnabled:NO];
@@ -285,12 +286,13 @@
 
 -(void)setNextButton{
     
-    if(![_dirtySubject.subjectName isEqualToString:@""] && ![_dirtySubject.assetUrl isEqualToString:@""])
+    if(_dirtySubject.subjectName==nil || [_dirtySubject.subjectName isEqualToString:@""]
+       || _dirtySubject.assetUrl==nil || [_dirtySubject.assetUrl isEqualToString:@""])
     {
-        [self setEnabled:YES];
+        [self setEnabled:NO];
     }
     else{
-        [self setEnabled:NO];
+        [self setEnabled:YES];
     }
 }
 

@@ -22,11 +22,11 @@
 }
 
 - (NSMutableArray *)getHelpTitle {
-    return [NSMutableArray arrayWithObjects:@"Purpose",@"Action",@"Exit",@"Nomenclature",@"NomenclatureImage",@"Guided Access",@"Links for more Help", nil];
+    return [NSMutableArray arrayWithObjects:@"Purpose",@"Action",@"Exit",@"Incomplete",@"Nomenclature",@"NomenclatureImage",@"Guided Access",@"More Help", nil];
 }
 
 - (NSMutableArray *)getHelpTopic {
-    return [NSMutableArray arrayWithObjects:self.purpose,self.action,self.exit,self.nomenclature,@"",self.guidedAccess,@"More information is at www.GuidedVideo.com", nil];
+    return [NSMutableArray arrayWithObjects:self.purpose,self.action,self.exit,self.incomplete,self.nomenclature,@"",self.guidedAccess,@"Go to www.GuidedVideo.com", nil];
 }
 
 @end

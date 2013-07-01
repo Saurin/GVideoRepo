@@ -46,6 +46,7 @@
         }
         if(self.thisQuiz.quizId!=0){
             [self.btnDelete setHidden:NO];
+            [saveQuiz setTintColor:[UIColor blueColor]];
         }
         else{
             [self setEnabled:NO];

@@ -24,7 +24,7 @@ static char * const myIndexPathAssociationKey = "";
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
         [self setOtherRightBarButtons:nil];
-        self.title = @"Alternatives";
+        self.title = @"Alternative Buttons";
         
         //we want to give only 12 options per quiz....
         if([alternatives count]<12){
@@ -42,7 +42,7 @@ static char * const myIndexPathAssociationKey = "";
         }
     }
     else {
-        self.title = @"Alternatives";
+        self.title = @"Alternative Buttons";
     }
     
     [self.tableView setRowHeight:75];
@@ -92,7 +92,7 @@ static char * const myIndexPathAssociationKey = "";
     if(self.isListDetailController && thisOption.quizOptionId==0){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         
-        cell.textLabel.text = @"Add a new Alternative...";
+        cell.textLabel.text = @"Add a new Alternative Button...";
         cell.tag = thisOption.quizOptionId;
         
         return cell;

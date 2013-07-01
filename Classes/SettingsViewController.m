@@ -17,7 +17,7 @@
     options = [NSMutableArray arrayWithObjects:
                [NSMutableArray arrayWithObjects:@"Show Video Controls",[NSString stringWithFormat:@"%d",kShowVideoControls], nil],
                [NSMutableArray arrayWithObjects:@"Allow Touch while Instructional Video is playing",[NSString stringWithFormat:@"%d",kAllowTouchWhileVideoPlaying], nil],
-               [NSMutableArray arrayWithObjects:@"Show Me How to get out of Play Mode",[NSString stringWithFormat:@"%d",kShowPlayModeMessage], nil],
+               [NSMutableArray arrayWithObjects:@"Show how to exit Play Mode",[NSString stringWithFormat:@"%d",kShowPlayModeMessage], nil],
                [NSMutableArray arrayWithObjects:@"Show Tutorial",[NSString stringWithFormat:@"%d",kShowTutorial], nil],
                nil];
     

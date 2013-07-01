@@ -86,8 +86,9 @@
     cell.textLabel.text = [help.getHelpTitle objectAtIndex:indexPath.row];
     if([cell.textLabel.text isEqualToString:@"NomenclatureImage"]){
         cell.textLabel.text=@"";
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 366, 291)];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 10, 219, 186)];
         imgView.image = [UIImage imageNamed:@"GuidedVideoInstructions.png"];
+        [imgView setContentMode:UIViewContentModeScaleAspectFit];
         [cell.contentView addSubview:imgView];
     }
     else{
@@ -95,6 +96,11 @@
         cell.detailTextLabel.numberOfLines=0;
         cell.detailTextLabel.text = [help.getHelpTopic objectAtIndex:indexPath.row];
 
+        if([cell.textLabel.text isEqualToString:@"Incomplete"]){
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 25, 60, 60)];
+            imgView.image = [UIImage imageNamed:@"incomplete.png"];
+            [cell.contentView addSubview:imgView];
+        }
     }
     
     return cell;
@@ -111,9 +117,14 @@
     
     NSString *cellText = [help.getHelpTitle objectAtIndex:indexPath.row];
     if([cellText isEqualToString:@"NomenclatureImage"]){
-        return 330;
+        return 220;
     }
-
+    if([cellText isEqualToString:@"Incomplete"]){
+        return 80;
+    }
+    if([cellText isEqualToString:@"Nomenclature"]){
+        return 300;
+    }
     
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
@@ -122,7 +133,7 @@
     CGSize labelDetailSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
     NSInteger height = labelSize.height+labelDetailSize.height;
-    height+=height>70?70:30;
+    height+=20; //height>70?30:30;
     
     return height;
 }

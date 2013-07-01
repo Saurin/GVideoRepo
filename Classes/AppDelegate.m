@@ -66,6 +66,7 @@
         Help *help = [[Help alloc] initWithName:[dict valueForKey:@"Name"] purpose:[dict valueForKey:@"Purpose"] section:[dict valueForKey:@"Section"] action:[dict valueForKey:@"Action"] exit:[dict valueForKey:@"Exit"] nomenclature:[dict valueForKey:@"Nomenclature"]];
         help.guidedAccess = [dict valueForKey:@"GuidedAccess"];
         help.purpose2 = [dict valueForKey:@"Purpose2"];
+        help.incomplete = [dict valueForKey:@"Incomplete"];
         [self.helpArray addObject:help];
     }
 }

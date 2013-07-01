@@ -275,6 +275,7 @@
         frame.size.width-=5;
         
         self.txtOptionName = [[UITextField alloc] initWithFrame:frame];
+        self.txtOptionName.delegate=self;
         [self.txtOptionName setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin ];
 
         self.txtOptionName.placeholder = @"Add a new Alternative";
@@ -394,7 +395,7 @@
             break;
             
         default:
-            return @"Response";
+            return @"Subsequent Action";
             break;
     }
 }

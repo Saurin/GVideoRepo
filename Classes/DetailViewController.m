@@ -78,7 +78,7 @@
 -(IBAction)reviewClick:(id)sender {
     UIButton *btn = sender;
     [btn setAlpha:1];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/mugshots-parking-lots-free/id526819560?mt=8"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://appstore.com/guidedvideo"]];
 }
 
 -(IBAction)reviewDownClick:(id)sender {

@@ -116,7 +116,7 @@
                 
                 if([[[Utility alloc] init] getUserSettings:[NSString stringWithFormat:@"Settings%d",kShowPlayModeMessage]]==YES){
                 
-                    [OHAlertView showAlertWithTitle:@"" message:@"Shake your device to come out of Play mode. You should turn on Guided Access, if not yet. Do you want continue and quit edit mode?" cancelButton:@"Don't Show me again" otherButtons:[NSArray arrayWithObjects:@"OK",@"Cancel", nil] onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
+                    [OHAlertView showAlertWithTitle:@"" message:@"Remember to firmly shake device to exit Play Mode and return to this view" cancelButton:@"Don't Show again" otherButtons:[NSArray arrayWithObjects:@"OK",@"Cancel", nil] onButtonTapped:^(OHAlertView *alert, NSInteger buttonIndex) {
                         
                         if (buttonIndex==0) {
                             [[[Utility alloc] init] setUserSettings:NO keyName:[NSString stringWithFormat:@"Settings%d",kShowPlayModeMessage]];

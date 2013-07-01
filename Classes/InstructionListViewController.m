@@ -31,7 +31,7 @@ static char * const myIndexPathAssociationKey = "";
             QuizPage *quizPage = [[QuizPage alloc] init];
             quizPage.subjectId=self.thisSubject.subjectId;
             quizPage.quizId=0;
-            quizPage.quizName=@"Add a new Instruction...";
+            quizPage.quizName=@"Add a new Instruction Video...";
             quizPage.quizOptions=[[NSMutableArray alloc] init];
 
             [instructions addObject:quizPage];
@@ -46,7 +46,7 @@ static char * const myIndexPathAssociationKey = "";
         }
     }
     else {
-        self.title = @"Instructions";
+        self.title = @"Instruction Videos";
     }
     
     [self.tableView setRowHeight:75];

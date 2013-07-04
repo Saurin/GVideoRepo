@@ -24,7 +24,7 @@ static char * const myIndexPathAssociationKey = "";
     //add empty subject for Detail View Controller, change its master view controller if changed during push
     if(self.isListDetailController){
         [self setOtherRightBarButtons:nil];
-        self.title = @"Instructions";
+        self.title = @"Instruction Videos";
         
         //we want to give only 5 instructions as free....
         if([instructions count]<5){
@@ -178,7 +178,7 @@ static char * const myIndexPathAssociationKey = "";
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.isListDetailController?@"Instructions":@"";
+    return self.isListDetailController?@"Instruction Videos":@"";
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

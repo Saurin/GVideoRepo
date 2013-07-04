@@ -106,6 +106,8 @@
 		BFF9F62E177561CA002308B6 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFAE9C8516FA8FBA00239133 /* icon@2x.png */; };
 		BFF9F63117773F41002308B6 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF9F63017773F41002308B6 /* Message.m */; };
 		BFF9F633177A6DC4002308B6 /* tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BFF9F632177A6DC4002308B6 /* tutorial.png */; };
+		BFFAA0DF1785AE00009211FC /* redbar.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAA0DE1785AE00009211FC /* redbar.png */; };
+		BFFAA0E21785D98B009211FC /* InfoViewController_Alternative.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFAA0E11785D98B009211FC /* InfoViewController_Alternative.m */; };
 		BFFE06541704800700CAE2A3 /* InstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFE06531704800700CAE2A3 /* InstructionViewController.m */; };
 		D0C6E47715EC37400000A627 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C6E47615EC37400000A627 /* MenuTableViewController.m */; };
 		D0EC68F915F170BA0089CF6F /* DetailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EC68F815F170BA0089CF6F /* DetailViewManager.m */; };
@@ -271,6 +273,9 @@
 		BFF9F62F17773F41002308B6 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Message.h; path = Classes/Message.h; sourceTree = "<group>"; };
 		BFF9F63017773F41002308B6 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = Classes/Message.m; sourceTree = "<group>"; };
 		BFF9F632177A6DC4002308B6 /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial.png; path = images/tutorial.png; sourceTree = "<group>"; };
+		BFFAA0DE1785AE00009211FC /* redbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redbar.png; path = images/redbar.png; sourceTree = "<group>"; };
+		BFFAA0E01785D98B009211FC /* InfoViewController_Alternative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController_Alternative.h; sourceTree = "<group>"; };
+		BFFAA0E11785D98B009211FC /* InfoViewController_Alternative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController_Alternative.m; sourceTree = "<group>"; };
 		BFFE06521704800700CAE2A3 /* InstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionViewController.h; sourceTree = "<group>"; };
 		BFFE06531704800700CAE2A3 /* InstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionViewController.m; sourceTree = "<group>"; };
 		D0C6E47515EC37400000A627 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
@@ -341,6 +346,8 @@
 				BFDA4B7B170CEBC9007C2BF3 /* SettingsViewController.m */,
 				BFA5F703171CE12D002E43C2 /* InfoViewController.h */,
 				BFA5F704171CE12E002E43C2 /* InfoViewController.m */,
+				BFFAA0E01785D98B009211FC /* InfoViewController_Alternative.h */,
+				BFFAA0E11785D98B009211FC /* InfoViewController_Alternative.m */,
 				BFA80BB2176BC2BC004CC7DD /* TutorialViewController.h */,
 				BFA80BB3176BC2BC004CC7DD /* TutorialViewController.m */,
 			);
@@ -454,6 +461,7 @@
 		BF8C55671728A26E004851C5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BFFAA0DE1785AE00009211FC /* redbar.png */,
 				BFF9F632177A6DC4002308B6 /* tutorial.png */,
 				BFA80BB0176BBECD004CC7DD /* checkmark.png */,
 				BFA80BA8176A7F36004CC7DD /* overlay_1.png */,
@@ -664,6 +672,7 @@
 				BFA80BB1176BBECD004CC7DD /* checkmark.png in Resources */,
 				BFF9F62E177561CA002308B6 /* icon@2x.png in Resources */,
 				BFF9F633177A6DC4002308B6 /* tutorial.png in Resources */,
+				BFFAA0DF1785AE00009211FC /* redbar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +740,7 @@
 				BFA80B9117642D71004CC7DD /* UIImageView+AFNetworking.m in Sources */,
 				BFA80BB4176BC2BC004CC7DD /* TutorialViewController.m in Sources */,
 				BFF9F63117773F41002308B6 /* Message.m in Sources */,
+				BFFAA0E21785D98B009211FC /* InfoViewController_Alternative.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,7 +899,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Saurin Travadi (6LWCL9ECCS)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -897,7 +907,7 @@
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
-				PROVISIONING_PROFILE = "56B5F3F8-ED56-4F90-A4DC-BDF6ECD73F78";
+				PROVISIONING_PROFILE = "62A08EFC-B25F-4802-B800-538B6A54D274";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -907,13 +917,13 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Saurin Travadi (6LWCL9ECCS)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GuidedVideo_Prefix.pch;
 				INFOPLIST_FILE = "GuidedVideo-Info.plist";
 				PRODUCT_NAME = GuidedVideo;
-				PROVISIONING_PROFILE = "56B5F3F8-ED56-4F90-A4DC-BDF6ECD73F78";
+				PROVISIONING_PROFILE = "62A08EFC-B25F-4802-B800-538B6A54D274";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -923,7 +933,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Sieger (RS7228M7GY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -934,7 +944,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PROVISIONING_PROFILE = "56B5F3F8-ED56-4F90-A4DC-BDF6ECD73F78";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -944,6 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -955,6 +966,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

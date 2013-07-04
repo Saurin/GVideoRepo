@@ -152,7 +152,7 @@ static char * const myIndexPathAssociationKey = "";
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return self.isListDetailController?@"Alternatives":@"";
+    return self.isListDetailController?@"Alternative Buttons":@"";
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

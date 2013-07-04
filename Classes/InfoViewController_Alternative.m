@@ -1,9 +1,9 @@
 
 
-#import "InfoViewController.h"
+#import "InfoViewController_Alternative.h"
 #import "NSString+HexColor.h"
 
-@implementation InfoViewController {
+@implementation InfoViewController_Alternative {
     Help *help;
 }
 
@@ -16,8 +16,10 @@
     return self;
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.sender = @"AlternativeViewController";
     [super viewWillAppear:animated];
 
     
@@ -133,13 +135,7 @@
     CGSize labelDetailSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
     NSInteger height = labelSize.height+labelDetailSize.height;
-
-    if([self.sender isEqualToString:@"AlternativeViewController"]){
-        height+=50;
-    }
-    else{
-        height+=20;
-    }
+    height+=50; //height>70?30:30;
     
     return height;
 }
